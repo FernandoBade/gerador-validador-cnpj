@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de CNPJ Alfanumérico (teste de desenvolvimento)</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #f7f7f7;
+      color: #222;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      width: min(540px, 100%);
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.5rem, 2vw + 1rem, 2.25rem);
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .resultado {
+      display: flex;
+      gap: 0.5rem;
+      align-items: stretch;
+      flex-wrap: wrap;
+    }
+
+    .resultado input {
+      flex: 1 1 240px;
+      padding: 0.75rem 1rem;
+      font-size: 1.125rem;
+      border: 1px solid #cdd3d8;
+      border-radius: 8px;
+      background: #fdfdfd;
+      color: inherit;
+    }
+
+    button {
+      border: none;
+      background: #2563eb;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button:focus-visible {
+      outline: 3px solid #93c5fd;
+      outline-offset: 2px;
+    }
+
+    .botao-copiar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1rem;
+      min-width: 3rem;
+    }
+
+    .botao-copiar svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      fill: currentColor;
+    }
+
+    .toast {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      min-width: 240px;
+      max-width: calc(100% - 2rem);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      background: rgba(15, 118, 110, 0.95);
+      color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      font-size: 0.95rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .toast.visivel {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast.erro {
+      background: rgba(185, 28, 28, 0.95);
+    }
+
+    footer {
+      margin-top: auto;
+      background: #111827;
+      color: #e5e7eb;
+      padding: 1.5rem 1rem;
+    }
+
+    footer h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.125rem;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    footer a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(229, 231, 235, 0.6);
+    }
+
+    footer a:hover,
+    footer a:focus-visible {
+      text-decoration: underline;
+      color: #bfdbfe;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem;
+      }
+
+      .botao-copiar {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="container">
+      <h1>Gerador de CNPJ Alfanumérico (teste de desenvolvimento)</h1>
+      <div class="actions">
+        <button id="botao-gerar" type="button" aria-label="Gerar novo CNPJ alfanumérico">
+          Gerar CNPJ alfanumérico
+        </button>
+        <div class="resultado">
+          <input id="campo-resultado" type="text" readonly aria-label="CNPJ alfanumérico gerado">
+          <button id="botao-copiar" class="botao-copiar" type="button" aria-label="Copiar CNPJ alfanumérico">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12z"></path>
+              <path d="M20 5H8a2 2 0 0 0-2 2v16h12a2 2 0 0 0 2-2V5zm-2 16H8V7h10z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <h2>Links úteis</h2>
+    <ul>
+      <li><a href="#">Receita Federal — CNPJ Alfanumérico (2026)</a></li>
+      <li><a href="#">Padrão de máscara e validação (interno)</a></li>
+      <li><a href="#">Spec técnica resumida</a></li>
+      <li><a href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico">Link github</a></li>
+    </ul>
+  </footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
