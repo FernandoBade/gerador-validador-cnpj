@@ -65,14 +65,15 @@
             </div>
 
             <!-- Card últimos CNPJs -->
-            <div id="painel-recentes" class="w-80 flex flex-col self-stretch min-h-0">
-                <div class="bg-white rounded-3xl shadow-xl py-2 px-4 flex-1 flex flex-col h-full min-h-0">
-                    <ul id="lista-recentes" class="space-y02 ml-2 pr-2 py-3 px-2 text-sm text-slate-600 flex-1 overflow-y-auto">
+            <div id="painel-recentes" class="w-full md:w-80 flex flex-col self-stretch min-h-0 h-[420px]">
+                <div class="bg-white rounded-3xl shadow-xl py-2 px-4 flex-1 flex flex-col h-full min-h-0 max-h-[420px] overflow-hidden">
+                    <ul id="lista-recentes" class="space-y-2 ml-2 pr-2 py-3 px-2 text-sm text-slate-600 flex-1 overflow-y-auto">
                     </ul>
                     <div class="">
                         <button id="botao-copiar-todos"
-                            class="w-full rounded-lg bg-blue-600 mb-4 py-2 px-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 active:scale-95">
-                            Copiar em massa
+                            class="w-full rounded-lg bg-blue-600 mb-4 py-2 px-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
+                            disabled>
+                            Copiar em massa (0)
                         </button>
                     </div>
                 </div>
