@@ -2,81 +2,111 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de CNPJ Alfanumérico (teste de desenvolvimento)</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de CNPJ Alfanumérico (teste de desenvolvimento)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="min-h-screen bg-slate-100 text-slate-900 font-sans flex flex-col">
-  <main class="flex-1 flex items-center justify-center px-4 py-10">
-    <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl px-8 py-10 flex flex-col gap-6">
-      <div class="flex flex-col gap-1 text-center sm:text-left">
-        <h1 class="text-3xl font-bold text-slate-900">Gerador de CNPJ Alfanumérico</h1>
-        <h3 class="text-lg font-semibold text-blue-600">Novo padrão 2026</h3>
-      </div>
-      <div class="flex flex-col gap-4">
-        <button id="botao-gerar" type="button"
-          class="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-transform duration-150 hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 active:scale-95"
-          aria-label="Gerar novo CNPJ alfanumérico">
-          Gerar CNPJ alfanumérico
-        </button>
-        <div class="flex flex-wrap items-stretch gap-2">
-          <input id="campo-resultado" type="text" readonly
-            class="flex-1 min-w-[240px] rounded-lg border border-slate-300 bg-slate-50 px-4 py-3 text-lg font-medium text-slate-800 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-300"
-            aria-label="CNPJ alfanumérico gerado">
-          <button id="botao-copiar" type="button"
-            class="inline-flex items-center justify-center rounded-full bg-blue-600 px-4 text-white transition-transform duration-150 hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 active:scale-95"
-            aria-label="Copiar CNPJ alfanumérico">
-            <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current">
-              <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12z"></path>
-              <path d="M20 5H8a2 2 0 0 0-2 2v16h12a2 2 0 0 0 2-2V5zm-2 16H8V7h10z"></path>
-            </svg>
-          </button>
+    <main class="flex-1 flex items-center justify-center px-4 py-10">
+        <div class="flex flex-col md:flex-row gap-6 items-stretch">
+            <!-- Card principal -->
+            <div class="w-full max-w-lg bg-white rounded-3xl shadow-xl p-4 flex flex-col gap-2 self-stretch">
+                <div class="flex flex-col gap-1 text-center sm:text-center">
+                    <h1 class="text-3xl font-bold text-slate-900">Gerador de CNPJ Alfanumérico</h1>
+                    <h3 class="text-lg font-semibold text-blue-600 mb-6">Novo padrão 2026</h3>
+                </div>
+                <div class="flex flex-col gap-1 max-w-lg mx-auto">
+                    <!-- Campo resultado -->
+                    <div class="flex flex-wrap items-stretch gap-2">
+                        <input id="campo-resultado" type="text" readonly
+                            class="flex-1 min-w-[240px] rounded-lg text-center border border-slate-300 bg-slate-50 px-4 py-3 text-lg font-medium text-slate-800 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    </div>
+                    <div id="tempo-restante" class="text-sm text-slate-600 hidden"></div>
+                    <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-300">
+                        <div id="barra"
+                            class="h-full w-full origin-left bg-blue-600 transition-transform duration-100 ease-linear">
+                        </div>
+                    </div>
+
+                    <!-- Toggle -->
+                    <div class="flex flex-col items-center gap-3 mt-2 text-sm text-slate-600">
+                        <label for="toggle-mascara"
+                            class="mt-3 inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-slate-700 select-none">
+                            <input id="toggle-mascara" type="checkbox" class="sr-only peer" checked>
+                            <div class="relative h-6 w-11 rounded-full bg-slate-400 transition-colors duration-300
+              peer-checked:bg-blue-600
+              after:content-[''] after:absolute after:top-[2px] after:left-[2px]
+              after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow
+              after:transition-transform after:duration-300
+              peer-checked:after:translate-x-5">
+                            </div>
+                            <span class="transition-colors duration-300 peer-checked:text-bold">Aplicar Máscara</span>
+                        </label>
+
+                        <!-- Botões lado a lado -->
+                        <div class="flex w-[300px] mt-2 gap-2">
+                            <button id="botao-gerar" type="button"
+                                class="flex-1 max-w-56 inline-flex items-center justify-center rounded-lg bg-blue-600 px-1 py-2 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 active:scale-95">
+                                Gerar CNPJ alfanumérico
+                            </button>
+                            <button id="botao-copiar" type="button"
+                                class="flex-1 inline-flex max-w-16 items-center justify-center rounded-lg bg-blue-600 px-4 py-3 text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 active:scale-95"
+                                aria-label="Copiar CNPJ alfanumérico">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current">
+                                    <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12z"></path>
+                                    <path d="M20 5H8a2 2 0 0 0-2 2v16h12a2 2 0 0 0 2-2V5zm-2 16H8V7h10z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card últimos CNPJs -->
+            <div id="painel-recentes" class="w-80 flex flex-col self-stretch min-h-0">
+                <div class="bg-white rounded-3xl shadow-xl py-2 px-4 flex-1 flex flex-col h-full min-h-0">
+                    <ul id="lista-recentes" class="space-y02 ml-2 pr-2 py-3 px-2 text-sm text-slate-600 flex-1 overflow-y-auto">
+                    </ul>
+                    <div class="">
+                        <button id="botao-copiar-todos"
+                            class="w-full rounded-lg bg-blue-600 mb-4 py-2 px-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 active:scale-95">
+                            Copiar em massa
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="flex flex-col items-center gap-3 text-sm text-slate-600">
-          <label for="toggle-mascara"
-            class="inline-flex cursor-pointer items-center justify-center gap-3 text-sm font-medium text-slate-700">
-            <input id="toggle-mascara" type="checkbox" class="peer sr-only" checked>
-            <span class="relative inline-flex h-6 w-11 items-center">
-              <span
-                class="h-6 w-11 rounded-full bg-slate-300 transition-colors duration-300 peer-checked:bg-blue-600"></span>
-              <span
-                class="absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition-transform duration-300 peer-checked:translate-x-5"></span>
-            </span>
-            <span>Aplicar Máscara</span>
-          </label>
-          <div id="tempo-restante" class="text-sm text-slate-600"></div>
-          <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-300">
-            <div id="barra" class="h-full w-full origin-left bg-blue-600 transition-transform duration-100 ease-linear"></div>
-          </div>
         </div>
-      </div>
+    </main>
+
+    <footer class="mt-auto bg-slate-900 px-6 py-6 text-slate-200">
+        <div class="mx-auto flex w-full max-w-4xl flex-col gap-4">
+            <h2 class="text-xl font-semibold">Links úteis</h2>
+            <ul class="grid gap-2 text-sm">
+                <li><a href="#"
+                        class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Receita
+                        Federal — CNPJ Alfanumérico (2026)</a></li>
+                <li><a href="#"
+                        class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Padrão
+                        de máscara e validação (interno)</a></li>
+                <li><a href="#"
+                        class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Spec
+                        técnica resumida</a></li>
+                <li><a href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico"
+                        class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Link
+                        github</a></li>
+            </ul>
+        </div>
+    </footer>
+    <div id="toast" class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)]
+            rounded-lg px-4 py-3 text-sm shadow-2xl
+            transition-all duration-200 ease-out
+            opacity-0 translate-y-5 pointer-events-none">
     </div>
-  </main>
-  <footer class="mt-auto bg-slate-900 px-6 py-6 text-slate-200">
-    <div class="mx-auto flex w-full max-w-4xl flex-col gap-4">
-      <h2 class="text-xl font-semibold">Links úteis</h2>
-      <ul class="grid gap-2 text-sm">
-        <li><a href="#"
-            class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Receita
-            Federal — CNPJ Alfanumérico (2026)</a></li>
-        <li><a href="#"
-            class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Padrão
-            de máscara e validação (interno)</a></li>
-        <li><a href="#"
-            class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Spec
-            técnica resumida</a></li>
-        <li><a href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico"
-            class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Link
-            github</a></li>
-      </ul>
-    </div>
-  </footer>
-  <div id="toast"
-    class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg bg-emerald-600 px-4 py-3 text-sm text-white shadow-2xl opacity-0 translate-y-5 pointer-events-none transition-all duration-200 ease-out"
-    role="status" aria-live="polite"></div>
-  <script type="module" src="./dist/main.js"></script>
+
+    <script type="module" src="./dist/main.js"></script>
 </body>
 
 </html>

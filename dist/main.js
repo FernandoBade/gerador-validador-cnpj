@@ -28,8 +28,9 @@ const barraProgresso = document.getElementById("barra");
 const controleMascara = document.getElementById("toggle-mascara");
 const CLASSES_AVISO_OCULTO = ["opacity-0", "translate-y-5"];
 const CLASSES_AVISO_VISIVEL = ["opacity-100", "translate-y-0"];
-const CLASSE_AVISO_SUCESSO = "bg-emerald-600";
-const CLASSE_AVISO_ERRO = "bg-red-600";
+const CLASSE_AVISO_SUCESSO = ["bg-emerald-600", "text-white"];
+const CLASSE_AVISO_ERRO = ["bg-red-600", "text-white"];
+const CLASSE_AVISO_INFO = ["bg-blue-600", "text-white"];
 /**
  * Gera uma sequência base (12 caracteres) composta por dígitos e letras maiúsculas.
  */
@@ -109,18 +110,35 @@ function gerarIdentificadorValido() {
     throw new Error("Não foi possível gerar um identificador válido.");
 }
 /**
- * Exibe um aviso temporário para o usuário, aplicando estilos de sucesso ou erro conforme necessário.
+ * Exibe um aviso temporário para o usuário,
+ * aplicando estilos conforme o tipo (sucesso, info, erro).
+ */
+/**
+ * Exibe um aviso temporário para o usuário,
+ * aplicando estilos conforme o tipo (sucesso, info, erro).
  */
 function exibirAviso(mensagem, tipo = "sucesso") {
     areaAviso.textContent = mensagem;
-    areaAviso.classList.remove(CLASSE_AVISO_SUCESSO, CLASSE_AVISO_ERRO);
-    areaAviso.classList.add(tipo === "erro" ? CLASSE_AVISO_ERRO : CLASSE_AVISO_SUCESSO);
+    // Mapa de cores por tipo
+    const estilos = {
+        sucesso: "bg-emerald-600 text-white",
+        info: "bg-blue-600 text-white",
+        erro: "bg-red-600 text-white",
+    };
+    // Remove todas as classes anteriores e aplica só as do tipo escolhido
+    areaAviso.className =
+        "fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out " +
+            estilos[tipo] +
+            " " +
+            CLASSES_AVISO_OCULTO.join(" ") +
+            " pointer-events-none";
+    // Mostra o aviso
     requestAnimationFrame(() => {
         areaAviso.classList.remove(...CLASSES_AVISO_OCULTO, "pointer-events-none");
         areaAviso.classList.add(...CLASSES_AVISO_VISIVEL, "pointer-events-auto");
     });
-    if (idTimeoutAviso !== undefined)
-        window.clearTimeout(idTimeoutAviso);
+    // Timeout para esconder
+    clearTimeout(idTimeoutAviso);
     idTimeoutAviso = window.setTimeout(() => {
         areaAviso.classList.remove(...CLASSES_AVISO_VISIVEL, "pointer-events-auto");
         areaAviso.classList.add(...CLASSES_AVISO_OCULTO, "pointer-events-none");
@@ -148,8 +166,9 @@ function gerarEExibirIdentificador(disparoManual = false) {
     const { puro, mascarado } = gerarIdentificadorValido();
     cnpjAtual = puro;
     campoResultado.value = (controleMascara === null || controleMascara === void 0 ? void 0 : controleMascara.checked) ? mascarado : puro;
+    adicionarAoHistorico(puro);
     if (disparoManual) {
-        exibirAviso("Novo CNPJ alfanumérico gerado.");
+        exibirAviso("Novo CNPJ alfanumérico gerado", "sucesso");
     }
     inicioContagemRegressiva = performance.now();
     atualizarContagemRegressiva();
@@ -167,9 +186,13 @@ function atualizarContagemRegressiva() {
         gerarEExibirIdentificador(false);
         return;
     }
+    // Atualiza texto
     textoTempoRestante.textContent = `Novo em ${(tempoRestante / 1000).toFixed(1)}s`;
+    // Calcula a fração de tempo (0 a 1)
     const fracaoRestante = Math.max(0, Math.min(1, 1 - tempoDecorrido / INTERVALO_AUTOMATICO_MS));
     barraProgresso.style.transform = `scaleX(${fracaoRestante})`;
+    // Gradiente simples: azul claro → azul escuro
+    barraProgresso.style.background = "linear-gradient(to left, #60a5fa, #2563eb)";
 }
 // Eventos principais
 botaoGerar.addEventListener("click", () => {
@@ -185,18 +208,122 @@ botaoGerar.addEventListener("click", () => {
 });
 botaoCopiar.addEventListener("click", async () => {
     if (!cnpjAtual) {
-        exibirAviso("Nenhum CNPJ gerado para copiar.", "erro");
+        exibirAviso("Nenhum CNPJ gerado para copiar", "erro");
         return;
     }
     try {
         const valorParaCopiar = (controleMascara === null || controleMascara === void 0 ? void 0 : controleMascara.checked) ? aplicarMascara(cnpjAtual) : cnpjAtual;
         await copiarTexto(valorParaCopiar);
-        exibirAviso(`CNPJ copiado: ${valorParaCopiar}`);
+        exibirAviso(`CNPJ copiado: ${valorParaCopiar}`, "info");
     }
     catch (erro) {
         console.error(erro);
-        exibirAviso("Falha ao copiar.", "erro");
+        exibirAviso("Falha ao copiar", "erro");
     }
 });
+/* ---------- estado do histórico ---------- */
+// últimos 5 identificadores (puro, sem máscara)
+let historicoRecentes = [];
+/* elementos do painel */
+const listaRecentesEl = document.getElementById("lista-recentes");
+const botaoCopiarTodosEl = document.getElementById("botao-copiar-todos");
+/**
+ * Inicializa a lista com 5 valores randômicos (aleatórios)
+ * - Usa gerarIdentificadorValido() para garantir valores válidos
+ */
+function inicializarHistorico() {
+    historicoRecentes = [];
+    for (let i = 0; i < 8; i++) {
+        const gerado = gerarIdentificadorValido(); // { puro, mascarado }
+        historicoRecentes.push(gerado.puro);
+    }
+    atualizarVisualHistorico();
+}
+/**
+ * Adiciona ao histórico o novo CNPJ (no topo), mantendo apenas 8 itens
+ */
+function adicionarAoHistorico(novo) {
+    // evita duplicatas sequenciais idênticas (opcional)
+    if (historicoRecentes[0] === novo)
+        return;
+    historicoRecentes.unshift(novo);
+    if (historicoRecentes.length > 8)
+        historicoRecentes.pop();
+    atualizarVisualHistorico();
+}
+/**
+ * Atualiza a lista DOM com os 8 últimos itens.
+ * Cada item tem um botão pequeno de copiar individual.
+ */
+function atualizarVisualHistorico() {
+    if (!listaRecentesEl)
+        return;
+    listaRecentesEl.innerHTML = "";
+    historicoRecentes.forEach((puro) => {
+        const texto = (controleMascara === null || controleMascara === void 0 ? void 0 : controleMascara.checked) ? aplicarMascara(puro) : puro;
+        const li = document.createElement("li");
+        li.className = "flex items-center justify-between gap-2";
+        const span = document.createElement("span");
+        span.className = "text-sm text-slate-700 break-words";
+        span.textContent = texto;
+        const btn = document.createElement("button");
+        btn.className = "ml-1 inline-flex items-center justify-center rounded hover:border-slate-600 transition-all animate px-2 py-1 text-xs";
+        btn.setAttribute("title", "Copiar esse CNPJ");
+        btn.innerHTML = `
+            <button class="p-1 rounded-md bg-white text-blue-600 transition hover:ring-2 hover:ring-blue-400">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12z"/>
+                    <path d="M20 5H8a2 2 0 0 0-2 2v16h12a2 2 0 0 0 2-2V5zm-2 16H8V7h10z"/>
+                </svg>
+            </button>
+`;
+        btn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            try {
+                await copiarTexto(texto);
+                exibirAviso(`CNPJ copiado: ${texto}`, "info");
+            }
+            catch (_a) {
+                exibirAviso("Falha ao copiar", "erro");
+            }
+        });
+        li.appendChild(span);
+        li.appendChild(btn);
+        listaRecentesEl.appendChild(li);
+    });
+}
+/**
+ * Copia todos os 5 recentes para a área de transferência
+ * - formato: separados por vírgula e espaço (ajuste se preferir newline)
+ */
+async function copiarTodos() {
+    if (historicoRecentes.length === 0) {
+        exibirAviso("Nenhum CNPJ no histórico.", "erro");
+        return;
+    }
+    const listaParaCopiar = historicoRecentes.map((p) => ((controleMascara === null || controleMascara === void 0 ? void 0 : controleMascara.checked) ? aplicarMascara(p) : p)).join(", ");
+    try {
+        await copiarTexto(listaParaCopiar);
+        exibirAviso(`Copiados ${historicoRecentes.length} CNPJs separádos por vírgula`, "info");
+    }
+    catch (_a) {
+        exibirAviso("Falha ao copiar todos.", "erro");
+    }
+}
+/* hooks: ligar o botão 'copiar todos' */
+botaoCopiarTodosEl === null || botaoCopiarTodosEl === void 0 ? void 0 : botaoCopiarTodosEl.addEventListener("click", (e) => {
+    e.preventDefault();
+    copiarTodos();
+});
+/* Atualiza o painel quando o toggle de máscara muda */
+controleMascara === null || controleMascara === void 0 ? void 0 : controleMascara.addEventListener("change", () => {
+    atualizarVisualHistorico();
+    // também atualiza campo principal
+    atualizarCampoResultado === null || atualizarCampoResultado === void 0 ? void 0 : atualizarCampoResultado();
+});
+/* Sempre que gerar um novo identificador, adicionar ao histórico.
+   Veja onde gerarEExibirIdentificador() define cnpjAtual: lá, logo após atribuir cnpjAtual = puro;
+   chame adicionarAoHistorico(puro) nessa posição. */
 // Inicialização
+inicializarHistorico();
 gerarEExibirIdentificador(false);
