@@ -2,59 +2,81 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de CNPJ Alfanumérico (teste de desenvolvimento)</title>
-    <link rel="stylesheet" href="./style/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de CNPJ Alfanumérico (teste de desenvolvimento)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <main>
-        <div class="container">
-            <h1>Gerador de CNPJ Alfanumérico</h1>
-                        <h3>Novo padrão 2026</h3>
-
-            <div class="actions">
-                <button id="botao-gerar" type="button" aria-label="Gerar novo CNPJ alfanumérico">
-                    Gerar CNPJ alfanumérico
-                </button>
-                <div class="resultado">
-                    <input id="campo-resultado" type="text" readonly aria-label="CNPJ alfanumérico gerado">
-                    <div class="switch-container">
-                        <label class="switch">
-                            <input type="checkbox" id="toggle-mascara" checked>
-                            <span class="slider"></span>
-                        </label>
-                        <span>Aplicar Máscara</span>
-                    </div>
-
-                    <button id="botao-copiar" class="botao-copiar" type="button" aria-label="Copiar CNPJ alfanumérico">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12z"></path>
-                            <path d="M20 5H8a2 2 0 0 0-2 2v16h12a2 2 0 0 0 2-2V5zm-2 16H8V7h10z"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div id="tempo-restante" style="margin-top:8px;font-size:0.9rem;color:#555;"></div>
-                <div style="width:100%;height:6px;background:#ddd;border-radius:3px;overflow:hidden;margin-top:4px;">
-                    <div id="barra"
-                        style="height:100%;width:100%;background:#2563eb;transform-origin:left center;transform:scaleX(1);transition:transform 0.1s linear;">
-                    </div>
-                </div>
-            </div>
+<body class="min-h-screen bg-slate-100 text-slate-900 font-sans flex flex-col">
+  <main class="flex-1 flex items-center justify-center px-4 py-10">
+    <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl px-8 py-10 flex flex-col gap-6">
+      <div class="flex flex-col gap-1 text-center sm:text-left">
+        <h1 class="text-3xl font-bold text-slate-900">Gerador de CNPJ Alfanumérico</h1>
+        <h3 class="text-lg font-semibold text-blue-600">Novo padrão 2026</h3>
+      </div>
+      <div class="flex flex-col gap-4">
+        <button id="botao-gerar" type="button"
+          class="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-transform duration-150 hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 active:scale-95"
+          aria-label="Gerar novo CNPJ alfanumérico">
+          Gerar CNPJ alfanumérico
+        </button>
+        <div class="flex flex-wrap items-stretch gap-2">
+          <input id="campo-resultado" type="text" readonly
+            class="flex-1 min-w-[240px] rounded-lg border border-slate-300 bg-slate-50 px-4 py-3 text-lg font-medium text-slate-800 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-300"
+            aria-label="CNPJ alfanumérico gerado">
+          <button id="botao-copiar" type="button"
+            class="inline-flex items-center justify-center rounded-full bg-blue-600 px-4 text-white transition-transform duration-150 hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 active:scale-95"
+            aria-label="Copiar CNPJ alfanumérico">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 fill-current">
+              <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12z"></path>
+              <path d="M20 5H8a2 2 0 0 0-2 2v16h12a2 2 0 0 0 2-2V5zm-2 16H8V7h10z"></path>
+            </svg>
+          </button>
         </div>
-    </main>
-    <footer>
-        <h2>Links úteis</h2>
-        <ul>
-            <li><a href="#">Receita Federal — CNPJ Alfanumérico (2026)</a></li>
-            <li><a href="#">Padrão de máscara e validação (interno)</a></li>
-            <li><a href="#">Spec técnica resumida</a></li>
-            <li><a href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico">Link github</a></li>
-        </ul>
-    </footer>
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script type="module" src="./dist/main.js"></script>
+        <div class="flex flex-col items-center gap-3 text-sm text-slate-600">
+          <label for="toggle-mascara"
+            class="inline-flex cursor-pointer items-center justify-center gap-3 text-sm font-medium text-slate-700">
+            <input id="toggle-mascara" type="checkbox" class="peer sr-only" checked>
+            <span class="relative inline-flex h-6 w-11 items-center">
+              <span
+                class="h-6 w-11 rounded-full bg-slate-300 transition-colors duration-300 peer-checked:bg-blue-600"></span>
+              <span
+                class="absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition-transform duration-300 peer-checked:translate-x-5"></span>
+            </span>
+            <span>Aplicar Máscara</span>
+          </label>
+          <div id="tempo-restante" class="text-sm text-slate-600"></div>
+          <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-300">
+            <div id="barra" class="h-full w-full origin-left bg-blue-600 transition-transform duration-100 ease-linear"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="mt-auto bg-slate-900 px-6 py-6 text-slate-200">
+    <div class="mx-auto flex w-full max-w-4xl flex-col gap-4">
+      <h2 class="text-xl font-semibold">Links úteis</h2>
+      <ul class="grid gap-2 text-sm">
+        <li><a href="#"
+            class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Receita
+            Federal — CNPJ Alfanumérico (2026)</a></li>
+        <li><a href="#"
+            class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Padrão
+            de máscara e validação (interno)</a></li>
+        <li><a href="#"
+            class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Spec
+            técnica resumida</a></li>
+        <li><a href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico"
+            class="inline-block border-b border-dotted border-slate-500 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">Link
+            github</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div id="toast"
+    class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg bg-emerald-600 px-4 py-3 text-sm text-white shadow-2xl opacity-0 translate-y-5 pointer-events-none transition-all duration-200 ease-out"
+    role="status" aria-live="polite"></div>
+  <script type="module" src="./dist/main.js"></script>
 </body>
 
 </html>
