@@ -295,7 +295,7 @@ async function copiarTodos() {
         exibirAviso("Nenhum CNPJ no histórico.", "erro");
         return;
     }
-    const listaParaCopiar = historicoRecentes.map((p) => ((controleMascara === null || controleMascara === void 0 ? void 0 : controleMascara.checked) ? aplicarMascara(p) : p)).join(", ");
+    const listaParaCopiar = historicoRecentes.map((p) => ((controleMascara === null || controleMascara === void 0 ? void 0 : controleMascara.checked) ? aplicarMascara(p) : p)).join(",");
     try {
         await copiarTexto(listaParaCopiar);
         exibirAviso(`Copiados ${historicoRecentes.length} CNPJs separados por vírgula`, "info");
