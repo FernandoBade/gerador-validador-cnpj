@@ -6,368 +6,440 @@
    - Auto-regeneração: 10s + barra de progresso
 ============================ */
 
-const CARACTERES_PERMITIDOS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const PESOS_DIGITO_UM = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-const PESOS_DIGITO_DOIS = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-const TAMANHO_CORPO = 12;
-const TAMANHO_TOTAL = 14;
-
-const INTERVALO_AUTOMATICO_MS = 10_000;
-const INTERVALO_ATUALIZACAO_MS = 100;
-const DURACAO_AVISO_MS = 2_500;
-
-let cnpjAtual: string | null = null;
-let idTimeoutAviso: number | undefined;
-let idIntervaloRegressivo: number | undefined;
-let inicioContagemRegressiva = 0;
-
-// Elementos da interface
-const campoResultado = document.getElementById("campo-resultado") as HTMLInputElement;
-const botaoGerar = document.getElementById("botao-gerar") as HTMLButtonElement;
-const botaoCopiar = document.getElementById("botao-copiar") as HTMLButtonElement;
-const areaAviso = document.getElementById("toast") as HTMLDivElement;
-const textoTempoRestante = document.getElementById("tempo-restante") as HTMLDivElement;
-const barraProgresso = document.getElementById("barra") as HTMLElement;
-const controleMascara = document.getElementById("toggle-mascara") as HTMLInputElement | null;
-
-const CLASSES_AVISO_OCULTO = ["opacity-0", "translate-y-5"];
-const CLASSES_AVISO_VISIVEL = ["opacity-100", "translate-y-0"];
-const CLASSE_AVISO_SUCESSO = ["bg-emerald-600", "text-white"];
-const CLASSE_AVISO_ERRO = ["bg-red-600", "text-white"];
-const CLASSE_AVISO_INFO = ["bg-blue-600", "text-white"];
-
+import { ClasseAviso, IntervaloTemporizador, TamanhoIdentificador, TipoAviso } from "./enums";
+import {
+    CARACTERES_PERMITIDOS,
+    CLASSES_AVISO_OCULTO,
+    CLASSES_AVISO_VISIVEL,
+    MAPA_CLASSES_TIPO_AVISO,
+    PESOS_DIGITOS,
+} from "./constantes";
+import { ElementosInterface, HistoricoIdentificadores, IdentificadorGerado, Temporizadores } from "./tipos";
 
 /**
- * Gera uma sequência base (12 caracteres) composta por dígitos e letras maiúsculas.
+ * @summary Classe responsável por agrupar regras de negócio e interação com a interface do gerador.
  */
-function gerarCorpoAlfanumerico(): string {
-    let corpo = "";
-    for (let indice = 0; indice < TAMANHO_CORPO; indice++) {
-        const indiceCaractere = Math.floor(Math.random() * CARACTERES_PERMITIDOS.length);
-        corpo += CARACTERES_PERMITIDOS[indiceCaractere];
-    }
-    return corpo;
-}
+class GeradorCnpj {
+    private cnpjAtual: string | null = null;
+    private readonly historico: HistoricoIdentificadores = { itens: [], limite: 999 };
+    private readonly temporizadores: Temporizadores = { inicioContagem: 0 };
 
-/**
- * Converte um caractere alfanumérico para o valor numérico esperado pelo cálculo do módulo 11.
- */
-function converterCaractereParaValor(caractere: string): number {
-    const codigo = caractere.toUpperCase().charCodeAt(0);
-    if ((codigo >= 48 && codigo <= 57) || (codigo >= 65 && codigo <= 90)) {
-        return codigo - 48;
-    }
-    throw new Error(`Caractere inválido para CNPJ alfanumérico: ${caractere}`);
-}
-
-/**
- * Verifica se todos os caracteres da sequência são iguais, algo proibido pela regra.
- */
-function verificarSequenciaRepetida(valor: string): boolean {
-    return valor.length > 0 && valor.split("").every((caractere) => caractere === valor[0]);
-}
-
-/**
- * Calcula um dígito verificador numérico usando o módulo 11 com pesos específicos.
- */
-function calcularDigitoVerificador(valores: number[], pesos: number[]): number {
-    const soma = valores.reduce((acumulado, valorAtual, indice) => acumulado + valorAtual * pesos[indice], 0);
-    const resto = soma % 11;
-    return resto < 2 ? 0 : 11 - resto;
-}
-
-/**
- * Aplica a máscara visual ##.###.###/####-## ao CNPJ informado.
- */
-function aplicarMascara(valor: string): string {
-    const mascara = "##.###.###/####-##";
-    let resultado = "";
-    let indiceValor = 0;
-
-    for (const caractereMascara of mascara) {
-        if (caractereMascara === "#") {
-            resultado += valor[indiceValor++] ?? "";
-        } else {
-            resultado += caractereMascara;
-        }
-    }
-    return resultado;
-}
-
-/**
- * Gera um identificador válido (12 caracteres base 36 + 2 dígitos verificadores numéricos).
- */
-function gerarIdentificadorValido(): { puro: string; mascarado: string } {
-    for (let tentativa = 0; tentativa < 2_000; tentativa++) {
-        const corpo = gerarCorpoAlfanumerico();
-        if (verificarSequenciaRepetida(corpo)) continue;
-
-        const valores = Array.from(corpo).map(converterCaractereParaValor);
-        const digitoUm = calcularDigitoVerificador(valores, PESOS_DIGITO_UM);
-        const digitoDois = calcularDigitoVerificador([...valores, digitoUm], PESOS_DIGITO_DOIS);
-
-        const identificadorCompleto = `${corpo}${digitoUm}${digitoDois}`;
-        if (identificadorCompleto.length !== TAMANHO_TOTAL) continue;
-        if (!/^[0-9A-Z]{12}[0-9]{2}$/.test(identificadorCompleto)) continue;
-        if (verificarSequenciaRepetida(identificadorCompleto)) continue;
-
-        return {
-            puro: identificadorCompleto,
-            mascarado: aplicarMascara(identificadorCompleto),
-        };
-    }
-    throw new Error("Não foi possível gerar um identificador válido.");
-}
-
-/**
- * Exibe um aviso temporário para o usuário,
- * aplicando estilos conforme o tipo (sucesso, info, erro).
- */
-/**
- * Exibe um aviso temporário para o usuário,
- * aplicando estilos conforme o tipo (sucesso, info, erro).
- */
-function exibirAviso(mensagem: string, tipo: "sucesso" | "info" | "erro" = "sucesso") {
-    areaAviso.textContent = mensagem;
-
-    // Mapa de cores por tipo
-    const estilos = {
-        sucesso: "bg-emerald-600 text-white",
-        info: "bg-blue-600 text-white",
-        erro: "bg-red-600 text-white",
-    };
-
-    // Remove todas as classes anteriores e aplica só as do tipo escolhido
-    areaAviso.className =
-        "fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out " +
-        estilos[tipo] +
-        " " +
-        CLASSES_AVISO_OCULTO.join(" ") +
-        " pointer-events-none";
-
-    // Mostra o aviso
-    requestAnimationFrame(() => {
-        areaAviso.classList.remove(...CLASSES_AVISO_OCULTO, "pointer-events-none");
-        areaAviso.classList.add(...CLASSES_AVISO_VISIVEL, "pointer-events-auto");
-    });
-
-    // Timeout para esconder
-    clearTimeout(idTimeoutAviso);
-    idTimeoutAviso = window.setTimeout(() => {
-        areaAviso.classList.remove(...CLASSES_AVISO_VISIVEL, "pointer-events-auto");
-        areaAviso.classList.add(...CLASSES_AVISO_OCULTO, "pointer-events-none");
-    }, DURACAO_AVISO_MS);
-}
-
-
-/**
- * Copia o valor informado para a área de transferência do sistema.
- */
-async function copiarTexto(valor: string) {
-    await navigator.clipboard.writeText(valor);
-}
-
-/**
- * Atualiza o campo de resultado aplicando ou removendo a máscara conforme a preferência do usuário.
- */
-function atualizarCampoResultado() {
-    if (!cnpjAtual) return;
-    campoResultado.value = controleMascara?.checked ? aplicarMascara(cnpjAtual) : cnpjAtual;
-}
-
-controleMascara?.addEventListener("change", atualizarCampoResultado);
-
-/**
- * Gera um novo identificador, exibe o resultado e reinicia a contagem regressiva automática.
- */
-function gerarEExibirIdentificador(disparoManual = false) {
-    const { puro, mascarado } = gerarIdentificadorValido();
-    cnpjAtual = puro;
-    campoResultado.value = controleMascara?.checked ? mascarado : puro;
-    adicionarAoHistorico(puro);
-
-    if (disparoManual) {
-        exibirAviso("Novo CNPJ alfanumérico gerado", "sucesso");
+    /**
+     * @summary Inicializa a classe com os elementos de interface necessários.
+     * @param elementos Elementos HTML utilizados pela aplicação.
+     */
+    public constructor(private readonly elementos: ElementosInterface) {
+        this.configurarEventos();
+        this.inicializarHistorico();
+        this.gerarEExibirIdentificador();
     }
 
-    inicioContagemRegressiva = performance.now();
-    atualizarContagemRegressiva();
+    /**
+     * @summary Configura todos os manipuladores de eventos da interface.
+     */
+    private configurarEventos(): void {
+        const { botaoGerar, botaoCopiar, botaoCopiarTodos, controleMascara } = this.elementos;
 
-    if (idIntervaloRegressivo !== undefined) window.clearInterval(idIntervaloRegressivo);
-    idIntervaloRegressivo = window.setInterval(atualizarContagemRegressiva, INTERVALO_ATUALIZACAO_MS);
-}
-
-/**
- * Atualiza a interface com a contagem regressiva e o estado da barra de progresso.
- */
-function atualizarContagemRegressiva() {
-    const tempoDecorrido = performance.now() - inicioContagemRegressiva;
-    const tempoRestante = INTERVALO_AUTOMATICO_MS - tempoDecorrido;
-
-    if (tempoRestante <= 0) {
-        gerarEExibirIdentificador(false);
-        return;
-    }
-
-    // Atualiza texto
-    textoTempoRestante.textContent = `Novo em ${(tempoRestante / 1_000).toFixed(1)}s`;
-
-    // Calcula a fração de tempo (0 a 1)
-    const fracaoRestante = Math.max(0, Math.min(1, 1 - tempoDecorrido / INTERVALO_AUTOMATICO_MS));
-    barraProgresso.style.transform = `scaleX(${fracaoRestante})`;
-
-    // Gradiente simples: azul claro → azul escuro
-    barraProgresso.style.background = "linear-gradient(to left, #60a5fa, #2563eb)";
-}
-
-// Eventos principais
-botaoGerar.addEventListener("click", () => {
-    try {
-        gerarEExibirIdentificador(true);
-    } catch (erro) {
-        cnpjAtual = null;
-        campoResultado.value = "";
-        console.error(erro);
-        exibirAviso("Erro inesperado ao gerar.", "erro");
-    }
-});
-
-botaoCopiar.addEventListener("click", async () => {
-    if (!cnpjAtual) {
-        exibirAviso("Nenhum CNPJ gerado para copiar", "erro");
-        return;
-    }
-
-    try {
-        const valorParaCopiar = controleMascara?.checked ? aplicarMascara(cnpjAtual) : cnpjAtual;
-        await copiarTexto(valorParaCopiar);
-        exibirAviso(`CNPJ copiado: ${valorParaCopiar}`, "info");
-    } catch (erro) {
-        console.error(erro);
-        exibirAviso("Falha ao copiar", "erro");
-    }
-});
-
-/* ---------- estado do histórico ---------- */
-const LIMITE_HISTORICO = 999;
-let historicoRecentes: string[] = [];
-
-/* elementos do painel */
-const listaRecentesEl = document.getElementById("lista-recentes") as HTMLUListElement | null;
-const botaoCopiarTodosEl = document.getElementById("botao-copiar-todos") as HTMLButtonElement | null;
-
-function inicializarHistorico() {
-    historicoRecentes = [];
-    atualizarVisualHistorico();
-}
-
-/**
- * Adiciona ao histórico o novo CNPJ (no topo), respeitando o limite de itens
- */
-function adicionarAoHistorico(novo: string) {
-    // evita duplicatas sequenciais idênticas (opcional)
-    if (historicoRecentes[0] === novo) return;
-    historicoRecentes.unshift(novo);
-    if (historicoRecentes.length > LIMITE_HISTORICO) historicoRecentes.pop();
-    atualizarVisualHistorico();
-}
-
-/**
- * Atualiza a lista DOM com todos os itens do histórico.
- * Cada item tem um botão pequeno de copiar individual.
- */
-function atualizarVisualHistorico() {
-    if (!listaRecentesEl) {
-        atualizarEstadoBotaoCopiarTodos();
-        return;
-    }
-    listaRecentesEl.innerHTML = "";
-
-    historicoRecentes.forEach((puro) => {
-        const texto = controleMascara?.checked ? aplicarMascara(puro) : puro;
-        const li = document.createElement("li");
-        li.className = "flex items-center justify-between gap-2";
-
-        const span = document.createElement("span");
-        span.className = "text-sm text-slate-700 break-words";
-        span.textContent = texto;
-
-        const btn = document.createElement("button");
-        btn.className = "ml-1 inline-flex items-center justify-center rounded bg-white text-blue-600 transition hover:ring-2 hover:ring-blue-400 px-2 py-1 text-xs";
-        btn.setAttribute("title", "Copiar esse CNPJ");
-        btn.innerHTML = `
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12z"/>
-                <path d="M20 5H8a2 2 0 0 0-2 2v16h12a2 2 0 0 0 2-2V5zm-2 16H8V7h10z"/>
-            </svg>
-        `;
-
-        btn.addEventListener("click", async (e) => {
-            e.preventDefault();
-            try {
-                await copiarTexto(texto);
-                exibirAviso(`CNPJ copiado: ${texto}`, "info");
-            } catch {
-                exibirAviso("Falha ao copiar", "erro");
-            }
+        botaoGerar.addEventListener("click", () => {
+            this.tratarCliqueGerar();
         });
 
-        li.appendChild(span);
-        li.appendChild(btn);
-        listaRecentesEl.appendChild(li);
-    });
+        botaoCopiar.addEventListener("click", () => {
+            void this.tratarCliqueCopiar();
+        });
 
-    listaRecentesEl.scrollTop = 0;
-    atualizarEstadoBotaoCopiarTodos();
+        botaoCopiarTodos?.addEventListener("click", (evento) => {
+            evento.preventDefault();
+            void this.copiarTodos();
+        });
+
+        controleMascara?.addEventListener("change", () => {
+            this.atualizarCampoResultado();
+            this.atualizarVisualHistorico();
+        });
+    }
+
+    /**
+     * @summary Manipula o clique no botão principal de geração de identificador.
+     */
+    private tratarCliqueGerar(): void {
+        try {
+            this.gerarEExibirIdentificador(true);
+        } catch (erro) {
+            this.cnpjAtual = null;
+            this.elementos.campoResultado.value = "";
+            console.error(erro);
+            this.exibirAviso("Erro inesperado ao gerar.", TipoAviso.Erro);
+        }
+    }
+
+    /**
+     * @summary Manipula o clique no botão de copiar o identificador atual.
+     */
+    private async tratarCliqueCopiar(): Promise<void> {
+        if (!this.cnpjAtual) {
+            this.exibirAviso("Nenhum CNPJ gerado para copiar", TipoAviso.Erro);
+            return;
+        }
+
+        try {
+            const valorParaCopiar = this.elementos.controleMascara?.checked
+                ? this.aplicarMascara(this.cnpjAtual)
+                : this.cnpjAtual;
+            await this.copiarTexto(valorParaCopiar);
+            this.exibirAviso(`CNPJ copiado: ${valorParaCopiar}`, TipoAviso.Info);
+        } catch (erro) {
+            console.error(erro);
+            this.exibirAviso("Falha ao copiar", TipoAviso.Erro);
+        }
+    }
+
+    /**
+     * @summary Gera uma sequência base alfanumérica com o tamanho definido para o identificador.
+     * @returns Sequência composta por caracteres permitidos em letras maiúsculas.
+     */
+    private gerarCorpoAlfanumerico(): string {
+        let corpo = "";
+        for (let indice = 0; indice < TamanhoIdentificador.Corpo; indice++) {
+            const indiceCaractere = Math.floor(Math.random() * CARACTERES_PERMITIDOS.length);
+            corpo += CARACTERES_PERMITIDOS[indiceCaractere] ?? "";
+        }
+        return corpo;
+    }
+
+    /**
+     * @summary Converte um caractere alfanumérico para o valor numérico esperado pelo módulo 11.
+     * @param caractere Caractere a ser convertido.
+     * @returns Valor numérico correspondente ao caractere informado.
+     */
+    private converterCaractereParaValor(caractere: string): number {
+        const codigo = caractere.toUpperCase().charCodeAt(0);
+        const codigoZero = "0".charCodeAt(0);
+        const codigoNove = "9".charCodeAt(0);
+        const codigoA = "A".charCodeAt(0);
+        const codigoZ = "Z".charCodeAt(0);
+
+        if ((codigo >= codigoZero && codigo <= codigoNove) || (codigo >= codigoA && codigo <= codigoZ)) {
+            return codigo - codigoZero;
+        }
+
+        throw new Error(`Caractere inválido para CNPJ alfanumérico: ${caractere}`);
+    }
+
+    /**
+     * @summary Verifica se todos os caracteres da sequência são idênticos.
+     * @param valor Texto a ser avaliado.
+     * @returns Indica se a sequência está composta por um único caractere repetido.
+     */
+    private verificarSequenciaRepetida(valor: string): boolean {
+        return valor.length > 0 && valor.split("").every((caractere) => caractere === valor[0]);
+    }
+
+    /**
+     * @summary Calcula um dígito verificador com base em valores e pesos informados.
+     * @param valores Vetor com os valores numéricos do identificador.
+     * @param pesos Pesos utilizados no cálculo do módulo 11.
+     * @returns Dígito verificador calculado conforme as regras do módulo 11.
+     */
+    private calcularDigitoVerificador(valores: number[], pesos: number[]): number {
+        const soma = valores.reduce((acumulado, valorAtual, indice) => acumulado + valorAtual * pesos[indice], 0);
+        const resto = soma % 11;
+        return resto < 2 ? 0 : 11 - resto;
+    }
+
+    /**
+     * @summary Aplica a máscara visual padrão do CNPJ ao valor informado.
+     * @param valor Identificador puro com 14 caracteres.
+     * @returns Texto formatado conforme a máscara ##.###.###/####-##.
+     */
+    private aplicarMascara(valor: string): string {
+        const mascara = "##.###.###/####-##";
+        let resultado = "";
+        let indiceValor = 0;
+
+        for (const caractereMascara of mascara) {
+            if (caractereMascara === "#") {
+                resultado += valor[indiceValor++] ?? "";
+            } else {
+                resultado += caractereMascara;
+            }
+        }
+
+        return resultado;
+    }
+
+    /**
+     * @summary Gera um identificador válido composto por corpo alfanumérico e dígitos verificadores.
+     * @returns Objeto com a versão pura e mascarada do identificador gerado.
+     */
+    private gerarIdentificadorValido(): IdentificadorGerado {
+        const limiteTentativas = 2_000;
+
+        for (let tentativa = 0; tentativa < limiteTentativas; tentativa++) {
+            const corpo = this.gerarCorpoAlfanumerico();
+            if (this.verificarSequenciaRepetida(corpo)) {
+                continue;
+            }
+
+            const valores = Array.from(corpo).map((caractere) => this.converterCaractereParaValor(caractere));
+            const digitoUm = this.calcularDigitoVerificador(valores, PESOS_DIGITOS.primeiro);
+            const digitoDois = this.calcularDigitoVerificador([...valores, digitoUm], PESOS_DIGITOS.segundo);
+
+            const identificadorCompleto = `${corpo}${digitoUm}${digitoDois}`;
+            if (identificadorCompleto.length !== TamanhoIdentificador.Total) {
+                continue;
+            }
+            if (!/^[0-9A-Z]{12}[0-9]{2}$/.test(identificadorCompleto)) {
+                continue;
+            }
+            if (this.verificarSequenciaRepetida(identificadorCompleto)) {
+                continue;
+            }
+
+            return {
+                puro: identificadorCompleto,
+                mascarado: this.aplicarMascara(identificadorCompleto),
+            };
+        }
+
+        throw new Error("Não foi possível gerar um identificador válido.");
+    }
+
+    /**
+     * @summary Exibe um aviso temporário para o usuário com estilos adequados ao tipo.
+     * @param mensagem Texto exibido dentro do aviso.
+     * @param tipo Tipo do aviso a ser aplicado.
+     */
+    private exibirAviso(mensagem: string, tipo: TipoAviso = TipoAviso.Sucesso): void {
+        const { areaAviso } = this.elementos;
+        const classesBase =
+            "fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out";
+
+        areaAviso.textContent = mensagem;
+        areaAviso.className = `${classesBase} ${MAPA_CLASSES_TIPO_AVISO[tipo].join(" ")} ${ClasseAviso.OpacidadeOculta} ${ClasseAviso.TranslacaoOculta} ${ClasseAviso.PonteiroDesativado}`;
+
+        requestAnimationFrame(() => {
+            areaAviso.classList.remove(...CLASSES_AVISO_OCULTO);
+            areaAviso.classList.add(...CLASSES_AVISO_VISIVEL);
+        });
+
+        if (this.temporizadores.timeoutAviso !== undefined) {
+            window.clearTimeout(this.temporizadores.timeoutAviso);
+        }
+
+        this.temporizadores.timeoutAviso = window.setTimeout(() => {
+            areaAviso.classList.remove(...CLASSES_AVISO_VISIVEL);
+            areaAviso.classList.add(...CLASSES_AVISO_OCULTO);
+        }, IntervaloTemporizador.Aviso);
+    }
+
+    /**
+     * @summary Copia um texto para a área de transferência do sistema.
+     * @param valor Texto que será copiado.
+     */
+    private async copiarTexto(valor: string): Promise<void> {
+        await navigator.clipboard.writeText(valor);
+    }
+
+    /**
+     * @summary Atualiza o campo principal de resultado considerando a máscara selecionada.
+     */
+    private atualizarCampoResultado(): void {
+        if (!this.cnpjAtual) {
+            return;
+        }
+
+        const { campoResultado, controleMascara } = this.elementos;
+        campoResultado.value = controleMascara?.checked ? this.aplicarMascara(this.cnpjAtual) : this.cnpjAtual;
+    }
+
+    /**
+     * @summary Gera um novo identificador, atualiza o campo de resultado e reinicia a contagem automática.
+     * @param disparoManual Indica se a geração foi solicitada manualmente pelo usuário.
+     */
+    private gerarEExibirIdentificador(disparoManual = false): void {
+        const { campoResultado, controleMascara } = this.elementos;
+        const identificador = this.gerarIdentificadorValido();
+
+        this.cnpjAtual = identificador.puro;
+        campoResultado.value = controleMascara?.checked ? identificador.mascarado : identificador.puro;
+        this.adicionarAoHistorico(identificador.puro);
+
+        if (disparoManual) {
+            this.exibirAviso("Novo CNPJ alfanumérico gerado", TipoAviso.Sucesso);
+        }
+
+        this.temporizadores.inicioContagem = performance.now();
+        this.atualizarContagemRegressiva();
+
+        if (this.temporizadores.intervaloRegressivo !== undefined) {
+            window.clearInterval(this.temporizadores.intervaloRegressivo);
+        }
+
+        this.temporizadores.intervaloRegressivo = window.setInterval(
+            () => this.atualizarContagemRegressiva(),
+            IntervaloTemporizador.Atualizacao,
+        );
+    }
+
+    /**
+     * @summary Atualiza a contagem regressiva e o estado visual da barra de progresso.
+     */
+    private atualizarContagemRegressiva(): void {
+        const { textoTempoRestante, barraProgresso } = this.elementos;
+        const tempoDecorrido = performance.now() - this.temporizadores.inicioContagem;
+        const tempoRestante = IntervaloTemporizador.GeracaoAutomatica - tempoDecorrido;
+
+        if (tempoRestante <= 0) {
+            this.gerarEExibirIdentificador();
+            return;
+        }
+
+        textoTempoRestante.textContent = `Novo em ${(tempoRestante / 1_000).toFixed(1)}s`;
+        const fracaoRestante = Math.max(0, Math.min(1, 1 - tempoDecorrido / IntervaloTemporizador.GeracaoAutomatica));
+        barraProgresso.style.transform = `scaleX(${fracaoRestante})`;
+        barraProgresso.style.background = "linear-gradient(to left, #60a5fa, #2563eb)";
+    }
+
+    /**
+     * @summary Reinicia o histórico para o estado inicial vazio.
+     */
+    private inicializarHistorico(): void {
+        this.historico.itens = [];
+        this.atualizarVisualHistorico();
+    }
+
+    /**
+     * @summary Adiciona um novo identificador ao histórico, respeitando o limite configurado.
+     * @param novo Identificador puro recém-gerado.
+     */
+    private adicionarAoHistorico(novo: string): void {
+        if (this.historico.itens[0] === novo) {
+            return;
+        }
+
+        this.historico.itens.unshift(novo);
+        if (this.historico.itens.length > this.historico.limite) {
+            this.historico.itens.pop();
+        }
+        this.atualizarVisualHistorico();
+    }
+
+    /**
+     * @summary Renderiza o histórico de identificadores na interface.
+     */
+    private atualizarVisualHistorico(): void {
+        const { listaRecentes, controleMascara } = this.elementos;
+
+        if (!listaRecentes) {
+            this.atualizarEstadoBotaoCopiarTodos();
+            return;
+        }
+
+        listaRecentes.innerHTML = "";
+
+        this.historico.itens.forEach((puro) => {
+            const texto = controleMascara?.checked ? this.aplicarMascara(puro) : puro;
+            const item = document.createElement("li");
+            item.className = "flex items-center justify-between gap-2";
+
+            const rotulo = document.createElement("span");
+            rotulo.className = "text-sm text-slate-700 break-words";
+            rotulo.textContent = texto;
+
+            const botao = document.createElement("button");
+            botao.className =
+                "ml-1 inline-flex items-center justify-center rounded bg-white text-blue-600 transition hover:ring-2 hover:ring-blue-400 px-2 py-1 text-xs";
+            botao.setAttribute("title", "Copiar esse CNPJ");
+            botao.innerHTML = `
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12z"/>
+                    <path d="M20 5H8a2 2 0 0 0-2 2v16h12a2 2 0 0 0 2-2V5zm-2 16H8V7h10z"/>
+                </svg>
+            `;
+
+            botao.addEventListener("click", async (evento) => {
+                evento.preventDefault();
+                try {
+                    await this.copiarTexto(texto);
+                    this.exibirAviso(`CNPJ copiado: ${texto}`, TipoAviso.Info);
+                } catch {
+                    this.exibirAviso("Falha ao copiar", TipoAviso.Erro);
+                }
+            });
+
+            item.append(rotulo, botao);
+            listaRecentes.appendChild(item);
+        });
+
+        listaRecentes.scrollTop = 0;
+        this.atualizarEstadoBotaoCopiarTodos();
+    }
+
+    /**
+     * @summary Copia todos os itens presentes no histórico para a área de transferência.
+     */
+    private async copiarTodos(): Promise<void> {
+        if (this.historico.itens.length === 0) {
+            this.exibirAviso("Nenhum CNPJ no histórico.", TipoAviso.Erro);
+            return;
+        }
+
+        const { controleMascara } = this.elementos;
+        const listaParaCopiar = this.historico.itens
+            .map((puro) => (controleMascara?.checked ? this.aplicarMascara(puro) : puro))
+            .join(",");
+
+        try {
+            await this.copiarTexto(listaParaCopiar);
+            this.exibirAviso(`Copiados ${this.historico.itens.length} CNPJs separados por vírgula`, TipoAviso.Info);
+        } catch {
+            this.exibirAviso("Falha ao copiar todos.", TipoAviso.Erro);
+        }
+    }
+
+    /**
+     * @summary Atualiza o estado visual e funcional do botão de copiar todos os itens do histórico.
+     */
+    private atualizarEstadoBotaoCopiarTodos(): void {
+        const { botaoCopiarTodos } = this.elementos;
+        if (!botaoCopiarTodos) {
+            return;
+        }
+
+        const total = this.historico.itens.length;
+        const totalExibido = Math.min(total, this.historico.limite);
+        botaoCopiarTodos.textContent = `Copiar em massa (${totalExibido})`;
+        botaoCopiarTodos.disabled = total === 0;
+        botaoCopiarTodos.classList.toggle("cursor-not-allowed", total === 0);
+        botaoCopiarTodos.classList.toggle("opacity-60", total === 0);
+    }
 }
 
 /**
- * Copia todo o histórico para a área de transferência
- * - formato: separados por vírgula e espaço (ajuste se preferir newline)
+ * @summary Obtém um elemento obrigatório por id, lançando erro caso não exista.
+ * @param id Identificador do elemento HTML desejado.
+ * @returns Referência ao elemento encontrado.
  */
-async function copiarTodos() {
-    if (historicoRecentes.length === 0) {
-        exibirAviso("Nenhum CNPJ no histórico.", "erro");
-        return;
+function obterElementoObrigatorio<T extends HTMLElement>(id: string): T {
+    const elemento = document.getElementById(id);
+    if (!elemento) {
+        throw new Error(`Elemento com id "${id}" não encontrado.`);
     }
-    const listaParaCopiar = historicoRecentes.map((p) => (controleMascara?.checked ? aplicarMascara(p) : p)).join(",");
-    try {
-        await copiarTexto(listaParaCopiar);
-        exibirAviso(`Copiados ${historicoRecentes.length} CNPJs separados por vírgula`, "info");
-    } catch {
-        exibirAviso("Falha ao copiar todos.", "erro");
-    }
+    return elemento as T;
 }
 
-function atualizarEstadoBotaoCopiarTodos() {
-    if (!botaoCopiarTodosEl) return;
-    const total = historicoRecentes.length;
-    const totalExibido = Math.min(total, LIMITE_HISTORICO);
-    const rotulo = `Copiar em massa (${totalExibido})`;
-    botaoCopiarTodosEl.textContent = rotulo;
-    botaoCopiarTodosEl.disabled = total === 0;
-    botaoCopiarTodosEl.classList.toggle("cursor-not-allowed", total === 0);
-    botaoCopiarTodosEl.classList.toggle("opacity-60", total === 0);
-}
+const elementos: ElementosInterface = {
+    campoResultado: obterElementoObrigatorio<HTMLInputElement>("campo-resultado"),
+    botaoGerar: obterElementoObrigatorio<HTMLButtonElement>("botao-gerar"),
+    botaoCopiar: obterElementoObrigatorio<HTMLButtonElement>("botao-copiar"),
+    areaAviso: obterElementoObrigatorio<HTMLDivElement>("toast"),
+    textoTempoRestante: obterElementoObrigatorio<HTMLDivElement>("tempo-restante"),
+    barraProgresso: obterElementoObrigatorio<HTMLElement>("barra"),
+    controleMascara: document.getElementById("toggle-mascara") as HTMLInputElement | null,
+    listaRecentes: document.getElementById("lista-recentes") as HTMLUListElement | null,
+    botaoCopiarTodos: document.getElementById("botao-copiar-todos") as HTMLButtonElement | null,
+};
 
-/* hooks: ligar o botão 'copiar todos' */
-botaoCopiarTodosEl?.addEventListener("click", (e) => {
-    e.preventDefault();
-    copiarTodos();
-});
-
-/* Atualiza o painel quando o toggle de máscara muda */
-controleMascara?.addEventListener("change", () => {
-    atualizarVisualHistorico();
-    // também atualiza campo principal
-    atualizarCampoResultado?.();
-});
-
-/* Sempre que gerar um novo identificador, adicionar ao histórico.
-   Veja onde gerarEExibirIdentificador() define cnpjAtual: lá, logo após atribuir cnpjAtual = puro;
-   chame adicionarAoHistorico(puro) nessa posição. */
-
-// Inicialização
-inicializarHistorico();
-gerarEExibirIdentificador(false);
-
+// Inicialização da aplicação
+new GeradorCnpj(elementos);
