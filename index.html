@@ -48,6 +48,16 @@
     <meta property="og:image:height" content="1200">
     <meta property="og:image:alt" content="Marca do CNPJ alfanumérico 2026">
 
+    <script>
+        (function () {
+            const storedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Gerador de CNPJ Alfanumérico 2026">
@@ -79,6 +89,44 @@
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        };
+    </script>
+    <style>
+        .theme-toggle input:checked + .toggle-track .toggle-thumb {
+            transform: translateX(32px);
+            background-color: #343746;
+            color: #f8f8f2;
+        }
+
+        .theme-toggle input:checked + .toggle-track {
+            background-color: rgba(255, 121, 198, 0.35);
+        }
+
+        .theme-toggle .toggle-thumb {
+            transition: transform 0.35s ease, background-color 0.35s ease, color 0.35s ease;
+        }
+
+        .theme-toggle .sun-indicator,
+        .theme-toggle .moon-indicator {
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .theme-toggle input:checked + .toggle-track .sun-indicator {
+            opacity: 0.3;
+        }
+
+        .theme-toggle input:checked + .toggle-track .moon-indicator {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .theme-toggle .moon-indicator {
+            opacity: 0.5;
+        }
+    </style>
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -92,27 +140,59 @@
     <!-- End Google Tag Manager -->
 </head>
 
-<body class="min-h-screen bg-slate-100 text-slate-900 font-sans flex flex-col">
+<body class="min-h-screen bg-slate-100 text-slate-900 dark:bg-[#282a36] dark:text-[#f8f8f2] transition-colors duration-500 font-sans flex flex-col">
     <!-- Início Tag: Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LSGCFMM" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Fim Tag: Google Tag Manager (noscript) -->
-    <main class="flex-1 flex items-center justify-center px-4">
-        <div class="flex flex-col md:flex-row gap-6 items-stretch">
+    <main class="flex-1 flex items-center justify-center px-4 py-6">
+        <div class="flex flex-col gap-6 items-stretch">
+            <div class="flex justify-end">
+                <label for="toggle-tema" class="theme-toggle inline-flex items-center gap-3 rounded-full bg-white/60 dark:bg-[#343746]/80 px-4 py-2 shadow-md dark:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.45)] backdrop-blur">
+                    <span class="flex items-center gap-1 text-sm font-medium text-slate-600 dark:text-[#6272a4]">
+                        <svg class="h-4 w-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                            <path d="M10 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm0 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7-3a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1ZM5 11H4a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2Zm11.657-5.657a1 1 0 0 1 0 1.414L15.95 7.464a1 1 0 0 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 0ZM6.465 14.95a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 1 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414Zm10.192 1.414a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 1 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414ZM6.465 5.05 5.758 4.343a1 1 0 0 1 1.414-1.414l.707.707A1 1 0 1 1 6.465 5.05ZM10 17a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Z" />
+                        </svg>
+                        Modo
+                    </span>
+                    <input id="toggle-tema" type="checkbox" class="sr-only">
+                    <div class="toggle-track relative flex h-8 w-16 items-center rounded-full bg-slate-300 dark:bg-[#44475a] px-1 transition-colors duration-300">
+                        <span class="sun-indicator absolute left-2 text-yellow-400">
+                            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                <path d="M10 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm0 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7-3a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1ZM5 11H4a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2Zm11.657-5.657a1 1 0 0 1 0 1.414L15.95 7.464a1 1 0 0 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 0ZM6.465 14.95a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 1 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414Zm10.192 1.414a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 1 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414ZM6.465 5.05 5.758 4.343a1 1 0 0 1 1.414-1.414l.707.707A1 1 0 1 1 6.465 5.05ZM10 17a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Z" />
+                            </svg>
+                        </span>
+                        <span class="moon-indicator absolute right-2 text-[#bd93f9]">
+                            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                <path d="M17.293 13.293a8 8 0 0 1-10.586-10.586 1 1 0 0 0-1.32-1.32 10 10 0 1 0 13.226 13.226 1 1 0 0 0-1.32-1.32Z" />
+                            </svg>
+                        </span>
+                        <span class="toggle-thumb relative flex h-6 w-6 items-center justify-center rounded-full bg-white text-yellow-400 shadow-lg">
+                            <svg class="sun-indicator h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                <path d="M10 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm0 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7-3a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1ZM5 11H4a1 1 0 1 1 0-2h1a1 1 0 1 1 0 2Zm11.657-5.657a1 1 0 0 1 0 1.414L15.95 7.464a1 1 0 0 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 0ZM6.465 14.95a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 1 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414Zm10.192 1.414a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 1 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414ZM6.465 5.05 5.758 4.343a1 1 0 0 1 1.414-1.414l.707.707A1 1 0 1 1 6.465 5.05ZM10 17a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Z" />
+                            </svg>
+                            <svg class="moon-indicator absolute h-4 w-4 text-[#bd93f9]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                <path d="M17.293 13.293a8 8 0 0 1-10.586-10.586 1 1 0 0 0-1.32-1.32 10 10 0 1 0 13.226 13.226 1 1 0 0 0-1.32-1.32Z" />
+                            </svg>
+                        </span>
+                    </div>
+                </label>
+            </div>
+            <div class="flex flex-col md:flex-row gap-6 items-stretch">
             <!-- Card principal -->
-            <div class="w-full max-w-lg bg-white rounded-3xl shadow-xl p-4 flex flex-col self-stretch ">
+            <div class="w-full max-w-lg bg-white dark:bg-[#343746] rounded-3xl shadow-xl dark:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.45)] p-4 flex flex-col self-stretch transition-colors duration-500">
                 <div class="flex flex-col gap-1 text-center sm:text-center">
-                    <h1 class="mt-4 text-3xl font-bold text-slate-700">Gerador de CNPJ Alfanumérico</h1>
-                    <h3 class="text-lg font-semibold text-blue-700 mb-8">Novo padrão 2026</h3>
+                    <h1 class="mt-4 text-3xl font-bold text-slate-700 dark:text-[#f8f8f2]">Gerador de CNPJ Alfanumérico</h1>
+                    <h3 class="text-lg font-semibold text-blue-700 dark:text-[#ff79c6] mb-8">Novo padrão 2026</h3>
                 </div>
                 <div class="flex flex-col gap-6 max-w-lg mx-auto">
                     <!-- Campo resultado -->
                     <div class="flex flex-wrap align-middle items-stretch mt-4 gap-1">
                         <div class="relative flex-1 min-w-[240px]">
                             <input id="campo-resultado" type="text" readonly
-                                class="w-full rounded-lg align-middle text-slate-700 text-center border border-slate-300 bg-slate-50 px-3 pr-12 py-2 text-lg font-medium shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                class="w-full rounded-lg align-middle text-slate-700 dark:text-[#f8f8f2] text-center border border-slate-300 dark:border-[#44475a] bg-slate-50 dark:bg-[#1f2029] px-3 pr-12 py-2 text-lg font-medium shadow-inner focus:outline-none focus:ring-2 focus:ring-pink-300 dark:focus:ring-[#bd93f9] transition-colors duration-300">
                             <button id="botao-copiar" type="button" title="Copiar CNPJ"
-                                class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded text-blue-600 transition-all ease-in-out hover:text-blue-400 hover:scale-110 px-2 py-1 text-xs"
+                                class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded text-pink-600 dark:text-[#ff79c6] transition-all ease-in-out hover:text-pink-400 dark:hover:text-[#bd93f9] hover:scale-110 px-2 py-1 text-xs"
                                 aria-label="Copiar CNPJ alfanumérico">
                                 <svg class="w-8 h-8" aria-hidden="true" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
@@ -121,24 +201,23 @@
 
                             </button>
                         </div>
-                        <div id="tempo-restante" class="text-sm text-slate-600 hidden"></div>
-                        <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-300">
+                        <div id="tempo-restante" class="text-sm text-slate-600 dark:text-[#6272a4] hidden"></div>
+                        <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-300 dark:bg-[#44475a]">
                             <div id="barra"
-                                class="h-full w-full origin-left bg-blue-600 transition-transform duration-100 ease-linear">
+                                class="h-full w-full origin-left bg-pink-500 dark:bg-[#ff79c6] transition-transform duration-100 ease-linear">
                             </div>
                         </div>
                     </div>
 
                     <!-- Toggle -->
-                    <div class="flex flex-col items-center gap-6 mt-2 text-sm text-slate-600">
+                    <div class="flex flex-col items-center gap-6 mt-2 text-sm text-slate-600 dark:text-[#6272a4]">
                         <label for="toggle-mascara"
-                            class="inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-slate-700 select-none">
+                            class="inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-slate-700 dark:text-[#f8f8f2] select-none">
                             <input id="toggle-mascara" type="checkbox" class="sr-only peer" checked>
-                            <div class="relative h-6 w-11 rounded-full bg-slate-400 transition-colors duration-300
-              peer-checked:bg-blue-600
+                            <div class="relative h-6 w-11 rounded-full bg-slate-400 dark:bg-[#44475a] transition-colors duration-300
+              peer-checked:bg-pink-500 dark:peer-checked:bg-[#ff79c6]
               after:content-[''] after:absolute after:top-[2px] after:left-[2px]
-              after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow
-              after:transition-transform after:duration-300
+              after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow after:transition-transform after:duration-300
               peer-checked:after:translate-x-5">
                             </div>
                             <span class="transition-colors duration-300 peer-checked:text-bold">Aplicar Máscara</span>
@@ -147,11 +226,11 @@
                         <!-- Botões lado a lado -->
                         <div class="flex w-[340px] mt-[16px] gap-4">
                             <button id="botao-gerar" type="button"
-                                class="flex-1 max-w-56 inline-flex items-center justify-center rounded-lg bg-blue-600 px-1 py-2 text-base font-semibold text-white shadow-sm transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300 active:scale-95">
+                                class="flex-1 max-w-56 inline-flex items-center justify-center rounded-lg bg-pink-600 dark:bg-[#ff79c6] px-1 py-2 text-base font-semibold text-white shadow-sm transition hover:bg-pink-500 dark:hover:bg-[#bd93f9] focus:outline-none focus:ring-2 focus:ring-pink-300 dark:focus:ring-[#bd93f9] active:scale-95">
                                 Gerar +1 CNPJ
                             </button>
                             <button id="botao-gerar-10" type="button"
-                                class="flex-1 max-w-56 inline-flex items-center justify-center rounded-lg bg-blue-600 px-1 py-2 text-base font-semibold text-white shadow-sm transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300 active:scale-95">
+                                class="flex-1 max-w-56 inline-flex items-center justify-center rounded-lg bg-slate-300 dark:bg-[#44475a] px-1 py-2 text-base font-semibold text-slate-800 dark:text-[#f8f8f2] shadow-sm transition hover:bg-slate-400 dark:hover:bg-[#6c7086] focus:outline-none focus:ring-2 focus:ring-slate-300 dark:focus:ring-[#bd93f9] active:scale-95">
                                 Gerar +10 CNPJs
                             </button>
                         </div>
@@ -162,14 +241,14 @@
             <!-- Card últimos CNPJs -->
             <div id="painel-recentes" class="w-full md:w-80 flex flex-col self-stretch min-h-0 h-[380px]">
                 <div
-                    class="bg-white rounded-3xl shadow-xl py-2 px-4 flex-1 flex flex-col h-full min-h-0 max-h-[420px] overflow-hidden">
-                    <h1 class="font-bold text-lg text-center text-slate-700 pt-7 pb-5">Histórico</h1>
+                    class="bg-white dark:bg-[#343746] rounded-3xl shadow-xl dark:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.45)] py-2 px-4 flex-1 flex flex-col h-full min-h-0 max-h-[420px] overflow-hidden transition-colors duration-500">
+                    <h1 class="font-bold text-lg text-center text-slate-700 dark:text-[#f8f8f2] pt-7 pb-5">Histórico</h1>
                     <ul id="lista-recentes"
-                        class="space-y-2 ml-2 pr-2 py-3 px-2 text-sm text-slate-600 flex-1 overflow-y-auto">
+                        class="space-y-2 ml-2 pr-2 py-3 px-2 text-sm text-slate-600 dark:text-[#6272a4] flex-1 overflow-y-auto">
                     </ul>
                     <div class="pt-6 shadow-inner text-center">
                         <button id="botao-copiar-todos"
-                            class="w-auto rounded-lg bg-blue-600 mb-8 py-2 px-4 text-base font-semibold text-white shadow-sm transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
+                            class="w-auto rounded-lg bg-pink-600 dark:bg-[#ff79c6] mb-8 py-2 px-4 text-base font-semibold text-white shadow-sm transition hover:bg-pink-500 dark:hover:bg-[#bd93f9] focus:outline-none focus:ring-2 focus:ring-pink-300 dark:focus:ring-[#bd93f9] active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
                             disabled>
                             Copiar em massa (0)
                         </button>
@@ -180,16 +259,16 @@
         </div>
     </main>
 
-    <footer class="mt-2 bg-slate-900 px-6 py-6 text-slate-200">
+    <footer class="mt-2 bg-slate-900 dark:bg-[#1d1f27] px-6 py-6 text-slate-200 dark:text-[#f8f8f2] transition-colors duration-500">
         <div class="mx-auto flex w-full max-w-4xl flex-col gap-8">
-            <div class="flex flex-row justify-between gap-2 text-sm text-slate-400 px-28">
+            <div class="flex flex-row justify-between gap-2 text-sm text-slate-400 dark:text-[#6272a4] px-6 md:px-28">
                 <h2 class="text-xl font-semibold flex items-center gap-2">
                     🔗 Links
                 </h2>
                 <ul class="grid gap-3 text-sm">
                     <li>
                         <a href="https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico"
-                            class="flex items-center gap-2 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-[#f8f8f2] transition-colors hover:text-pink-200 dark:hover:text-[#ff79c6] focus-visible:text-pink-200 dark:focus-visible:text-[#ff79c6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-300"
                             target="_blank">
                             <!-- Ícone Receita -->
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -205,7 +284,7 @@
                     </li>
                     <li>
                         <a href="https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view"
-                            class="flex items-center gap-2 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-[#f8f8f2] transition-colors hover:text-pink-200 dark:hover:text-[#ff79c6] focus-visible:text-pink-200 dark:focus-visible:text-[#ff79c6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-300"
                             target="_blank">
                             <!-- Ícone pdf -->
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -224,7 +303,7 @@
 
                     <li>
                         <a href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico"
-                            class="flex items-center gap-2  pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+                            class="flex items-center gap-2  pb-0.5 text-slate-200 dark:text-[#f8f8f2] transition-colors hover:text-pink-200 dark:hover:text-[#ff79c6] focus-visible:text-pink-200 dark:focus-visible:text-[#ff79c6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-300"
                             target="_blank">
                             <!-- Ícone GitHub -->
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -241,7 +320,7 @@
 
                     <li>
                         <a href="https://linkedin.com/in/fernandobade"
-                            class="flex items-center gap-2 pb-0.5 text-slate-200 transition-colors hover:text-blue-200 focus-visible:text-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-[#f8f8f2] transition-colors hover:text-pink-200 dark:hover:text-[#ff79c6] focus-visible:text-pink-200 dark:focus-visible:text-[#ff79c6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-300"
                             target="_blank">
                             <!-- Ícone LinkedIn -->
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -267,6 +346,40 @@
             opacity-0 translate-y-5 pointer-events-none">
     </div>
 
+    <script>
+        (function () {
+            const root = document.documentElement;
+            const toggle = document.getElementById('toggle-tema');
+            if (!toggle) {
+                return;
+            }
+
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    root.classList.add('dark');
+                } else {
+                    root.classList.remove('dark');
+                }
+                localStorage.setItem('theme', theme);
+                toggle.checked = theme === 'dark';
+            };
+
+            const storedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+            const initialTheme = storedTheme || (prefersDark.matches ? 'dark' : 'light');
+            applyTheme(initialTheme);
+
+            toggle.addEventListener('change', (event) => {
+                applyTheme(event.target.checked ? 'dark' : 'light');
+            });
+
+            prefersDark.addEventListener('change', (event) => {
+                if (!localStorage.getItem('theme')) {
+                    applyTheme(event.matches ? 'dark' : 'light');
+                }
+            });
+        })();
+    </script>
     <script type="module" src="./dist/app.js"></script>
 </body>
 
