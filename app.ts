@@ -25,7 +25,7 @@ import {
     IdentificadorGerado,
     Temporizadores,
 } from "./src/tipos.js";
-import { inicializarAvisoDeCookies } from "./src/cookies.js";
+import { htmlCookies, inicializarAvisoDeCookies } from "./src/cookies.js";
 
 /**
  * @summary Classe responsável por agrupar regras de negócio e interação com a interface do gerador.
@@ -537,7 +537,12 @@ function obterElementoObrigatorio<T extends HTMLElement>(id: string): T {
     return elemento as T;
 }
 
+
+// Garante que o banner de cookies exista no DOM
 document.addEventListener("DOMContentLoaded", () => {
+    if (!document.getElementById("aviso-cookies")) {
+        document.body.insertAdjacentHTML("beforeend", htmlCookies);
+    }
     inicializarAvisoDeCookies();
 });
 

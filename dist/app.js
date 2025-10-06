@@ -7,7 +7,7 @@
 ============================ */
 import { ClasseAviso, IntervaloTemporizador, TamanhoIdentificador, TipoAviso, } from "./src/enums.js";
 import { CARACTERES_PERMITIDOS, CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, PESOS_DIGITOS, } from "./src/constantes.js";
-import { inicializarAvisoDeCookies } from "./src/cookies.js";
+import { htmlCookies, inicializarAvisoDeCookies } from "./src/cookies.js";
 /**
  * @summary Classe responsável por agrupar regras de negócio e interação com a interface do gerador.
  */
@@ -422,7 +422,11 @@ function obterElementoObrigatorio(id) {
     }
     return elemento;
 }
+// Garante que o banner de cookies exista no DOM
 document.addEventListener("DOMContentLoaded", () => {
+    if (!document.getElementById("aviso-cookies")) {
+        document.body.insertAdjacentHTML("beforeend", htmlCookies);
+    }
     inicializarAvisoDeCookies();
 });
 const elementos = {
