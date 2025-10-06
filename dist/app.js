@@ -69,7 +69,7 @@ class GeradorCnpj {
         try {
             for (let i = 0; i < 10; i++) {
                 if (this.historico.itens.length >= this.historico.limite) {
-                    this.exibirAviso(`Limite de ${this.historico.limite} CNPJs atingido. CALMAAAAA QUE O SERVIDOR NÃO AGUENTA!!! 😅`, TipoAviso.Erro);
+                    this.exibirAviso(`Limite de ${this.historico.limite} CNPJs atingido. CALMAAAAA QUE O NAVEGADOR NUM GUENTA!!! 😅`, TipoAviso.Erro);
                     break;
                 }
                 this.gerarEExibirIdentificador(true, 10);
@@ -398,7 +398,7 @@ class GeradorCnpj {
         const contador = document.createElement("span");
         contador.textContent = totalExibido.toString();
         contador.className =
-            "ml-2 inline-flex items-center justify-center rounded-lg p-2 bg-white text-blue-600 text-xs font-bold w-6 h-6";
+            "ml-2 inline-flex items-center justify-center rounded-lg p-2 bg-white text-violet-500 text-xs font-bold w-6 h-6";
         // Adiciona o texto e, se houver, o contador
         botaoCopiarTodos.appendChild(textoBotao);
         if (total > 0) {
