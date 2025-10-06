@@ -406,7 +406,7 @@ class GeradorCnpj {
         }
         // Estado desabilitado quando não há itens
         botaoCopiarTodos.disabled = total === 0;
-        botaoCopiarTodos.classList.toggle("cursor-not-allowed", total === 0);
+        botaoCopiarTodos.classList.toggle("cursor-nao-permitido", total === 0);
         botaoCopiarTodos.classList.toggle("opacity-60", total === 0);
     }
 }
