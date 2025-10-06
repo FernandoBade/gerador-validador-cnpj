@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="img/gerador-cnpj-2026-alfanumerico-x.png" alt="Preview do Gerador de CNPJ Alfanumérico 2026" width="900">
+  <img src="img/gerador-cnpj-2026-alfanumerico-linkedin.jpg" alt="Preview do Gerador de CNPJ Alfanumérico 2026" width="900">
 </p>
 
 <div align="Center">
@@ -10,6 +10,7 @@
 [![Feito com TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Live Server](https://img.shields.io/badge/Live--Server-FF6B6B?logo=vercel&logoColor=white)](https://www.npmjs.com/package/live-server)
+
 [![GitHub stars](https://img.shields.io/github/stars/FernandoBade/GeradorDeCNPJAlfanumerico.svg?style=social&label=Star)](https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico/stargazers)
 
 
