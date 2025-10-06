@@ -10,11 +10,7 @@
 [![Feito com TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Live Server](https://img.shields.io/badge/Live--Server-FF6B6B?logo=vercel&logoColor=white)](https://www.npmjs.com/package/live-server)
-[![Prettier](https://img.shields.io/badge/Prettier--formatted-ff69b4?logo=prettier&logoColor=white)](https://prettier.io/)
-[![ESLint](https://img.shields.io/badge/Linted_with-ESLint-4B32C3?logo=eslint&logoColor=white)](https://eslint.org/)
-[![Build with TSC](https://img.shields.io/badge/build-TypeScript_compiler-007ACC)](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
-[![Status](https://img.shields.io/badge/status-stable-success.svg)](https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico)
-[![Contribua para o projeto](https://img.shields.io/badge/contribuições-bem--vindas-blueviolet.svg)](https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico/pulls)
+
 [![GitHub stars](https://img.shields.io/github/stars/FernandoBade/GeradorDeCNPJAlfanumerico.svg?style=social&label=Star)](https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico/stargazers)
 
 
