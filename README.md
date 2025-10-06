@@ -118,3 +118,4 @@ Observações:
 - ESLint configurado em `.eslintrc.json` (com `@typescript-eslint`).
 - Prettier configurado em `.prettierrc`.
 - Arquivos ignorados: `.eslintignore` e `.prettierignore` (incluem `dist/` e `node_modules/`).
+
