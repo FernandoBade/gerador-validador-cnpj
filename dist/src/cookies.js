@@ -1,27 +1,33 @@
 /**
  * @summary Inicializa o aviso de cookies e gerencia a escolha do usuário (aceitar ou recusar).
  *
- * Exibe dinamicamente um banner de consentimento de cookies e grava a decisão no `localStorage`
+ * Exibe um banner simples de consentimento e grava a decisão no `localStorage`
  * com a chave "aceitou-cookies".
  *
  * - Se o usuário aceitar, envia um evento `status_consentimento` com valor `aceito` ao Google Tag Manager.
  * - Se recusar, envia o mesmo evento com valor `recusado`.
- * - O HTML é injetado automaticamente no DOM, sem precisar alterar o index.html.
+ * - Ao retornar ao site, reenvia o último status salvo automaticamente.
  */
 export function inicializarAvisoDeCookies() {
+    const AVISO_ID = "aviso-cookies";
+    const BOTAO_ACEITAR_ID = "botao-aceitar-cookies";
+    const BOTAO_RECUSAR_ID = "botao-recusar-cookies";
     const CHAVE_COOKIES = "aceitou-cookies";
-    // Evita duplicar o banner se ele já estiver no DOM
-    if (document.getElementById("aviso-cookies"))
-        return;
-    // Injeta o HTML diretamente no corpo da página
-    document.body.insertAdjacentHTML("beforeend", htmlCookies);
-    const aviso = document.getElementById("aviso-cookies");
-    const botaoAceitar = document.getElementById("botao-aceitar-cookies");
-    const botaoRecusar = document.getElementById("botao-recusar-cookies");
+    const aviso = document.getElementById(AVISO_ID);
+    const botaoAceitar = document.getElementById(BOTAO_ACEITAR_ID);
+    const botaoRecusar = document.getElementById(BOTAO_RECUSAR_ID);
     if (!aviso || !botaoAceitar || !botaoRecusar)
         return;
     const preferencia = localStorage.getItem(CHAVE_COOKIES);
-    // Exibe o aviso se o usuário ainda não escolheu
+    // Reenvia o status salvo anterior (se existir)
+    if (preferencia === "true" || preferencia === "false") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: "status_consentimento",
+            consentimento: preferencia === "true" ? "aceito" : "recusado"
+        });
+    }
+    // Mostra o aviso apenas se o usuário ainda não escolheu
     if (preferencia !== "true" && preferencia !== "false") {
         aviso.classList.add("visivel");
     }
@@ -29,23 +35,21 @@ export function inicializarAvisoDeCookies() {
         aviso.classList.remove("visivel");
         aviso.classList.add("oculto");
     };
-    // Aceitar cookies
     botaoAceitar.addEventListener("click", () => {
         localStorage.setItem(CHAVE_COOKIES, "true");
         esconderAviso();
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-            evento: "status_consentimento",
+            event: "status_consentimento",
             consentimento: "aceito"
         });
     });
-    // Recusar cookies
     botaoRecusar.addEventListener("click", () => {
         localStorage.setItem(CHAVE_COOKIES, "false");
         esconderAviso();
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-            evento: "status_consentimento",
+            event: "status_consentimento",
             consentimento: "recusado"
         });
     });
