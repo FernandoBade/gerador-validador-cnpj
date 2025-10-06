@@ -28,7 +28,7 @@ export var ClasseAviso;
     ClasseAviso["OpacidadeVisivel"] = "opacity-100";
     ClasseAviso["TranslacaoVisivel"] = "translate-y-0";
     ClasseAviso["FundoSucesso"] = "bg-emerald-600";
-    ClasseAviso["FundoErro"] = "bg-red-600";
+    ClasseAviso["FundoErro"] = "bg-pink-500";
     ClasseAviso["FundoInfo"] = "bg-blue-600";
     ClasseAviso["TextoBranco"] = "text-white";
     ClasseAviso["PonteiroDesativado"] = "pointer-events-none";

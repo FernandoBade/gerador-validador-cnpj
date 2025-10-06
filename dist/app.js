@@ -5,8 +5,9 @@
    - Máscara visual: ##.###.###/####-##
    - Auto-regeneração: 10s + barra de progresso
 ============================ */
-import { ClasseAviso, IntervaloTemporizador, TamanhoIdentificador, TipoAviso } from "./src/enums.js";
+import { ClasseAviso, IntervaloTemporizador, TamanhoIdentificador, TipoAviso, } from "./src/enums.js";
 import { CARACTERES_PERMITIDOS, CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, PESOS_DIGITOS, } from "./src/constantes.js";
+import { inicializarAvisoDeCookies } from "./src/cookies.js";
 /**
  * @summary Classe responsável por agrupar regras de negócio e interação com a interface do gerador.
  */
@@ -62,8 +63,8 @@ class GeradorCnpj {
         }
     }
     /**
- * @summary Manipula o clique no botão principal de geração de identificador.
- */
+     * @summary Manipula o clique no botão principal de geração de identificador.
+     */
     tratarCliqueGera10() {
         try {
             for (let i = 0; i < 10; i++) {
@@ -124,7 +125,8 @@ class GeradorCnpj {
         const codigoNove = "9".charCodeAt(0);
         const codigoA = "A".charCodeAt(0);
         const codigoZ = "Z".charCodeAt(0);
-        if ((codigo >= codigoZero && codigo <= codigoNove) || (codigo >= codigoA && codigo <= codigoZ)) {
+        if ((codigo >= codigoZero && codigo <= codigoNove) ||
+            (codigo >= codigoA && codigo <= codigoZ)) {
             return codigo - codigoZero;
         }
         throw new Error(`Caractere inválido para CNPJ alfanumérico: ${caractere}`);
@@ -235,7 +237,9 @@ class GeradorCnpj {
             return;
         }
         const { campoResultado, controleMascara } = this.elementos;
-        campoResultado.value = controleMascara?.checked ? this.aplicarMascara(this.cnpjAtual) : this.cnpjAtual;
+        campoResultado.value = controleMascara?.checked
+            ? this.aplicarMascara(this.cnpjAtual)
+            : this.cnpjAtual;
     }
     /**
      * @summary Gera um novo identificador, atualiza o campo de resultado e reinicia a contagem automática.
@@ -285,7 +289,7 @@ class GeradorCnpj {
         textoTempoRestante.textContent = `Novo em ${(tempoRestante / 1000).toFixed(1)}s`;
         const fracaoRestante = Math.max(0, Math.min(1, 1 - tempoDecorrido / IntervaloTemporizador.GeracaoAutomatica));
         barraProgresso.style.transform = `scaleX(${fracaoRestante})`;
-        barraProgresso.style.background = "linear-gradient(to left, #60a5fa, #2563eb)";
+        barraProgresso.style.background = "linear-gradient(to left, #bd93f9, #8b5cf6)";
     }
     /**
      * @summary Reinicia o histórico para o estado inicial vazio.
@@ -321,13 +325,13 @@ class GeradorCnpj {
         this.historico.itens.forEach((puro) => {
             const texto = controleMascara?.checked ? this.aplicarMascara(puro) : puro;
             const item = document.createElement("li");
-            item.className = "flex items-center justify-between gap-2";
+            item.className = "flex items-center justify-between";
             const rotulo = document.createElement("span");
-            rotulo.className = "text-sm text-slate-700 break-words";
+            rotulo.className = "ml-1 text-sm text-slate-600 font-semibold dark:text-zinc-50 break-words";
             rotulo.textContent = texto;
             const botao = document.createElement("button");
             botao.className =
-                "ml-1 inline-flex items-center justify-center rounded bg-white text-blue-600 transition-all ease-in-out hover:text-blue-400 hover:scale-110 px-2 py-1 text-xs";
+                "ml-1 inline-flex items-center justify-center rounded bg-transparent text-violet-500 transition-all dark:text-violet-500 dark:hover:text-violet-600 ease-in-out hover:text-violet-600 hover:scale-110 px-2 py-1 text-xs";
             botao.setAttribute("title", "Copiar esse CNPJ");
             botao.innerHTML = `
                 <svg class="w-7 h-7" aria-hidden="true" fill="none" viewBox="0 0 24 24">
@@ -418,6 +422,9 @@ function obterElementoObrigatorio(id) {
     }
     return elemento;
 }
+document.addEventListener("DOMContentLoaded", () => {
+    inicializarAvisoDeCookies();
+});
 const elementos = {
     campoResultado: obterElementoObrigatorio("campo-resultado"),
     botaoGerar: obterElementoObrigatorio("botao-gerar"),

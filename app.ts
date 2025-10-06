@@ -6,7 +6,12 @@
    - Auto-regeneração: 10s + barra de progresso
 ============================ */
 
-import { ClasseAviso, IntervaloTemporizador, TamanhoIdentificador, TipoAviso } from "./src/enums.js";
+import {
+    ClasseAviso,
+    IntervaloTemporizador,
+    TamanhoIdentificador,
+    TipoAviso,
+} from "./src/enums.js";
 import {
     CARACTERES_PERMITIDOS,
     CLASSES_AVISO_OCULTO,
@@ -14,7 +19,13 @@ import {
     MAPA_CLASSES_TIPO_AVISO,
     PESOS_DIGITOS,
 } from "./src/constantes.js";
-import { ElementosInterface, HistoricoIdentificadores, IdentificadorGerado, Temporizadores } from "./src/tipos.js";
+import {
+    ElementosInterface,
+    HistoricoIdentificadores,
+    IdentificadorGerado,
+    Temporizadores,
+} from "./src/tipos.js";
+import { inicializarAvisoDeCookies } from "./src/cookies.js";
 
 /**
  * @summary Classe responsável por agrupar regras de negócio e interação com a interface do gerador.
@@ -38,7 +49,8 @@ class GeradorCnpj {
      * @summary Configura todos os manipuladores de eventos da interface.
      */
     private configurarEventos(): void {
-        const { botaoGerar, botaoGerar10, botaoCopiar, botaoCopiarTodos, controleMascara } = this.elementos;
+        const { botaoGerar, botaoGerar10, botaoCopiar, botaoCopiarTodos, controleMascara } =
+            this.elementos;
 
         botaoGerar.addEventListener("click", () => {
             this.tratarCliqueGerar();
@@ -78,8 +90,8 @@ class GeradorCnpj {
     }
 
     /**
- * @summary Manipula o clique no botão principal de geração de identificador.
- */
+     * @summary Manipula o clique no botão principal de geração de identificador.
+     */
     private tratarCliqueGera10(): void {
         try {
             for (let i = 0; i < 10; i++) {
@@ -146,7 +158,10 @@ class GeradorCnpj {
         const codigoA = "A".charCodeAt(0);
         const codigoZ = "Z".charCodeAt(0);
 
-        if ((codigo >= codigoZero && codigo <= codigoNove) || (codigo >= codigoA && codigo <= codigoZ)) {
+        if (
+            (codigo >= codigoZero && codigo <= codigoNove) ||
+            (codigo >= codigoA && codigo <= codigoZ)
+        ) {
             return codigo - codigoZero;
         }
 
@@ -169,7 +184,10 @@ class GeradorCnpj {
      * @returns Dígito verificador calculado conforme as regras do módulo 11.
      */
     private calcularDigitoVerificador(valores: number[], pesos: number[]): number {
-        const soma = valores.reduce((acumulado, valorAtual, indice) => acumulado + valorAtual * pesos[indice], 0);
+        const soma = valores.reduce(
+            (acumulado, valorAtual, indice) => acumulado + valorAtual * pesos[indice],
+            0,
+        );
         const resto = soma % 11;
         return resto < 2 ? 0 : 11 - resto;
     }
@@ -208,9 +226,14 @@ class GeradorCnpj {
                 continue;
             }
 
-            const valores = Array.from(corpo).map((caractere) => this.converterCaractereParaValor(caractere));
+            const valores = Array.from(corpo).map((caractere) =>
+                this.converterCaractereParaValor(caractere),
+            );
             const digitoUm = this.calcularDigitoVerificador(valores, PESOS_DIGITOS.primeiro);
-            const digitoDois = this.calcularDigitoVerificador([...valores, digitoUm], PESOS_DIGITOS.segundo);
+            const digitoDois = this.calcularDigitoVerificador(
+                [...valores, digitoUm],
+                PESOS_DIGITOS.segundo,
+            );
 
             const identificadorCompleto = `${corpo}${digitoUm}${digitoDois}`;
             if (identificadorCompleto.length !== TamanhoIdentificador.Total) {
@@ -277,7 +300,9 @@ class GeradorCnpj {
         }
 
         const { campoResultado, controleMascara } = this.elementos;
-        campoResultado.value = controleMascara?.checked ? this.aplicarMascara(this.cnpjAtual) : this.cnpjAtual;
+        campoResultado.value = controleMascara?.checked
+            ? this.aplicarMascara(this.cnpjAtual)
+            : this.cnpjAtual;
     }
 
     /**
@@ -330,6 +355,7 @@ class GeradorCnpj {
         );
     }
 
+
     /**
      * @summary Atualiza a contagem regressiva e o estado visual da barra de progresso.
      */
@@ -344,10 +370,16 @@ class GeradorCnpj {
         }
 
         textoTempoRestante.textContent = `Novo em ${(tempoRestante / 1_000).toFixed(1)}s`;
-        const fracaoRestante = Math.max(0, Math.min(1, 1 - tempoDecorrido / IntervaloTemporizador.GeracaoAutomatica));
+        const fracaoRestante = Math.max(
+            0,
+            Math.min(1, 1 - tempoDecorrido / IntervaloTemporizador.GeracaoAutomatica),
+        );
+
         barraProgresso.style.transform = `scaleX(${fracaoRestante})`;
-        barraProgresso.style.background = "linear-gradient(to left, #60a5fa, #2563eb)";
+        barraProgresso.style.background = "linear-gradient(to left, #bd93f9, #8b5cf6)";
+
     }
+
 
     /**
      * @summary Reinicia o histórico para o estado inicial vazio.
@@ -356,6 +388,7 @@ class GeradorCnpj {
         this.historico.itens = [];
         this.atualizarVisualHistorico();
     }
+
 
     /**
      * @summary Adiciona um novo identificador ao histórico, respeitando o limite configurado.
@@ -389,15 +422,15 @@ class GeradorCnpj {
         this.historico.itens.forEach((puro) => {
             const texto = controleMascara?.checked ? this.aplicarMascara(puro) : puro;
             const item = document.createElement("li");
-            item.className = "flex items-center justify-between gap-2";
+            item.className = "flex items-center justify-between";
 
             const rotulo = document.createElement("span");
-            rotulo.className = "text-sm text-slate-700 break-words";
+            rotulo.className = "ml-1 text-sm text-slate-600 font-semibold dark:text-zinc-50 break-words";
             rotulo.textContent = texto;
 
             const botao = document.createElement("button");
             botao.className =
-                "ml-1 inline-flex items-center justify-center rounded bg-white text-blue-600 transition-all ease-in-out hover:text-blue-400 hover:scale-110 px-2 py-1 text-xs";
+                "ml-1 inline-flex items-center justify-center rounded bg-transparent text-violet-500 transition-all dark:text-violet-500 dark:hover:text-violet-600 ease-in-out hover:text-violet-600 hover:scale-110 px-2 py-1 text-xs";
             botao.setAttribute("title", "Copiar esse CNPJ");
             botao.innerHTML = `
                 <svg class="w-7 h-7" aria-hidden="true" fill="none" viewBox="0 0 24 24">
@@ -440,7 +473,10 @@ class GeradorCnpj {
 
         try {
             await this.copiarTexto(listaParaCopiar);
-            this.exibirAviso(`Copiados ${this.historico.itens.length} CNPJs separados por vírgula`, TipoAviso.Info);
+            this.exibirAviso(
+                `Copiados ${this.historico.itens.length} CNPJs separados por vírgula`,
+                TipoAviso.Info,
+            );
         } catch {
             this.exibirAviso("Falha ao copiar todos.", TipoAviso.Erro);
         }
@@ -500,6 +536,10 @@ function obterElementoObrigatorio<T extends HTMLElement>(id: string): T {
     }
     return elemento as T;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    inicializarAvisoDeCookies();
+});
 
 const elementos: ElementosInterface = {
     campoResultado: obterElementoObrigatorio<HTMLInputElement>("campo-resultado"),
