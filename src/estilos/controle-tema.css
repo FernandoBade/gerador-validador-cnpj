@@ -32,18 +32,21 @@
 @layer utilities {
   .scroll-personalizado::-webkit-scrollbar {
     width: 8px;
+    overflow-y: scroll;
   }
 
   .scroll-personalizado::-webkit-scrollbar-track {
     background: #e5e7eb;
     border-radius: 4px;
     cursor: pointer;
+    overflow-y: scroll;
   }
 
   .scroll-personalizado::-webkit-scrollbar-thumb {
     background-color: #a855f7; /* violet-500 */
     border-radius: 4px;
     cursor: pointer;
+    overflow-y: scroll;
   }
 
   .dark .scroll-personalizado::-webkit-scrollbar-track {

@@ -35,7 +35,9 @@
                 <label for="alternar-tema"
                     class="controle-tema inline-flex items-center gap-3 rounded-2xl bg-zinc-50 dark:bg-slate-800 px-4 py-2 shadow-md backdrop-blur">
                     <span
-                        class="flex items-center gap-1 text-sm font-medium text-slate-800 dark:text-zinc-50">Tema</span>
+                        class="flex items-center gap-1 text-sm font-medium text-slate-800 dark:text-zinc-50 pointer-events-none">
+                        Tema
+                    </span>
                     <input id="alternar-tema" type="checkbox" class="sr-only" />
                     <div
                         class="trilha cursor-pointer relative flex h-8 w-16 items-center shadow-inner dark:shadow-inner dark:shadow-slate-900 rounded-full dark:bg-slate-800 px-1 transition-colors duration-300">
@@ -82,7 +84,7 @@
                         <div class="flex flex-wrap align-middle items-stretch mt-4 gap-1">
                             <div class="relative flex-1 min-w-[240px]">
                                 <input id="campo-unico" type="text" autocomplete="off"
-                                    class="w-full rounded-lg align-middle text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 pr-12 py-2 text-lg font-semibold shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300 placeholder:text-slate-300 dark:placeholder:text-slate-700"
+                                    class="w-full rounded-lg align-middle text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-100 dark:bg-slate-900 px-3 pr-12 py-2 text-lg font-semibold shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300 placeholder:text-slate-400/75 dark:placeholder:text-slate-700"
                                     placeholder="00.ABC.000/ABCD-00" />
                                 <textarea id="campo-massa"
                                     class="hidden w-full min-h-[120px] rounded-lg text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 py-2 text-md font-semibold shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300 resize-y placeholder:text-slate-300 dark:placeholder:text-slate-700 placeholder:font-semibold placeholder"
@@ -139,17 +141,29 @@
                 </div>
 
                 <div id="painel-validacao"
-                    class="w-full md:w-80 flex flex-col self-stretch min-h-0 h-auto md:h-[380px] transition-all duration-300">
+                    class="w-full md:w-80 flex flex-col self-stretch min-h-0 h-auto md:h-[380px] transition-all duration-300 shadow-2xl rounded-2xl">
                     <div id="card-historico"
-                        class="bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl dark:shadow-2xl py-2 px-4 flex-1 flex flex-col h-full min-h-0 max-h-[420px] overflow-hidden transition-colors duration-500">
-                        <h2 class="font-bold text-lg text-center text-slate-800 dark:text-zinc-50 pt-7 pb-4">
-                            Histórico de validações
-                        </h2>
+                        class="bg-zinc-50 dark:bg-slate-800 items-stretch dark:shadow-inner-slate-900 py-2 px-4 flex-1 flex flex-col h-full min-h-0 rounded-3xl transition-colors duration-500">
+                        <div class="flex items-center justify-center items-center align-middle">
+                            <h2 class="font-bold text-lg text-center text-slate-600 dark:text-zinc-50 pt-7 pb-4">
+                                Histórico de validações
+                            </h2>
+                            <span id="contador-hist"
+                                class="ml-2 inline-flex items-center justify-center rounded-lg mt-3 p-3 border-2 border-slate-600 text-violet-500 text-xs dark:bg-zinc-50 dark:border-0 font-bold w-6 h-6">0</span>
+                        </div>
                         <ul id="lista-historico-validacao"
-                            class="scroll-personalizado space-y-2 ml-2 pr-2 py-3 px-2 text-sm text-slate-600 dark:text-slate-500 flex-1 overflow-y-auto shadow-inner rounded-lg">
+                            class="scroll-personalizado space-y-2 ml-2 pr-2 py-3 px-2 text-sm text-slate-600 dark:text-slate-500 flex-1 overflow-y-auto shadow-inner shadow-slate-300 dark:shadow-slate-900 rounded-lg transition-all ease-in-out duration-300">
                         </ul>
-                        <p class="text-xs text-center text-slate-500 dark:text-slate-400 pb-6">
-                            Mantemos até 100 registros recentes com o status ✅ Válido ou ❌ Inválido.
+                        <p class="text-xs text-center text-slate-500 dark:text-slate-400 py-3">
+                            Mantemos os 100 registros mais recentes
+                        <div class="flex items-center justify-center gap-x-2 text-xs mb-4">
+                            <span
+                                class="bg-teal-500 border-emerald-500 ring-2 ring-teal-500/40 inline-block w-2 h-2 rounded-full border"></span>
+                            Válido
+                            <span
+                                class="ml-4 bg-red-400 border-red-500 ring-2 ring-red-400/40 inline-block w-2 h-2 rounded-full border"></span>
+                            Inválido
+                        </div>
                         </p>
                     </div>
                 </div>

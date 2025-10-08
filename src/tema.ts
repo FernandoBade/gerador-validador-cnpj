@@ -3,16 +3,6 @@ const CHAVE_ARMAZENAMENTO_ANTERIOR = "theme" as const;
 
 type TemaPreferido = "light" | "dark";
 
-/**
- * @summary Identifica e aplica a preferência de tema inicial
- *
- * Identifica a preferência de tema (armazenada ou antiga) e aplica o tema
- * inicial com base nessa preferência ou na preferência do sistema.
- *
- * - Lê a chave atual e a chave anterior de localStorage.
- * - Migra o valor da chave antiga quando necessário.
- * - Aplica a classe `dark` ao <html> quando o tema a aplicar for escuro.
- */
 export function identificaPreferenciaEAplicaTema(): void {
     const chaveTemaAtual = "tema-cnpj-2026";
     const chaveTemaAnterior = "theme";
@@ -40,25 +30,9 @@ export function identificaPreferenciaEAplicaTema(): void {
     }
 }
 
-identificaPreferenciaEAplicaTema();
-
-/**
- * @summary Type guard para tema válido
- *
- * Guarda se o valor informado é um tema válido (type guard).
- * @param valor Valor possivelmente armazenado em localStorage
- * @returns true quando o valor é "light" ou "dark"
- */
 const ehTemaValido = (valor: string | null): valor is TemaPreferido =>
     valor === "light" || valor === "dark";
 
-/**
- * @summary Retorna preferência de tema armazenada (com migração)
- *
- * Retorna a preferência de tema armazenada pelo usuário, se houver.
- * Caso exista uma chave legada (`theme`), faz migração para a chave atual.
- * @returns "light" | "dark" quando presente, senão null
- */
 export const obterPreferenciaArmazenada = (): TemaPreferido | null => {
     const temaAtual = localStorage.getItem(CHAVE_ARMAZENAMENTO);
     if (ehTemaValido(temaAtual)) {
@@ -75,25 +49,11 @@ export const obterPreferenciaArmazenada = (): TemaPreferido | null => {
     return null;
 };
 
-/**
- * @summary Indica se há preferência de tema armazenada
- *
- * Indica se há uma preferência de tema armazenada atualmente.
- * @returns true quando a chave de armazenamento contém um tema válido
- */
 const possuiPreferenciaArmazenada = (): boolean => {
     const temaAtual = localStorage.getItem(CHAVE_ARMAZENAMENTO);
     return ehTemaValido(temaAtual);
 };
 
-/**
- * @summary Aplica e (opcionalmente) persiste o tema
- *
- * Aplica o tema informado no `document.documentElement` e opcionalmente
- * persiste essa escolha em localStorage.
- * @param tema Tema a aplicar ("light" | "dark")
- * @param persistir Se true, grava a preferência em localStorage
- */
 const aplicarTema = (tema: TemaPreferido, persistir: boolean): void => {
     if (tema === "dark") {
         document.documentElement.classList.add("dark");
@@ -106,15 +66,6 @@ const aplicarTema = (tema: TemaPreferido, persistir: boolean): void => {
     }
 };
 
-/**
- * @summary Inicializa o controle de alternância de tema
- *
- * Inicializa o controle de alternância de tema no DOM.
- * - Lê a preferência armazenada para decidir o estado inicial do checkbox.
- * - Escuta mudanças do checkbox para aplicar e persistir o novo tema.
- * - Observa alterações na preferência do sistema e as aplica caso não haja
- *   preferência do usuário armazenada.
- */
 const inicializarControleTema = (): void => {
     const controleTema = document.getElementById("alternar-tema") as HTMLInputElement | null;
     if (!controleTema) {

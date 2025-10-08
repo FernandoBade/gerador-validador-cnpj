@@ -422,7 +422,7 @@ class GeradorCnpj {
         this.historico.itens.forEach((puro) => {
             const texto = controleMascara?.checked ? this.aplicarMascara(puro) : puro;
             const item = document.createElement("li");
-            item.className = "flex items-center justify-between";
+            item.className = "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-200 dark:ring-slate-900/50 dark:shadow-md px-3 py-2 hover:ring-slate-300 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
 
             const rotulo = document.createElement("span");
             rotulo.className = "ml-1 text-sm text-slate-600 font-semibold dark:text-zinc-50 break-words";
@@ -433,7 +433,7 @@ class GeradorCnpj {
                 "ml-1 inline-flex items-center justify-center rounded bg-transparent text-violet-500 transition-all dark:text-violet-500 dark:hover:text-violet-600 ease-in-out hover:text-violet-600 hover:scale-110 px-2 py-1 text-xs";
             botao.setAttribute("title", "Copiar esse CNPJ");
             botao.innerHTML = `
-                <svg class="w-7 h-7" aria-hidden="true" fill="none" viewBox="0 0 24 24">
+                <svg class="w-6 h-6" aria-hidden="true" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
                         d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z" />
                 </svg>
@@ -511,13 +511,11 @@ class GeradorCnpj {
         contador.className =
             "ml-2 inline-flex items-center justify-center rounded-lg p-2 bg-white text-violet-500 text-xs font-bold w-6 h-6";
 
-        // Adiciona o texto e, se houver, o contador
         botaoCopiarTodos.appendChild(textoBotao);
         if (total > 0) {
             botaoCopiarTodos.appendChild(contador);
         }
 
-        // Estado desabilitado quando não há itens
         botaoCopiarTodos.disabled = total === 0;
         botaoCopiarTodos.classList.toggle("cursor-nao-permitido", total === 0);
         botaoCopiarTodos.classList.toggle("opacity-60", total === 0);

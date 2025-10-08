@@ -20,6 +20,7 @@ export const MAPA_CLASSES_TIPO_AVISO = {
     [TipoAviso.Sucesso]: [ClasseAviso.FundoSucesso, ClasseAviso.TextoBranco],
     [TipoAviso.Info]: [ClasseAviso.FundoInfo, ClasseAviso.TextoBranco],
     [TipoAviso.Erro]: [ClasseAviso.FundoErro, ClasseAviso.TextoBranco],
+    [TipoAviso.InfoAlternativo]: [ClasseAviso.FundoInfoAlternativo, ClasseAviso.TextoBranco],
 };
 /**
  * @summary Classes aplicadas ao iniciar o aviso em estado oculto.
