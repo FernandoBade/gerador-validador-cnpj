@@ -67,7 +67,7 @@
             </div>
 
             <div class="flex flex-col md:flex-row gap-6 items-stretch">
-                <div
+                <div id="card-validacao"
                     class="w-full max-w-lg bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl p-6 flex flex-col self-stretch transition-colors duration-500">
                     <div class="flex flex-col gap-1 text-center">
                         <h1 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
@@ -82,10 +82,10 @@
                         <div class="flex flex-wrap items-stretch mt-6 gap-1">
                             <div class="relative flex-1 min-w-[240px]">
                                 <input id="campo-unico" type="text" autocomplete="off"
-                                    class="w-full rounded-lg text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 pr-12 py-2 text-lg font-semibold shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300"
+                                    class="w-full rounded-lg align-middle text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 pr-12 py-2 text-lg font-semibold shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300"
                                     placeholder="Informe o CNPJ" />
                                 <textarea id="campo-massa"
-                                    class="hidden w-full min-h-[140px] rounded-lg text-slate-600 dark:text-zinc-50 text-left border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 py-3 text-sm font-medium shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300 resize-y"
+                                    class="hidden w-full min-h-[180px] rounded-lg text-slate-600 dark:text-zinc-50 text-left border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 py-3 text-sm font-medium shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300 resize-y"
                                     placeholder="Cole até 100 CNPJs separados por vírgula"></textarea>
                                 <button id="botao-colar" type="button" title="Colar da área de transferência"
                                     class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded text-violet-500 dark:text-violet-500 transition-all ease-in-out hover:text-violet-500 dark:hover:text-violet-500 hover:scale-110 px-2 py-1"
@@ -110,7 +110,7 @@
                                     <div
                                         class="relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
                                     </div>
-                                    <span class="transition-colors duration-300 peer-checked:font-semibold">Exibir com máscara</span>
+                                    <span class="transition-colors duration-300 peer-checked:font-semibold">Aplicar máscara</span>
                                 </label>
 
                                 <label for="toggle-massa"
@@ -137,8 +137,9 @@
                     </div>
                 </div>
 
-                <div id="painel-validacao" class="w-full md:w-80 flex flex-col self-stretch min-h-0 h-[380px]">
-                    <div
+                <div id="painel-validacao"
+                    class="w-full md:w-80 flex flex-col self-stretch min-h-0 h-auto md:h-[380px] transition-all duration-300">
+                    <div id="card-historico"
                         class="bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl dark:shadow-2xl py-2 px-4 flex-1 flex flex-col h-full min-h-0 max-h-[420px] overflow-hidden transition-colors duration-500">
                         <h2 class="font-bold text-lg text-center text-slate-800 dark:text-zinc-50 pt-7 pb-4">
                             Histórico de validações

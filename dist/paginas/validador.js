@@ -6,11 +6,12 @@ class ValidadorCnpj {
         this.elementos = elementos;
         this.historico = [];
         this.limiteHistorico = 100;
+        this.valorEntradaAtual = "";
         this.configurarEventos();
         this.alternarModoMassa(false);
     }
     configurarEventos() {
-        const { botaoValidarUnico, botaoValidarMassa, controleMascara, controleMassa, botaoColar, } = this.elementos;
+        const { botaoValidarUnico, botaoValidarMassa, controleMascara, controleMassa, botaoColar, campoUnico, } = this.elementos;
         botaoValidarUnico.addEventListener("click", () => {
             this.validarUnico();
         });
@@ -18,6 +19,7 @@ class ValidadorCnpj {
             this.validarEmMassa();
         });
         controleMascara.addEventListener("change", () => {
+            this.sincronizarCampoUnico();
             this.renderizarHistorico();
         });
         controleMassa.addEventListener("change", () => {
@@ -26,19 +28,29 @@ class ValidadorCnpj {
         botaoColar.addEventListener("click", async () => {
             await this.colarDoClipboard();
         });
+        campoUnico.addEventListener("input", () => {
+            this.tratarEntradaManual(campoUnico.value);
+        });
+        campoUnico.addEventListener("paste", (evento) => {
+            evento.preventDefault();
+            const texto = evento.clipboardData?.getData("text") ?? "";
+            this.tratarEntradaManual(texto);
+        });
     }
     alternarModoMassa(ativo) {
-        const { campoUnico, campoMassa, botaoValidarUnico, botaoValidarMassa, botaoColar, } = this.elementos;
+        const { campoUnico, campoMassa, botaoValidarUnico, botaoValidarMassa, botaoColar, cardPrincipal, painelValidacao, cardHistorico, } = this.elementos;
         campoUnico.classList.toggle("hidden", ativo);
         campoMassa.classList.toggle("hidden", !ativo);
         botaoValidarUnico.classList.toggle("hidden", ativo);
         botaoValidarMassa.classList.toggle("hidden", !ativo);
         botaoColar.classList.toggle("hidden", ativo);
+        this.ajustarAlturaCartoes(ativo, cardPrincipal, painelValidacao, cardHistorico);
         if (ativo) {
             campoMassa.value = "";
             campoMassa.focus();
         }
         else {
+            this.sincronizarCampoUnico();
             campoUnico.focus();
         }
     }
@@ -49,7 +61,7 @@ class ValidadorCnpj {
                 this.exibirAviso("Nenhum conteúdo disponível para colar", TipoAviso.Erro);
                 return;
             }
-            this.elementos.campoUnico.value = texto.trim();
+            this.tratarEntradaManual(texto);
             this.exibirAviso("Conteúdo colado", TipoAviso.Info);
         }
         catch {
@@ -57,7 +69,7 @@ class ValidadorCnpj {
         }
     }
     validarUnico() {
-        const valor = this.elementos.campoUnico.value.trim();
+        const valor = this.valorEntradaAtual.trim();
         if (!valor) {
             this.exibirAviso("Informe um CNPJ para validar", TipoAviso.Erro);
             return;
@@ -137,11 +149,70 @@ class ValidadorCnpj {
         });
         listaHistorico.scrollTop = 0;
     }
+    tratarEntradaManual(texto) {
+        const puro = this.normalizarEntrada(texto);
+        this.valorEntradaAtual = puro;
+        this.elementos.campoUnico.value = this.controleMascaraAtiva()
+            ? this.aplicarMascaraDinamica(puro)
+            : puro;
+    }
+    sincronizarCampoUnico() {
+        this.elementos.campoUnico.value = this.controleMascaraAtiva()
+            ? this.aplicarMascaraDinamica(this.valorEntradaAtual)
+            : this.valorEntradaAtual;
+    }
+    controleMascaraAtiva() {
+        return this.elementos.controleMascara.checked;
+    }
+    normalizarEntrada(texto) {
+        return texto
+            .toUpperCase()
+            .replace(/[^0-9A-Z]/g, "")
+            .slice(0, 14);
+    }
+    aplicarMascaraDinamica(puro) {
+        if (!puro) {
+            return "";
+        }
+        const partes = [
+            puro.slice(0, 2),
+            puro.slice(2, 5),
+            puro.slice(5, 8),
+            puro.slice(8, 12),
+            puro.slice(12, 14),
+        ];
+        let resultado = partes[0] ?? "";
+        if (partes[1]) {
+            resultado += `${resultado ? "." : ""}${partes[1]}`;
+        }
+        if (partes[2]) {
+            resultado += `.${partes[2]}`;
+        }
+        if (partes[3]) {
+            resultado += `/${partes[3]}`;
+        }
+        if (partes[4]) {
+            resultado += `-${partes[4]}`;
+        }
+        return resultado;
+    }
+    ajustarAlturaCartoes(ativo, cardPrincipal, painelValidacao, cardHistorico) {
+        if (ativo) {
+            cardPrincipal.style.minHeight = "520px";
+            painelValidacao.style.height = "520px";
+            cardHistorico.style.maxHeight = "600px";
+        }
+        else {
+            cardPrincipal.style.removeProperty("min-height");
+            painelValidacao.style.removeProperty("height");
+            cardHistorico.style.removeProperty("max-height");
+        }
+    }
     formatarParaExibicao(cnpj, aplicarMascara) {
         if (!aplicarMascara || cnpj.length !== 14) {
             return cnpj;
         }
-        return `${cnpj.slice(0, 2)}.${cnpj.slice(2, 5)}.${cnpj.slice(5, 8)}/${cnpj.slice(8, 12)}-${cnpj.slice(12)}`;
+        return this.aplicarMascaraDinamica(cnpj);
     }
     validarCnpj(entrada) {
         const normalizado = entrada.toUpperCase();
@@ -217,6 +288,9 @@ document.addEventListener("DOMContentLoaded", () => {
         listaHistorico: obterElementoObrigatorio("lista-historico-validacao"),
         areaAviso: obterElementoObrigatorio("toast"),
         botaoColar: obterElementoObrigatorio("botao-colar"),
+        cardPrincipal: obterElementoObrigatorio("card-validacao"),
+        painelValidacao: obterElementoObrigatorio("painel-validacao"),
+        cardHistorico: obterElementoObrigatorio("card-historico"),
     };
     void new ValidadorCnpj(elementos);
 });

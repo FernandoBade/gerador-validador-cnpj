@@ -21,6 +21,9 @@ interface ElementosValidador {
     listaHistorico: HTMLUListElement;
     areaAviso: HTMLDivElement;
     botaoColar: HTMLButtonElement;
+    cardPrincipal: HTMLDivElement;
+    painelValidacao: HTMLDivElement;
+    cardHistorico: HTMLDivElement;
 }
 
 interface ResultadoValidacao {
@@ -32,6 +35,7 @@ class ValidadorCnpj {
     private readonly historico: ResultadoValidacao[] = [];
     private readonly limiteHistorico = 100;
     private timeoutAviso?: number;
+    private valorEntradaAtual = "";
 
     public constructor(private readonly elementos: ElementosValidador) {
         this.configurarEventos();
@@ -45,6 +49,7 @@ class ValidadorCnpj {
             controleMascara,
             controleMassa,
             botaoColar,
+            campoUnico,
         } = this.elementos;
 
         botaoValidarUnico.addEventListener("click", () => {
@@ -56,6 +61,7 @@ class ValidadorCnpj {
         });
 
         controleMascara.addEventListener("change", () => {
+            this.sincronizarCampoUnico();
             this.renderizarHistorico();
         });
 
@@ -66,6 +72,16 @@ class ValidadorCnpj {
         botaoColar.addEventListener("click", async () => {
             await this.colarDoClipboard();
         });
+
+        campoUnico.addEventListener("input", () => {
+            this.tratarEntradaManual(campoUnico.value);
+        });
+
+        campoUnico.addEventListener("paste", (evento) => {
+            evento.preventDefault();
+            const texto = evento.clipboardData?.getData("text") ?? "";
+            this.tratarEntradaManual(texto);
+        });
     }
 
     private alternarModoMassa(ativo: boolean): void {
@@ -75,6 +91,9 @@ class ValidadorCnpj {
             botaoValidarUnico,
             botaoValidarMassa,
             botaoColar,
+            cardPrincipal,
+            painelValidacao,
+            cardHistorico,
         } = this.elementos;
 
         campoUnico.classList.toggle("hidden", ativo);
@@ -83,10 +102,13 @@ class ValidadorCnpj {
         botaoValidarMassa.classList.toggle("hidden", !ativo);
         botaoColar.classList.toggle("hidden", ativo);
 
+        this.ajustarAlturaCartoes(ativo, cardPrincipal, painelValidacao, cardHistorico);
+
         if (ativo) {
             campoMassa.value = "";
             campoMassa.focus();
         } else {
+            this.sincronizarCampoUnico();
             campoUnico.focus();
         }
     }
@@ -98,7 +120,7 @@ class ValidadorCnpj {
                 this.exibirAviso("Nenhum conteúdo disponível para colar", TipoAviso.Erro);
                 return;
             }
-            this.elementos.campoUnico.value = texto.trim();
+            this.tratarEntradaManual(texto);
             this.exibirAviso("Conteúdo colado", TipoAviso.Info);
         } catch {
             this.exibirAviso("Não foi possível acessar a área de transferência", TipoAviso.Erro);
@@ -106,7 +128,7 @@ class ValidadorCnpj {
     }
 
     private validarUnico(): void {
-        const valor = this.elementos.campoUnico.value.trim();
+        const valor = this.valorEntradaAtual.trim();
         if (!valor) {
             this.exibirAviso("Informe um CNPJ para validar", TipoAviso.Erro);
             return;
@@ -202,12 +224,88 @@ class ValidadorCnpj {
         listaHistorico.scrollTop = 0;
     }
 
+    private tratarEntradaManual(texto: string): void {
+        const puro = this.normalizarEntrada(texto);
+        this.valorEntradaAtual = puro;
+        this.elementos.campoUnico.value = this.controleMascaraAtiva()
+            ? this.aplicarMascaraDinamica(puro)
+            : puro;
+    }
+
+    private sincronizarCampoUnico(): void {
+        this.elementos.campoUnico.value = this.controleMascaraAtiva()
+            ? this.aplicarMascaraDinamica(this.valorEntradaAtual)
+            : this.valorEntradaAtual;
+    }
+
+    private controleMascaraAtiva(): boolean {
+        return this.elementos.controleMascara.checked;
+    }
+
+    private normalizarEntrada(texto: string): string {
+        return texto
+            .toUpperCase()
+            .replace(/[^0-9A-Z]/g, "")
+            .slice(0, 14);
+    }
+
+    private aplicarMascaraDinamica(puro: string): string {
+        if (!puro) {
+            return "";
+        }
+
+        const partes = [
+            puro.slice(0, 2),
+            puro.slice(2, 5),
+            puro.slice(5, 8),
+            puro.slice(8, 12),
+            puro.slice(12, 14),
+        ];
+
+        let resultado = partes[0] ?? "";
+
+        if (partes[1]) {
+            resultado += `${resultado ? "." : ""}${partes[1]}`;
+        }
+
+        if (partes[2]) {
+            resultado += `.${partes[2]}`;
+        }
+
+        if (partes[3]) {
+            resultado += `/${partes[3]}`;
+        }
+
+        if (partes[4]) {
+            resultado += `-${partes[4]}`;
+        }
+
+        return resultado;
+    }
+
+    private ajustarAlturaCartoes(
+        ativo: boolean,
+        cardPrincipal: HTMLDivElement,
+        painelValidacao: HTMLDivElement,
+        cardHistorico: HTMLDivElement,
+    ): void {
+        if (ativo) {
+            cardPrincipal.style.minHeight = "520px";
+            painelValidacao.style.height = "520px";
+            cardHistorico.style.maxHeight = "600px";
+        } else {
+            cardPrincipal.style.removeProperty("min-height");
+            painelValidacao.style.removeProperty("height");
+            cardHistorico.style.removeProperty("max-height");
+        }
+    }
+
     private formatarParaExibicao(cnpj: string, aplicarMascara: boolean): string {
         if (!aplicarMascara || cnpj.length !== 14) {
             return cnpj;
         }
 
-        return `${cnpj.slice(0, 2)}.${cnpj.slice(2, 5)}.${cnpj.slice(5, 8)}/${cnpj.slice(8, 12)}-${cnpj.slice(12)}`;
+        return this.aplicarMascaraDinamica(cnpj);
     }
 
     private validarCnpj(entrada: string): ResultadoValidacao {
@@ -303,6 +401,9 @@ document.addEventListener("DOMContentLoaded", () => {
         listaHistorico: obterElementoObrigatorio<HTMLUListElement>("lista-historico-validacao"),
         areaAviso: obterElementoObrigatorio<HTMLDivElement>("toast"),
         botaoColar: obterElementoObrigatorio<HTMLButtonElement>("botao-colar"),
+        cardPrincipal: obterElementoObrigatorio<HTMLDivElement>("card-validacao"),
+        painelValidacao: obterElementoObrigatorio<HTMLDivElement>("painel-validacao"),
+        cardHistorico: obterElementoObrigatorio<HTMLDivElement>("card-historico"),
     };
 
     void new ValidadorCnpj(elementos);
