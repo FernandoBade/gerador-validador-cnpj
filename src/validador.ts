@@ -2,14 +2,14 @@ import {
     ClasseAviso,
     IntervaloTemporizador,
     TipoAviso,
-} from "../src/enums.js";
+} from "./enums.js";
 import {
     CLASSES_AVISO_OCULTO,
     CLASSES_AVISO_VISIVEL,
     MAPA_CLASSES_TIPO_AVISO,
     PESOS_DIGITOS,
-} from "../src/constantes.js";
-import { htmlCookies, inicializarAvisoDeCookies } from "../src/cookies.js";
+} from "./constantes.js";
+import { htmlCookies, inicializarAvisoDeCookies } from "./cookies.js";
 
 interface ElementosValidador {
     campoUnico: HTMLInputElement;
@@ -21,9 +21,6 @@ interface ElementosValidador {
     listaHistorico: HTMLUListElement;
     areaAviso: HTMLDivElement;
     botaoColar: HTMLButtonElement;
-    cardPrincipal: HTMLDivElement;
-    painelValidacao: HTMLDivElement;
-    cardHistorico: HTMLDivElement;
 }
 
 interface ResultadoValidacao {
@@ -35,10 +32,12 @@ class ValidadorCnpj {
     private readonly historico: ResultadoValidacao[] = [];
     private readonly limiteHistorico = 100;
     private timeoutAviso?: number;
-    private valorEntradaAtual = "";
 
     public constructor(private readonly elementos: ElementosValidador) {
         this.configurarEventos();
+        this.configurarPlaceholderMascara();
+        this.configurarEntradaCnpj();
+        this.configurarEntradaCNPJMassa()
         this.alternarModoMassa(false);
     }
 
@@ -49,7 +48,6 @@ class ValidadorCnpj {
             controleMascara,
             controleMassa,
             botaoColar,
-            campoUnico,
         } = this.elementos;
 
         botaoValidarUnico.addEventListener("click", () => {
@@ -61,7 +59,6 @@ class ValidadorCnpj {
         });
 
         controleMascara.addEventListener("change", () => {
-            this.sincronizarCampoUnico();
             this.renderizarHistorico();
         });
 
@@ -72,16 +69,6 @@ class ValidadorCnpj {
         botaoColar.addEventListener("click", async () => {
             await this.colarDoClipboard();
         });
-
-        campoUnico.addEventListener("input", () => {
-            this.tratarEntradaManual(campoUnico.value);
-        });
-
-        campoUnico.addEventListener("paste", (evento) => {
-            evento.preventDefault();
-            const texto = evento.clipboardData?.getData("text") ?? "";
-            this.tratarEntradaManual(texto);
-        });
     }
 
     private alternarModoMassa(ativo: boolean): void {
@@ -91,9 +78,6 @@ class ValidadorCnpj {
             botaoValidarUnico,
             botaoValidarMassa,
             botaoColar,
-            cardPrincipal,
-            painelValidacao,
-            cardHistorico,
         } = this.elementos;
 
         campoUnico.classList.toggle("hidden", ativo);
@@ -102,13 +86,10 @@ class ValidadorCnpj {
         botaoValidarMassa.classList.toggle("hidden", !ativo);
         botaoColar.classList.toggle("hidden", ativo);
 
-        this.ajustarAlturaCartoes(ativo, cardPrincipal, painelValidacao, cardHistorico);
-
         if (ativo) {
             campoMassa.value = "";
             campoMassa.focus();
         } else {
-            this.sincronizarCampoUnico();
             campoUnico.focus();
         }
     }
@@ -120,7 +101,7 @@ class ValidadorCnpj {
                 this.exibirAviso("Nenhum conteúdo disponível para colar", TipoAviso.Erro);
                 return;
             }
-            this.tratarEntradaManual(texto);
+            this.elementos.campoUnico.value = texto.trim();
             this.exibirAviso("Conteúdo colado", TipoAviso.Info);
         } catch {
             this.exibirAviso("Não foi possível acessar a área de transferência", TipoAviso.Erro);
@@ -128,7 +109,7 @@ class ValidadorCnpj {
     }
 
     private validarUnico(): void {
-        const valor = this.valorEntradaAtual.trim();
+        const valor = this.elementos.campoUnico.value.trim();
         if (!valor) {
             this.exibirAviso("Informe um CNPJ para validar", TipoAviso.Erro);
             return;
@@ -153,9 +134,10 @@ class ValidadorCnpj {
         }
 
         const entradas = valor
-            .split(",")
+            .split(/[;,]/)
             .map((parte) => parte.trim())
             .filter((parte) => parte.length > 0);
+
 
         if (entradas.length === 0) {
             this.exibirAviso("Informe ao menos um CNPJ para validar", TipoAviso.Erro);
@@ -205,17 +187,25 @@ class ValidadorCnpj {
         this.historico.forEach((item) => {
             const elemento = document.createElement("li");
             elemento.className =
-                "flex items-center justify-between gap-3 rounded-xl bg-zinc-50/60 dark:bg-slate-900/60 px-3 py-2";
+                "flex items-center justify-between gap-3 rounded-xl bg-zinc-50/60 dark:bg-slate-900 px-3 py-2";
 
             const texto = document.createElement("span");
             texto.className = "text-sm font-semibold text-slate-600 dark:text-zinc-50 break-words";
             texto.textContent = this.formatarParaExibicao(item.puro, aplicarMascara);
 
             const status = document.createElement("span");
-            status.className = item.valido
-                ? "inline-flex items-center gap-2 rounded-full bg-emerald-500/90 px-3 py-1 text-xs font-semibold text-white"
-                : "inline-flex items-center gap-2 rounded-full bg-red-500/90 px-3 py-1 text-xs font-semibold text-white";
-            status.textContent = item.valido ? "✅ Válido" : "❌ Inválido";
+            status.className = "ml-1 inline-flex items-center justify-center rounded text-violet-500 transition-all dark:text-violet-500 dark:hover:text-violet-600 ease-in-out hover:text-violet-600 hover:scale-110 px-2 py-1 text-xs"
+            status.setAttribute("title", "Copiar esse CNPJ");
+            status.innerHTML = `
+                <span
+                    class="inline-block w-2 h-2 rounded-full border
+                        ${item.valido
+                                    ? 'bg-emerald-400 border-emerald-500 ring-2 ring-emerald-400/40'
+                                    : 'bg-red-400 border-red-500 ring-2 ring-red-400/40'}
+                        shadow-sm shadow-current transition-all duration-300"
+                    title="${item.valido ? 'CNPJ válido' : 'CNPJ inválido'}">
+                </span>
+                `;
 
             elemento.append(texto, status);
             listaHistorico.appendChild(elemento);
@@ -224,88 +214,12 @@ class ValidadorCnpj {
         listaHistorico.scrollTop = 0;
     }
 
-    private tratarEntradaManual(texto: string): void {
-        const puro = this.normalizarEntrada(texto);
-        this.valorEntradaAtual = puro;
-        this.elementos.campoUnico.value = this.controleMascaraAtiva()
-            ? this.aplicarMascaraDinamica(puro)
-            : puro;
-    }
-
-    private sincronizarCampoUnico(): void {
-        this.elementos.campoUnico.value = this.controleMascaraAtiva()
-            ? this.aplicarMascaraDinamica(this.valorEntradaAtual)
-            : this.valorEntradaAtual;
-    }
-
-    private controleMascaraAtiva(): boolean {
-        return this.elementos.controleMascara.checked;
-    }
-
-    private normalizarEntrada(texto: string): string {
-        return texto
-            .toUpperCase()
-            .replace(/[^0-9A-Z]/g, "")
-            .slice(0, 14);
-    }
-
-    private aplicarMascaraDinamica(puro: string): string {
-        if (!puro) {
-            return "";
-        }
-
-        const partes = [
-            puro.slice(0, 2),
-            puro.slice(2, 5),
-            puro.slice(5, 8),
-            puro.slice(8, 12),
-            puro.slice(12, 14),
-        ];
-
-        let resultado = partes[0] ?? "";
-
-        if (partes[1]) {
-            resultado += `${resultado ? "." : ""}${partes[1]}`;
-        }
-
-        if (partes[2]) {
-            resultado += `.${partes[2]}`;
-        }
-
-        if (partes[3]) {
-            resultado += `/${partes[3]}`;
-        }
-
-        if (partes[4]) {
-            resultado += `-${partes[4]}`;
-        }
-
-        return resultado;
-    }
-
-    private ajustarAlturaCartoes(
-        ativo: boolean,
-        cardPrincipal: HTMLDivElement,
-        painelValidacao: HTMLDivElement,
-        cardHistorico: HTMLDivElement,
-    ): void {
-        if (ativo) {
-            cardPrincipal.style.minHeight = "520px";
-            painelValidacao.style.height = "520px";
-            cardHistorico.style.maxHeight = "600px";
-        } else {
-            cardPrincipal.style.removeProperty("min-height");
-            painelValidacao.style.removeProperty("height");
-            cardHistorico.style.removeProperty("max-height");
-        }
-    }
-
     private formatarParaExibicao(cnpj: string, aplicarMascara: boolean): string {
         if (!aplicarMascara || cnpj.length !== 14) {
             return cnpj;
         }
 
-        return this.aplicarMascaraDinamica(cnpj);
+        return `${cnpj.slice(0, 2)}.${cnpj.slice(2, 5)}.${cnpj.slice(5, 8)}/${cnpj.slice(8, 12)}-${cnpj.slice(12)}`;
     }
 
     private validarCnpj(entrada: string): ResultadoValidacao {
@@ -342,6 +256,140 @@ class ValidadorCnpj {
         return { puro, valido };
     }
 
+    private configurarEntradaCnpj(): void {
+        const { campoUnico, controleMascara } = this.elementos;
+
+        const aplicarMascara = (valor: string): string => {
+            const puro = valor.replace(/[^0-9A-Z]/gi, "").toUpperCase();
+            if (puro.length <= 2) return puro;
+            if (puro.length <= 5) return `${puro.slice(0, 2)}.${puro.slice(2)}`;
+            if (puro.length <= 8) return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5)}`;
+            if (puro.length <= 12)
+                return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8)}`;
+            return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8, 12)}-${puro.slice(12, 14)}`;
+        };
+
+        const removerMascara = (valor: string): string => {
+            return valor.replace(/[^0-9A-Z]/gi, "").toUpperCase();
+        };
+
+        const atualizarEntrada = (): void => {
+            const bruto = campoUnico.value;
+            const formatado = controleMascara.checked
+                ? aplicarMascara(bruto)
+                : removerMascara(bruto);
+            campoUnico.value = formatado;
+        };
+
+        campoUnico.addEventListener("input", atualizarEntrada);
+        campoUnico.addEventListener("paste", (e) => {
+            e.preventDefault();
+            const texto = (e.clipboardData?.getData("text") ?? "").trim();
+            campoUnico.value = texto;
+            atualizarEntrada();
+        });
+
+        controleMascara.addEventListener("change", atualizarEntrada);
+    }
+
+    // evita loops de reentrada quando reatribuímos .value
+    private formatando = { unico: false, massa: false };
+
+    private normalizarPuro(valor: string): string {
+        // remove tudo que não é [0-9A-Z] e sobe pra maiúscula
+        return valor.replace(/[^0-9A-Z]/gi, "").toUpperCase();
+    }
+
+    // máscara progressiva: idem do input, mas usando sempre o "puro"
+    private aplicarMascaraProgressiva(puro: string): string {
+        if (puro.length <= 2) return puro;
+        if (puro.length <= 5) return `${puro.slice(0, 2)}.${puro.slice(2)}`;
+        if (puro.length <= 8) return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5)}`;
+        if (puro.length <= 12) return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8)}`;
+        return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8, 12)}-${puro.slice(12, 14)}`;
+    }
+
+    // formata um valor qualquer (digitado ou colado) conforme o switch
+    private formatarSegundoToggle(valor: string, aplicarMascara: boolean): string {
+        const puro = this.normalizarPuro(valor);
+        return aplicarMascara ? this.aplicarMascaraProgressiva(puro) : puro;
+    }
+
+    private configurarEntradaCNPJMassa(): void {
+        const { campoMassa, controleMascara } = this.elementos;
+        const LIMITE = 100;
+
+        const formatarLista = (texto: string, manterSeparadorFinal: boolean): string => {
+            // normaliza os separadores para vírgula, mas mantemos se há um no final
+            const partesBrutas = texto.split(/[;,]/);
+            const formatadas: string[] = [];
+            const vistos = new Set<string>();
+
+            for (const parte of partesBrutas) {
+                const p = parte.trim();
+                if (!p) continue;
+
+                const f = this.formatarSegundoToggle(p, controleMascara.checked);
+                // usamos o "puro" como chave de unicidade
+                const chave = this.normalizarPuro(p);
+                if (chave && !vistos.has(chave)) {
+                    vistos.add(chave);
+                    formatadas.push(f);
+                    if (formatadas.length >= LIMITE) break;
+                }
+            }
+
+            let saida = formatadas.join(", ");
+            if (manterSeparadorFinal && formatadas.length < LIMITE) {
+                // deixa pronto para o próximo CNPJ
+                if (saida.length > 0) saida += ", ";
+            } else {
+                // remove vírgulas sobrando no fim
+                saida = saida.replace(/[,\s]+$/, "");
+            }
+            return saida;
+        };
+
+        const reformatar = (textoOrig: string): void => {
+            if (this.formatando.massa) return;
+            this.formatando.massa = true;
+
+            const temDelimitadorFinal = /[;,]\s*$/.test(textoOrig) || /\n\s*$/.test(textoOrig);
+            const novo = formatarLista(textoOrig, temDelimitadorFinal);
+            if (novo.length > 0 && novo !== campoMassa.value) {
+                campoMassa.value = novo;
+            } else if (novo.length === 0 && campoMassa.value !== "") {
+                campoMassa.value = "";
+            }
+
+            // corta excedente e avisa (una vez por evento)
+            const total = novo.split(",").map(s => s.trim()).filter(Boolean).length;
+            if (total >= LIMITE && /[;,]|\n/.test(textoOrig)) {
+                this.exibirAviso(`Limite de ${LIMITE} CNPJs atingido. Os extras foram ignorados.`, TipoAviso.Info);
+            }
+
+            this.formatando.massa = false;
+        };
+
+        // Digitação normal: não mexe a cada caractere, só quando o usuário
+        // termina um item (vírgula, ponto e vírgula ou Enter)
+        campoMassa.addEventListener("input", () => {
+            const v = campoMassa.value;
+            const terminouItem = /[;,]|\n/.test(v.slice(-1));
+            if (terminouItem) reformatar(v);
+        });
+
+        // Colagem: formata tudo de uma vez
+        campoMassa.addEventListener("paste", (e) => {
+            e.preventDefault();
+            const texto = (e.clipboardData?.getData("text") ?? "").trim();
+            reformatar(texto);
+        });
+
+        // Alternar máscara: reprocessa o campo inteiro
+        controleMascara.addEventListener("change", () => reformatar(campoMassa.value));
+    }
+
     private converterCaractere(caractere: string): number {
         const codigo = caractere.charCodeAt(0);
         return codigo - 48;
@@ -375,6 +423,22 @@ class ValidadorCnpj {
             areaAviso.classList.add(...CLASSES_AVISO_OCULTO);
         }, IntervaloTemporizador.Aviso);
     }
+
+    private configurarPlaceholderMascara(): void {
+        const { controleMascara, campoUnico } = this.elementos;
+
+
+        campoUnico.placeholder = controleMascara.checked
+            ? "00.ABC.000/ABCD-00"
+            : "00ABC000ABCD00";
+
+        controleMascara.addEventListener("change", () => {
+            campoUnico.placeholder = controleMascara.checked
+                ? "00.ABC.000/ABCD-00"
+                : "00ABC000ABCD00";
+        });
+    }
+
 }
 
 function obterElementoObrigatorio<T extends HTMLElement>(id: string): T {
@@ -401,9 +465,6 @@ document.addEventListener("DOMContentLoaded", () => {
         listaHistorico: obterElementoObrigatorio<HTMLUListElement>("lista-historico-validacao"),
         areaAviso: obterElementoObrigatorio<HTMLDivElement>("toast"),
         botaoColar: obterElementoObrigatorio<HTMLButtonElement>("botao-colar"),
-        cardPrincipal: obterElementoObrigatorio<HTMLDivElement>("card-validacao"),
-        painelValidacao: obterElementoObrigatorio<HTMLDivElement>("painel-validacao"),
-        cardHistorico: obterElementoObrigatorio<HTMLDivElement>("card-historico"),
     };
 
     void new ValidadorCnpj(elementos);

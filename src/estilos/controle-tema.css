@@ -72,3 +72,20 @@
   transform: translateY(100%);
 }
 
+#campo-unico {
+  text-align: left;
+  text-align-last: center;
+}
+
+#campo-unico::placeholder {
+  transition: opacity 0.2s ease;
+}
+
+#campo-massa {
+  text-align: left;
+  text-align-last: left;
+}
+
+#campo-massa::placeholder {
+  transition: opacity 0.2s ease;
+}

@@ -7,8 +7,7 @@
 
     <title>Validador de CNPJ Alfanumérico | Novo padrão 2026</title>
     <meta name="description"
-        content="Valide CNPJs alfanuméricos individuais ou em massa, com suporte a máscara e histórico de resultados."
-    />
+        content="Valide CNPJs alfanuméricos individuais ou em massa, com suporte a máscara e histórico de resultados." />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="pt-BR" />
 
@@ -35,7 +34,8 @@
             <div class="flex justify-end">
                 <label for="alternar-tema"
                     class="controle-tema inline-flex items-center gap-3 rounded-2xl bg-zinc-50 dark:bg-slate-800 px-4 py-2 shadow-md backdrop-blur">
-                    <span class="flex items-center gap-1 text-sm font-medium text-slate-800 dark:text-zinc-50">Tema</span>
+                    <span
+                        class="flex items-center gap-1 text-sm font-medium text-slate-800 dark:text-zinc-50">Tema</span>
                     <input id="alternar-tema" type="checkbox" class="sr-only" />
                     <div
                         class="trilha cursor-pointer relative flex h-8 w-16 items-center shadow-inner dark:shadow-inner dark:shadow-slate-900 rounded-full dark:bg-slate-800 px-1 transition-colors duration-300">
@@ -73,33 +73,32 @@
                         <h1 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
                             Validador de CNPJ Alfanumérico
                         </h1>
-                        <p class="text-sm text-slate-500 dark:text-slate-400">
-                            Verifique combinações individuais ou lote com o mesmo visual do gerador.
-                        </p>
+                        <h3 class="text-lg font-bold text-slate-600 dark:text-zinc-50 mb-8">
+                            Novo padrão 2026
+                        </h3>
                     </div>
 
-                    <div class="flex flex-col gap-6 max-w-lg mx-auto w-full">
-                        <div class="flex flex-wrap items-stretch mt-6 gap-1">
+                    <div class="flex flex-col gap-6 max-w-lg mx-auto">
+                        <div class="flex flex-wrap align-middle items-stretch mt-4 gap-1">
                             <div class="relative flex-1 min-w-[240px]">
                                 <input id="campo-unico" type="text" autocomplete="off"
-                                    class="w-full rounded-lg align-middle text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 pr-12 py-2 text-lg font-semibold shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300"
-                                    placeholder="Informe o CNPJ" />
+                                    class="w-full rounded-lg align-middle text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 pr-12 py-2 text-lg font-semibold shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300 placeholder:text-slate-300 dark:placeholder:text-slate-700"
+                                    placeholder="00.ABC.000/ABCD-00" />
                                 <textarea id="campo-massa"
-                                    class="hidden w-full min-h-[180px] rounded-lg text-slate-600 dark:text-zinc-50 text-left border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 py-3 text-sm font-medium shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300 resize-y"
-                                    placeholder="Cole até 100 CNPJs separados por vírgula"></textarea>
-                                <button id="botao-colar" type="button" title="Colar da área de transferência"
-                                    class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded text-violet-500 dark:text-violet-500 transition-all ease-in-out hover:text-violet-500 dark:hover:text-violet-500 hover:scale-110 px-2 py-1"
-                                    aria-label="Colar conteúdo">
-                                    <svg class="w-8 h-8" aria-hidden="true" fill="none" viewBox="0 0 24 24">
+                                    class="hidden w-full min-h-[120px] rounded-lg text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 py-2 text-md font-semibold shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300 resize-y placeholder:text-slate-300 dark:placeholder:text-slate-700 placeholder:font-semibold placeholder"
+                                    placeholder="00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00"></textarea>
+                                <button id="botao-colar" type="button" title="Colar CNPJ"
+                                    class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded text-violet-500 dark:text-violet-500 transition-all ease-in-out hover:text-violet-600 dark:hover:text-violet-600 hover:scale-110 px-2 py-1 text-xs duration-300"
+                                    aria-label="Copiar CNPJ alfanumérico">
+                                    <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="1.5"
-                                            d="M8 3h8m-6 3h4m-6 0a2 2 0 1 1-2-2m2 2a2 2 0 1 0 2-2m-2 2v.667c0 .934 0 1.4.109 1.756a2 2 0 0 0 1.401 1.401C11.866 10 12.333 10 13.266 10H15.6c.56 0 .84 0 1.054.109.19.098.343.252.44.441.109.214.109.494.109 1.054V19a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-8.396c0-.56 0-.84.109-1.054.097-.19.252-.343.44-.44C6.763 9 7.043 9 7.604 9H8" />
+                                            d="M9 20H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h2.429M7 8h3M8 8V4h4v2m4 0V5h-4m3 4v3a1 1 0 0 1-1 1h-3m9-3v9a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-6.397a1 1 0 0 1 .27-.683l2.434-2.603a1 1 0 0 1 .73-.317H19a1 1 0 0 1 1 1Z" />
                                     </svg>
                                 </button>
                             </div>
-                            <p class="w-full text-xs text-slate-500 dark:text-slate-400 text-center">
-                                Aceita entradas com ou sem máscara. A validação usa o cálculo oficial do SERPRO.
-                            </p>
+
                         </div>
 
                         <div class="flex flex-col items-center gap-5 mt-2 text-sm text-slate-600 dark:text-slate-500">
@@ -110,7 +109,8 @@
                                     <div
                                         class="relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
                                     </div>
-                                    <span class="transition-colors duration-300 peer-checked:font-semibold">Aplicar máscara</span>
+                                    <span class="transition-colors duration-300 peer-checked:font-semibold">Aplicar
+                                        máscara</span>
                                 </label>
 
                                 <label for="toggle-massa"
@@ -119,17 +119,18 @@
                                     <div
                                         class="relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
                                     </div>
-                                    <span class="transition-colors duration-300 peer-checked:font-semibold">Validação em massa</span>
+                                    <span class="transition-colors duration-300 peer-checked:font-semibold">Validação em
+                                        massa</span>
                                 </label>
                             </div>
 
-                            <div class="flex w-[340px] mt-[12px] gap-4">
+                            <div class="flex w-auto mt-6 gap-4">
                                 <button id="botao-validar" type="button"
-                                    class="flex-1 inline-flex items-center justify-center rounded-lg bg-transparent border border-violet-500 px-1 py-2 text-base font-semibold text-violet-500 shadow-sm transition-all ease-in-out duration-300 dark:text-violet-300 dark:border-violet-400 hover:border-violet-600 hover:text-violet-500 hover:shadow-md dark:hover:shadow-md dark:hover:border-violet-500 dark:hover:text-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 active:scale-95">
+                                    class="flex-1 w-auto inline-flex items-center justify-center rounded-lg bg-transparent border border-violet-500 px-8 py-2 text-base font-semibold text-violet-500 shadow-sm transition-all ease-in-out duration-300 dark:text-violet-300 dark:border-violet-400 hover:border-violet-600 hover:text-violet-500 hover:shadow-md dark:hover:shadow-md dark:hover:border-violet-500 dark:hover:text-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500 dark:focus:ring-violet-500 active:scale-95">
                                     Validar CNPJ
                                 </button>
                                 <button id="botao-validar-massa" type="button"
-                                    class="hidden flex-1 inline-flex items-center justify-center rounded-lg bg-violet-500 dark:bg-violet-500 px-1 py-2 text-base font-semibold text-zinc-50 shadow-sm transition-all ease-in-out duration-300 hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none hover:shadow-md dark:hover:shadow-md focus:ring-2 focus:ring-slate-300 dark:focus:ring-violet-500 active:scale-95">
+                                    class="mb-4 hidden flex-1 inline-flex items-center justify-center rounded-lg bg-violet-500 dark:bg-violet-500 px-8 py-2 text-base font-semibold text-zinc-50 shadow-sm transition-all ease-in-out duration-300 hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none hover:shadow-md dark:hover:shadow-md focus:ring-2 focus:ring-slate-300 dark:focus:ring-violet-500 active:scale-95">
                                     Validar CNPJs em Massa
                                 </button>
                             </div>
@@ -223,11 +224,11 @@
     </footer>
 
     <div id="toast"
-        class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out opacity-0 translate-y-5 pointer-events-none">
+        class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none">
     </div>
 
     <script type="module" src="../dist/src/tema.js"></script>
-    <script type="module" src="../dist/paginas/validador.js"></script>
+    <script type="module" src="../dist/src/validador.js"></script>
 </body>
 
 </html>

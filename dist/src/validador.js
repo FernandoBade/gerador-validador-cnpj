@@ -1,17 +1,21 @@
-import { ClasseAviso, IntervaloTemporizador, TipoAviso, } from "../src/enums.js";
-import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, PESOS_DIGITOS, } from "../src/constantes.js";
-import { htmlCookies, inicializarAvisoDeCookies } from "../src/cookies.js";
+import { ClasseAviso, IntervaloTemporizador, TipoAviso, } from "./enums.js";
+import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, PESOS_DIGITOS, } from "./constantes.js";
+import { htmlCookies, inicializarAvisoDeCookies } from "./cookies.js";
 class ValidadorCnpj {
     constructor(elementos) {
         this.elementos = elementos;
         this.historico = [];
         this.limiteHistorico = 100;
-        this.valorEntradaAtual = "";
+        // evita loops de reentrada quando reatribuímos .value
+        this.formatando = { unico: false, massa: false };
         this.configurarEventos();
+        this.configurarPlaceholderMascara();
+        this.configurarEntradaCnpj();
+        this.configurarEntradaCNPJMassa();
         this.alternarModoMassa(false);
     }
     configurarEventos() {
-        const { botaoValidarUnico, botaoValidarMassa, controleMascara, controleMassa, botaoColar, campoUnico, } = this.elementos;
+        const { botaoValidarUnico, botaoValidarMassa, controleMascara, controleMassa, botaoColar, } = this.elementos;
         botaoValidarUnico.addEventListener("click", () => {
             this.validarUnico();
         });
@@ -19,7 +23,6 @@ class ValidadorCnpj {
             this.validarEmMassa();
         });
         controleMascara.addEventListener("change", () => {
-            this.sincronizarCampoUnico();
             this.renderizarHistorico();
         });
         controleMassa.addEventListener("change", () => {
@@ -28,29 +31,19 @@ class ValidadorCnpj {
         botaoColar.addEventListener("click", async () => {
             await this.colarDoClipboard();
         });
-        campoUnico.addEventListener("input", () => {
-            this.tratarEntradaManual(campoUnico.value);
-        });
-        campoUnico.addEventListener("paste", (evento) => {
-            evento.preventDefault();
-            const texto = evento.clipboardData?.getData("text") ?? "";
-            this.tratarEntradaManual(texto);
-        });
     }
     alternarModoMassa(ativo) {
-        const { campoUnico, campoMassa, botaoValidarUnico, botaoValidarMassa, botaoColar, cardPrincipal, painelValidacao, cardHistorico, } = this.elementos;
+        const { campoUnico, campoMassa, botaoValidarUnico, botaoValidarMassa, botaoColar, } = this.elementos;
         campoUnico.classList.toggle("hidden", ativo);
         campoMassa.classList.toggle("hidden", !ativo);
         botaoValidarUnico.classList.toggle("hidden", ativo);
         botaoValidarMassa.classList.toggle("hidden", !ativo);
         botaoColar.classList.toggle("hidden", ativo);
-        this.ajustarAlturaCartoes(ativo, cardPrincipal, painelValidacao, cardHistorico);
         if (ativo) {
             campoMassa.value = "";
             campoMassa.focus();
         }
         else {
-            this.sincronizarCampoUnico();
             campoUnico.focus();
         }
     }
@@ -61,7 +54,7 @@ class ValidadorCnpj {
                 this.exibirAviso("Nenhum conteúdo disponível para colar", TipoAviso.Erro);
                 return;
             }
-            this.tratarEntradaManual(texto);
+            this.elementos.campoUnico.value = texto.trim();
             this.exibirAviso("Conteúdo colado", TipoAviso.Info);
         }
         catch {
@@ -69,7 +62,7 @@ class ValidadorCnpj {
         }
     }
     validarUnico() {
-        const valor = this.valorEntradaAtual.trim();
+        const valor = this.elementos.campoUnico.value.trim();
         if (!valor) {
             this.exibirAviso("Informe um CNPJ para validar", TipoAviso.Erro);
             return;
@@ -91,7 +84,7 @@ class ValidadorCnpj {
             return;
         }
         const entradas = valor
-            .split(",")
+            .split(/[;,]/)
             .map((parte) => parte.trim())
             .filter((parte) => parte.length > 0);
         if (entradas.length === 0) {
@@ -135,84 +128,33 @@ class ValidadorCnpj {
         this.historico.forEach((item) => {
             const elemento = document.createElement("li");
             elemento.className =
-                "flex items-center justify-between gap-3 rounded-xl bg-zinc-50/60 dark:bg-slate-900/60 px-3 py-2";
+                "flex items-center justify-between gap-3 rounded-xl bg-zinc-50/60 dark:bg-slate-900 px-3 py-2";
             const texto = document.createElement("span");
             texto.className = "text-sm font-semibold text-slate-600 dark:text-zinc-50 break-words";
             texto.textContent = this.formatarParaExibicao(item.puro, aplicarMascara);
             const status = document.createElement("span");
-            status.className = item.valido
-                ? "inline-flex items-center gap-2 rounded-full bg-emerald-500/90 px-3 py-1 text-xs font-semibold text-white"
-                : "inline-flex items-center gap-2 rounded-full bg-red-500/90 px-3 py-1 text-xs font-semibold text-white";
-            status.textContent = item.valido ? "✅ Válido" : "❌ Inválido";
+            status.className = "ml-1 inline-flex items-center justify-center rounded text-violet-500 transition-all dark:text-violet-500 dark:hover:text-violet-600 ease-in-out hover:text-violet-600 hover:scale-110 px-2 py-1 text-xs";
+            status.setAttribute("title", "Copiar esse CNPJ");
+            status.innerHTML = `
+                <span
+                    class="inline-block w-2 h-2 rounded-full border
+                        ${item.valido
+                ? 'bg-emerald-400 border-emerald-500 ring-2 ring-emerald-400/40'
+                : 'bg-red-400 border-red-500 ring-2 ring-red-400/40'}
+                        shadow-sm shadow-current transition-all duration-300"
+                    title="${item.valido ? 'CNPJ válido' : 'CNPJ inválido'}">
+                </span>
+                `;
             elemento.append(texto, status);
             listaHistorico.appendChild(elemento);
         });
         listaHistorico.scrollTop = 0;
     }
-    tratarEntradaManual(texto) {
-        const puro = this.normalizarEntrada(texto);
-        this.valorEntradaAtual = puro;
-        this.elementos.campoUnico.value = this.controleMascaraAtiva()
-            ? this.aplicarMascaraDinamica(puro)
-            : puro;
-    }
-    sincronizarCampoUnico() {
-        this.elementos.campoUnico.value = this.controleMascaraAtiva()
-            ? this.aplicarMascaraDinamica(this.valorEntradaAtual)
-            : this.valorEntradaAtual;
-    }
-    controleMascaraAtiva() {
-        return this.elementos.controleMascara.checked;
-    }
-    normalizarEntrada(texto) {
-        return texto
-            .toUpperCase()
-            .replace(/[^0-9A-Z]/g, "")
-            .slice(0, 14);
-    }
-    aplicarMascaraDinamica(puro) {
-        if (!puro) {
-            return "";
-        }
-        const partes = [
-            puro.slice(0, 2),
-            puro.slice(2, 5),
-            puro.slice(5, 8),
-            puro.slice(8, 12),
-            puro.slice(12, 14),
-        ];
-        let resultado = partes[0] ?? "";
-        if (partes[1]) {
-            resultado += `${resultado ? "." : ""}${partes[1]}`;
-        }
-        if (partes[2]) {
-            resultado += `.${partes[2]}`;
-        }
-        if (partes[3]) {
-            resultado += `/${partes[3]}`;
-        }
-        if (partes[4]) {
-            resultado += `-${partes[4]}`;
-        }
-        return resultado;
-    }
-    ajustarAlturaCartoes(ativo, cardPrincipal, painelValidacao, cardHistorico) {
-        if (ativo) {
-            cardPrincipal.style.minHeight = "520px";
-            painelValidacao.style.height = "520px";
-            cardHistorico.style.maxHeight = "600px";
-        }
-        else {
-            cardPrincipal.style.removeProperty("min-height");
-            painelValidacao.style.removeProperty("height");
-            cardHistorico.style.removeProperty("max-height");
-        }
-    }
     formatarParaExibicao(cnpj, aplicarMascara) {
         if (!aplicarMascara || cnpj.length !== 14) {
             return cnpj;
         }
-        return this.aplicarMascaraDinamica(cnpj);
+        return `${cnpj.slice(0, 2)}.${cnpj.slice(2, 5)}.${cnpj.slice(5, 8)}/${cnpj.slice(8, 12)}-${cnpj.slice(12)}`;
     }
     validarCnpj(entrada) {
         const normalizado = entrada.toUpperCase();
@@ -238,6 +180,130 @@ class ValidadorCnpj {
         const valido = primeiroDV === Number.parseInt(dvInformado[0] ?? "", 10)
             && segundoDV === Number.parseInt(dvInformado[1] ?? "", 10);
         return { puro, valido };
+    }
+    configurarEntradaCnpj() {
+        const { campoUnico, controleMascara } = this.elementos;
+        const aplicarMascara = (valor) => {
+            const puro = valor.replace(/[^0-9A-Z]/gi, "").toUpperCase();
+            if (puro.length <= 2)
+                return puro;
+            if (puro.length <= 5)
+                return `${puro.slice(0, 2)}.${puro.slice(2)}`;
+            if (puro.length <= 8)
+                return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5)}`;
+            if (puro.length <= 12)
+                return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8)}`;
+            return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8, 12)}-${puro.slice(12, 14)}`;
+        };
+        const removerMascara = (valor) => {
+            return valor.replace(/[^0-9A-Z]/gi, "").toUpperCase();
+        };
+        const atualizarEntrada = () => {
+            const bruto = campoUnico.value;
+            const formatado = controleMascara.checked
+                ? aplicarMascara(bruto)
+                : removerMascara(bruto);
+            campoUnico.value = formatado;
+        };
+        campoUnico.addEventListener("input", atualizarEntrada);
+        campoUnico.addEventListener("paste", (e) => {
+            e.preventDefault();
+            const texto = (e.clipboardData?.getData("text") ?? "").trim();
+            campoUnico.value = texto;
+            atualizarEntrada();
+        });
+        controleMascara.addEventListener("change", atualizarEntrada);
+    }
+    normalizarPuro(valor) {
+        // remove tudo que não é [0-9A-Z] e sobe pra maiúscula
+        return valor.replace(/[^0-9A-Z]/gi, "").toUpperCase();
+    }
+    // máscara progressiva: idem do input, mas usando sempre o "puro"
+    aplicarMascaraProgressiva(puro) {
+        if (puro.length <= 2)
+            return puro;
+        if (puro.length <= 5)
+            return `${puro.slice(0, 2)}.${puro.slice(2)}`;
+        if (puro.length <= 8)
+            return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5)}`;
+        if (puro.length <= 12)
+            return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8)}`;
+        return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8, 12)}-${puro.slice(12, 14)}`;
+    }
+    // formata um valor qualquer (digitado ou colado) conforme o switch
+    formatarSegundoToggle(valor, aplicarMascara) {
+        const puro = this.normalizarPuro(valor);
+        return aplicarMascara ? this.aplicarMascaraProgressiva(puro) : puro;
+    }
+    configurarEntradaCNPJMassa() {
+        const { campoMassa, controleMascara } = this.elementos;
+        const LIMITE = 100;
+        const formatarLista = (texto, manterSeparadorFinal) => {
+            // normaliza os separadores para vírgula, mas mantemos se há um no final
+            const partesBrutas = texto.split(/[;,]/);
+            const formatadas = [];
+            const vistos = new Set();
+            for (const parte of partesBrutas) {
+                const p = parte.trim();
+                if (!p)
+                    continue;
+                const f = this.formatarSegundoToggle(p, controleMascara.checked);
+                // usamos o "puro" como chave de unicidade
+                const chave = this.normalizarPuro(p);
+                if (chave && !vistos.has(chave)) {
+                    vistos.add(chave);
+                    formatadas.push(f);
+                    if (formatadas.length >= LIMITE)
+                        break;
+                }
+            }
+            let saida = formatadas.join(", ");
+            if (manterSeparadorFinal && formatadas.length < LIMITE) {
+                // deixa pronto para o próximo CNPJ
+                if (saida.length > 0)
+                    saida += ", ";
+            }
+            else {
+                // remove vírgulas sobrando no fim
+                saida = saida.replace(/[,\s]+$/, "");
+            }
+            return saida;
+        };
+        const reformatar = (textoOrig) => {
+            if (this.formatando.massa)
+                return;
+            this.formatando.massa = true;
+            const temDelimitadorFinal = /[;,]\s*$/.test(textoOrig) || /\n\s*$/.test(textoOrig);
+            const novo = formatarLista(textoOrig, temDelimitadorFinal);
+            if (novo.length > 0 && novo !== campoMassa.value) {
+                campoMassa.value = novo;
+            }
+            else if (novo.length === 0 && campoMassa.value !== "") {
+                campoMassa.value = "";
+            }
+            // corta excedente e avisa (una vez por evento)
+            const total = novo.split(",").map(s => s.trim()).filter(Boolean).length;
+            if (total >= LIMITE && /[;,]|\n/.test(textoOrig)) {
+                this.exibirAviso(`Limite de ${LIMITE} CNPJs atingido. Os extras foram ignorados.`, TipoAviso.Info);
+            }
+            this.formatando.massa = false;
+        };
+        // Digitação normal: não mexe a cada caractere, só quando o usuário
+        // termina um item (vírgula, ponto e vírgula ou Enter)
+        campoMassa.addEventListener("input", () => {
+            const v = campoMassa.value;
+            const terminouItem = /[;,]|\n/.test(v.slice(-1));
+            if (terminouItem)
+                reformatar(v);
+        });
+        // Colagem: formata tudo de uma vez
+        campoMassa.addEventListener("paste", (e) => {
+            e.preventDefault();
+            const texto = (e.clipboardData?.getData("text") ?? "").trim();
+            reformatar(texto);
+        });
+        // Alternar máscara: reprocessa o campo inteiro
+        controleMascara.addEventListener("change", () => reformatar(campoMassa.value));
     }
     converterCaractere(caractere) {
         const codigo = caractere.charCodeAt(0);
@@ -265,6 +331,17 @@ class ValidadorCnpj {
             areaAviso.classList.add(...CLASSES_AVISO_OCULTO);
         }, IntervaloTemporizador.Aviso);
     }
+    configurarPlaceholderMascara() {
+        const { controleMascara, campoUnico } = this.elementos;
+        campoUnico.placeholder = controleMascara.checked
+            ? "00.ABC.000/ABCD-00"
+            : "00ABC000ABCD00";
+        controleMascara.addEventListener("change", () => {
+            campoUnico.placeholder = controleMascara.checked
+                ? "00.ABC.000/ABCD-00"
+                : "00ABC000ABCD00";
+        });
+    }
 }
 function obterElementoObrigatorio(id) {
     const elemento = document.getElementById(id);
@@ -288,9 +365,6 @@ document.addEventListener("DOMContentLoaded", () => {
         listaHistorico: obterElementoObrigatorio("lista-historico-validacao"),
         areaAviso: obterElementoObrigatorio("toast"),
         botaoColar: obterElementoObrigatorio("botao-colar"),
-        cardPrincipal: obterElementoObrigatorio("card-validacao"),
-        painelValidacao: obterElementoObrigatorio("painel-validacao"),
-        cardHistorico: obterElementoObrigatorio("card-historico"),
     };
     void new ValidadorCnpj(elementos);
 });
