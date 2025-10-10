@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Gerador de CNPJ – Gere CNPJ numérico e alfanumérico grátis</title>
+    <meta name="description"
+        content="Use o gerador de CNPJ numérico e alfanumérico para criar CNPJ fictício grátis, copiar em massa e consultar históricos atualizados." />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="pt-BR" />
+    <meta name="author" content="Gerador de CNPJ Alfanumérico" />
+    <link rel="canonical" href="https://cnpj-2026.bade.digital/paginas/gerador-cnpj.html" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#2563eb" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Gerador de CNPJ – Gere CNPJ numérico e alfanumérico grátis" />
+    <meta property="og:description"
+        content="Gere CNPJ numérico ou alfanumérico em segundos, com histórico, máscara visual e cópia em massa grátis." />
+    <meta property="og:url" content="https://cnpj-2026.bade.digital/paginas/gerador-cnpj.html" />
+    <meta property="og:site_name" content="Gerador de CNPJ Alfanumérico" />
+    <meta property="og:image" content="https://cnpj-2026.bade.digital/img/gerador-validador-cnpj-2026-og.png" />
+    <meta property="og:image:secure_url"
+        content="https://cnpj-2026.bade.digital/img/gerador-validador-cnpj-2026-og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Interface do gerador de CNPJ com histórico e botões de cópia" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Gerador de CNPJ – Gere CNPJ numérico e alfanumérico grátis" />
+    <meta name="twitter:description"
+        content="Ferramenta gratuita para gerar CNPJ numérico e alfanumérico, aplicar máscara e copiar resultados." />
+    <meta name="twitter:image" content="https://cnpj-2026.bade.digital/img/gerador-validador-cnpj-2026-x.png" />
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Gerador de CNPJ numérico e alfanumérico",
+            "url": "https://cnpj-2026.bade.digital/paginas/gerador-cnpj.html",
+            "description": "Gerador gratuito de CNPJ numérico e alfanumérico com máscara opcional, histórico e cópia em massa.",
+            "applicationCategory": "Utility",
+            "operatingSystem": "Web",
+            "inLanguage": "pt-BR",
+            "isAccessibleForFree": true,
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "BRL"
+            }
+        }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+        };
+    </script>
+    <link rel="stylesheet" href="../src/estilos/controle-tema.css" />
+
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                "gtm.start": new Date().getTime(),
+                event: "gtm.js",
+            });
+            const f = d.getElementsByTagName(s)[0];
+            const j = d.createElement(s);
+            const dl = l != "dataLayer" ? "&l=" + l : "";
+            j.async = true;
+            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", "GTM-5LSGCFMM");
+    </script>
+</head>
+
+<body
+    class="min-h-screen bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-zinc-50 transition-colors duration-500 font-sans flex flex-col">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LSGCFMM" height="0" width="0"
+            style="display: none; visibility: hidden"></iframe></noscript>
+
+    <main class="flex-1 px-4 py-10">
+        <div class="mx-auto flex w-full max-w-5xl flex-col gap-8">
+            <div class="flex justify-end">
+                <label for="alternar-tema"
+                    class="controle-tema inline-flex items-center gap-3 rounded-2xl bg-zinc-50 dark:bg-slate-800 px-4 py-2 shadow-md backdrop-blur">
+                    <span class="flex items-center gap-1 text-sm font-medium text-slate-800 dark:text-zinc-50">Tema</span>
+                    <input id="alternar-tema" type="checkbox" class="sr-only" />
+                    <div
+                        class="trilha cursor-pointer relative flex h-8 w-16 items-center shadow-inner dark:shadow-inner dark:shadow-slate-900 rounded-full dark:bg-slate-800 px-1 transition-colors duration-300">
+                        <span
+                            class="sol-indicador absolute ml-0.5 text-zinc-800 hover:scale-110 transition-all ease-in-out">
+                            <svg class="w-6 h-6 text-orange-300 dark:text-zinc-50 transition-all dark:hover:scale-110 duration-300 ease-in-out"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M13 3a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0V3ZM6.343 4.929A1 1 0 0 0 4.93 6.343l1.414 1.414a1 1 0 0 0 1.414-1.414L6.343 4.929Zm12.728 1.414a1 1 0 0 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 1.414 1.414l1.414-1.414ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm-9 4a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H3Zm16 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2h-2ZM7.757 17.657a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414Zm9.9-1.414a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM13 19a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0v-2Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                        <span
+                            class="lua-indicador absolute right-2 text-violet-500 hover:scale-110 transition-all ease-in-out">
+                            <svg class="w-6 h-6 text-zinc-400 dark:text-sky-600 transition-all hover:scale-110 duration-300 ease-in-out"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M17 4c.5523 0 1 .44772 1 1v2h2c.5523 0 1 .44771 1 1 0 .55228-.4477 1-1 1h-2v2c0 .5523-.4477 1-1 1s-1-.4477-1-1V9h-2c-.5523 0-1-.44772-1-1s.4477-1 1-1h2V5c0-.55228.4477-1 1-1Z"
+                                    clip-rule="evenodd" />
+                                <path
+                                    d="M12.3224 4.68708c.2935-.31028.3575-.77266.1594-1.15098-.1981-.37832-.6146-.5891-1.0368-.52467-1.50847.2302-2.93175.83665-4.12869 1.76276-1.19717.92628-2.12732 2.1411-2.69465 3.52702-.56744 1.38618-.75115 2.89299-.53164 4.37079.2195 1.4776.83393 2.8711 1.77895 4.0436.9448 1.1722 2.18683 2.0826 3.60103 2.6449 1.414.5623 2.9539.7584 4.4683.57 1.5145-.1884 2.9549-.7551 4.1784-1.6475 1.2237-.8924 2.1892-2.0806 2.7972-3.4499.1723-.3879.0809-.8423-.2279-1.1335-.3089-.2911-.7679-.3556-1.145-.1608-.8631.4459-1.8291.6799-2.8118.6791h-.0018c-1.1598.0013-2.2925-.3234-3.2596-.931-.9667-.6074-1.7244-1.4697-2.1856-2.4779-.4611-1.00776-.6079-2.1209-.4243-3.20511.1835-1.08442.6905-2.09837 1.4645-2.91681Z" />
+                            </svg>
+                        </span>
+                        <span class="botao"></span>
+                    </div>
+                </label>
+            </div>
+
+            <section class="flex flex-col gap-8 md:flex-row items-stretch">
+                <div
+                    class="w-full max-w-xl bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl p-6 flex flex-col self-stretch transition-colors duration-500">
+                    <div class="flex flex-col gap-3 text-center">
+                        <h1 class="mt-2 text-3xl font-bold text-slate-600 dark:text-zinc-50">Gerador de CNPJ numérico e alfanumérico</h1>
+                        <p class="text-base text-slate-600 dark:text-slate-300">
+                            Nossa ferramenta une geração e validação de CNPJ para criar identificadores numéricos e alfanuméricos, permitindo validar CNPJ alfanumérico, verificar CNPJ numérico, consultar CNPJ grátis e checar validade do CNPJ em qualquer ambiente de testes.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col gap-6 max-w-lg mx-auto">
+                        <div class="flex flex-wrap items-stretch mt-6 gap-2">
+                            <div class="relative flex-1 min-w-[240px]">
+                                <input id="campo-resultado" type="text" readonly
+                                    class="w-full rounded-lg text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 pr-12 py-2 text-lg font-semibold shadow-inner focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 transition-colors duration-300"
+                                    aria-label="Resultado do CNPJ gerado" />
+                                <button id="botao-copiar" type="button" title="Copiar CNPJ"
+                                    class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded text-violet-500 dark:text-violet-500 transition-all ease-in-out hover:text-violet-600 dark:hover:text-violet-400 hover:scale-110 px-2 py-1 text-xs duration-300"
+                                    aria-label="Copiar CNPJ gerado">
+                                    <svg class="w-8 h-8" aria-hidden="true" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
+                                            d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div id="tempo-restante" class="text-sm text-slate-600 dark:text-slate-400 hidden"></div>
+                            <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-300 dark:bg-slate-600">
+                                <div id="barra"
+                                    class="h-full w-full origin-left bg-violet-500 dark:bg-violet-500 transition-transform duration-100 ease-linear">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center gap-6 mt-2 text-sm text-slate-600 dark:text-slate-300">
+                            <label for="toggle-mascara"
+                                class="inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-slate-600 dark:text-zinc-50 select-none">
+                                <input id="toggle-mascara" type="checkbox" class="sr-only peer" checked />
+                                <div
+                                    class="relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
+                                </div>
+                                <span class="transition-colors duration-300 peer-checked:font-semibold">Aplicar máscara</span>
+                            </label>
+
+                            <div class="flex w-full flex-col gap-3 sm:flex-row sm:w-[340px]">
+                                <button id="botao-gerar" type="button"
+                                    class="flex-1 inline-flex items-center justify-center rounded-lg bg-transparent border border-violet-500 px-4 py-2 text-base font-semibold text-violet-500 shadow-sm transition-all ease-in-out duration-300 dark:text-violet-300 dark:border-violet-500 hover:border-violet-600 hover:text-violet-600 hover:shadow-md dark:hover:shadow-md dark:hover:text-violet-300 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 active:scale-95"
+                                    aria-label="Gerar um novo CNPJ alfanumérico">
+                                    Gerar +1 CNPJ
+                                </button>
+                                <button id="botao-gerar-10" type="button"
+                                    class="flex-1 inline-flex items-center justify-center rounded-lg bg-violet-500 dark:bg-violet-500 px-4 py-2 text-base font-semibold text-zinc-50 shadow-sm transition-all ease-in-out duration-300 hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none hover:shadow-md dark:hover:shadow-md focus:ring-2 focus:ring-slate-300 dark:focus:ring-violet-500 active:scale-95"
+                                    aria-label="Gerar dez CNPJs alfanuméricos sequenciais">
+                                    Gerar +10 CNPJs
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="painel-recentes" class="w-full md:w-80 flex flex-col self-stretch min-h-0 h-[400px]">
+                    <div
+                        class="md:w-80 bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl dark:shadow-2xl py-4 px-4 flex-1 flex flex-col h-full min-h-0 max-h-[420px] overflow-hidden transition-colors duration-500">
+                        <h2 class="font-bold text-lg text-center text-slate-800 dark:text-zinc-50 pt-4 pb-5">Histórico de CNPJs gerados</h2>
+                        <ul id="lista-recentes"
+                            class="scroll-personalizado space-y-2 ml-2 pr-2 py-3 px-2 text-sm text-slate-600 dark:text-slate-400 flex-1 overflow-y-auto shadow-inner shadow-slate-300 dark:shadow-slate-900 rounded-lg transition-all ease-in-out duration-300"
+                            aria-live="polite">
+                        </ul>
+                        <div class="pt-6 text-center">
+                            <button id="botao-copiar-todos"
+                                class="w-auto rounded-lg bg-violet-500 dark:bg-violet-500 mb-4 py-2 px-4 text-base font-semibold text-white shadow-sm transition-all duration-300 ease-in-out hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
+                                disabled aria-label="Copiar todos os CNPJs gerados">
+                                Copiar em massa (0)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid gap-8 rounded-3xl bg-zinc-50/70 p-6 dark:bg-slate-900/60">
+                <h2 class="text-2xl font-semibold text-slate-700 dark:text-zinc-100">Como gerar CNPJ numérico e alfanumérico online</h2>
+                <p class="text-base leading-relaxed text-slate-600 dark:text-slate-300">
+                    Clique em “Gerar +1 CNPJ” para criar um CNPJ no formato alfanumérico, perfeito para consultar CNPJ grátis em ambientes de teste. Se preferir, gere dez identificadores de uma vez e use a máscara oficial para visualizar o número como a Receita Federal exige. Você pode copiar cada resultado individualmente ou copiar todos em massa para validar CNPJ alfanumérico em outros sistemas.
+                </p>
+                <div class="grid gap-4 md:grid-cols-2">
+                    <article class="rounded-2xl border border-violet-100 bg-white/70 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-800/60">
+                        <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-100">Recursos pensados para desenvolvedores</h3>
+                        <p class="mt-2 text-slate-600 dark:text-slate-300">
+                            Aproveite o histórico para checar validade do CNPJ gerado, automatizar testes e compartilhar dados com sua equipe. O algoritmo segue o módulo 11 e permite verificar CNPJ numérico ou alfanumérico dentro do mesmo fluxo.
+                        </p>
+                    </article>
+                    <article class="rounded-2xl border border-violet-100 bg-white/70 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-800/60">
+                        <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-100">Segurança e privacidade</h3>
+                        <p class="mt-2 text-slate-600 dark:text-slate-300">
+                            Não armazenamos dados pessoais e o histórico fica apenas no seu navegador. Gere quantos CNPJs precisar, inclusive para validar CNPJ MEI ou simular cadastros corporativos, sem expor informações reais.
+                        </p>
+                    </article>
+                </div>
+                <p class="text-base text-slate-600 dark:text-slate-300">
+                    Precisa verificar se um CNPJ é válido? Acesse o <a class="text-violet-600 underline decoration-2 underline-offset-4 hover:text-violet-500 dark:text-violet-400" href="/paginas/validador-cnpj.html">validador de CNPJ online</a> para confirmar CNPJ numérico e validar CNPJ alfanumérico em segundos.
+                </p>
+            </section>
+
+            <section class="rounded-3xl bg-white/70 p-6 shadow-sm dark:bg-slate-900/70">
+                <h2 class="text-2xl font-semibold text-slate-700 dark:text-zinc-100">Perguntas frequentes sobre gerar CNPJ fictício</h2>
+                <div class="mt-4 space-y-4">
+                    <article>
+                        <h3 class="text-lg font-semibold text-slate-700 dark:text-zinc-100">Posso usar o gerador para consultar CNPJ online?</h3>
+                        <p class="mt-2 text-slate-600 dark:text-slate-300">
+                            Sim. Gere números fictícios para testar integrações e depois utilize a ferramenta de validação gratuita de CNPJ para verificar CNPJ numérico ou alfanumérico, garantindo que o dígito verificador está correto.
+                        </p>
+                    </article>
+                    <article>
+                        <h3 class="text-lg font-semibold text-slate-700 dark:text-zinc-100">O gerador é gratuito e ilimitado?</h3>
+                        <p class="mt-2 text-slate-600 dark:text-slate-300">
+                            É totalmente grátis. Você pode gerar, copiar e compartilhar quantos CNPJs desejar, seja para simular cadastros de empresas, validar CNPJ MEI em ambientes de desenvolvimento ou criar massa de dados.
+                        </p>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer
+        class="mt-2 bg-slate-900 dark:bg-slate-900 px-6 py-6 text-slate-200 dark:text-zinc-50 transition-colors duration-500">
+        <div class="mx-auto flex w-full max-w-4xl flex-col gap-8">
+            <div class="flex flex-row justify-between gap-2 text-sm text-slate-100 dark:text-slate-400 px-6 md:px-28">
+                <h2 class="text-xl font-semibold flex items-center gap-2">🔗 Links</h2>
+                <ul class="grid gap-3 text-sm">
+                    <li>
+                        <a href="https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico"
+                            class="flex items-center gap-2 pb-0.5 text-slate-300 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                            target="_blank" rel="noopener noreferrer">
+                            <svg class="w-6 h-6 text-slate-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11.5c.07 0 .14-.007.207-.021.095.014.193.021.293.021h2a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1h-1a1 1 0 1 0 0 2v11h-2V5a2 2 0 0 0-2-2H5Zm7 4a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm-6 4a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1ZM7 6a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H7Zm1 3V8h1v1H8Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Receita Federal — CNPJ Alfanumérico (2026)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view"
+                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                            target="_blank" rel="noopener noreferrer">
+                            <svg class="w-6 h-6 text-slate-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2 2 2 0 0 0 2 2h12a2 2 0 0 0 2-2 2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2V4a2 2 0 0 0-2-2h-7Zm-6 9a1 1 0 0 0-1 1v5a1 1 0 1 0 2 0v-1h.5a2.5 2.5 0 0 0 0-5H5Zm1.5 3H6v-1h.5a.5.5 0 0 1 0 1Zm4.5-3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1.376A2.626 2.626 0 0 0 15 15.375v-1.75A2.626 2.626 0 0 0 12.375 11H11Zm1 5v-3h.375a.626.626 0 0 1 .625.626v1.748a.625.625 0 0 1-.626.626H12Zm5-5a1 1 0 0 0-1 1v5a1 1 0 1 0 2 0v-1h1a1 1 0 1 0 0-2h-1v-1h1a1 1 0 1 0 0-2h-2Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Manual de cálculo do DV do CNPJ
+                        </a>
+                    </li>
+                </ul>
+                <ul class="grid gap-3 text-sm">
+                    <li>
+                        <a href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico"
+                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                            target="_blank" rel="noopener noreferrer">
+                            <svg class="w-6 h-6 text-slate-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M12.006 2a9.847 9.847 0 0 0-6.484 2.44 10.32 10.32 0 0 0-3.393 6.17 10.48 10.48 0 0 0 1.317 6.955 10.045 10.045 0 0 0 5.4 4.418c.504.095.683-.223.683-.494 0-.245-.01-1.052-.014-1.908-2.78.62-3.366-1.21-3.366-1.21a2.711 2.711 0 0 0-1.11-1.5c-.907-.637.07-.621.07-.621.317.044.62.163.885.346.266.183.487.426.647.71.135.253.318.476.538.655a2.079 2.079 0 0 0 2.37.196c.045-.52.27-1.006.635-1.37-2.219-.259-4.554-1.138-4.554-5.07a4.022 4.022 0 0 1 1.031-2.75 3.77 3.77 0 0 1 .096-2.713s.839-.275 2.749 1.05a9.26 9.26 0 0 1 5.004 0c1.906-1.325 2.74-1.05 2.74-1.05.37.858.406 1.828.101 2.713a4.017 4.017 0 0 1 1.029 2.75c0 3.939-2.339 4.805-4.564 5.058a2.471 2.471 0 0 1 .679 1.897c0 1.372-.012 2.477-.012 2.814 0 .272.18.592.687.492a10.05 10.05 0 0 0 5.388-4.421 10.473 10.473 0 0 0 1.313-6.948 10.32 10.32 0 0 0-3.39-6.165A9.847 9.847 0 0 0 12.007 2Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Abrir repositório no GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://linkedin.com/in/fernandobade"
+                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                            target="_blank" rel="noopener noreferrer">
+                            <svg class="w-6 h-6 text-slate-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z"
+                                    clip-rule="evenodd" />
+                                <path d="M7.2 8.809H4V19.5h3.2V8.809Z" />
+                            </svg>
+                            Conectar no LinkedIn
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast"
+        class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none">
+    </div>
+
+    <script type="module" src="../dist/src/tema.js"></script>
+    <script type="module" src="../dist/app.js"></script>
+</body>
+
+</html>
