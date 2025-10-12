@@ -104,10 +104,11 @@
         })(window, document, "script", "dataLayer", "GTM-5LSGCFMM");
     </script>
     <!-- End Google Tag Manager -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1688022090499793"
+        crossorigin="anonymous"></script>
 </head>
 
-<body
-    class="min-h-screen bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-zinc-50 transition-colors duration-500 font-sans flex flex-col">
+<body class="min-h-screen bg-slate-100/50 text-slate-900 dark:bg-slate-800 dark:text-zinc-50 font-sans flex flex-col">
     <!-- Início Tag: Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LSGCFMM" height="0" width="0"
             style="display: none; visibility: hidden"></iframe></noscript>
@@ -115,9 +116,16 @@
 
     <main class="flex-1 flex items-center justify-center px-4 py-6">
         <div class="flex flex-col gap-6 items-stretch">
-            <div class="flex justify-end">
+            <div class="flex justify-between items-center">
+                <!--Início banner AdSense: Topo -->
+                <ins class="adsbygoogle" style="display:block;width:728px;height:90px"
+                    data-ad-client="ca-pub-1688022090499793" data-ad-slot="2668944914"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+                <!--Fim banner AdSense: Topo -->
                 <label for="alternar-tema"
-                    class="controle-tema inline-flex items-center gap-3 rounded-2xl bg-zinc-50 dark:bg-slate-800 px-4 py-2 shadow-md backdrop-blur">
+                    class="controle-tema h-10 inline-flex items-center gap-3 rounded-2xl bg-zinc-50 dark:bg-slate-800 px-4 py-2 shadow-md backdrop-blur">
 
                     <span
                         class="flex items-center gap-1 text-sm font-medium text-slate-800 dark:text-zinc-50">Tema</span>
@@ -187,7 +195,7 @@
                                 </button>
                             </div>
 
-                            <!-- Mantém o campo tempo-restante -->
+                            <!-- Barra com o campo tempo-restante -->
                             <div id="tempo-restante" class="text-sm text-slate-600 dark:text-slate-500 hidden"></div>
 
                             <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-300 dark:bg-slate-600">
@@ -210,7 +218,7 @@
                             </label>
 
                             <!-- Botões -->
-                            <div class="flex w-96 mt-2 space-x-8">
+                            <div class="flex w-96 mt-2 space-x-8 pt-0.5">
                                 <button id="botao-gerar"
                                     class="efeito-onda-base efeito-onda-claro text-md flex-1 rounded-lg border-2 border-violet-500 dark:border-violet-500 bg-transparent text-violet-500 dark:text-violet-500 font-semibold px-1 py-2 transition-all duration-300 hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400 dark:hover:border-violet-400 active:scale-95">
                                     Gerar +1 CNPJ
@@ -224,21 +232,21 @@
                         </div>
                     </div>
                 </div>
-
                 <div id="painel-recentes" class="w-80 h-96 flex flex-col">
                     <div
                         class="bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl p-4 flex flex-col h-full transition-colors duration-500">
-                        <h2 class="font-bold text-2xl text-center text-slate-600 dark:text-zinc-50 pb-2">Histórico
-                            <span id="contador-historico"></span>
-                        </h2>
-
+                        <div class="flex justify-center gap-2 mb-4">
+                            <h2 class="font-bold text-2xl text-center text-slate-600 dark:text-zinc-50 pb-2">Histórico
+                                <span id="contador-historico" title="Total de itens"></span>
+                            </h2>
+                        </div>
                         <ul id="lista-recentes"
                             class="scroll-personalizado flex-1 overflow-y-auto space-y-2 ml-2 pr-2 py-3 px-2 text-md text-slate-600 dark:text-slate-500 shadow-inner shadow-slate-300 dark:shadow-slate-900 rounded-lg transition-all ease-in-out duration-300">
                         </ul>
 
                         <div class="flex w-80 mt-2 justify-center pt-3">
                             <button id="botao-copiar-todos"
-                                class="flex mb-3 gap-2 efeito-onda-base efeito-onda-claro relative text-violet-500 dark:text-violet-400 text-md font-semibold px-8 py-2 rounded-lg border border-violet-500/40 shadow-[0_0_6px_1px_rgba(139,92,246,0.25)] animate-pulse-slow hover:shadow-[0_0_12px_2px_rgba(139,92,246,0.5)] hover:border-violet-500 hover:text-violet-300 transition-all duration-500 ease-in-out active:scale-95 hover:text-violet-600">
+                                class="flex mb-3 mr-7 gap-2 efeito-onda-base efeito-onda-claro relative text-violet-500 dark:text-violet-400 text-md font-semibold px-8 py-2 rounded-lg border border-violet-500/40 shadow-[0_0_6px_1px_rgba(139,92,246,0.25)] animate-pulse-slow hover:shadow-[0_0_12px_2px_rgba(139,92,246,0.5)] hover:border-violet-500 hover:text-violet-300 transition-all duration-500 ease-in-out active:scale-95 hover:text-violet-600">
                                 Copiar todos
                                 <svg class="w-6 h-6 text-violet-500 dark:text-violet-400" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"

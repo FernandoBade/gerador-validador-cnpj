@@ -1,82 +1,70 @@
-const CHAVE_ARMAZENAMENTO = "tema-cnpj-2026" as const;
-const CHAVE_ARMAZENAMENTO_ANTERIOR = "theme" as const;
+/**
+ * @summary Chave única usada para armazenar o tema atual no localStorage.
+ */
+const CHAVE_ARMAZENAMENTO = "tema-cnpj-bade-digital" as const;
 
 type TemaPreferido = "light" | "dark";
 
-export function identificaPreferenciaEAplicaTema(): void {
-    const chaveTemaAtual = "tema-cnpj-2026";
-    const chaveTemaAnterior = "theme";
-
-    const temaAtual = localStorage.getItem(chaveTemaAtual);
-    const temaAnterior = localStorage.getItem(chaveTemaAnterior);
-
-    let temaSelecionado: "dark" | "light" | null = null;
-
-    if (temaAtual === "dark" || temaAtual === "light") {
-        temaSelecionado = temaAtual;
-    } else if (temaAnterior === "dark" || temaAnterior === "light") {
-        temaSelecionado = temaAnterior;
-        localStorage.setItem(chaveTemaAtual, temaAnterior);
-        localStorage.removeItem(chaveTemaAnterior);
-    }
-
-    const prefereEscuro = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const deveAplicarEscuro = temaSelecionado === "dark" || (!temaSelecionado && prefereEscuro);
-
-    if (deveAplicarEscuro) {
-        document.documentElement.classList.add("dark");
-    } else {
-        document.documentElement.classList.remove("dark");
-    }
-}
-
+/**
+ * @summary Verifica se um valor é um tema válido ("light" ou "dark").
+ */
 const ehTemaValido = (valor: string | null): valor is TemaPreferido =>
     valor === "light" || valor === "dark";
 
+/**
+ * @summary Obtém o tema armazenado no localStorage, se existir.
+ * @returns O tema armazenado ("light" ou "dark") ou null se não houver.
+ */
 export const obterPreferenciaArmazenada = (): TemaPreferido | null => {
-    const temaAtual = localStorage.getItem(CHAVE_ARMAZENAMENTO);
-    if (ehTemaValido(temaAtual)) {
-        return temaAtual;
-    }
-
-    const temaAnterior = localStorage.getItem(CHAVE_ARMAZENAMENTO_ANTERIOR);
-    if (ehTemaValido(temaAnterior)) {
-        localStorage.setItem(CHAVE_ARMAZENAMENTO, temaAnterior);
-        localStorage.removeItem(CHAVE_ARMAZENAMENTO_ANTERIOR);
-        return temaAnterior;
-    }
-
-    return null;
+    const tema = localStorage.getItem(CHAVE_ARMAZENAMENTO);
+    return ehTemaValido(tema) ? tema : null;
 };
 
+/**
+ * @summary Verifica se há uma preferência de tema salva no localStorage.
+ */
 const possuiPreferenciaArmazenada = (): boolean => {
-    const temaAtual = localStorage.getItem(CHAVE_ARMAZENAMENTO);
-    return ehTemaValido(temaAtual);
+    const tema = localStorage.getItem(CHAVE_ARMAZENAMENTO);
+    return ehTemaValido(tema);
 };
 
+/**
+ * @summary Aplica o tema (dark ou light) ao documento e salva no localStorage, se desejado.
+ * @param tema Tema a ser aplicado.
+ * @param persistir Define se o tema deve ser salvo no localStorage.
+ */
 const aplicarTema = (tema: TemaPreferido, persistir: boolean): void => {
-    if (tema === "dark") {
-        document.documentElement.classList.add("dark");
-    } else {
-        document.documentElement.classList.remove("dark");
-    }
-
-    if (persistir) {
-        localStorage.setItem(CHAVE_ARMAZENAMENTO, tema);
-    }
+    document.documentElement.classList.toggle("dark", tema === "dark");
+    if (persistir) localStorage.setItem(CHAVE_ARMAZENAMENTO, tema);
 };
 
+/**
+ * @summary Identifica a preferência atual do usuário (armazenada ou do sistema) e aplica o tema.
+ */
+export function identificaPreferenciaEAplicaTema(): void {
+    const temaArmazenado = obterPreferenciaArmazenada();
+
+    const prefereEscuro = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const temaSelecionado: TemaPreferido =
+        temaArmazenado ?? (prefereEscuro ? "dark" : "light");
+
+    aplicarTema(temaSelecionado, !!temaArmazenado);
+}
+
+/**
+ * @summary Inicializa o controle do alternador de tema e sincroniza com o sistema.
+ * Configura eventos para alternar o tema manualmente e reagir a mudanças no sistema.
+ */
 const inicializarControleTema = (): void => {
     const controleTema = document.getElementById("alternar-tema") as HTMLInputElement | null;
-    if (!controleTema) {
-        return;
-    }
+    if (!controleTema) return;
 
     const preferenciaSistema = window.matchMedia("(prefers-color-scheme: dark)");
     const temaArmazenado = obterPreferenciaArmazenada();
-    const temaInicial: TemaPreferido = temaArmazenado ?? "dark";
+    const temaInicial: TemaPreferido =
+        temaArmazenado ?? (preferenciaSistema.matches ? "dark" : "light");
 
-    aplicarTema(temaInicial, temaArmazenado !== null);
+    aplicarTema(temaInicial, !!temaArmazenado);
     controleTema.checked = temaInicial === "dark";
 
     controleTema.addEventListener("change", () => {
@@ -85,16 +73,17 @@ const inicializarControleTema = (): void => {
     });
 
     preferenciaSistema.addEventListener("change", (evento: MediaQueryListEvent) => {
-        if (possuiPreferenciaArmazenada()) {
-            return;
-        }
+        if (possuiPreferenciaArmazenada()) return;
 
-        const temaAtualizado: TemaPreferido = evento.matches ? "dark" : "light";
-        aplicarTema(temaAtualizado, false);
-        controleTema.checked = temaAtualizado === "dark";
+        const novoTema: TemaPreferido = evento.matches ? "dark" : "light";
+        aplicarTema(novoTema, false);
+        controleTema.checked = novoTema === "dark";
     });
 };
 
+/**
+ * @summary Executa a inicialização do controle de tema quando o DOM estiver carregado.
+ */
 document.addEventListener("DOMContentLoaded", () => {
     inicializarControleTema();
 });

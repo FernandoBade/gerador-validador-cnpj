@@ -423,7 +423,7 @@ class GeradorCnpj {
         this.historico.itens.forEach((puro) => {
             const texto = controleMascara?.checked ? this.aplicarMascara(puro) : puro;
             const item = document.createElement("li");
-            item.className = "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-2 hover:ring-slate-300 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
+            item.className = "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-1 hover:ring-slate-300 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
 
             const rotulo = document.createElement("span");
             rotulo.className = "ml-1 text-sm text-slate-600 font-semibold dark:text-zinc-50 break-words";
@@ -506,7 +506,7 @@ class GeradorCnpj {
             if (total > 0) {
                 contadorHistorico.textContent = totalExibido.toString();
                 contadorHistorico.className =
-                    "ml-2 inline-flex items-center justify-center rounded-lg p-2 bg-transparent text-slate-600 dark:text-zinc-50 text-xs font-bold w-6 h-6 mb-1 border-2 border-zinc-600 dark:border-zinc-50 dark:border-zinc-50 cursor-default";
+                    "absolute mt-1.5 ml-2 inline-flex items-center justify-center rounded-lg p-2 bg-transparent text-slate-600 dark:text-zinc-50 text-xs font-bold w-6 h-6 border-2 border-zinc-600 dark:border-zinc-50 dark:border-zinc-50 cursor-default";
             } else {
                 contadorHistorico.textContent = "";
                 contadorHistorico.className = "hidden";
