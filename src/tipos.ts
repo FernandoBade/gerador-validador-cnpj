@@ -32,6 +32,7 @@ export interface ElementosInterface {
     controleMascara: HTMLInputElement | null;
     listaRecentes: HTMLUListElement | null;
     botaoCopiarTodos: HTMLButtonElement | null;
+    contadorHistorico: HTMLSpanElement | null;
 }
 
 /**

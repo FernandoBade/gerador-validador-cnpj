@@ -125,7 +125,7 @@
                     <input id="alternar-tema" type="checkbox" class="sr-only" />
 
                     <div
-                        class="trilha cursor-pointer relative flex h-8 w-16 items-center shadow-inner dark:shadow-inner dark:shadow-slate-900 rounded-full dark:bg-slate-800 px-1 transition-colors duration-300">
+                        class="efeito-onda-base efeito-onda-escuro trilha cursor-pointer relative flex h-8 w-16 items-center shadow-inner dark:shadow-inner dark:shadow-slate-900 rounded-full dark:bg-slate-800 px-1 transition-colors duration-300">
 
                         <span
                             class="sol-indicador absolute ml-0.5 text-zinc-800 hover:scale-110  transition-all ease-in-out">
@@ -178,7 +178,7 @@
                                 <input id="campo-resultado" type="text" readonly
                                     class="w-full rounded-lg text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 pr-12 py-2 text-lg font-semibold shadow-inner" />
                                 <button id="botao-copiar" type="button" title="Copiar CNPJ"
-                                    class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded text-violet-400 dark:text-violet-400 transition-all ease-in-out hover:text-violet-500 dark:hover:text-violet-600 px-2 py-1 text-xs duration-300 active:scale-75"
+                                    class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded text-violet-500 dark:text-violet-400 transition-all ease-in-out hover:text-violet-600 dark:hover:text-violet-600 px-2 py-1 text-xs duration-300 active:scale-75"
                                     aria-label="Copiar CNPJ">
                                     <svg class="w-8 h-8" aria-hidden="true" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
@@ -203,7 +203,7 @@
                                 class="inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-slate-600 dark:text-zinc-50 select-none">
                                 <input id="toggle-mascara" type="checkbox" class="sr-only peer" checked />
                                 <div
-                                    class="relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
+                                    class="efeito-onda-base efeito-onda-escuro relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
                                 </div>
                                 <span class="transition-colors duration-300 peer-checked:text-bold">Aplicar
                                     máscara</span>
@@ -228,7 +228,8 @@
                 <div id="painel-recentes" class="w-80 h-96 flex flex-col">
                     <div
                         class="bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl p-4 flex flex-col h-full transition-colors duration-500">
-                        <h2 class="font-bold text-2xl text-center text-slate-800 dark:text-zinc-50 pb-4">Histórico
+                        <h2 class="font-bold text-2xl text-center text-slate-600 dark:text-zinc-50 pb-2">Histórico
+                            <span id="contador-historico"></span>
                         </h2>
 
                         <ul id="lista-recentes"
@@ -237,9 +238,9 @@
 
                         <div class="flex w-80 mt-2 justify-center pt-3">
                             <button id="botao-copiar-todos"
-                                class="flex mb-3 gap-2 efeito-onda-base efeito-onda-escuro relative text-violet-400 text-md font-semibold px-8 py-2 rounded-lg border border-violet-500/40 shadow-[0_0_6px_1px_rgba(139,92,246,0.25)] animate-pulse-slow hover:shadow-[0_0_12px_2px_rgba(139,92,246,0.5)] hover:border-violet-500 hover:text-violet-300 transition-all duration-500 ease-in-out active:scale-95">
+                                class="flex mb-3 gap-2 efeito-onda-base efeito-onda-claro relative text-violet-500 dark:text-violet-400 text-md font-semibold px-8 py-2 rounded-lg border border-violet-500/40 shadow-[0_0_6px_1px_rgba(139,92,246,0.25)] animate-pulse-slow hover:shadow-[0_0_12px_2px_rgba(139,92,246,0.5)] hover:border-violet-500 hover:text-violet-300 transition-all duration-500 ease-in-out active:scale-95 hover:text-violet-600">
                                 Copiar todos
-                                <svg class="w-6 h-6 text-gray-800 dark:text-violet-400" aria-hidden="true"
+                                <svg class="w-6 h-6 text-violet-500 dark:text-violet-400" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                     viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"

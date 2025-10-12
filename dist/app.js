@@ -332,7 +332,7 @@ class GeradorCnpj {
             rotulo.textContent = texto;
             const botao = document.createElement("button");
             botao.className =
-                "ml-1 inline-flex items-center justify-center rounded bg-transparent text-violet-400 transition-all dark:text-violet-500 dark:hover:text-violet-600 ease-in-out hover:text-violet-600 px-2 py-1 text-xs active:scale-75";
+                "ml-1 inline-flex items-center justify-center rounded bg-transparent text-violet-500 transition-all dark:text-violet-500 dark:hover:text-violet-500 hover:violet-600 ease-in-out hover:text-violet-600 px-2 py-1 text-xs active:scale-75";
             botao.setAttribute("title", "Copiar esse CNPJ");
             botao.innerHTML = `
                 <svg class="w-6 h-6" aria-hidden="true" fill="none" viewBox="0 0 24 24">
@@ -384,29 +384,25 @@ class GeradorCnpj {
      * exibindo um contador em formato de bolinha ao lado do texto.
      */
     atualizarEstadoBotaoCopiarTodos() {
-        const { botaoCopiarTodos } = this.elementos;
-        if (!botaoCopiarTodos) {
-            return;
-        }
+        const { botaoCopiarTodos, contadorHistorico } = this.elementos;
         const total = this.historico.itens.length;
         const totalExibido = Math.min(total, this.historico.limite);
-        // Limpa o conteúdo do botão antes de recriar
-        botaoCopiarTodos.innerHTML = "";
-        // Texto principal do botão
-        const textoBotao = document.createElement("span");
-        textoBotao.textContent = "Copiar todos";
-        // Bolinha com o contador
-        const contador = document.createElement("span");
-        contador.textContent = totalExibido.toString();
-        contador.className =
-            "ml-2 inline-flex items-center justify-center rounded-lg p-2 bg-white text-violet-500 text-xs font-bold w-8 h-8§";
-        botaoCopiarTodos.appendChild(textoBotao);
-        if (total > 0) {
-            botaoCopiarTodos.appendChild(contador);
+        if (botaoCopiarTodos) {
+            botaoCopiarTodos.disabled = total === 0;
+            botaoCopiarTodos.classList.toggle("cursor-nao-permitido", total === 0);
+            botaoCopiarTodos.classList.toggle("opacity-60", total === 0);
         }
-        botaoCopiarTodos.disabled = total === 0;
-        botaoCopiarTodos.classList.toggle("cursor-nao-permitido", total === 0);
-        botaoCopiarTodos.classList.toggle("opacity-60", total === 0);
+        if (contadorHistorico) {
+            if (total > 0) {
+                contadorHistorico.textContent = totalExibido.toString();
+                contadorHistorico.className =
+                    "ml-2 inline-flex items-center justify-center rounded-lg p-2 bg-transparent text-slate-600 dark:text-zinc-50 text-xs font-bold w-6 h-6 mb-1 border-2 border-zinc-600 dark:border-zinc-50 dark:border-zinc-50 cursor-default";
+            }
+            else {
+                contadorHistorico.textContent = "";
+                contadorHistorico.className = "hidden";
+            }
+        }
     }
     /**
      * Inicializa o efeito de onda em todos os botões que tiverem:
@@ -468,6 +464,7 @@ const elementos = {
     controleMascara: document.getElementById("toggle-mascara"),
     listaRecentes: document.getElementById("lista-recentes"),
     botaoCopiarTodos: document.getElementById("botao-copiar-todos"),
+    contadorHistorico: document.getElementById("contador-historico"),
 };
 // Inicialização da aplicação
 new GeradorCnpj(elementos);
