@@ -170,12 +170,10 @@
                     class="w-full max-w-xl h-96 px-8 bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl pb-8flex flex-col justify-between transition-colors duration-500">
                     <div class="flex flex-col gap-1 text-center">
                         <h1 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
-                            Gerador de CNPJ Alfanumérico
+                            Gerador de CNPJ
                         </h1>
                         <h2 class="text-sm font-semibold text-slate-600 dark:text-zinc-50 my-4">
-                            A validação de CNPJs exige códigos matematicamente corretos. Gere CNPJs fictícios com
-                            máscara, prontos para testar integrações e validações tanto no formato numérico quanto no
-                            padrão alfanumérico.
+                            Gere CNPJs fictícios, com ou sem máscara, validados matematicamente e prontos para testar integrações e validações. Disponível tanto nos formatos numéricos quanto alfanuméricos.
                         </h2>
                     </div>
 
@@ -207,15 +205,26 @@
 
                         <!-- Toggle -->
                         <div class="flex flex-col items-center gap-8 mt-2 text-sm text-slate-600 dark:text-slate-500">
-                            <label for="toggle-mascara"
-                                class="inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-slate-600 dark:text-zinc-50 select-none">
-                                <input id="toggle-mascara" type="checkbox" class="sr-only peer" checked />
-                                <div
-                                    class="efeito-onda-base efeito-onda-escuro relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
-                                </div>
-                                <span class="transition-colors duration-300 peer-checked:text-bold">Aplicar
-                                    máscara</span>
-                            </label>
+                            <div class="flex items-center gap-6">
+                                <label for="toggle-mascara"
+                                    class="inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-slate-600 dark:text-zinc-50 select-none">
+                                    <input id="toggle-mascara" type="checkbox" class="sr-only peer" checked />
+                                    <div
+                                        class="efeito-onda-base efeito-onda-escuro relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
+                                    </div>
+                                    <span class="transition-colors duration-300 peer-checked:text-bold">Aplicar
+                                        máscara</span>
+                                </label>
+
+                                <label for="toggle-alfanumerico"
+                                    class="inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-slate-600 dark:text-zinc-50 select-none">
+                                    <input id="toggle-alfanumerico" type="checkbox" class="sr-only peer" checked />
+                                    <div
+                                        class="efeito-onda-base efeito-onda-escuro relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
+                                    </div>
+                                    <span class="transition-colors duration-300 peer-checked:text-bold">Com alfanuméricos</span>
+                                </label>
+                            </div>
 
                             <!-- Botões -->
                             <div class="flex w-96 mt-2 space-x-8 pt-0.5">
@@ -307,7 +316,7 @@
                 </ul>
                 <ul class="grid gap-3 text-sm">
                     <li>
-                        <a href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico"
+                        <a href="https://github.com/FernandoBade/gerador-validador-cnpj"
                             class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 "
                             target="_blank">
                             <!-- Ícone GitHub -->

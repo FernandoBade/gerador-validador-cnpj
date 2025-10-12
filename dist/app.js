@@ -116,6 +116,17 @@ class GeradorCnpj {
         return corpo;
     }
     /**
+     * @summary Gera uma sequência base exclusivamente numérica com o tamanho definido.
+     * @returns Sequência composta apenas por dígitos [0-9].
+     */
+    gerarCorpoNumerico() {
+        let corpo = "";
+        for (let indice = 0; indice < TamanhoIdentificador.Corpo; indice++) {
+            corpo += Math.floor(Math.random() * 10).toString();
+        }
+        return corpo;
+    }
+    /**
      * @summary Converte um caractere alfanumérico para o valor numérico esperado pelo módulo 11.
      * @param caractere Caractere a ser convertido.
      * @returns Valor numérico correspondente ao caractere informado.
@@ -177,7 +188,10 @@ class GeradorCnpj {
     gerarIdentificadorValido() {
         const limiteTentativas = 2000;
         for (let tentativa = 0; tentativa < limiteTentativas; tentativa++) {
-            const corpo = this.gerarCorpoAlfanumerico();
+            const usarAlfanumerico = this.elementos.controleAlfanumerico?.checked !== false;
+            const corpo = usarAlfanumerico
+                ? this.gerarCorpoAlfanumerico()
+                : this.gerarCorpoNumerico();
             if (this.verificarSequenciaRepetida(corpo)) {
                 continue;
             }
@@ -188,7 +202,8 @@ class GeradorCnpj {
             if (identificadorCompleto.length !== TamanhoIdentificador.Total) {
                 continue;
             }
-            if (!/^[0-9A-Z]{12}[0-9]{2}$/.test(identificadorCompleto)) {
+            const padrao = usarAlfanumerico ? /^[0-9A-Z]{12}[0-9]{2}$/ : /^[0-9]{14}$/;
+            if (!padrao.test(identificadorCompleto)) {
                 continue;
             }
             if (this.verificarSequenciaRepetida(identificadorCompleto)) {
@@ -462,6 +477,7 @@ const elementos = {
     textoTempoRestante: obterElementoObrigatorio("tempo-restante"),
     barraProgresso: obterElementoObrigatorio("barra"),
     controleMascara: document.getElementById("toggle-mascara"),
+    controleAlfanumerico: document.getElementById("toggle-alfanumerico"),
     listaRecentes: document.getElementById("lista-recentes"),
     botaoCopiarTodos: document.getElementById("botao-copiar-todos"),
     contadorHistorico: document.getElementById("contador-historico"),
