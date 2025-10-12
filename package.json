@@ -2,7 +2,7 @@
     "name": "gerador-cnpj-alfanumerico",
     "version": "1.1",
     "description": "⚙️ Um gerador e validador de CNPJ alfanumérico 2026, gratuito e online, pra quem quer testar o novo formato da Receita Federal antes de todo mundo. Feito pra desenvolvedores, analistas de sistema e empresas ajustarem seus bancos de dados, APIs e integrações.",
-    "main": "app.ts",
+    "main": "dist/src/gerador.js",
     "scripts": {
         "desenvolvimento": "concurrently -n TS,SERV \"npm:compilar:assistido\" \"npm:servidor\"",
         "servidor": "live-server --port=5173 --open=index.html --watch=.",

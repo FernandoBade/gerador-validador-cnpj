@@ -1,12 +1,13 @@
+/* ============================
+   Aviso de Cookies (Consentimento)
+   - Exibe banner de consentimento e salva a decisão no localStorage
+   - Reenvia o status de consentimento via dataLayer (GTM)
+   - Evita reexibir o banner quando já houver decisão
+============================ */
+
 /**
  * @summary Inicializa o aviso de cookies e gerencia a escolha do usuário (aceitar ou recusar).
- *
- * Exibe um banner simples de consentimento e grava a decisão no `localStorage`
- * com a chave "aceitou-cookies".
- *
- * - Se o usuário aceitar, envia um evento `status_consentimento` com valor `aceito` ao Google Tag Manager.
- * - Se recusar, envia o mesmo evento com valor `recusado`.
- * - Ao retornar ao site, reenvia o último status salvo automaticamente.
+ * Exibe um banner simples de consentimento e grava a decisão no localStorage.
  */
 export function inicializarAvisoDeCookies(): void {
     const AVISO_ID = "aviso-cookies";
@@ -36,6 +37,9 @@ export function inicializarAvisoDeCookies(): void {
         aviso.classList.add("visivel");
     }
 
+    /**
+     * @summary Oculta o banner após uma decisão do usuário.
+     */
     const esconderAviso = () => {
         aviso.classList.remove("visivel");
         aviso.classList.add("oculto");
@@ -64,7 +68,9 @@ export function inicializarAvisoDeCookies(): void {
     });
 }
 
-// HTML do banner injetado automaticamente
+/**
+ * @summary HTML do banner de cookies injetado automaticamente no DOM.
+ */
 export const htmlCookies = `
 <div id="aviso-cookies"
   class="fixed bottom-0 left-0 right-0 bg-slate-800 dark:bg-slate-800 text-white text-sm flex flex-col sm:flex-row justify-between items-center gap-3 px-6 py-4 shadow-lg transition-all duration-500 translate-y-full opacity-0 z-50">

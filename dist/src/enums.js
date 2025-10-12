@@ -1,5 +1,5 @@
 /* ============================
-   Definições de enums para o Gerador CNPJ Alfanumérico 2026
+   Definições de enums
 ============================ */
 /**
  * @summary Possíveis tamanhos do identificador alfanumérico.

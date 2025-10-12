@@ -1,5 +1,5 @@
 /* ============================
-   Constantes do Gerador CNPJ Alfanumérico 2026
+   Constantes do Gerador CNPJ
 ============================ */
 import { ClasseAviso, TipoAviso } from "./enums.js";
 /**
