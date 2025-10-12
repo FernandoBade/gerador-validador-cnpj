@@ -11,7 +11,9 @@ import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, P
 import { htmlCookies, inicializarAvisoDeCookies } from "./cookies.js";
 import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro } from "./formatacao-cnpj.js";
 import { calcularDigitoVerificador, converterCaractereParaValor } from "./algoritmo-cnpj.js";
-import { copiarTexto, exibirAviso } from "./interface.js";
+import { copiarTexto, inicializarEfeitoOnda } from "./interface.js";
+import { exibirAviso } from "./mensageria.js";
+import { atualizarContadorHistorico } from "./contador-historico.js";
 
 /**
  * @summary Elementos de interface utilizados pelo validador.
@@ -54,6 +56,8 @@ class ValidadorCnpj {
         this.configurarEntradaCnpj();
         this.configurarEntradaCNPJMassa()
         this.alternarModoMassa(false);
+        this.atualizarEstadoBotaoValidarUnico();
+        inicializarEfeitoOnda();
     }
 
     /**
@@ -82,6 +86,9 @@ class ValidadorCnpj {
 
         controleMassa.addEventListener("change", () => {
             this.alternarModoMassa(controleMassa.checked);
+            if (!controleMassa.checked) {
+                this.atualizarEstadoBotaoValidarUnico();
+            }
         });
 
         botaoColar.addEventListener("click", async () => {
@@ -217,7 +224,8 @@ class ValidadorCnpj {
             this.historico.length = this.limiteHistorico;
         }
 
-        document.getElementById("contador-hist")!.textContent = String(this.historico.length);
+        const contador = document.getElementById("contador-historico") as HTMLSpanElement | null;
+        atualizarContadorHistorico(contador, this.historico.length, this.limiteHistorico, true);
     }
 
     /**
@@ -232,7 +240,7 @@ class ValidadorCnpj {
         this.historico.forEach((item) => {
             const elemento = document.createElement("li");
             elemento.className =
-                "flex items-center justify-between gap-3 rounded-md border-2 border-slate-200 dark:border-slate-900/40 dark:shadow-md px-3 py-2 hover:border-slate-300 transition-all duration-300 dark:hover:border-slate-900";
+                "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-1 hover:ring-slate-300 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
 
             const indicador = document.createElement("span");
             indicador.className = (item.valido
@@ -274,6 +282,8 @@ class ValidadorCnpj {
         });
 
         listaHistorico.scrollTop = 0;
+        const contador = document.getElementById("contador-historico") as HTMLSpanElement | null;
+        atualizarContadorHistorico(contador, this.historico.length, this.limiteHistorico, true);
     }
 
     private validarCnpj(entrada: string): ResultadoValidacao {
@@ -327,6 +337,7 @@ class ValidadorCnpj {
             }
 
             campoUnico.value = controleMascara.checked ? aplicarMascaraLocal(bruto) : bruto;
+            this.atualizarEstadoBotaoValidarUnico();
         };
 
         campoUnico.addEventListener("input", atualizarEntrada);
@@ -338,6 +349,37 @@ class ValidadorCnpj {
         });
 
         controleMascara.addEventListener("change", atualizarEntrada);
+    }
+
+    /**
+     * @summary Habilita/desabilita o botão "Validar CNPJ" conforme o total de 14 caracteres.
+     */
+    private atualizarEstadoBotaoValidarUnico(): void {
+        const { campoUnico, botaoValidarUnico } = this.elementos;
+        const puro = normalizarPuro(campoUnico.value);
+        const habilitar = puro.length >= 14;
+        botaoValidarUnico.disabled = !habilitar;
+        botaoValidarUnico.classList.toggle("opacity-60", !habilitar);
+        botaoValidarUnico.classList.toggle("cursor-not-allowed", !habilitar);
+        botaoValidarUnico.title = habilitar
+            ? "Validar CNPJ"
+            : "Informe ao menos 14 digitos para validar";
+
+    }
+
+    /**
+     * @summary Habilita/desabilita o botão de validação em massa conforme a lista.
+     */
+    private atualizarEstadoBotaoValidarMassa(totalItens: number): void {
+        const { botaoValidarMassa } = this.elementos;
+        if (!botaoValidarMassa) return;
+        const habilitar = totalItens > 0;
+        botaoValidarMassa.disabled = !habilitar;
+        botaoValidarMassa.classList.toggle("opacity-60", !habilitar);
+        botaoValidarMassa.classList.toggle("cursor-not-allowed", !habilitar);
+        botaoValidarMassa.title = habilitar
+            ? "Validar CNPJs em Massa"
+            : "adicione ao menos 1 CNPJ para validar em massa";
     }
 
     // evita loops de reentrada quando reatribuímos .value
@@ -402,6 +444,7 @@ class ValidadorCnpj {
                 exibirAviso(this.elementos.areaAviso, `Limite de ${LIMITE} CNPJs atingido. Os extras foram ignorados.`, TipoAviso.Info);
             }
 
+            this.atualizarEstadoBotaoValidarMassa(total);
             this.formatando.massa = false;
         };
 

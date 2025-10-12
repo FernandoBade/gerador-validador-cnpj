@@ -12,7 +12,8 @@ import { ElementosInterface, HistoricoIdentificadores, IdentificadorGerado, Temp
 import { htmlCookies, inicializarAvisoDeCookies } from "./cookies.js";
 import { aplicarMascara } from "./formatacao-cnpj.js";
 import { calcularDigitoVerificador, converterCaractereParaValor, verificarSequenciaRepetida, PESOS_DIGITOS } from "./algoritmo-cnpj.js";
-import { copiarTexto, exibirAviso, inicializarEfeitoOnda, obterElementoObrigatorio } from "./interface.js";
+import { copiarTexto, inicializarEfeitoOnda, obterElementoObrigatorio } from "./interface.js";
+import { exibirAviso } from "./mensageria.js";
 
 /**
  * @summary Classe responsável por agrupar regras de negócio e interação com a interface do gerador.
@@ -87,7 +88,7 @@ class GeradorCnpj {
                     exibirAviso(
                         this.elementos.areaAviso,
                         `Limite de ${this.historico.limite} CNPJs atingido. CALMAAAAA QUE O NAVEGADOR NUM GUENTA!!! 😅`,
-                        TipoAviso.Info,
+                        TipoAviso.Erro,
                     );
                     break;
                 }
@@ -403,11 +404,16 @@ class GeradorCnpj {
 
         try {
             await copiarTexto(listaParaCopiar);
-            exibirAviso(
-                this.elementos.areaAviso,
-                `Copiados ${this.historico.itens.length} CNPJs separados por vírgula`,
-                TipoAviso.Info,
-            );
+            if (this.historico.itens.length === 1) {
+                exibirAviso(this.elementos.areaAviso, `Copiado 1 CNPJ: ${listaParaCopiar}`, TipoAviso.InfoAlternativo);
+                return;
+            } else {
+                exibirAviso(
+                    this.elementos.areaAviso,
+                    `Copiados ${this.historico.itens.length} CNPJs separados por vírgula`,
+                    TipoAviso.Info,
+                );
+            }
         } catch {
             exibirAviso(this.elementos.areaAviso, "Falha ao copiar todos.", TipoAviso.Erro);
         }

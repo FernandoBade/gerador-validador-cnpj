@@ -70,15 +70,6 @@ class ValidadorCnpj {
             botaoValidarUnico.classList.toggle("hidden", ativo);
             botaoValidarMassa.classList.toggle("hidden", !ativo);
             botaoColar.classList.toggle("hidden", ativo);
-            // Ajusta o painel de histórico para expandir junto com o card
-            const painelValidacao = document.getElementById("painel-validacao");
-            if (painelValidacao) {
-                // Remove limite ao entrar no modo massa e restaura ao sair
-                painelValidacao.classList.toggle("max-h-96", !ativo);
-                painelValidacao.classList.toggle("max-h-none", ativo);
-                // Garante que nenhum max-height limite a altura durante o modo massa
-                painelValidacao.style.maxHeight = ativo ? "none" : "";
-            }
             if (ativo) {
                 campoMassa.value = "";
             }
@@ -189,7 +180,7 @@ class ValidadorCnpj {
         this.historico.forEach((item) => {
             const elemento = document.createElement("li");
             elemento.className =
-                "flex items-center justify-between gap-3 rounded-md border-2 border-slate-200 dark:border-slate-900/40 dark:shadow-md px-3 py-2 hover:border-slate-300 transition-all duration-300 dark:hover:border-slate-900";
+                "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-1 hover:ring-slate-300 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
             const indicador = document.createElement("span");
             indicador.className = (item.valido
                 ? 'inline-block w-2 h-2 rounded-full border bg-teal-500 border-emerald-500 ring-2 ring-teal-500/40 shadow-sm shadow-current transition-all duration-300'
