@@ -41,6 +41,7 @@ class GeradorCnpj {
      */
     public constructor(private readonly elementos: ElementosInterface) {
         this.configurarEventos();
+        this.inicializarEfeitoOnda();
         this.inicializarHistorico();
         this.gerarEExibirIdentificador();
     }
@@ -98,7 +99,7 @@ class GeradorCnpj {
                 if (this.historico.itens.length >= this.historico.limite) {
                     this.exibirAviso(
                         `Limite de ${this.historico.limite} CNPJs atingido. CALMAAAAA QUE O NAVEGADOR NUM GUENTA!!! 😅`,
-                        TipoAviso.Erro,
+                        TipoAviso.Info,
                     );
                     break;
                 }
@@ -126,7 +127,7 @@ class GeradorCnpj {
                 ? this.aplicarMascara(this.cnpjAtual)
                 : this.cnpjAtual;
             await this.copiarTexto(valorParaCopiar);
-            this.exibirAviso(`CNPJ copiado: ${valorParaCopiar}`, TipoAviso.Info);
+            this.exibirAviso(`CNPJ copiado: ${valorParaCopiar}`, TipoAviso.InfoAlternativo);
         } catch (erro) {
             console.error(erro);
             this.exibirAviso("Falha ao copiar", TipoAviso.Erro);
@@ -263,7 +264,7 @@ class GeradorCnpj {
     private exibirAviso(mensagem: string, tipo: TipoAviso = TipoAviso.Sucesso): void {
         const { areaAviso } = this.elementos;
         const classesBase =
-            "fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out";
+            "fixed top-4 right-3 min-w-60 max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out";
 
         areaAviso.textContent = mensagem;
         areaAviso.className = `${classesBase} ${MAPA_CLASSES_TIPO_AVISO[tipo].join(" ")} ${ClasseAviso.OpacidadeOculta} ${ClasseAviso.TranslacaoOculta} ${ClasseAviso.PonteiroDesativado}`;
@@ -422,7 +423,7 @@ class GeradorCnpj {
         this.historico.itens.forEach((puro) => {
             const texto = controleMascara?.checked ? this.aplicarMascara(puro) : puro;
             const item = document.createElement("li");
-            item.className = "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-200 dark:ring-slate-900/50 dark:shadow-md px-3 py-2 hover:ring-slate-300 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
+            item.className = "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-2 hover:ring-slate-300 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
 
             const rotulo = document.createElement("span");
             rotulo.className = "ml-1 text-sm text-slate-600 font-semibold dark:text-zinc-50 break-words";
@@ -430,7 +431,7 @@ class GeradorCnpj {
 
             const botao = document.createElement("button");
             botao.className =
-                "ml-1 inline-flex items-center justify-center rounded bg-transparent text-violet-500 transition-all dark:text-violet-500 dark:hover:text-violet-600 ease-in-out hover:text-violet-600 hover:scale-110 px-2 py-1 text-xs";
+                "ml-1 inline-flex items-center justify-center rounded bg-transparent text-violet-400 transition-all dark:text-violet-500 dark:hover:text-violet-600 ease-in-out hover:text-violet-600 px-2 py-1 text-xs active:scale-75";
             botao.setAttribute("title", "Copiar esse CNPJ");
             botao.innerHTML = `
                 <svg class="w-6 h-6" aria-hidden="true" fill="none" viewBox="0 0 24 24">
@@ -443,7 +444,7 @@ class GeradorCnpj {
                 evento.preventDefault();
                 try {
                     await this.copiarTexto(texto);
-                    this.exibirAviso(`CNPJ copiado: ${texto}`, TipoAviso.Info);
+                    this.exibirAviso(`CNPJ copiado: ${texto}`, TipoAviso.InfoAlternativo);
                 } catch {
                     this.exibirAviso("Falha ao copiar", TipoAviso.Erro);
                 }
@@ -503,13 +504,13 @@ class GeradorCnpj {
 
         // Texto principal do botão
         const textoBotao = document.createElement("span");
-        textoBotao.textContent = "Copiar em massa";
+        textoBotao.textContent = "Copiar todos";
 
         // Bolinha com o contador
         const contador = document.createElement("span");
         contador.textContent = totalExibido.toString();
         contador.className =
-            "ml-2 inline-flex items-center justify-center rounded-lg p-2 bg-white text-violet-500 text-xs font-bold w-6 h-6";
+            "ml-2 inline-flex items-center justify-center rounded-lg p-2 bg-white text-violet-500 text-xs font-bold w-8 h-8§";
 
         botaoCopiarTodos.appendChild(textoBotao);
         if (total > 0) {
@@ -520,6 +521,42 @@ class GeradorCnpj {
         botaoCopiarTodos.classList.toggle("cursor-nao-permitido", total === 0);
         botaoCopiarTodos.classList.toggle("opacity-60", total === 0);
     }
+
+    /**
+     * Inicializa o efeito de onda em todos os botões que tiverem:
+     *  - .efeito-onda-base (obrigatória)
+     *  - .efeitoOndaClaro  (para botões sem fundo)
+     *  - .efeitoOndaEscuro (para botões com fundo)
+     */
+    private inicializarEfeitoOnda(): void {
+        const botoes = document.querySelectorAll<HTMLElement>(".efeito-onda-base");
+
+        botoes.forEach((botao) => {
+            // garante contexto de posicionamento
+            botao.style.position = botao.style.position || "relative";
+            botao.style.overflow = botao.style.overflow || "hidden";
+
+            botao.addEventListener("click", (evento: MouseEvent) => {
+                // evita criar efeito em botões realmente desabilitados
+                if ((botao as HTMLButtonElement).disabled) return;
+
+                const baseRem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+                const rect = botao.getBoundingClientRect();
+                const x = (evento.pageX - (rect.left + window.scrollX)) / baseRem;
+                const y = (evento.pageY - (rect.top + window.scrollY)) / baseRem;
+
+                const bolha = document.createElement("span");
+                bolha.className = "efeito-onda-circulo";
+                bolha.style.left = `${x}rem`;
+                bolha.style.top = `${y}rem`;
+
+                botao.appendChild(bolha);
+                setTimeout(() => bolha.remove(), 600);
+            });
+        });
+    }
+
+
 }
 
 /**
@@ -534,6 +571,7 @@ function obterElementoObrigatorio<T extends HTMLElement>(id: string): T {
     }
     return elemento as T;
 }
+
 
 
 // Garante que o banner de cookies exista no DOM

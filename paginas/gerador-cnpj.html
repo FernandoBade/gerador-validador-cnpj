@@ -85,7 +85,7 @@
             darkMode: "class",
         };
     </script>
-    <link rel="stylesheet" href="./src/estilos/controle-tema.css" />
+    <link rel="stylesheet" href="../src/estilos/controle-tema.css" />
 
     <!-- Google Tag Manager -->
     <script>
@@ -154,87 +154,107 @@
                         <span class="botao"></span>
                     </div>
                 </label>
-
             </div>
 
-            <div
-                class="space-y-8 p-10 rounded-3xl bg-zinc-50 dark:bg-slate-900 max-w-6xl grid-cols-3 md:flex-row gap-6 items-stretch pb-12">
-                <div class="space-y-3 text-center">
-                    <p class="text-sm uppercase tracking-[0.35em] text-violet-500 font-semibold">Ferramentas para o novo
-                        CNPJ</p>
-                    <h1 class="text-3xl md:text-4xl font-bold text-slate-700 dark:text-zinc-50">
-                        Gere ou valide CNPJ numérico e alfanumérico em segundos
-                    </h1>
-                    <p class="text-base text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-                        A mesma plataforma oferece geração de CNPJ fictício, validação gratuita de CNPJ, suporte ao novo
-                        padrão alfanumérico 2026 e ferramentas para consultar a veracidade de CNPJs online com poucos
-                        cliques.
-                    </p>
-                </div>
+            <div class="flex flex-col md:flex-row gap-6 items-start justify-center">
                 <!-- Card principal -->
-                <section class="grid gap-6 md:grid-cols-2">
-                    <!-- Card: Gerador de CNPJ -->
-                    <article
-                        class="bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-xl p-6 flex flex-col self-stretch transition-colors duration-500">
-                        <div class="flex flex-col gap-1 text-center">
-                            <h2 class="mt-4 mb-2 text-2xl font-bold text-slate-600 dark:text-zinc-50">
-                                Gerador de CNPJ
-                            </h2>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">
-                                Gere CNPJs numéricos ou alfanuméricos com máscara opcional, histórico em tempo real e
-                                cópia em massa para homologações, testes e simulações. É possível gerar até 100 CNPJs e
-                                copiál-los com um clique.
-                            </p>
-                        </div>
+                <div
+                    class="w-full max-w-xl h-96 px-8 bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl pb-8flex flex-col justify-between transition-colors duration-500">
+                    <div class="flex flex-col gap-1 text-center">
+                        <h1 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
+                            Gerador de CNPJ Alfanumérico
+                        </h1>
+                        <h2 class="text-sm font-semibold text-slate-600 dark:text-zinc-50 my-4">
+                            A validação de CNPJs exige códigos matematicamente corretos. Gere CNPJs fictícios com
+                            máscara, prontos para testar integrações e validações tanto no formato numérico quanto no
+                            padrão alfanumérico.
+                        </h2>
+                    </div>
 
-                        <div class="flex justify-center mt-6">
-                            <a href="./paginas/gerador-cnpj.html" type="button"
-                                class="inline-flex items-center justify-center rounded-lg bg-violet-500 dark:bg-violet-500 px-8 py-3 text-base font-semibold text-zinc-50 shadow-md transition-all ease-in-out duration-300 hover:bg-violet-600 dark:hover:bg-violet-600 hover:shadow-lg">
-                                Gerar CNPJ
-                                <svg class="ml-2 w-5 h-5 text-zinc-50 dark:text-zinc-50" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.5"
-                                        d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                            </a>
-                        </div>
-                    </article>
+                    <div class="flex flex-col gap-6 max-w-96 mx-auto">
+                        <!-- Campo resultado -->
+                        <div class="flex flex-wrap align-middle items-stretch mt-4 gap-1">
+                            <div class="relative flex-1">
+                                <input id="campo-resultado" type="text" readonly
+                                    class="w-full rounded-lg text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 px-3 pr-12 py-2 text-lg font-semibold shadow-inner" />
+                                <button id="botao-copiar" type="button" title="Copiar CNPJ"
+                                    class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded text-violet-400 dark:text-violet-400 transition-all ease-in-out hover:text-violet-500 dark:hover:text-violet-600 px-2 py-1 text-xs duration-300 active:scale-75"
+                                    aria-label="Copiar CNPJ">
+                                    <svg class="w-8 h-8" aria-hidden="true" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
+                                            d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z" />
+                                    </svg>
+                                </button>
+                            </div>
 
-                    <!-- Card: Validador de CNPJ -->
-                    <article
-                        class="bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-xl p-6 flex flex-col self-stretch transition-colors duration-500">
-                        <div class="flex flex-col gap-1 text-center">
-                            <h2 class="mt-4 mb-2 text-2xl font-bold text-slate-600 dark:text-zinc-50">
-                                Validador de CNPJ
-                            </h2>
-                            <div>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">
-                                    Valide CNPJs, numéricos ou alfanuméricos, com relatórios instantâneos, máscara
-                                    opcional e validação em massa. Mantemos um histórico das últimas 100 validações mais
-                                    recentes
-                                </p>
+                            <!-- Mantém o campo tempo-restante -->
+                            <div id="tempo-restante" class="text-sm text-slate-600 dark:text-slate-500 hidden"></div>
+
+                            <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-300 dark:bg-slate-600">
+                                <div id="barra"
+                                    class="h-full w-full origin-left bg-violet-500 dark:bg-violet-500 transition-transform duration-100 ease-linear">
+                                </div>
                             </div>
                         </div>
 
-                        <div class="flex justify-center mt-6">
-                            <a type="button"
-                                class="inline-flex items-center justify-center rounded-lg bg-transparent border border-violet-500 px-8 py-3 text-base font-semibold text-violet-500 dark:text-violet-400 dark:border-violet-500 shadow-sm transition-all ease-in-out duration-300 hover:border-violet-600 hover:text-violet-500 hover:shadow-md cursor-pointer">
-                                Validar CNPJ
-                                <svg class="ml-2 w-6 h-5 text-violet-500 dark:text-violet-400" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                        <!-- Toggle -->
+                        <div class="flex flex-col items-center gap-8 mt-2 text-sm text-slate-600 dark:text-slate-500">
+                            <label for="toggle-mascara"
+                                class="inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-slate-600 dark:text-zinc-50 select-none">
+                                <input id="toggle-mascara" type="checkbox" class="sr-only peer" checked />
+                                <div
+                                    class="relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
+                                </div>
+                                <span class="transition-colors duration-300 peer-checked:text-bold">Aplicar
+                                    máscara</span>
+                            </label>
+
+                            <!-- Botões -->
+                            <div class="flex w-96 mt-2 space-x-8">
+                                <button id="botao-gerar"
+                                    class="efeito-onda-base efeito-onda-claro text-md flex-1 rounded-lg border-2 border-violet-500 dark:border-violet-500 bg-transparent text-violet-500 dark:text-violet-500 font-semibold px-1 py-2 transition-all duration-300 hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400 dark:hover:border-violet-400 active:scale-95">
+                                    Gerar +1 CNPJ
+                                </button>
+
+                                <button id="botao-gerar-10"
+                                    class="efeito-onda-base efeito-onda-escuro text-md relative flex-1 rounded-lg bg-violet-500 text-white font-semibold px-1 py-2 transition-all duration-300 hover:bg-violet-600 active:scale-95">
+                                    Gerar +10 CNPJs
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="painel-recentes" class="w-80 h-96 flex flex-col">
+                    <div
+                        class="bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl p-4 flex flex-col h-full transition-colors duration-500">
+                        <h2 class="font-bold text-2xl text-center text-slate-800 dark:text-zinc-50 pb-4">Histórico
+                        </h2>
+
+                        <ul id="lista-recentes"
+                            class="scroll-personalizado flex-1 overflow-y-auto space-y-2 ml-2 pr-2 py-3 px-2 text-md text-slate-600 dark:text-slate-500 shadow-inner shadow-slate-300 dark:shadow-slate-900 rounded-lg transition-all ease-in-out duration-300">
+                        </ul>
+
+                        <div class="flex w-80 mt-2 justify-center pt-3">
+                            <button id="botao-copiar-todos"
+                                class="flex mb-3 gap-2 efeito-onda-base efeito-onda-escuro relative text-violet-400 text-md font-semibold px-8 py-2 rounded-lg border border-violet-500/40 shadow-[0_0_6px_1px_rgba(139,92,246,0.25)] animate-pulse-slow hover:shadow-[0_0_12px_2px_rgba(139,92,246,0.5)] hover:border-violet-500 hover:text-violet-300 transition-all duration-500 ease-in-out active:scale-95">
+                                Copiar todos
+                                <svg class="w-6 h-6 text-gray-800 dark:text-violet-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                     viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="m8.032 12 1.984 1.984 4.96-4.96m4.55 5.272.893-.893a1.984 1.984 0 0 0 0-2.806l-.893-.893a1.984 1.984 0 0 1-.581-1.403V7.04a1.984 1.984 0 0 0-1.984-1.984h-1.262a1.983 1.983 0 0 1-1.403-.581l-.893-.893a1.984 1.984 0 0 0-2.806 0l-.893.893a1.984 1.984 0 0 1-1.403.581H7.04A1.984 1.984 0 0 0 5.055 7.04v1.262c0 .527-.209 1.031-.581 1.403l-.893.893a1.984 1.984 0 0 0 0 2.806l.893.893c.372.372.581.876.581 1.403v1.262a1.984 1.984 0 0 0 1.984 1.984h1.262c.527 0 1.031.209 1.403.581l.893.893a1.984 1.984 0 0 0 2.806 0l.893-.893a1.985 1.985 0 0 1 1.403-.581h1.262a1.984 1.984 0 0 0 1.984-1.984V15.7c0-.527.209-1.031.581-1.403Z" />
+                                    <path fill-rule="evenodd"
+                                        d="M7 9v6a4 4 0 0 0 4 4h4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1v2Z"
+                                        clip-rule="evenodd" />
+                                    <path fill-rule="evenodd"
+                                        d="M13 3.054V7H9.2a2 2 0 0 1 .281-.432l2.46-2.87A2 2 0 0 1 13 3.054ZM15 3v4a2 2 0 0 1-2 2H9v6a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-3Z"
+                                        clip-rule="evenodd" />
                                 </svg>
-                            </a>
+                            </button>
+
 
                         </div>
-                    </article>
-                </section>
-
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -247,7 +267,7 @@
                 <ul class="grid gap-3 text-sm">
                     <li>
                         <a href="https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico"
-                            class="flex items-center gap-2 pb-0.5 text-slate-300 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                            class="flex items-center gap-2 pb-0.5 text-slate-300 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500"
                             target="_blank">
                             <!-- Ícone Receita -->
                             <svg class="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -262,7 +282,7 @@
                     </li>
                     <li>
                         <a href="https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view"
-                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 "
                             target="_blank">
                             <!-- Ícone pdf -->
                             <svg class="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -279,7 +299,7 @@
                 <ul class="grid gap-3 text-sm">
                     <li>
                         <a href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico"
-                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 "
                             target="_blank">
                             <!-- Ícone GitHub -->
                             <svg class="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -295,7 +315,7 @@
 
                     <li>
                         <a href="https://linkedin.com/in/fernandobade"
-                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 "
                             target="_blank">
                             <!-- Ícone LinkedIn -->
                             <svg class="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -317,8 +337,8 @@
         class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none">
     </div>
 
-    <script type="module" src="./dist/src/tema.js"></script>
-
+    <script type="module" src="../dist/src/tema.js"></script>
+    <script type="module" src="../dist/app.js"></script>
 </body>
 
 
