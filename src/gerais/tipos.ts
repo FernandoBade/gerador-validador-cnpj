@@ -30,8 +30,10 @@ export interface ElementosInterface {
     textoTempoRestante: HTMLDivElement;
     barraProgresso: HTMLElement;
     controleMascara: HTMLInputElement | null;
+    controleAlfanumerico: HTMLInputElement | null;
     listaRecentes: HTMLUListElement | null;
     botaoCopiarTodos: HTMLButtonElement | null;
+    contadorHistorico: HTMLSpanElement | null;
 }
 
 /**

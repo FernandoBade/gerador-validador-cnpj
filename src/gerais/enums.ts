@@ -1,5 +1,5 @@
 /* ============================
-   Definições de enums para o Gerador CNPJ Alfanumérico 2026
+   Definições de enums
 ============================ */
 
 /**
@@ -24,7 +24,7 @@ export enum IntervaloTemporizador {
  */
 export enum ClasseAviso {
     OpacidadeOculta = "opacity-0",
-    TranslacaoOculta = "translate-y-5",
+    TranslacaoOculta = "translate-y-full",
     OpacidadeVisivel = "opacity-100",
     TranslacaoVisivel = "translate-y-0",
     FundoSucesso = "bg-teal-600",

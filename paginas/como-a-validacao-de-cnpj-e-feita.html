@@ -2,6 +2,13 @@
 <html lang="pt-BR">
 
 <head>
+    <script type="module" src="/dist/src/interface/transicao.js" defer></script>
+    <script>
+        window.addEventListener('load', () => {
+            document.body.classList.add('ready');
+        });
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -34,7 +41,8 @@
             <div class="flex justify-end">
                 <label for="alternar-tema"
                     class="controle-tema inline-flex items-center gap-3 rounded-2xl bg-zinc-50 dark:bg-slate-800 px-4 py-2 shadow-md backdrop-blur">
-                    <span class="flex items-center gap-1 text-sm font-medium text-slate-800 dark:text-zinc-50">Tema</span>
+                    <span
+                        class="flex items-center gap-1 text-sm font-medium text-slate-800 dark:text-zinc-50">Tema</span>
                     <input id="alternar-tema" type="checkbox" class="sr-only" />
                     <div
                         class="trilha cursor-pointer relative flex h-8 w-16 items-center shadow-inner dark:shadow-inner dark:shadow-slate-900 rounded-full dark:bg-slate-800 px-1 transition-colors duration-300">
@@ -73,8 +81,10 @@
                         Como a validação do CNPJ alfanumérico é feita?
                     </h1>
                     <p class="text-base text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-                        O manual “Cálculo dos dígitos verificadores de CNPJ alfanumérico”, publicado pelo SERPRO, descreve um
-                        processo em duas etapas para garantir que cada identificador tenha uma estrutura matemática válida. A
+                        O manual “Cálculo dos dígitos verificadores de CNPJ alfanumérico”, publicado pelo SERPRO,
+                        descreve um
+                        processo em duas etapas para garantir que cada identificador tenha uma estrutura matemática
+                        válida. A
                         seguir, mostramos esse passo a passo com a mesma linguagem visual do nosso gerador.
                     </p>
                 </div>
@@ -89,8 +99,10 @@
                             </p>
                         </header>
                         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            A Receita Federal adota o padrão “Corpo + DV”. Os 12 primeiros caracteres podem ser números ou letras
-                            maiúsculas (0-9, A-Z). Os dois últimos são os dígitos verificadores, calculados pelo módulo 11. Qualquer
+                            A Receita Federal adota o padrão “Corpo + DV”. Os 12 primeiros caracteres podem ser números
+                            ou letras
+                            maiúsculas (0-9, A-Z). Os dois últimos são os dígitos verificadores, calculados pelo módulo
+                            11. Qualquer
                             CNPJ com tamanho diferente ou caracteres fora desse conjunto é matematicamente inválido.
                         </p>
                     </article>
@@ -104,10 +116,13 @@
                             </p>
                         </header>
                         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            Para o 1º DV usamos os pesos 5,4,3,2,9,8,7,6,5,4,3,2. Para o 2º DV, o corpo recebe os pesos 6 a 2 e o
+                            Para o 1º DV usamos os pesos 5,4,3,2,9,8,7,6,5,4,3,2. Para o 2º DV, o corpo recebe os pesos
+                            6 a 2 e o
                             primeiro DV calculado completa a sequência. Depois de multiplicar cada caractere pelo peso
-                            correspondente, somamos tudo e aplicamos <span class="font-semibold text-violet-500">módulo 11</span>.
-                            Se o resto for 0 ou 1, o DV vira 0. Caso contrário, usamos <code class="font-mono">11 - resto</code>.
+                            correspondente, somamos tudo e aplicamos <span class="font-semibold text-violet-500">módulo
+                                11</span>.
+                            Se o resto for 0 ou 1, o DV vira 0. Caso contrário, usamos <code
+                                class="font-mono">11 - resto</code>.
                         </p>
                     </article>
 
@@ -118,8 +133,10 @@
                             <p class="text-sm text-slate-500 dark:text-slate-400">Valor para cálculo = ASCII - 48.</p>
                         </header>
                         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            Cada caractere recebe um valor numérico conforme a tabela do SERPRO. Basta subtrair 48 do código ASCII:
-                            <strong>0</strong> (48) vale 0, <strong>A</strong> (65) vira 17, <strong>Z</strong> (90) vira 42. É esse
+                            Cada caractere recebe um valor numérico conforme a tabela do SERPRO. Basta subtrair 48 do
+                            código ASCII:
+                            <strong>0</strong> (48) vale 0, <strong>A</strong> (65) vira 17, <strong>Z</strong> (90)
+                            vira 42. É esse
                             número que participa da multiplicação pelos pesos para formar o somatório do módulo 11.
                         </p>
                     </article>
@@ -129,9 +146,11 @@
                     <article
                         class="bg-white/90 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4">
                         <header class="space-y-1">
-                            <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">Etapas do cálculo do DV</h3>
+                            <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">Etapas do cálculo do DV
+                            </h3>
                         </header>
-                        <ol class="list-decimal list-inside space-y-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                        <ol
+                            class="list-decimal list-inside space-y-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                             <li>
                                 Converta os 12 caracteres iniciais para valores numéricos (ASCII - 48).
                             </li>
@@ -139,15 +158,18 @@
                                 Multiplique cada valor pelo peso indicado para o primeiro DV (5 a 2 e depois 9 a 2).
                             </li>
                             <li>
-                                Some todos os resultados e aplique módulo 11. Se o resto for menor que 2, o DV é 0. Caso contrário,
+                                Some todos os resultados e aplique módulo 11. Se o resto for menor que 2, o DV é 0. Caso
+                                contrário,
                                 <code class="font-mono">11 - resto</code> fornece o valor.
                             </li>
                             <li>
-                                Acrescente o primeiro DV ao final do corpo e repita o processo com os pesos do segundo DV (6 a 2 e
+                                Acrescente o primeiro DV ao final do corpo e repita o processo com os pesos do segundo
+                                DV (6 a 2 e
                                 depois 9 a 2).
                             </li>
                             <li>
-                                Compare os dois dígitos obtidos com os dígitos informados no CNPJ. Se ambos coincidirem, o número é
+                                Compare os dois dígitos obtidos com os dígitos informados no CNPJ. Se ambos coincidirem,
+                                o número é
                                 matematicamente válido.
                             </li>
                         </ol>
@@ -157,7 +179,8 @@
                         class="bg-white/90 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4">
                         <header class="space-y-1">
                             <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">Exemplo prático</h3>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Referência do manual oficial (páginas 3 e 4).</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Referência do manual oficial (páginas
+                                3 e 4).</p>
                         </header>
                         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                             CNPJ base: <code class="font-mono text-violet-500">12ABC34501DE</code>
@@ -166,11 +189,13 @@
                             Valores (ASCII - 48): <span class="font-mono">1 2 17 18 19 3 4 5 0 1 20 21</span>
                         </p>
                         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            Pesos 1º DV: <span class="font-mono">5 4 3 2 9 8 7 6 5 4 3 2</span> → Somatório 459 → Resto 8 →
+                            Pesos 1º DV: <span class="font-mono">5 4 3 2 9 8 7 6 5 4 3 2</span> → Somatório 459 → Resto
+                            8 →
                             <strong>1º DV = 3</strong>
                         </p>
                         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            Pesos 2º DV: <span class="font-mono">6 5 4 3 2 9 8 7 6 5 4 3 2</span> → Somatório 424 → Resto 6 →
+                            Pesos 2º DV: <span class="font-mono">6 5 4 3 2 9 8 7 6 5 4 3 2</span> → Somatório 424 →
+                            Resto 6 →
                             <strong>2º DV = 5</strong>
                         </p>
                         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
@@ -183,18 +208,23 @@
                     class="bg-white/95 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4">
                     <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">CNPJ válido x CNPJ ativo</h3>
                     <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                        Um CNPJ pode ser <strong>matematicamente válido</strong> (estrutura correta e dígitos verificadores
-                        compatíveis) e ainda assim não existir na base da Receita Federal ou estar baixado/suspenso. A validação do
-                        nosso gerador confirma formato, possíveis combinações e integridade dos dígitos verificadores — mas não
+                        Um CNPJ pode ser <strong>matematicamente válido</strong> (estrutura correta e dígitos
+                        verificadores
+                        compatíveis) e ainda assim não existir na base da Receita Federal ou estar baixado/suspenso. A
+                        validação do
+                        nosso gerador confirma formato, possíveis combinações e integridade dos dígitos verificadores —
+                        mas não
                         substitui consultas oficiais de situação cadastral.
                     </p>
                 </article>
 
                 <article
                     class="bg-white/95 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4">
-                    <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">Tabela resumida — ASCII → Valor para o DV</h3>
+                    <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">Tabela resumida — ASCII → Valor
+                        para o DV</h3>
                     <p class="text-sm text-slate-600 dark:text-slate-300">
-                        Baseada na tabela oficial do SERPRO. Subtraia 48 do código ASCII para encontrar o valor usado no cálculo do
+                        Baseada na tabela oficial do SERPRO. Subtraia 48 do código ASCII para encontrar o valor usado no
+                        cálculo do
                         módulo 11.
                     </p>
                     <div class="overflow-x-auto rounded-2xl border border-slate-200/40 dark:border-slate-700/60">
@@ -206,7 +236,8 @@
                                     <th scope="col" class="px-3 py-2 text-left font-semibold">Valor para o DV</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
+                            <tbody
+                                class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
                                 <tr class="bg-white/70 dark:bg-slate-900/40">
                                     <td class="px-3 py-2 font-mono">0</td>
                                     <td class="px-3 py-2 font-mono">48</td>
@@ -465,14 +496,9 @@
         class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out opacity-0 translate-y-5 pointer-events-none">
     </div>
 
-    <script type="module" src="../dist/src/tema.js"></script>
-    <script type="module">
-        import { htmlCookies, inicializarAvisoDeCookies } from "../dist/src/cookies.js";
-        if (!document.getElementById("aviso-cookies")) {
-            document.body.insertAdjacentHTML("beforeend", htmlCookies);
-        }
-        inicializarAvisoDeCookies();
-    </script>
+    <script type="module" src="../dist/src/interface/tema.js"></script>
+    <script type="module" src="../dist/src/interface/menu.js"></script>
+    <script type="module" src="../dist/src/gerais/cookies.js"></script>
 </body>
 
 </html>

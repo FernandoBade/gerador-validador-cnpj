@@ -1,5 +1,5 @@
 /* ============================
-   Definições de enums para o Gerador CNPJ Alfanumérico 2026
+   Definições de enums
 ============================ */
 /**
  * @summary Possíveis tamanhos do identificador alfanumérico.
@@ -24,7 +24,7 @@ export var IntervaloTemporizador;
 export var ClasseAviso;
 (function (ClasseAviso) {
     ClasseAviso["OpacidadeOculta"] = "opacity-0";
-    ClasseAviso["TranslacaoOculta"] = "translate-y-5";
+    ClasseAviso["TranslacaoOculta"] = "translate-y-full";
     ClasseAviso["OpacidadeVisivel"] = "opacity-100";
     ClasseAviso["TranslacaoVisivel"] = "translate-y-0";
     ClasseAviso["FundoSucesso"] = "bg-teal-600";

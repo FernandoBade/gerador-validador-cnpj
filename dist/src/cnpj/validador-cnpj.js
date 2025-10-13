@@ -1,7 +1,26 @@
-import { ClasseAviso, IntervaloTemporizador, TipoAviso, } from "./enums.js";
-import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, PESOS_DIGITOS, } from "./constantes.js";
-import { htmlCookies, inicializarAvisoDeCookies } from "./cookies.js";
+/* ============================
+   Validador de CNPJ Alfanumérico 2026
+   - Validação individual e em massa
+   - Suporte a máscara visual e colagem
+   - Cálculo de dígitos verificadores (módulo 11)
+   - Avisos e utilidades de UI reutilizáveis
+============================ */
+import { ClasseAviso, IntervaloTemporizador, TipoAviso } from "../gerais/enums.js";
+import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, PESOS_DIGITOS } from "../gerais/constantes.js";
+import { htmlCookies, inicializarAvisoDeCookies } from "../gerais/cookies.js";
+import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro } from "../cnpj/formatacao-cnpj.js";
+import { calcularDigitoVerificador, converterCaractereParaValor } from "../cnpj/algoritmo-cnpj.js";
+import { copiarTexto, inicializarEfeitoOnda } from "../interface/interface.js";
+import { exibirAviso } from "../gerais/mensageria.js";
+import { atualizarContadorHistorico } from "../interface/contador-historico.js";
+/**
+ * @summary Classe responsável pela validação de CNPJs (único e em massa) com UI.
+ */
 class ValidadorCnpj {
+    // Avisos agora controlados pelo utilitário de UI
+    /**
+     * @summary Inicializa o validador e configura a interface.
+     */
     constructor(elementos) {
         this.elementos = elementos;
         this.historico = [];
@@ -13,7 +32,12 @@ class ValidadorCnpj {
         this.configurarEntradaCnpj();
         this.configurarEntradaCNPJMassa();
         this.alternarModoMassa(false);
+        this.atualizarEstadoBotaoValidarUnico();
+        inicializarEfeitoOnda();
     }
+    /**
+     * @summary Registra os manipuladores de eventos da interface.
+     */
     configurarEventos() {
         const { botaoValidarUnico, botaoValidarMassa, controleMascara, controleMassa, botaoColar, } = this.elementos;
         botaoValidarUnico.addEventListener("click", () => {
@@ -27,15 +51,20 @@ class ValidadorCnpj {
         });
         controleMassa.addEventListener("change", () => {
             this.alternarModoMassa(controleMassa.checked);
+            if (!controleMassa.checked) {
+                this.atualizarEstadoBotaoValidarUnico();
+            }
         });
         botaoColar.addEventListener("click", async () => {
             await this.colarDoClipboard();
         });
     }
+    /**
+     * @summary Alterna entre validação única e em massa com animação suave.
+     */
     alternarModoMassa(ativo) {
         const { campoUnico, campoMassa, botaoValidarUnico, botaoValidarMassa, botaoColar, } = this.elementos;
         this.animarAlturaSincronizada(() => {
-            // aqui fazemos as trocas visuais
             campoUnico.classList.toggle("hidden", ativo);
             campoMassa.classList.toggle("hidden", !ativo);
             botaoValidarUnico.classList.toggle("hidden", ativo);
@@ -45,7 +74,6 @@ class ValidadorCnpj {
                 campoMassa.value = "";
             }
         });
-        // foco depois de agendar a animação
         if (ativo) {
             campoMassa.focus();
         }
@@ -53,45 +81,52 @@ class ValidadorCnpj {
             campoUnico.focus();
         }
     }
+    /**
+     * @summary Cola conteúdo do clipboard no campo único e notifica o usuário.
+     */
     async colarDoClipboard() {
         try {
             const texto = await navigator.clipboard.readText();
             if (!texto) {
-                this.exibirAviso("Nenhum conteúdo disponível para colar", TipoAviso.Info);
+                exibirAviso(this.elementos.areaAviso, "Nenhum conteúdo disponível para colar", TipoAviso.Info);
                 return;
             }
             this.elementos.campoUnico.value = texto.trim();
-            this.exibirAviso(`Conteúdo colado: ${texto}`, TipoAviso.InfoAlternativo);
+            exibirAviso(this.elementos.areaAviso, `Conteúdo colado: ${texto}`, TipoAviso.InfoAlternativo);
         }
         catch {
             this.exibirAviso("Não foi possível acessar a área de transferência", TipoAviso.Erro);
         }
     }
+    /**
+     * @summary Valida o conteúdo do campo único e atualiza o histórico.
+     */
     validarUnico() {
         const valor = this.elementos.campoUnico.value.trim();
         if (!valor) {
-            this.exibirAviso("Informe um CNPJ para validar", TipoAviso.Erro);
+            exibirAviso(this.elementos.areaAviso, "Informe um CNPJ para validar", TipoAviso.Erro);
             return;
         }
         const puro = valor.replace(/[^0-9A-Z]/gi, "").toUpperCase();
         if (puro.length < 14) {
-            this.exibirAviso("Insira os 14 caracteres antes da validação", TipoAviso.Info);
+            exibirAviso(this.elementos.areaAviso, "Insira os 14 caracteres antes da validação", TipoAviso.Info);
             return;
         }
         const resultado = this.validarCnpj(valor);
         this.adicionarAoHistorico(resultado);
         this.renderizarHistorico();
-        if (resultado.valido) {
-            this.exibirAviso(`CNPJ ${valor} é válido`, TipoAviso.Sucesso);
-        }
-        else {
-            this.exibirAviso(`CNPJ ${valor} é inválido`, TipoAviso.Erro);
-        }
+        if (resultado.valido)
+            exibirAviso(this.elementos.areaAviso, `CNPJ ${valor} é válido`, TipoAviso.Sucesso);
+        else
+            exibirAviso(this.elementos.areaAviso, `CNPJ ${valor} é inválido`, TipoAviso.Erro);
     }
+    /**
+     * @summary Valida uma lista de CNPJs separados por vírgula/; e atualiza o histórico.
+     */
     validarEmMassa() {
         const valor = this.elementos.campoMassa.value.trim();
         if (!valor) {
-            this.exibirAviso("Informe ao menos um CNPJ para validar", TipoAviso.Info);
+            exibirAviso(this.elementos.areaAviso, "Informe ao menos um CNPJ para validar", TipoAviso.Info);
             return;
         }
         const entradas = valor
@@ -99,11 +134,11 @@ class ValidadorCnpj {
             .map((parte) => parte.trim())
             .filter((parte) => parte.length > 0);
         if (entradas.length === 0) {
-            this.exibirAviso("Informe ao menos um CNPJ para validar", TipoAviso.Info);
+            exibirAviso(this.elementos.areaAviso, "Informe ao menos um CNPJ para validar", TipoAviso.Info);
             return;
         }
         if (entradas.length > 100) {
-            this.exibirAviso("Limite de 100 CNPJs por validação", TipoAviso.Erro);
+            exibirAviso(this.elementos.areaAviso, "Limite de 100 CNPJs por validação", TipoAviso.Erro);
             return;
         }
         let validos = 0;
@@ -119,28 +154,33 @@ class ValidadorCnpj {
             this.adicionarAoHistorico(resultado);
         });
         this.renderizarHistorico();
-        if (invalidos === 0 && validos > 0) {
-            this.exibirAviso("CNPJ válido", TipoAviso.Sucesso);
-        }
-        else {
-            this.exibirAviso("CNPJ inválido", TipoAviso.Erro);
-        }
+        if (invalidos === 0 && validos > 0)
+            exibirAviso(this.elementos.areaAviso, "CNPJ válido", TipoAviso.Sucesso);
+        else
+            exibirAviso(this.elementos.areaAviso, "CNPJ inválido", TipoAviso.Erro);
     }
+    /**
+     * @summary Adiciona o resultado ao histórico respeitando o limite.
+     */
     adicionarAoHistorico(resultado) {
         this.historico.unshift(resultado);
         if (this.historico.length > this.limiteHistorico) {
             this.historico.length = this.limiteHistorico;
         }
-        document.getElementById("contador-hist").textContent = String(this.historico.length);
+        const contador = document.getElementById("contador-historico");
+        atualizarContadorHistorico(contador, this.historico.length, this.limiteHistorico, true);
     }
+    /**
+     * @summary Renderiza a lista de validações realizadas, com opção de copiar.
+     */
     renderizarHistorico() {
         const { listaHistorico, controleMascara } = this.elementos;
         listaHistorico.innerHTML = "";
-        const aplicarMascara = controleMascara.checked;
+        const aplicarMascaraAtiva = controleMascara.checked;
         this.historico.forEach((item) => {
             const elemento = document.createElement("li");
             elemento.className =
-                "flex items-center justify-between gap-3 rounded-md border-2 border-slate-200 dark:border-slate-900/40 dark:shadow-md px-3 py-2 hover:border-slate-300 transition-all duration-300 dark:hover:border-slate-900";
+                "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-1 hover:ring-slate-300 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
             const indicador = document.createElement("span");
             indicador.className = (item.valido
                 ? 'inline-block w-2 h-2 rounded-full border bg-teal-500 border-emerald-500 ring-2 ring-teal-500/40 shadow-sm shadow-current transition-all duration-300'
@@ -148,7 +188,7 @@ class ValidadorCnpj {
             indicador.setAttribute("title", item.valido ? "CNPJ válido" : "CNPJ inválido");
             const texto = document.createElement("span");
             texto.className = "text-sm font-semibold text-slate-600 dark:text-zinc-50 break-words flex-1 cursor-default";
-            texto.textContent = this.formatarParaExibicao(item.puro, aplicarMascara);
+            texto.textContent = aplicarMascaraAtiva ? aplicarMascara(item.puro) : item.puro;
             const containerEsquerdo = document.createElement("div");
             containerEsquerdo.className = "flex items-center gap-3 flex-1";
             containerEsquerdo.append(indicador, texto);
@@ -163,25 +203,21 @@ class ValidadorCnpj {
             `;
             botaoCopiar.addEventListener("click", async (evento) => {
                 evento.preventDefault();
-                const textoParaCopiar = aplicarMascara ? this.formatarParaExibicao(item.puro, true) : item.puro;
+                const textoParaCopiar = aplicarMascaraAtiva ? aplicarMascara(item.puro) : item.puro;
                 try {
-                    await navigator.clipboard.writeText(textoParaCopiar);
-                    this.exibirAviso(`CNPJ copiado: ${textoParaCopiar}`, TipoAviso.InfoAlternativo);
+                    await copiarTexto(textoParaCopiar);
+                    exibirAviso(this.elementos.areaAviso, `CNPJ copiado: ${textoParaCopiar}`, TipoAviso.InfoAlternativo);
                 }
                 catch {
-                    this.exibirAviso("Falha ao copiar", TipoAviso.Erro);
+                    exibirAviso(this.elementos.areaAviso, "Falha ao copiar", TipoAviso.Erro);
                 }
             });
             elemento.append(containerEsquerdo, botaoCopiar);
             listaHistorico.appendChild(elemento);
         });
         listaHistorico.scrollTop = 0;
-    }
-    formatarParaExibicao(cnpj, aplicarMascara) {
-        if (!aplicarMascara || cnpj.length !== 14) {
-            return cnpj;
-        }
-        return `${cnpj.slice(0, 2)}.${cnpj.slice(2, 5)}.${cnpj.slice(5, 8)}/${cnpj.slice(8, 12)}-${cnpj.slice(12)}`;
+        const contador = document.getElementById("contador-historico");
+        atualizarContadorHistorico(contador, this.historico.length, this.limiteHistorico, true);
     }
     validarCnpj(entrada) {
         const normalizado = entrada.toUpperCase();
@@ -201,42 +237,27 @@ class ValidadorCnpj {
         }
         const corpo = puro.slice(0, 12);
         const dvInformado = puro.slice(12);
-        const valores = Array.from(corpo).map((caractere) => this.converterCaractere(caractere));
-        const primeiroDV = this.calcularDigito(valores, PESOS_DIGITOS.primeiro);
-        const segundoDV = this.calcularDigito([...valores, primeiroDV], PESOS_DIGITOS.segundo);
+        const valores = Array.from(corpo).map((caractere) => converterCaractereParaValor(caractere));
+        const primeiroDV = calcularDigitoVerificador(valores, PESOS_DIGITOS.primeiro);
+        const segundoDV = calcularDigitoVerificador([...valores, primeiroDV], PESOS_DIGITOS.segundo);
         const valido = primeiroDV === Number.parseInt(dvInformado[0] ?? "", 10)
             && segundoDV === Number.parseInt(dvInformado[1] ?? "", 10);
         return { puro, valido };
     }
+    /**
+     * @summary Configura o comportamento do campo único (normalização e máscara).
+     */
     configurarEntradaCnpj() {
         const { campoUnico, controleMascara } = this.elementos;
-        const aplicarMascara = (valor) => {
-            const puro = valor.replace(/[^0-9A-Z]/gi, "").toUpperCase();
-            if (puro.length <= 2)
-                return puro;
-            if (puro.length <= 5)
-                return `${puro.slice(0, 2)}.${puro.slice(2)}`;
-            if (puro.length <= 8)
-                return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5)}`;
-            if (puro.length <= 12)
-                return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8)}`;
-            return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8, 12)}-${puro.slice(12, 14)}`;
-        };
-        const removerMascara = (valor) => {
-            return valor.replace(/[^0-9A-Z]/gi, "").toUpperCase();
-        };
+        const aplicarMascaraLocal = (valor) => aplicarMascaraProgressiva(normalizarPuro(valor));
         const atualizarEntrada = () => {
             let bruto = campoUnico.value;
-            bruto = removerMascara(bruto);
+            bruto = normalizarPuro(bruto);
             if (bruto.length > 14) {
                 bruto = bruto.slice(0, 14);
             }
-            if (controleMascara.checked) {
-                campoUnico.value = aplicarMascara(bruto);
-            }
-            else {
-                campoUnico.value = bruto;
-            }
+            campoUnico.value = controleMascara.checked ? aplicarMascaraLocal(bruto) : bruto;
+            this.atualizarEstadoBotaoValidarUnico();
         };
         campoUnico.addEventListener("input", atualizarEntrada);
         campoUnico.addEventListener("paste", (e) => {
@@ -247,27 +268,39 @@ class ValidadorCnpj {
         });
         controleMascara.addEventListener("change", atualizarEntrada);
     }
-    normalizarPuro(valor) {
-        // remove tudo que não é [0-9A-Z] e sobe pra maiúscula
-        return valor.replace(/[^0-9A-Z]/gi, "").toUpperCase();
+    /**
+     * @summary Habilita/desabilita o botão "Validar CNPJ" conforme o total de 14 caracteres.
+     */
+    atualizarEstadoBotaoValidarUnico() {
+        const { campoUnico, botaoValidarUnico } = this.elementos;
+        const puro = normalizarPuro(campoUnico.value);
+        const habilitar = puro.length >= 14;
+        botaoValidarUnico.disabled = !habilitar;
+        botaoValidarUnico.classList.toggle("opacity-60", !habilitar);
+        botaoValidarUnico.classList.toggle("cursor-not-allowed", !habilitar);
+        botaoValidarUnico.title = habilitar
+            ? "Validar CNPJ"
+            : "Informe ao menos 14 digitos para validar";
     }
-    // máscara progressiva: idem do input, mas usando sempre o "puro"
-    aplicarMascaraProgressiva(puro) {
-        if (puro.length <= 2)
-            return puro;
-        if (puro.length <= 5)
-            return `${puro.slice(0, 2)}.${puro.slice(2)}`;
-        if (puro.length <= 8)
-            return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5)}`;
-        if (puro.length <= 12)
-            return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8)}`;
-        return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8, 12)}-${puro.slice(12, 14)}`;
+    /**
+     * @summary Habilita/desabilita o botão de validação em massa conforme a lista.
+     */
+    atualizarEstadoBotaoValidarMassa(totalItens) {
+        const { botaoValidarMassa } = this.elementos;
+        if (!botaoValidarMassa)
+            return;
+        const habilitar = totalItens > 0;
+        botaoValidarMassa.disabled = !habilitar;
+        botaoValidarMassa.classList.toggle("opacity-60", !habilitar);
+        botaoValidarMassa.classList.toggle("cursor-not-allowed", !habilitar);
+        botaoValidarMassa.title = habilitar
+            ? "Validar CNPJs em Massa"
+            : "adicione ao menos 1 CNPJ para validar em massa";
     }
-    // formata um valor qualquer (digitado ou colado) conforme o switch
-    formatarSegundoToggle(valor, aplicarMascara) {
-        const puro = this.normalizarPuro(valor);
-        return aplicarMascara ? this.aplicarMascaraProgressiva(puro) : puro;
-    }
+    // normalização e formatação reutilizadas via utilitários em src/formatacao-cnpj.ts
+    /**
+     * @summary Configura o campo de validação em massa, formatando e limitando itens.
+     */
     configurarEntradaCNPJMassa() {
         const { campoMassa, controleMascara } = this.elementos;
         const LIMITE = 100;
@@ -280,9 +313,9 @@ class ValidadorCnpj {
                 const p = parte.trim();
                 if (!p)
                     continue;
-                const f = this.formatarSegundoToggle(p, controleMascara.checked);
-                // usamos o "puro" como chave de unicidade
-                const chave = this.normalizarPuro(p);
+                const puroParte = normalizarPuro(p);
+                const f = controleMascara.checked ? aplicarMascaraProgressiva(puroParte) : puroParte;
+                const chave = puroParte;
                 if (chave && !vistos.has(chave)) {
                     vistos.add(chave);
                     formatadas.push(f);
@@ -292,12 +325,10 @@ class ValidadorCnpj {
             }
             let saida = formatadas.join(", ");
             if (manterSeparadorFinal && formatadas.length < LIMITE) {
-                // deixa pronto para o próximo CNPJ
                 if (saida.length > 0)
                     saida += ", ";
             }
             else {
-                // remove vírgulas sobrando no fim
                 saida = saida.replace(/[,\s]+$/, "");
             }
             return saida;
@@ -314,39 +345,44 @@ class ValidadorCnpj {
             else if (novo.length === 0 && campoMassa.value !== "") {
                 campoMassa.value = "";
             }
-            // corta excedente e avisa (una vez por evento)
             const total = novo.split(",").map(s => s.trim()).filter(Boolean).length;
             if (total >= LIMITE && /[;,]|\n/.test(textoOrig)) {
-                this.exibirAviso(`Limite de ${LIMITE} CNPJs atingido. Os extras foram ignorados.`, TipoAviso.Info);
+                exibirAviso(this.elementos.areaAviso, `Limite de ${LIMITE} CNPJs atingido. Os extras foram ignorados.`, TipoAviso.Info);
             }
+            this.atualizarEstadoBotaoValidarMassa(total);
             this.formatando.massa = false;
         };
-        // Digitação normal: não mexe a cada caractere, só quando o usuário
-        // termina um item (vírgula, ponto e vírgula ou Enter)
         campoMassa.addEventListener("input", () => {
             const v = campoMassa.value;
             const terminouItem = /[;,]|\n/.test(v.slice(-1));
             if (terminouItem)
                 reformatar(v);
         });
-        // Colagem: formata tudo de uma vez
         campoMassa.addEventListener("paste", (e) => {
             e.preventDefault();
             const texto = (e.clipboardData?.getData("text") ?? "").trim();
             reformatar(texto);
         });
-        // Alternar máscara: reprocessa o campo inteiro
         controleMascara.addEventListener("change", () => reformatar(campoMassa.value));
     }
+    /**
+     * @summary Converte um caractere numérico em valor (usado como fallback legado).
+     */
     converterCaractere(caractere) {
         const codigo = caractere.charCodeAt(0);
         return codigo - 48;
     }
+    /**
+     * @summary Calcula DV com módulo 11 (fallback legado usado internamente).
+     */
     calcularDigito(valores, pesos) {
         const soma = valores.reduce((acumulado, valorAtual, indice) => acumulado + valorAtual * (pesos[indice] ?? 0), 0);
         const resto = soma % 11;
         return resto < 2 ? 0 : 11 - resto;
     }
+    /**
+     * @summary Exibe aviso utilizando as classes locais (compatibilidade legada).
+     */
     exibirAviso(mensagem, tipo) {
         const { areaAviso } = this.elementos;
         const classesBase = "fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out";
@@ -364,6 +400,9 @@ class ValidadorCnpj {
             areaAviso.classList.add(...CLASSES_AVISO_OCULTO);
         }, IntervaloTemporizador.Aviso);
     }
+    /**
+     * @summary Define o placeholder do campo único conforme o estado da máscara.
+     */
     configurarPlaceholderMascara() {
         const { controleMascara, campoUnico } = this.elementos;
         campoUnico.placeholder = controleMascara.checked
@@ -375,6 +414,9 @@ class ValidadorCnpj {
                 : "00ABC000ABCD00";
         });
     }
+    /**
+     * @summary Anima a altura dos cards ao alternar entre os modos de validação.
+     */
     animarAlturaSincronizada(mutarDOM, duracaoMs = 400) {
         const cardValidacao = document.getElementById("card-validacao");
         const painelValidacao = document.getElementById("painel-validacao");
@@ -383,24 +425,19 @@ class ValidadorCnpj {
             mutarDOM();
             return;
         }
-        // mede alturas antes da mudança
         const startA = cardValidacao.offsetHeight;
         const startB = painelValidacao.offsetHeight;
         const trans = `height ${duracaoMs}ms ease-in-out`;
-        // aplica estilos iniciais
         cardValidacao.style.height = `${startA}px`;
         painelValidacao.style.height = `${startB}px`;
         cardValidacao.style.transition = trans;
         painelValidacao.style.transition = trans;
         cardValidacao.style.overflow = "hidden";
         painelValidacao.style.overflow = "hidden";
-        // aplica a mudança no DOM (mostrar/ocultar campos)
         mutarDOM();
         requestAnimationFrame(() => {
-            // mede a altura final após a mudança
             cardValidacao.style.height = "auto";
             const endA = cardValidacao.offsetHeight;
-            // reinicia para a altura anterior e anima até a nova
             cardValidacao.style.height = `${startA}px`;
             void cardValidacao.offsetHeight;
             cardValidacao.style.height = `${endA}px`;
