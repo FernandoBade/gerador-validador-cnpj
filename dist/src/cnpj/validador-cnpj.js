@@ -315,7 +315,6 @@ class ValidadorCnpj {
                     continue;
                 const puroParte = normalizarPuro(p);
                 const f = controleMascara.checked ? aplicarMascaraProgressiva(puroParte) : puroParte;
-                // usamos o "puro" como chave de unicidade
                 const chave = puroParte;
                 if (chave && !vistos.has(chave)) {
                     vistos.add(chave);
@@ -326,12 +325,10 @@ class ValidadorCnpj {
             }
             let saida = formatadas.join(", ");
             if (manterSeparadorFinal && formatadas.length < LIMITE) {
-                // deixa pronto para o próximo CNPJ
                 if (saida.length > 0)
                     saida += ", ";
             }
             else {
-                // remove vírgulas sobrando no fim
                 saida = saida.replace(/[,\s]+$/, "");
             }
             return saida;
@@ -348,7 +345,6 @@ class ValidadorCnpj {
             else if (novo.length === 0 && campoMassa.value !== "") {
                 campoMassa.value = "";
             }
-            // corta excedente e avisa (una vez por evento)
             const total = novo.split(",").map(s => s.trim()).filter(Boolean).length;
             if (total >= LIMITE && /[;,]|\n/.test(textoOrig)) {
                 exibirAviso(this.elementos.areaAviso, `Limite de ${LIMITE} CNPJs atingido. Os extras foram ignorados.`, TipoAviso.Info);
@@ -356,21 +352,17 @@ class ValidadorCnpj {
             this.atualizarEstadoBotaoValidarMassa(total);
             this.formatando.massa = false;
         };
-        // Digitação normal: não mexe a cada caractere, só quando o usuário
-        // termina um item (vírgula, ponto e vírgula ou Enter)
         campoMassa.addEventListener("input", () => {
             const v = campoMassa.value;
             const terminouItem = /[;,]|\n/.test(v.slice(-1));
             if (terminouItem)
                 reformatar(v);
         });
-        // Colagem: formata tudo de uma vez
         campoMassa.addEventListener("paste", (e) => {
             e.preventDefault();
             const texto = (e.clipboardData?.getData("text") ?? "").trim();
             reformatar(texto);
         });
-        // Alternar máscara: reprocessa o campo inteiro
         controleMascara.addEventListener("change", () => reformatar(campoMassa.value));
     }
     /**
