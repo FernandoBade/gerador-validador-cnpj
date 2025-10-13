@@ -62,17 +62,17 @@ export function inicializarAvisoDeCookies() {
  */
 export const htmlCookies = `
 <div id="aviso-cookies"
-  class="fixed bottom-0 left-0 right-0 bg-slate-800 dark:bg-slate-800 text-white text-sm flex flex-col sm:flex-row justify-between items-center gap-3 px-6 py-4 shadow-lg transition-all duration-500 translate-y-full opacity-0 z-50">
+  class="fixed bottom-0 left-0 right-0 shadow-inner bg-transparent backdrop-blur-md text-white text-sm flex flex-col sm:flex-row justify-between items-center gap-3 px-6 py-4 shadow-[0_-10px_15px_-10px_rgba(124,58,237,0.5)] transition-all duration-500 translate-y-full opacity-0 z-50">
   <p class="text-center sm:text-left">
     A gente usa cookies pra entender como você navega e deixar tudo mais redondinho. Pode ser?
   </p>
   <div class="flex gap-5">
     <button id="botao-recusar-cookies"
-      class="bg-transparent text-slate-500 px-2 font-semibold hover:text-slate-600 hover:border-slate-300 transition-all duration-300">
+      class="text-slate-100/50 px-2 font-semibold hover:text-slate-300 hover:border-slate-300 transition-all duration-300">
       Prefiro não
     </button>
     <button id="botao-aceitar-cookies"
-      class="bg-pink-600 hover:bg-pink-500 dark:bg-pink-500 dark:hover:bg-pink-600 text-white font-semibold px-4 py-2 rounded-lg transition">
+      class="bg-pink-500 hover:bg-pink-600 dark:bg-pink-500 dark:hover:bg-pink-600 text-white font-semibold px-4 py-2 rounded-lg transition">
       Pode sim!
     </button>
   </div>

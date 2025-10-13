@@ -189,7 +189,7 @@
 
                         <div class="flex justify-center mt-6">
                             <a href="./paginas/gerador-cnpj.html" type="button"
-                                class="inline-flex items-center justify-center rounded-lg bg-violet-500 dark:bg-violet-500 px-8 py-2 text-base font-semibold text-zinc-50 shadow-md transition-all ease-in-out duration-300 hover:bg-violet-600 dark:hover:bg-violet-600 hover:shadow-lg">
+                                class="efeito-onda-base efeito-onda-escuro inline-flex items-center justify-center rounded-lg bg-violet-500 dark:bg-violet-500 px-8 py-2 text-base font-semibold text-zinc-50 shadow-md transition-all ease-in-out duration-300 hover:bg-violet-600 dark:hover:bg-violet-600 hover:shadow-lg active:scale-95">
                                 Gerar CNPJ
                                 <svg class="ml-2 w-5 h-5 text-zinc-50 dark:text-zinc-50" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -220,7 +220,7 @@
 
                         <div class="flex justify-center mt-6">
                             <a a href="./paginas/validador-cnpj.html" type="button"
-                                class="inline-flex items-center justify-center rounded-lg bg-transparent border border-violet-500 px-8 py-2 text-base font-semibold text-violet-500 dark:text-violet-400 dark:border-violet-500 shadow-sm transition-all ease-in-out duration-300 hover:border-violet-600 hover:text-violet-500 hover:shadow-md cursor-pointer">
+                                class="efeito-onda-base efeito-onda-claro inline-flex items-center justify-center rounded-lg bg-transparent border border-violet-500 px-8 py-2 text-base font-semibold text-violet-500 dark:text-violet-400 dark:border-violet-500 shadow-sm transition-all ease-in-out duration-300 hover:border-violet-600 hover:text-violet-500 hover:shadow-md cursor-pointer active:scale-95">
                                 Validar CNPJ
                                 <svg class="ml-2 w-6 h-5 text-violet-500 dark:text-violet-400" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -319,7 +319,15 @@
 
     <script type="module" src="./dist/src/tema.js"></script>
     <script type="module" src="./dist/src/menu.js"></script>
-
+    <script type="module" src="./dist/src/transicao.js"></script>
+    <script type="module" src="./dist/src/cookies.js"></script>
+    <script type="module">
+        import { htmlCookies, inicializarAvisoDeCookies } from './dist/src/cookies.js';
+        if (!document.getElementById('aviso-cookies')) {
+            document.body.insertAdjacentHTML('beforeend', htmlCookies);
+        }
+        inicializarAvisoDeCookies();
+    </script>
 </body>
 
 

@@ -1,6 +1,6 @@
 /* ============================
    Menu Superior Fixo (Reutilizável)
-   - Links principais: Início, Gerador, Validador, Artigos
+   - Links principais: Início, Gerador, Validador, Como funciona
    - Dropdown: Links Gerais (exemplo1, exemplo2, exemplo3)
    - Fixo no topo, cores consistentes em light/dark
 ============================ */
@@ -9,7 +9,7 @@
  * @summary HTML do menu superior fixo, com links principais e submenu.
  */
 export const htmlMenu = `
-<nav id="menu-superior" class="fixed top-0 inset-x-0 z-50 bg-transparent backdrop-blur-lg shadow-2xl">
+<nav id="menu-superior" class="fixed top-0 inset-x-0 z-50 bg-transparent backdrop-blur-lg shadow-lg">
   <div class="mx-auto max-w-6xl px-4">
     <div class="h-14 flex items-center justify-between">
       <a href="/index.html" class="text-slate-700 dark:text-zinc-50 font-semibold tracking-wide">CNPJ 2026</a>
@@ -20,18 +20,7 @@ export const htmlMenu = `
         <li><a href="/index.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Início</a></li>
         <li><a href="/paginas/gerador-cnpj.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Gerador</a></li>
         <li><a href="/paginas/validador-cnpj.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Validador</a></li>
-        <li><a href="/paginas/como-a-validacao-de-cnpj-e-feita.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Artigos</a></li>
-        <li class="relative">
-          <button id="menu-links-gerais" class="inline-flex items-center gap-1 hover:text-slate-400 dark:hover:text-slate-400 transition-colors" aria-haspopup="true" aria-expanded="false">
-            Links Gerais
-            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/></svg>
-          </button>
-          <ul id="submenu-links-gerais" class="absolute right-0 mt-2 w-48 bg-zinc-50 dark:bg-slate-800 rounded-lg shadow-lg py-2 text-sm text-slate-600 dark:text-zinc-50 hidden">
-            <li><a href="#" class="block px-3 py-1.5 hover:text-slate-400 transition-colors">Exemplo 1</a></li>
-            <li><a href="#" class="block px-3 py-1.5 hover:text-slate-400 transition-colors">Exemplo 2</a></li>
-            <li><a href="#" class="block px-3 py-1.5 hover:text-slate-400 transition-colors">Exemplo 3</a></li>
-          </ul>
-        </li>
+        <li><a href="/paginas/como-a-validacao-de-cnpj-e-feita.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Como funciona</a></li>
       </ul>
     </div>
     <div id="menu-mobile" class="md:hidden hidden pb-3">
@@ -39,18 +28,7 @@ export const htmlMenu = `
         <li><a href="/index.html" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Início</a></li>
         <li><a href="/paginas/gerador-cnpj.html" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Gerador</a></li>
         <li><a href="/paginas/validador-cnpj.html" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Validador</a></li>
-        <li><a href="/paginas/como-a-validacao-de-cnpj-e-feita.html" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Artigos</a></li>
-        <li>
-          <button id="menu-links-gerais-mobile" class="w-full inline-flex items-center justify-between px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors" aria-haspopup="true" aria-expanded="false">
-            <span>Links Gerais</span>
-            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/></svg>
-          </button>
-          <ul id="submenu-links-gerais-mobile" class="ml-2 mt-1 hidden border-l border-slate-300/60 dark:border-slate-700/60 pl-2 text-slate-600 dark:text-zinc-300">
-            <li><a href="#" class="block px-3 py-1.5 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60">Exemplo 1</a></li>
-            <li><a href="#" class="block px-3 py-1.5 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60">Exemplo 2</a></li>
-            <li><a href="#" class="block px-3 py-1.5 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60">Exemplo 3</a></li>
-          </ul>
-        </li>
+        <li><a href="/paginas/como-a-validacao-de-cnpj-e-feita.html" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Como funciona</a></li>
       </ul>
     </div>
   </div>

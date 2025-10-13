@@ -293,7 +293,7 @@ class GeradorCnpj {
         this.historico.itens.forEach((puro) => {
             const texto = controleMascara?.checked ? aplicarMascara(puro) : puro;
             const item = document.createElement("li");
-            item.className = "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-1 hover:ring-slate-300 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
+            item.className = "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-1 hover:ring-zinc-200/50 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
             const rotulo = document.createElement("span");
             rotulo.className = "ml-1 text-sm text-slate-600 font-semibold dark:text-zinc-50 break-words";
             rotulo.textContent = texto;

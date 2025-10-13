@@ -4,7 +4,7 @@
 
 <div align="Center">
 
-[![Versão](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico)
+[![Versão](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico)
 [![Licença ISC](https://img.shields.io/badge/license-ISC-green.svg)](LICENSE)
 [![Demo Online](https://img.shields.io/badge/demo-online-brightgreen.svg)](https://cnpj-2026.bade.digital/)
 [![Feito com TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -20,7 +20,7 @@
 
 </div>
 
-Plataforma gratuita para **gerar e validar CNPJ** no formato **numérico** e no novo padrão **alfanumérico 2026** da Receita Federal.
+Plataforma gratuita para **gerar e validar CNPJ** no formato **numérico** e no novo padrão **alfanumérico**, já divulgado pela Receita Federal para 2026.
 Criada para ajudar **desenvolvedores, analistas e empresas** a se prepararem para a mudança, oferece uma forma prática de visualizar, validar e testar o novo identificador em sistemas, bancos de dados e integrações.
 
 🔗 [Acesse a versão online aqui](https://cnpj-2026.bade.digital/)
@@ -73,7 +73,7 @@ Antecipar a adaptação ao **CNPJ alfanumérico 2026**, fornecendo:
 - O banner de cookies controla o consentimento e envia o evento `status_consentimento` (`aceito`/`recusado`) ao Google Tag Manager via `dataLayer`.
 - A instrumentação pode ser expandida para mapear interações-chave (geração, validação, cópias, toggles) respeitando o consentimento do usuário.
 
-## 🔗 Links importantes
+## 🔗 Links
 
 - [Versão online](https://cnpj-2026.bade.digital/)
 - [Receita Federal — CNPJ Alfanumérico (2026)](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico)
