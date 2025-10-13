@@ -23,7 +23,7 @@
 Plataforma gratuita para **gerar e validar CNPJ** no formato **numérico** e no novo padrão **alfanumérico**, já divulgado pela Receita Federal para 2026.
 Criada para ajudar **desenvolvedores, analistas e empresas** a se prepararem para a mudança, oferece uma forma prática de visualizar, validar e testar o novo identificador em sistemas, bancos de dados e integrações.
 
-🔗 [Acesse a versão online aqui](https://cnpj-2026.bade.digital/)
+🔗 [Acesse a versão online aqui](https://cnpj.bade.digital/)
 
 ---
 
