@@ -317,19 +317,9 @@
         class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none">
     </div>
 
-    <script type="module" src="./dist/src/tema.js"></script>
-    <script type="module" src="./dist/src/menu.js"></script>
-    <script type="module" src="./dist/src/transicao.js"></script>
-    <script type="module" src="./dist/src/cookies.js"></script>
-    <script type="module">
-        import { htmlCookies, inicializarAvisoDeCookies } from './dist/src/cookies.js';
-        if (!document.getElementById('aviso-cookies')) {
-            document.body.insertAdjacentHTML('beforeend', htmlCookies);
-        }
-        inicializarAvisoDeCookies();
-    </script>
+    <script type="module" src="./dist/src/interface/tema.js"></script>
+    <script type="module" src="./dist/src/interface/menu.js"></script>
+    <script type="module" src="./dist/src/interface/transicao.js"></script>
+    <script type="module" src="./dist/src/gerais/cookies.js"></script>
 </body>
-
-
-
 </html>

@@ -6,14 +6,14 @@
    - Auto-regeneração: 10s + barra de progresso
 ============================ */
 
-import { IntervaloTemporizador, TamanhoIdentificador, TipoAviso } from "./enums.js";
-import { CARACTERES_PERMITIDOS } from "./constantes.js";
-import { ElementosInterface, HistoricoIdentificadores, IdentificadorGerado, Temporizadores } from "./tipos.js";
-import { htmlCookies, inicializarAvisoDeCookies } from "./cookies.js";
+import { IntervaloTemporizador, TamanhoIdentificador, TipoAviso } from "../gerais/enums.js";
+import { CARACTERES_PERMITIDOS } from "../gerais/constantes.js";
+import { ElementosInterface, HistoricoIdentificadores, IdentificadorGerado, Temporizadores } from "../gerais/tipos.js";
+import { htmlCookies, inicializarAvisoDeCookies } from "../gerais/cookies.js";
 import { aplicarMascara } from "./formatacao-cnpj.js";
-import { calcularDigitoVerificador, converterCaractereParaValor, verificarSequenciaRepetida, PESOS_DIGITOS } from "./algoritmo-cnpj.js";
-import { copiarTexto, inicializarEfeitoOnda, obterElementoObrigatorio } from "./interface.js";
-import { exibirAviso } from "./mensageria.js";
+import { calcularDigitoVerificador, converterCaractereParaValor, verificarSequenciaRepetida, PESOS_DIGITOS } from "../cnpj/algoritmo-cnpj.js";
+import { copiarTexto, inicializarEfeitoOnda, obterElementoObrigatorio } from "../interface/interface.js";
+import { exibirAviso } from "../gerais/mensageria.js";
 
 /**
  * @summary Classe responsável por agrupar regras de negócio e interação com a interface do gerador.

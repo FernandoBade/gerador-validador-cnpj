@@ -2,8 +2,8 @@
    Algoritmos do CNPJ
 ============================ */
 
-import { PESOS_DIGITOS } from "./constantes.js";
-import { TamanhoIdentificador } from "./enums.js";
+import { PESOS_DIGITOS } from "../gerais/constantes.js";
+import { TamanhoIdentificador } from "../gerais/enums.js";
 
 /**
  * @summary Converte um caractere [0-9A-Z] em valor numérico para o módulo 11.

@@ -6,14 +6,14 @@
    - Avisos e utilidades de UI reutilizáveis
 ============================ */
 
-import { ClasseAviso, IntervaloTemporizador, TipoAviso } from "./enums.js";
-import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, PESOS_DIGITOS } from "./constantes.js";
-import { htmlCookies, inicializarAvisoDeCookies } from "./cookies.js";
-import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro } from "./formatacao-cnpj.js";
-import { calcularDigitoVerificador, converterCaractereParaValor } from "./algoritmo-cnpj.js";
-import { copiarTexto, inicializarEfeitoOnda } from "./interface.js";
-import { exibirAviso } from "./mensageria.js";
-import { atualizarContadorHistorico } from "./contador-historico.js";
+import { ClasseAviso, IntervaloTemporizador, TipoAviso } from "../gerais/enums.js";
+import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, PESOS_DIGITOS } from "../gerais/constantes.js";
+import { htmlCookies, inicializarAvisoDeCookies } from "../gerais/cookies.js";
+import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro } from "../cnpj/formatacao-cnpj.js";
+import { calcularDigitoVerificador, converterCaractereParaValor } from "../cnpj/algoritmo-cnpj.js";
+import { copiarTexto, inicializarEfeitoOnda } from "../interface/interface.js";
+import { exibirAviso } from "../gerais/mensageria.js";
+import { atualizarContadorHistorico } from "../interface/contador-historico.js";
 
 /**
  * @summary Elementos de interface utilizados pelo validador.

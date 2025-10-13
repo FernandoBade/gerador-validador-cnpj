@@ -3,7 +3,7 @@
    - Exibe tempo restante em texto e barra
    - Dispara callback ao finalizar
 ============================ */
-import { IntervaloTemporizador } from "./enums.js";
+import { IntervaloTemporizador } from "../gerais/enums.js";
 /**
  * @summary Exibe e controla um contador regressivo com barra e texto.
  */

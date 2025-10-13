@@ -4,33 +4,39 @@
    - Reenvia o status de consentimento via dataLayer (GTM)
    - Evita reexibir o banner quando já houver decisão
 ============================ */
+
 /**
  * @summary Inicializa o aviso de cookies e gerencia a escolha do usuário (aceitar ou recusar).
  * Exibe um banner simples de consentimento e grava a decisão no localStorage.
  */
-export function inicializarAvisoDeCookies() {
+export function inicializarAvisoDeCookies(): void {
     const AVISO_ID = "aviso-cookies";
     const BOTAO_ACEITAR_ID = "botao-aceitar-cookies";
     const BOTAO_RECUSAR_ID = "botao-recusar-cookies";
     const CHAVE_COOKIES = "aceitou-cookies";
+
     const aviso = document.getElementById(AVISO_ID);
     const botaoAceitar = document.getElementById(BOTAO_ACEITAR_ID);
     const botaoRecusar = document.getElementById(BOTAO_RECUSAR_ID);
-    if (!aviso || !botaoAceitar || !botaoRecusar)
-        return;
+
+    if (!aviso || !botaoAceitar || !botaoRecusar) return;
+
     const preferencia = localStorage.getItem(CHAVE_COOKIES);
+
     // Reenvia o status salvo anterior (se existir)
     if (preferencia === "true" || preferencia === "false") {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
             event: "status_consentimento",
             consentimento: preferencia === "true" ? "aceito" : "recusado"
         });
     }
+
     // Mostra o aviso apenas se o usuário ainda não escolheu
     if (preferencia !== "true" && preferencia !== "false") {
         aviso.classList.add("visivel");
     }
+
     /**
      * @summary Oculta o banner após uma decisão do usuário.
      */
@@ -38,25 +44,30 @@ export function inicializarAvisoDeCookies() {
         aviso.classList.remove("visivel");
         aviso.classList.add("oculto");
     };
+
     botaoAceitar.addEventListener("click", () => {
         localStorage.setItem(CHAVE_COOKIES, "true");
         esconderAviso();
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
+
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
             event: "status_consentimento",
             consentimento: "aceito"
         });
     });
+
     botaoRecusar.addEventListener("click", () => {
         localStorage.setItem(CHAVE_COOKIES, "false");
         esconderAviso();
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
+
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
             event: "status_consentimento",
             consentimento: "recusado"
         });
     });
 }
+
 /**
  * @summary HTML do banner de cookies injetado automaticamente no DOM.
  */
@@ -78,3 +89,17 @@ export const htmlCookies = `
   </div>
 </div>
 `;
+
+/**
+ * @summary Injeta o HTML do banner (se ainda não existir) e inicializa os eventos
+ * assim que o DOM estiver pronto.
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    if (!document.getElementById("aviso-cookies")) {
+        document.body.insertAdjacentHTML("beforeend", htmlCookies);
+    }
+    try {
+        inicializarAvisoDeCookies();
+    } catch {
+    }
+});
