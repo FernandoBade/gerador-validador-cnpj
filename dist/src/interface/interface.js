@@ -48,6 +48,10 @@ export function obterElementoObrigatorio(id) {
 export function inicializarEfeitoOnda() {
     const botoes = document.querySelectorAll(".efeito-onda-base");
     botoes.forEach((botao) => {
+        if (botao.dataset.ondaInicializada === "true") {
+            return;
+        }
+        botao.dataset.ondaInicializada = "true";
         botao.style.position = botao.style.position || "relative";
         botao.style.overflow = botao.style.overflow || "hidden";
         botao.addEventListener("click", (evento) => {
