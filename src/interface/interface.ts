@@ -60,6 +60,11 @@ export function inicializarEfeitoOnda(): void {
     const botoes = document.querySelectorAll<HTMLElement>(".efeito-onda-base");
 
     botoes.forEach((botao) => {
+        if (botao.dataset.ondaInicializada === "true") {
+            return;
+        }
+
+        botao.dataset.ondaInicializada = "true";
         botao.style.position = botao.style.position || "relative";
         botao.style.overflow = botao.style.overflow || "hidden";
 
