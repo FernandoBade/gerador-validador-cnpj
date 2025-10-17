@@ -19,6 +19,7 @@ export const htmlMenu = `
         <li><a href="/index.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Início</a></li>
         <li><a href="/paginas/gerador-cnpj.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Gerador</a></li>
         <li><a href="/paginas/validador-cnpj.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Validador</a></li>
+        <li><a href="/paginas/validador-cnpj-api.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Validador via API</a></li>
         <li><a href="/paginas/como-a-validacao-de-cnpj-e-feita.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Como funciona</a></li>
       </ul>
     </div>
@@ -27,6 +28,7 @@ export const htmlMenu = `
         <li><a href="/index.html" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Início</a></li>
         <li><a href="/paginas/gerador-cnpj.html" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Gerador</a></li>
         <li><a href="/paginas/validador-cnpj.html" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Validador</a></li>
+        <li><a href="/paginas/validador-cnpj-api.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Validador via API</a></li>
         <li><a href="/paginas/como-a-validacao-de-cnpj-e-feita.html" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Como funciona</a></li>
       </ul>
     </div>
