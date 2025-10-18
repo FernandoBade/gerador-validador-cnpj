@@ -2,7 +2,10 @@
 <html lang="pt-BR">
 
 <head>
-    <script type="module" src="/dist/src/interface/transicao.js" defer></script>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <script type="module"  src="/dist/src/interface/transicao.js?v=1.3.0" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -66,14 +69,10 @@
     </script>
 
     <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-        };
-    </script>
+    <link rel="stylesheet" href="/dist/assets/tailwind.min.css?v=1.3.0">
+    
 
-    <link rel="stylesheet" href="./src/estilos/controle-tema.css" />
+    <link rel="stylesheet" href="/dist/assets/controle-tema.min.css?v=1.3.0" />
 
     <!-- Google Tag Manager -->
     <script>
@@ -92,6 +91,23 @@
         })(window, document, "script", "dataLayer", "GTM-5LSGCFMM");
     </script>
     <!-- End Google Tag Manager -->
+
+    <script id="sw-unregister">
+      (function(){
+        if ('serviceWorker' in navigator) {
+          // Tenta desregistrar todos os SWs já instalados
+          navigator.serviceWorker.getRegistrations().then(function(regs){
+            regs.forEach(function(r){ r.unregister().catch(function(){/* noop */}); });
+          }).catch(function(){/* noop */});
+          // Se ainda houver um SW controlando, força atualização
+          navigator.serviceWorker.getRegistration && navigator.serviceWorker.getRegistration().then(function(reg){
+            if (reg && reg.active) {
+              reg.update().catch(function(){/* noop */});
+            }
+          });
+        }
+      })();
+    </script>
 </head>
 
 <body
@@ -306,9 +322,9 @@
         class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none">
     </div>
 
-    <script type="module" src="./dist/src/interface/tema.js"></script>
-    <script type="module" src="./dist/src/interface/menu.js"></script>
-    <script type="module" src="./dist/src/interface/transicao.js"></script>
-    <script type="module" src="./dist/src/gerais/cookies.js"></script>
+    <script type="module"  defer src="./dist/src/interface/tema.js?v=1.3.0"></script>
+    <script type="module"  defer src="./dist/src/interface/menu.js?v=1.3.0"></script>
+    <script type="module"  defer src="./dist/src/interface/transicao.js?v=1.3.0"></script>
+    <script type="module"  defer src="./dist/src/gerais/cookies.js?v=1.3.0"></script>
 </body>
 </html>
