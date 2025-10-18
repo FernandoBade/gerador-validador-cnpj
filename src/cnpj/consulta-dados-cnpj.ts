@@ -839,7 +839,7 @@ class ValidadorCnpjApi {
      * @summary Exibe o modal com os dados completos retornados pela API.
      */
     private exibirModalCnpj(resultado: ResultadoValidacaoApi): void {
-        const { modalOverlay, modalConteudo, modalTitulo, modalCaixa, controleMascara } = this.elementos;
+        const { modalConteudo, modalTitulo, controleMascara } = this.elementos;
         const exibicao = controleMascara.checked ? aplicarMascara(resultado.puro) : resultado.puro;
         modalTitulo.textContent = exibicao;
 
