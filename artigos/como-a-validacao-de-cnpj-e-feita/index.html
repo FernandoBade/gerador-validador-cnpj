@@ -12,11 +12,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Como a validação do CNPJ alfanumérico é feita? | CNPJ 2026</title>
+    <title>Como é feita a validação de CNPJ – Saiba como consultar CNPJ na Receita Federal</title>
     <meta name="description"
-        content="Entenda, passo a passo, como o cálculo dos dígitos verificadores do CNPJ alfanumérico é realizado seguindo o manual oficial do SERPRO." />
+        content="Descubra como funciona a validação de CNPJ numérico e alfanumérico, utilizando a API OpenCNPJ e dados oficiais da Receita Federal." />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="pt-BR" />
+    <meta name="geo.region" content="BR" />
+    <meta name="geo.placename" content="Brasil" />
+    <meta name="author" content="Equipe Bade Digital" />
+    <link rel="canonical" href="https://cnpj.bade.digital/artigos/como-a-validacao-de-cnpj-e-feita/" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -24,13 +28,44 @@
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#2563eb" />
 
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title"
+        content="Como é feita a validação de CNPJ – Saiba como consultar CNPJ na Receita Federal" />
+    <meta property="og:description"
+        content="Descubra como funciona a validação de CNPJ numérico e alfanumérico, utilizando a API OpenCNPJ e dados oficiais da Receita Federal." />
+    <meta property="og:url" content="https://cnpj.bade.digital/artigos/como-a-validacao-de-cnpj-e-feita/" />
+    <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
+    <meta property="og:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
+    <meta property="og:image:alt" content="Ilustração do processo de validação de CNPJ com destaque para dígitos verificadores" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title"
+        content="Como é feita a validação de CNPJ – Saiba como consultar CNPJ na Receita Federal" />
+    <meta name="twitter:description"
+        content="Descubra como funciona a validação de CNPJ numérico e alfanumérico, utilizando a API OpenCNPJ e dados oficiais da Receita Federal." />
+    <meta name="twitter:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Como é feita a validação de CNPJ",
+        "description": "Explicação sobre como ocorre a validação de CNPJ utilizando OpenCNPJ e dados da Receita Federal.",
+        "datePublished": "2024-10-01",
+        "author": "Equipe Bade Digital",
+        "image": "https://cnpj.bade.digital/img/gerador-validador-cnpj-2026-alfanumerico-og.png",
+        "mainEntityOfPage": "https://cnpj.bade.digital/artigos/como-a-validacao-de-cnpj-e-feita/"
+      }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: "class",
         };
     </script>
-    <link rel="stylesheet" href="../src/estilos/controle-tema.css" />
+    <link rel="stylesheet" href="../../src/estilos/controle-tema.css" />
 </head>
 
 <body
@@ -85,7 +120,9 @@
                         descreve um
                         processo em duas etapas para garantir que cada identificador tenha uma estrutura matemática
                         válida. A
-                        seguir, mostramos esse passo a passo com a mesma linguagem visual do nosso gerador.
+                        seguir, mostramos esse passo a passo com a mesma linguagem visual do nosso gerador, explicando
+                        como a validação de CNPJ auxilia a verificar CNPJ antes da consulta CNPJ em bases oficiais e
+                        como isso se integra às rotinas de consultar CNPJ na Receita Federal.
                     </p>
                 </div>
 
@@ -496,9 +533,9 @@
         class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out opacity-0 translate-y-5 pointer-events-none">
     </div>
 
-    <script type="module" src="../dist/src/interface/tema.js"></script>
-    <script type="module" src="../dist/src/interface/menu.js"></script>
-    <script type="module" src="../dist/src/gerais/cookies.js"></script>
+    <script type="module" src="../../dist/src/interface/tema.js"></script>
+    <script type="module" src="../../dist/src/interface/menu.js"></script>
+    <script type="module" src="../../dist/src/gerais/cookies.js"></script>
 </body>
 
 </html>

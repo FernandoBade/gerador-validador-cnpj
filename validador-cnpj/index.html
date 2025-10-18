@@ -13,16 +13,56 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Validador de CNPJ Alfanumérico | Novo padrão 2026</title>
+    <title>Validador de CNPJ – Valide CNPJ numérico ou alfanumérico e consulte dados na Receita Federal</title>
     <meta name="description"
-        content="Valide CNPJs alfanuméricos individuais ou em massa, com suporte a máscara e histórico de resultados." />
+        content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros." />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="pt-BR" />
+    <meta name="geo.region" content="BR" />
+    <meta name="geo.placename" content="Brasil" />
+    <meta name="author" content="Gerador e Validador de CNPJ" />
+    <link rel="canonical" href="https://cnpj.bade.digital/validador-cnpj/" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#2563eb" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title"
+        content="Validador de CNPJ – Valide CNPJ numérico ou alfanumérico e consulte dados na Receita Federal" />
+    <meta property="og:description"
+        content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros." />
+    <meta property="og:url" content="https://cnpj.bade.digital/validador-cnpj/" />
+    <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
+    <meta property="og:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
+    <meta property="og:image:alt" content="Painel do validador de CNPJ com histórico de verificações" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title"
+        content="Validador de CNPJ – Valide CNPJ numérico ou alfanumérico e consulte dados na Receita Federal" />
+    <meta name="twitter:description"
+        content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros." />
+    <meta name="twitter:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Gerador e Validador de CNPJ",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "inLanguage": "pt-BR",
+        "description": "Ferramenta online para gerar e validar CNPJs reais, com dados oficiais da Receita Federal via API OpenCNPJ.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BRL"
+        },
+        "url": "https://cnpj.bade.digital/"
+      }
+    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -83,8 +123,9 @@
                             Validador de CNPJ Alfanumérico
                         </h1>
                         <h2 class="text-sm font-semibold text-slate-600 dark:text-zinc-50 my-4">
-                            Valide CNPJs reais e fictícios em segundos. Nosso validador verifica a estrutura, os dígitos
-                            verificadores e a formatação, garantindo se o CNPJ é matematicamente válido ou não.
+                            Faça a validação de CNPJ real ou fictício em segundos. Nosso validador verifica a estrutura, os
+                            dígitos verificadores e a formatação, garantindo se o CNPJ é matematicamente válido e permitindo
+                            consulta CNPJ com dados oficiais da Receita Federal.
                         </h2>
                     </div>
 
@@ -212,8 +253,8 @@
                         Este validador <strong>não tem qualquer vínculo com a Receita Federal do Brasil</strong>.
                         Ele apenas verifica se um número de CNPJ <strong>segue as regras matemáticas válidas</strong> de
                         <strong><a class="underline underline-offset-4 decoration-pink-600"
-                                href="./como-a-validacao-de-cnpj-e-feita.html">cálculo de dígitos
-                                verificadores</a></strong>.
+                                href="../artigos/como-a-validacao-de-cnpj-e-feita/">cálculo de dígitos
+                                verificadores</a></strong> e ajuda a verificar CNPJ antes de qualquer integração.
                     </p>
                     <p>
                         Isso significa que o resultado indica se o CNPJ é <strong>estruturalmente válido</strong>,
