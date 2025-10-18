@@ -130,10 +130,10 @@ npm run desenvolvimento
 
 ## Links Úteis
 
-- Versão online: https://cnpj.bade.digital/
-- Receita Federal – CNPJ Alfanumérico (2026): https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico
-- Manual de cálculo do DV do CNPJ: https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view
-- OpenCNPJ: https://opencnpj.org/ | Código-fonte: https://github.com/Hitmasu/opencnpj
+- [Versão online](https://cnpj.bade.digital/)
+- [Receita Federal – CNPJ Alfanumérico (2026)](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico)
+- [Manual de cálculo do DV do CNPJ](https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view)
+- [OpenCNPJ](https://opencnpj.org/) | [Código‑fonte](https://github.com/Hitmasu/opencnpj)
 
 ## Licença
 
