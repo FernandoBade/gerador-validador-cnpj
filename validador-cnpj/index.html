@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <script type="module" src="/dist/src/interface/transicao.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Validador de CNPJ – Valide CNPJ numérico ou alfanumérico e consulte dados na Receita Federal</title>
+    <meta name="description"
+        content="Validação de CNPJ com suporte a formatos numéricos e alfanuméricos. Faça verificação de CNPJ, consulta CNPJ na Receita Federal e obtenha histórico de checagem." />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="pt-BR" />
+    <meta name="geo.region" content="BR" />
+    <meta name="geo.placename" content="Brasil" />
+    <meta name="author" content="Bade Digital" />
+    <link rel="canonical" href="https://cnpj.bade.digital/validador-cnpj" />
+
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#2563eb" />
+
+    <link rel="stylesheet" href="/dist/css/styles.min.css">
+    <link rel="stylesheet" href="../src/estilos/controle-tema.css" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title"
+        content="Validador de CNPJ – Valide CNPJ numérico ou alfanumérico e consulte dados na Receita Federal" />
+    <meta property="og:description"
+        content="Ferramenta para validação de CNPJ, consulta de CNPJ grátis e verificação de CNPJ online com dados oficiais." />
+    <meta property="og:url" content="https://cnpj.bade.digital/validador-cnpj" />
+    <meta property="og:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-linkedin.png" />
+    <meta property="og:image:alt"
+        content="Tela da ferramenta de validação de CNPJ com campos para digitar o número e histórico de consultas." />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title"
+        content="Validador de CNPJ – Valide CNPJ numérico ou alfanumérico e consulte dados na Receita Federal" />
+    <meta name="twitter:description"
+        content="Validação de CNPJ completa com histórico e link direto para consulta na Receita Federal." />
+    <meta name="twitter:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-linkedin.png" />
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Validador de CNPJ",
+            "description": "Validação de CNPJ online com consulta integrada à Receita Federal e histórico completo.",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "inLanguage": "pt-BR",
+            "url": "https://cnpj.bade.digital/validador-cnpj",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "BRL"
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="min-h-screen bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-zinc-50 transition-colors duration-500 font-sans flex flex-col">
+    <header class="border-b border-slate-200/60 dark:border-slate-700/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
+        <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4">
+            <a href="/" class="text-lg font-semibold text-violet-600 dark:text-violet-300" aria-label="Página inicial">
+                CNPJ Bade Digital
+            </a>
+            <nav aria-label="Navegação principal">
+                <ul class="flex items-center gap-4 text-sm font-medium text-slate-700 dark:text-zinc-200">
+                    <li><a class="hover:text-violet-600 dark:hover:text-violet-300" href="/">Início</a></li>
+                    <li><a class="hover:text-violet-600 dark:hover:text-violet-300" href="/gerador-cnpj">Gerador</a></li>
+                    <li><a class="hover:text-violet-600 dark:hover:text-violet-300" href="/validador-cnpj-api">API</a></li>
+                    <li><a class="hover:text-violet-600 dark:hover:text-violet-300"
+                            href="/artigos/como-a-validacao-de-cnpj-e-feita">Artigos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LSGCFMM" height="0" width="0"
+            style="display: none; visibility: hidden"></iframe></noscript>
+
+    <main class="flex-1 flex items-center justify-center px-4 py-6">
+        <div class="flex flex-col gap-6 items-stretch w-full max-w-5xl">
+            <header class="space-y-4 text-center">
+                <p class="text-sm font-semibold uppercase tracking-[0.35em] text-violet-500">Validação de CNPJ</p>
+                <h1 class="text-3xl md:text-4xl font-bold text-slate-700 dark:text-zinc-50">
+                    Valide CNPJ e consulte dados oficiais em segundos
+                </h1>
+                <p class="text-base text-slate-600 dark:text-slate-400">
+                    Realize a checagem de CNPJ, verifique situações cadastrais e faça consulta CNPJ na Receita Federal.
+                    Ideal para verificar CNPJ online, comprovar fornecedores e testar integrações com cadastros reais.
+                </p>
+            </header>
+
+            <div class="flex items-center w-full justify-end md:justify-end">
+                <label for="alternar-tema"
+                    class="controle-tema h-10 inline-flex items-center gap-3 rounded-2xl bg-zinc-50 dark:bg-slate-800 px-4 py-2 shadow-md backdrop-blur">
+
+                    <span class="flex items-center gap-1 text-sm font-medium text-slate-800 dark:text-zinc-50">Tema</span>
+
+                    <input id="alternar-tema" type="checkbox" class="sr-only" />
+
+                    <div
+                        class="efeito-onda-base efeito-onda-escuro trilha cursor-pointer relative flex h-8 w-16 items-center shadow-inner dark:shadow-inner dark:shadow-slate-900 rounded-full dark:bg-slate-800 px-1 transition-colors duration-300">
+
+                        <span class="sol-indicador absolute ml-0.5 text-zinc-800 hover:scale-110 transition-all ease-in-out">
+                            <svg class="w-6 h-6 text-orange-300 dark:text-zinc-50 transition-all dark:hover:scale-110 duration-300 ease-in-out"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M13 3a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0V3ZM6.343 4.929A1 1 0 0 0 4.93 6.343l1.414 1.414a1 1 0 0 0 1.414-1.414L6.343 4.929Zm12.728 1.414a1 1 0 0 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 1.414 1.414l1.414-1.414ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm-9 4a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H3Zm16 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2h-2ZM7.757 17.657a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414Zm9.9-1.414a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM13 19a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0v-2Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </span>
+
+                        <span class="lua-indicador absolute right-2 text-violet-500 hover:scale-115 dark:hover:scale-110 transition-all ease-in-out">
+                            <svg class="w-6 h-6 text-zinc-400 dark:text-sky-600 transition-all hover:scale-110 transition-all duration-300 ease-in-out"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M17 4c.5523 0 1 .44772 1 1v2h2c.5523 0 1 .44771 1 1 0 .55228-.4477 1-1 1h-2v2c0 .5523-.4477 1-1 1s-1-.4477-1-1V9h-2c-.5523 0-1-.44772-1-1s.4477-1 1-1h2V5c0-.55228.4477-1 1-1Z"
+                                    clip-rule="evenodd" />
+                                <path
+                                    d="M12.3224 4.68708c.2935-.31028.3575-.77266.1594-1.15098-.1981-.37832-.6146-.5891-1.0368-.52467-1.50847.2302-2.93175.83665-4.12869 1.76276-1.19717.92628-2.12732 2.1411-2.69465 3.52702-.56744 1.38618-.75115 2.89299-.53164 4.37079.2195 1.4776.83393 2.8711 1.77895 4.0436.9448 1.1722 2.18683 2.0826 3.60103 2.6449 1.414.5623 2.9539.7584 4.4683.57 1.5145-.1884 2.9549-.7551 4.1784-1.6475 1.2237-.8924 2.1892-2.0806 2.7972-3.4499.1723-.3879.0809-.8423-.2279-1.1335-.3089-.2911-.7679-.3556-1.145-.1608-.8631.4459-1.8291.6799-2.8118.6791h-.0018c-1.1598.0013-2.2925-.3234-3.2596-.931-.9667-.6074-1.7244-1.4697-2.1856-2.4779-.4611-1.00776-.6079-2.1209-.4243-3.20511.1835-1.08442.6905-2.09837 1.4645-2.91681Z" />
+                            </svg>
+                        </span>
+
+                        <span class="botao"></span>
+                    </div>
+                </label>
+            </div>
+
+            <section class="grid gap-6 md:grid-cols-[3fr_2fr]">
+                <div
+                    class="flex flex-col gap-6 rounded-3xl bg-zinc-50 p-6 shadow-2xl transition-colors duration-500 dark:bg-slate-800">
+                    <h2 class="text-2xl font-semibold text-slate-700 dark:text-zinc-50">Verificação de CNPJ instantânea</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                        Faça validação de CNPJ com máscara opcional, histórico em tempo real e detalhes para auditorias.
+                        Em seguida, acione a consulta CNPJ grátis na Receita Federal para confirmar a situação.
+                    </p>
+
+                    <div class="space-y-4">
+                        <label class="block text-sm font-medium text-slate-600 dark:text-slate-300" for="campo-cnpj">
+                            Digite ou cole o CNPJ que deseja validar
+                        </label>
+                        <div class="flex flex-wrap align-middle items-stretch gap-2">
+                            <div class="relative flex-1">
+                                <input id="campo-cnpj" type="text"
+                                    class="w-full rounded-lg border border-slate-300 bg-zinc-200/60 px-3 py-2 text-base font-medium text-slate-700 shadow-inner transition dark:border-slate-600 dark:bg-slate-900 dark:text-zinc-50"
+                                    placeholder="00.000.000/0000-00" aria-label="Digite o CNPJ para validação" />
+                                <button id="botao-limpar" type="button"
+                                    class="absolute right-2 top-1/2 -translate-y-1/2 rounded text-sm font-semibold text-violet-500 transition hover:text-violet-600 dark:text-violet-300 dark:hover:text-violet-200"
+                                    aria-label="Limpar campo">Limpar</button>
+                            </div>
+                            <button id="botao-validar" type="button"
+                                class="efeito-onda-base efeito-onda-escuro inline-flex items-center justify-center rounded-lg bg-violet-500 px-6 py-2 text-base font-semibold text-white shadow-md transition hover:bg-violet-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500 active:scale-95 dark:bg-violet-500 dark:hover:bg-violet-600"
+                                aria-label="Validar CNPJ">
+                                Validar agora
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <p class="text-sm font-semibold text-slate-600 dark:text-slate-400">Resultado da verificação</p>
+                            <button id="botao-copiar-resultado" type="button"
+                                class="inline-flex items-center justify-center rounded border border-violet-400 px-3 py-1 text-xs font-semibold text-violet-500 transition hover:bg-violet-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500 active:scale-95 dark:border-violet-300 dark:text-violet-200 dark:hover:bg-violet-500"
+                                aria-label="Copiar resultado da validação">
+                                Copiar análise
+                            </button>
+                        </div>
+                        <div id="alerta-resultado"
+                            class="rounded-lg border border-dashed border-slate-300 bg-white/70 p-4 text-sm text-slate-600 transition dark:border-slate-600 dark:bg-slate-900/70 dark:text-slate-300"
+                            role="status" aria-live="polite">
+                            Informe um CNPJ acima para ver a análise e descobrir se o número é válido.
+                        </div>
+                    </div>
+                </div>
+
+                <aside
+                    class="space-y-4 rounded-3xl bg-white/70 p-6 shadow-xl transition-colors duration-500 dark:bg-slate-900/70">
+                    <h2 class="text-2xl font-semibold text-slate-700 dark:text-zinc-50">Histórico de checagem de CNPJ</h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                        Acompanhe as últimas verificações e acione a consulta CNPJ na Receita Federal para garantir que os
+                        dados estão atualizados.
+                    </p>
+                    <div id="historico"
+                        class="grid gap-3 rounded-lg border border-slate-200 bg-white/70 p-3 text-sm dark:border-slate-700 dark:bg-slate-900/70"
+                        aria-live="polite"></div>
+                </aside>
+            </section>
+
+            <section class="grid gap-6 rounded-3xl bg-white/70 p-6 shadow-lg dark:bg-slate-900/70">
+                <h2 class="text-2xl font-semibold text-slate-700 dark:text-zinc-50">Dúvidas sobre validação de CNPJ</h2>
+                <article class="space-y-3">
+                    <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-100">Como fazer a validação de CNPJ?</h3>
+                    <p class="text-slate-600 dark:text-slate-400">
+                        Informe o número no campo acima e clique em validar. O algoritmo calcula os dígitos verificadores e
+                        mostra se o CNPJ é autêntico. Depois, utilize a consulta de CNPJ grátis para confirmar a situação
+                        cadastral na Receita Federal.
+                    </p>
+                </article>
+                <article class="space-y-3">
+                    <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-100">Por que consultar CNPJ na Receita Federal?</h3>
+                    <p class="text-slate-600 dark:text-slate-400">
+                        A verificação de CNPJ online confirma a integridade matemática, mas apenas a Receita Federal
+                        informa situação cadastral, endereço e regime tributário. Combine as duas etapas para reduzir
+                        riscos na contratação de parceiros.
+                    </p>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <footer class="mt-auto bg-white/70 py-6 text-center text-sm text-slate-600 shadow-inner dark:bg-slate-900/70 dark:text-slate-400">
+        <p>© 2024 Bade Digital — Validação de CNPJ com verificação oficial e histórico completo.</p>
+    </footer>
+
+    <script defer>
+        window.addEventListener('load', () => {
+            document.body.classList.add('ready');
+        });
+    </script>
+    <script defer src="https://www.googletagmanager.com/gtm.js?id=GTM-5LSGCFMM"></script>
+    <script defer
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1688022090499793"
+        crossorigin="anonymous"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <script type="module" src="/dist/src/interface/transicao.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Gerador de CNPJ – Crie CNPJs válidos e copie em massa</title>
+    <meta name="description"
+        content="Gerar CNPJ com máscara opcional, histórico e exportação. Faça geração de CNPJ numérico e alfanumérico, copie em massa e agilize a checagem de CNPJ para integrações." />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="pt-BR" />
+    <meta name="geo.region" content="BR" />
+    <meta name="geo.placename" content="Brasil" />
+    <meta name="author" content="Bade Digital" />
+    <link rel="canonical" href="https://cnpj.bade.digital/gerador-cnpj" />
+
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#2563eb" />
+
+    <link rel="stylesheet" href="/dist/css/styles.min.css">
+    <link rel="stylesheet" href="../src/estilos/controle-tema.css" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Gerador de CNPJ – Crie CNPJs válidos e copie em massa" />
+    <meta property="og:description"
+        content="Clique para gerar CNPJs válidos instantaneamente, organizar histórico e realizar consulta CNPJ na Receita Federal sempre que precisar." />
+    <meta property="og:url" content="https://cnpj.bade.digital/gerador-cnpj" />
+    <meta property="og:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-large.png" />
+    <meta property="og:image:alt"
+        content="Interface do gerador de CNPJ mostrando campo de resultado e botões para copiar em massa." />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Gerador de CNPJ – Crie CNPJs válidos e copie em massa" />
+    <meta name="twitter:description"
+        content="Ferramenta gratuita para gerar CNPJ com máscara, histórico e exportação em massa. Ideal para consulta de CNPJ grátis em testes." />
+    <meta name="twitter:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-large.png" />
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Gerador de CNPJ",
+            "description": "Gerador de CNPJ gratuito para criar números válidos, copiar em massa e apoiar consulta de CNPJ grátis.",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "inLanguage": "pt-BR",
+            "url": "https://cnpj.bade.digital/gerador-cnpj",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "BRL"
+            }
+        }
+    </script>
+</head>
+
+<body class="min-h-screen bg-slate-100/50 text-slate-900 dark:bg-slate-800 dark:text-zinc-50 font-sans flex flex-col">
+    <header class="border-b border-slate-200/60 dark:border-slate-700/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
+        <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4">
+            <a href="/" class="text-lg font-semibold text-violet-600 dark:text-violet-300" aria-label="Página inicial">
+                CNPJ Bade Digital
+            </a>
+            <nav aria-label="Navegação principal">
+                <ul class="flex items-center gap-4 text-sm font-medium text-slate-700 dark:text-zinc-200">
+                    <li><a class="hover:text-violet-600 dark:hover:text-violet-300" href="/">Início</a></li>
+                    <li><a class="hover:text-violet-600 dark:hover:text-violet-300" href="/validador-cnpj">Validador</a></li>
+                    <li><a class="hover:text-violet-600 dark:hover:text-violet-300" href="/validador-cnpj-api">API</a></li>
+                    <li><a class="hover:text-violet-600 dark:hover:text-violet-300"
+                            href="/artigos/como-a-validacao-de-cnpj-e-feita">Artigos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LSGCFMM" height="0" width="0"
+            style="display: none; visibility: hidden"></iframe></noscript>
+
+    <main class="flex-1 px-4 py-8">
+        <section class="mx-auto flex max-w-5xl flex-col gap-8">
+            <div class="flex flex-col gap-4 text-center">
+                <p class="text-sm font-semibold uppercase tracking-[0.35em] text-violet-500">Gerar CNPJ</p>
+                <h1 class="text-3xl md:text-4xl font-bold text-slate-700 dark:text-zinc-50">
+                    Gere CNPJ numérico ou alfanumérico com um clique
+                </h1>
+                <p class="text-base text-slate-600 dark:text-slate-400">
+                    Clique para gerar CNPJs válidos instantaneamente, escolha máscaras e acompanhe o histórico para
+                    copiar em massa. Ideal para verificar CNPJ online, simular integrações e testar sistemas que usam o
+                    novo padrão anunciado pela Receita Federal.
+                </p>
+            </div>
+
+            <div class="flex flex-col gap-6 items-stretch">
+                <div class="flex items-center w-full justify-end md:justify-end">
+                    <label for="alternar-tema"
+                        class="controle-tema h-10 inline-flex items-center gap-3 rounded-2xl bg-zinc-50 dark:bg-slate-800 px-4 py-2 shadow-md backdrop-blur">
+
+                        <span class="flex items-center gap-1 text-sm font-medium text-slate-800 dark:text-zinc-50">Tema</span>
+
+                        <input id="alternar-tema" type="checkbox" class="sr-only" />
+
+                        <div
+                            class="efeito-onda-base efeito-onda-escuro trilha cursor-pointer relative flex h-8 w-16 items-center shadow-inner dark:shadow-inner dark:shadow-slate-900 rounded-full dark:bg-slate-800 px-1 transition-colors duration-300">
+
+                            <span class="sol-indicador absolute ml-0.5 text-zinc-800 hover:scale-110  transition-all ease-in-out">
+                                <svg class="w-6 h-6 text-orange-300 dark:text-zinc-50 transition-all dark:hover:scale-110 duration-300 ease-in-out"
+                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd"
+                                        d="M13 3a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0V3ZM6.343 4.929A1 1 0 0 0 4.93 6.343l1.414 1.414a1 1 0 0 0 1.414-1.414L6.343 4.929Zm12.728 1.414a1 1 0 0 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 1.414 1.414l1.414-1.414ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm-9 4a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H3Zm16 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2h-2ZM7.757 17.657a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414Zm9.9-1.414a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM13 19a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0v-2Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </span>
+
+                            <span class="lua-indicador absolute right-2 text-violet-500 hover:scale-115 dark:hover:scale-110 transition-all ease-in-out">
+                                <svg class="w-6 h-6 text-zinc-400 dark:text-sky-600 transition-all hover:scale-110 transition-all duration-300 ease-in-out"
+                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd"
+                                        d="M17 4c.5523 0 1 .44772 1 1v2h2c.5523 0 1 .44771 1 1 0 .55228-.4477 1-1 1h-2v2c0 .5523-.4477 1-1 1s-1-.4477-1-1V9h-2c-.5523 0-1-.44772-1-1s.4477-1 1-1h2V5c0-.55228.4477-1 1-1Z"
+                                        clip-rule="evenodd" />
+                                    <path
+                                        d="M12.3224 4.68708c.2935-.31028.3575-.77266.1594-1.15098-.1981-.37832-.6146-.5891-1.0368-.52467-1.50847.2302-2.93175.83665-4.12869 1.76276-1.19717.92628-2.12732 2.1411-2.69465 3.52702-.56744 1.38618-.75115 2.89299-.53164 4.37079.2195 1.4776.83393 2.8711 1.77895 4.0436.9448 1.1722 2.18683 2.0826 3.60103 2.6449 1.414.5623 2.9539.7584 4.4683.57 1.5145-.1884 2.9549-.7551 4.1784-1.6475 1.2237-.8924 2.1892-2.0806 2.7972-3.4499.1723-.3879.0809-.8423-.2279-1.1335-.3089-.2911-.7679-.3556-1.145-.1608-.8631.4459-1.8291.6799-2.8118.6791h-.0018c-1.1598.0013-2.2925-.3234-3.2596-.931-.9667-.6074-1.7244-1.4697-2.1856-2.4779-.4611-1.00776-.6079-2.1209-.4243-3.20511.1835-1.08442.6905-2.09837 1.4645-2.91681Z" />
+                                </svg>
+                            </span>
+
+                            <span class="botao"></span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-6 items-start justify-center max-w-[920px] mx-auto">
+                    <div
+                        class="w-full max-w-xl h-96 px-8 bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl pb-8 flex flex-col justify-between transition-colors duration-500">
+                        <div class="flex flex-col gap-1 text-center">
+                            <h2 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
+                                Gerador de CNPJ rápido
+                            </h2>
+                            <p class="text-sm font-semibold text-slate-600 dark:text-zinc-50 my-4">
+                                Gere CNPJs fictícios validados matematicamente, com máscaras opcionais e histórico em
+                                tempo real para checagem de CNPJ.
+                            </p>
+                        </div>
+
+                        <div class="flex flex-col gap-6 max-w-96 mx-auto">
+                            <div class="flex flex-wrap align-middle items-stretch mt-4 gap-1">
+                                <div class="relative flex-1">
+                                    <input id="campo-resultado" type="text" readonly
+                                        class="w-full rounded-lg text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-200/50 dark:bg-slate-900 px-3 pr-12 py-2 text-lg font-semibold shadow-inner"
+                                        aria-label="Resultado do CNPJ gerado" />
+                                    <button id="botao-copiar" type="button" title="Copiar CNPJ"
+                                        class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded text-violet-500 dark:text-violet-400 transition-all ease-in-out hover:text-violet-600 dark:hover:text-violet-600 px-2 py-1 text-xs duration-300 active:scale-75"
+                                        aria-label="Copiar CNPJ">
+                                        <svg class="w-8 h-8" aria-hidden="true" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="grid gap-4">
+                                <button id="botao-gerar" type="button"
+                                    class="efeito-onda-base efeito-onda-escuro inline-flex items-center justify-center rounded-lg bg-violet-500 dark:bg-violet-500 px-8 py-2 text-base font-semibold text-zinc-50 shadow-md transition-all ease-in-out duration-300 hover:bg-violet-600 dark:hover:bg-violet-600 hover:shadow-lg active:scale-95"
+                                    aria-label="Gerar CNPJ" title="Gerar CNPJ">
+                                    Gerar CNPJ válido agora
+                                </button>
+                                <button id="botao-copiar-todos" type="button"
+                                    class="efeito-onda-base efeito-onda-escuro inline-flex items-center justify-center rounded-lg border-2 border-violet-500 px-8 py-2 text-base font-semibold text-violet-500 transition-all ease-in-out duration-300 hover:bg-violet-500 hover:text-zinc-50 active:scale-95 dark:border-violet-400 dark:text-violet-200 dark:hover:bg-violet-500 dark:hover:text-zinc-50"
+                                    aria-label="Copiar histórico" title="Copiar histórico de CNPJs">
+                                    Copiar histórico completo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <aside
+                        class="flex-1 space-y-4 rounded-3xl bg-white/70 p-6 shadow-xl transition-colors duration-500 dark:bg-slate-900/70">
+                        <h2 class="text-2xl font-semibold text-slate-700 dark:text-zinc-50">Histórico do gerador</h2>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">
+                            Acompanhe os últimos números criados, filtre por máscara e utilize a consulta de CNPJ grátis
+                            para validar diretamente na Receita Federal.
+                        </p>
+                        <div id="historico" class="grid gap-3" aria-live="polite"></div>
+                    </aside>
+                </div>
+
+                <section class="grid gap-6 rounded-3xl bg-white/70 p-6 shadow-lg dark:bg-slate-900/70">
+                    <h2 class="text-2xl font-semibold text-slate-700 dark:text-zinc-50">Como usar o gerador de CNPJ?</h2>
+                    <article class="space-y-3">
+                        <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-100">Quando gerar CNPJ fictício ajuda?</h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            A geração de CNPJ facilita homologações, testes automatizados e cenários de integração com ERPs,
+                            marketplaces e gateways. Em poucos cliques, você garante checagem de CNPJ consistente para
+                            fluxos críticos.
+                        </p>
+                    </article>
+                    <article class="space-y-3">
+                        <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-100">Consulta de CNPJ grátis após gerar</h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            Após gerar, valide a estrutura matemática e prossiga para a consulta CNPJ na Receita Federal.
+                            Assim você simula processos de verificação real sem riscos aos cadastros de produção.
+                        </p>
+                    </article>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <footer class="mt-auto bg-white/70 py-6 text-center text-sm text-slate-600 shadow-inner dark:bg-slate-900/70 dark:text-slate-400">
+        <p>© 2024 Bade Digital — Gerar CNPJ, verificar CNPJ online e validar cadastros em segundos.</p>
+    </footer>
+
+    <script defer>
+        window.addEventListener('load', () => {
+            document.body.classList.add('ready');
+        });
+    </script>
+    <script defer src="https://www.googletagmanager.com/gtm.js?id=GTM-5LSGCFMM"></script>
+    <script defer
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1688022090499793"
+        crossorigin="anonymous"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js');
+        }
+    </script>
+</body>
+
+</html>
