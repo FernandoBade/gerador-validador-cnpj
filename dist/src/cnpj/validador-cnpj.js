@@ -17,16 +17,16 @@ import { atualizarContadorHistorico } from "../interface/contador-historico.js";
  * @summary Classe responsável pela validação de CNPJs (único e em massa) com UI.
  */
 class ValidadorCnpj {
+    elementos;
+    historico = [];
+    limiteHistorico = 100;
+    timeoutAviso;
     // Avisos agora controlados pelo utilitário de UI
     /**
      * @summary Inicializa o validador e configura a interface.
      */
     constructor(elementos) {
         this.elementos = elementos;
-        this.historico = [];
-        this.limiteHistorico = 100;
-        // evita loops de reentrada quando reatribuímos .value
-        this.formatando = { unico: false, massa: false };
         this.configurarEventos();
         this.configurarPlaceholderMascara();
         this.configurarEntradaCnpj();
@@ -297,6 +297,8 @@ class ValidadorCnpj {
             ? "Validar CNPJs em Massa"
             : "adicione ao menos 1 CNPJ para validar em massa";
     }
+    // evita loops de reentrada quando reatribuímos .value
+    formatando = { unico: false, massa: false };
     // normalização e formatação reutilizadas via utilitários em src/formatacao-cnpj.ts
     /**
      * @summary Configura o campo de validação em massa, formatando e limitando itens.

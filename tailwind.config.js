@@ -4,9 +4,7 @@ module.exports = {
   content: [
     './*.html',
     './artigos/**/*.html',
-    './gerador-cnpj/**/*.html',
-    './validador-cnpj/**/*.html',
-    './validador-cnpj-api/**/*.html',
+    './ferramentas/**/*.html',
     './src/**/*.{ts,js}',
   ],
   theme: {

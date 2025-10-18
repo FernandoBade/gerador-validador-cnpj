@@ -1,43 +1,42 @@
 {
     "name": "gerador-cnpj-alfanumerico",
-    "version": "1.3.0",
-    "description": "⚙️ Um gerador e validador de CNPJ alfanumérico 2026, gratuito e online, pra quem quer testar o novo formato da Receita Federal antes de todo mundo. Feito pra desenvolvedores, analistas de sistema e empresas ajustarem seus bancos de dados, APIs e integrações.",
+    "version": "1.4.0",
+    "type": "module",
+    "description": "⚙️ Um gerador e validador de CNPJ alfanumérico 2026, gratuito e online, feito para desenvolvedores e empresas testarem o novo formato da Receita Federal antes da implementação oficial.",
     "main": "dist/src/gerador.js",
-  "scripts": {
-        "desenvolvimento": "concurrently -n TS,SERV \"npm:compilar:assistido\" \"npm:servidor\"",
-        "servidor": "live-server --port=5173 --open=index.html --watch=.",
+    "scripts": {
         "compilar": "tsc -p tsconfig.json",
+        "servidor": "live-server --port=5173 --open=index.html --watch=.",
+        "desenvolvimento": "concurrently -n TS,SERV \"npm run compilar:assistido\" \"npm run servidor\"",
         "compilar:assistido": "tsc -w -p tsconfig.json",
-        "css:minificar": "node scripts/minify-css.js",
-        "tailwind:build": "tailwindcss -c tailwind.config.js -i ./src/estilos/tailwind.css -o ./dist/assets/tailwind.min.css --minify",
-        "html:posprocessar": "node scripts/postprocess-html.js",
-        "construir:css": "npm run css:minificar && npm run tailwind:build",
-        "construir": "npm run compilar && npm run construir:css && npm run html:posprocessar",
+        "processar": "ts-node src/processos/minificar-css.ts && ts-node src/processos/processar-html.ts",
+
         "lintar": "eslint . --ext .ts",
         "lintar:correcao": "eslint . --ext .ts --fix",
         "formatar": "prettier --write .",
-        "formatar:verificar": "prettier --check .",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "formatar:verificar": "prettier --check ."
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico.git"
+        "url": "git+https://github.com/FernandoBade/gerador-validador-cnpj"
     },
     "keywords": [
         "cnpj",
         "cnpj-alfanumerico",
-        "receita-federal",
-        "gerador-cnpj",
-        "simulador-cnpj",
-        "validador-cnpj",
-        "migracao-sistemas",
-        "cnpj-brasil",
+        "gerador",
+        "validador",
+        "consultar-cnpj",
+        "novo-cnpj",
+        "cnpj-2026",
+        "modulo11",
         "typescript",
         "nodejs",
-        "modulo11",
-        "cnpj-2026",
-        "cnpj-data",
-        "brasil-cnpj"
+        "frontend",
+        "tailwindcss",
+        "consulta-dados-receita-federal",
+        "dados-cnpj",
+        "api-cnpj",
+        "banco-de-dados"
     ],
     "author": "Fernando Bade",
     "license": "ISC",

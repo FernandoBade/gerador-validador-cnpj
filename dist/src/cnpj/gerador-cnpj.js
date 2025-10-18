@@ -16,15 +16,16 @@ import { exibirAviso } from "../gerais/mensageria.js";
  * @summary Classe responsável por agrupar regras de negócio e interação com a interface do gerador.
  */
 class GeradorCnpj {
+    elementos;
+    cnpjAtual = null;
+    historico = { itens: [], limite: 100 };
+    temporizadores = { inicioContagem: 0 };
     /**
      * @summary Inicializa a classe com os elementos de interface necessários.
      * @param elementos Elementos HTML utilizados pela aplicação.
      */
     constructor(elementos) {
         this.elementos = elementos;
-        this.cnpjAtual = null;
-        this.historico = { itens: [], limite: 100 };
-        this.temporizadores = { inicioContagem: 0 };
         this.configurarEventos();
         inicializarEfeitoOnda();
         this.inicializarHistorico();
@@ -160,7 +161,7 @@ class GeradorCnpj {
      * @returns Objeto com a versão pura e mascarada do identificador gerado.
      */
     gerarIdentificadorValido() {
-        const limiteTentativas = 2000;
+        const limiteTentativas = 2_000;
         for (let tentativa = 0; tentativa < limiteTentativas; tentativa++) {
             const usarAlfanumerico = this.elementos.controleAlfanumerico?.checked !== false;
             const corpo = usarAlfanumerico
@@ -254,7 +255,7 @@ class GeradorCnpj {
             this.gerarEExibirIdentificador();
             return;
         }
-        textoTempoRestante.textContent = `Novo em ${(tempoRestante / 1000).toFixed(1)}s`;
+        textoTempoRestante.textContent = `Novo em ${(tempoRestante / 1_000).toFixed(1)}s`;
         const fracaoRestante = Math.max(0, Math.min(1, 1 - tempoDecorrido / IntervaloTemporizador.GeracaoAutomatica));
         barraProgresso.style.transform = `scaleX(${fracaoRestante})`;
         barraProgresso.style.background = "linear-gradient(to left, #bd93f9, #8b5cf6)";

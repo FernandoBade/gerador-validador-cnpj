@@ -5,7 +5,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
-    <script type="module"  src="/dist/src/interface/transicao.js?v=1.3.0" defer></script>
+    <script type="module"   src="/dist/src/interface/transicao.js?v=1.3.0&v=1.4.0" defer></script>
     <script>
         window.addEventListener('load', () => {
             document.body.classList.add('ready');
@@ -23,7 +23,7 @@
     <meta name="geo.region" content="BR" />
     <meta name="geo.placename" content="Brasil" />
     <meta name="author" content="Gerador e Validador de CNPJ" />
-    <link rel="canonical" href="https://cnpj.bade.digital/gerador-cnpj/" />
+    <link rel="canonical" href="https://cnpj.bade.digital/ferramentas/gerador-cnpj/" />
 
     <!-- Favicons / PWA -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -39,7 +39,7 @@
     <meta property="og:title" content="Gerador de CNPJ – Crie CNPJs válidos e copie em massa" />
     <meta property="og:description"
         content="Gere CNPJs válidos instantaneamente, com formato numérico e alfanumérico, prontos para testes e integrações." />
-    <meta property="og:url" content="https://cnpj.bade.digital/gerador-cnpj/" />
+    <meta property="og:url" content="https://cnpj.bade.digital/ferramentas/gerador-cnpj/" />
     <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
     <meta property="og:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
     <meta property="og:image:alt" content="Painel do gerador de CNPJ com histórico e botões de copiar" />
@@ -72,7 +72,7 @@
 
     <!-- Tailwind -->
     <link rel="stylesheet" href="/dist/assets/tailwind.min.css?v=1.3.0">
-    
+
     <link rel="stylesheet" href="/dist/assets/controle-tema.min.css?v=1.3.0" />
 
     <!-- Google Tag Manager -->
@@ -113,15 +113,15 @@
     </script>
 </head>
 
-<body class="min-h-screen bg-slate-100/50 text-slate-900 dark:bg-slate-800 dark:text-zinc-50 font-sans flex flex-col">
+<body class="flex flex-col min-h-screen font-sans bg-slate-100/50 text-slate-900 dark:bg-slate-800 dark:text-zinc-50">
     <!-- Início Tag: Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LSGCFMM" height="0" width="0"
             style="display: none; visibility: hidden"></iframe></noscript>
     <!-- Fim Tag: Google Tag Manager (noscript) -->
 
-    <main class="flex-1 flex items-center justify-center px-4 py-6">
-        <div class="flex flex-col gap-6 items-stretch">
-            <div class="flex items-center w-full justify-end md:justify-end">
+    <main class="flex items-center justify-center flex-1 px-4 py-6">
+        <div class="flex flex-col items-stretch gap-6">
+            <div class="flex items-center justify-end w-full md:justify-end">
                 <!--Início banner AdSense: Topo -->
                 <!-- <div class="hidden md:block">
                     <ins class="adsbygoogle" style="display:block;width:728px;height:90px"
@@ -132,7 +132,7 @@
                 </div> -->
                 <!--Fim banner AdSense: Topo -->
                 <label for="alternar-tema"
-                    class="controle-tema h-10 inline-flex items-center gap-3 rounded-2xl bg-zinc-50 dark:bg-slate-800 px-4 py-2 shadow-md backdrop-blur">
+                    class="inline-flex items-center h-10 gap-3 px-4 py-2 shadow-md controle-tema rounded-2xl bg-zinc-50 dark:bg-slate-800 backdrop-blur">
 
                     <span
                         class="flex items-center gap-1 text-sm font-medium text-slate-800 dark:text-zinc-50">Tema</span>
@@ -140,11 +140,11 @@
                     <input id="alternar-tema" type="checkbox" class="sr-only" />
 
                     <div
-                        class="efeito-onda-base efeito-onda-escuro trilha cursor-pointer relative flex h-8 w-16 items-center shadow-inner dark:shadow-inner dark:shadow-slate-900 rounded-full dark:bg-slate-800 px-1 transition-colors duration-300">
+                        class="relative flex items-center w-16 h-8 px-1 transition-colors duration-300 rounded-full shadow-inner cursor-pointer efeito-onda-base efeito-onda-escuro trilha dark:shadow-inner dark:shadow-slate-900 dark:bg-slate-800">
 
                         <span
                             class="sol-indicador absolute ml-0.5 text-zinc-800 hover:scale-110  transition-all ease-in-out">
-                            <svg class="w-6 h-6 text-orange-300 dark:text-zinc-50 transition-all dark:hover:scale-110 duration-300 ease-in-out transition-all duration-300 ease-in-out"
+                            <svg class="w-6 h-6 text-orange-300 transition-all duration-300 ease-in-out dark:text-zinc-50 dark:hover:scale-110"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 fill="currentColor" viewBox="0 0 24 24">
                                 <path fill-rule="evenodd"
@@ -154,8 +154,8 @@
                         </span>
 
                         <span
-                            class="lua-indicador absolute right-2 text-violet-500 hover:scale-115 dark:hover:scale-110 transition-all ease-in-out">
-                            <svg class="w-6 h-6 text-zinc-400 dark:text-sky-600 transition-all hover:scale-110 transition-all duration-300 ease-in-out"
+                            class="absolute transition-all ease-in-out lua-indicador right-2 text-violet-500 hover:scale-115 dark:hover:scale-110">
+                            <svg class="w-6 h-6 transition-all duration-300 ease-in-out text-zinc-400 dark:text-sky-600 hover:scale-110"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 fill="currentColor" viewBox="0 0 24 24">
                                 <path fill-rule="evenodd"
@@ -174,26 +174,26 @@
             <div class="flex flex-col md:flex-row gap-6 items-start justify-center max-w-[920px] mx-auto">
                 <!-- Card principal -->
                 <div
-                    class="w-full max-w-xl h-96 px-8 bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl pb-8 flex flex-col justify-between transition-colors duration-500">
+                    class="flex flex-col justify-between w-full max-w-xl px-8 pb-8 transition-colors duration-500 shadow-2xl h-96 bg-zinc-50 dark:bg-slate-800 rounded-3xl">
                     <div class="flex flex-col gap-1 text-center">
                         <h1 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
                             Gerador de CNPJ
                         </h1>
-                        <h2 class="text-sm font-semibold text-slate-600 dark:text-zinc-50 my-4">
+                        <h2 class="my-4 text-sm font-semibold text-slate-600 dark:text-zinc-50">
                             Gere CNPJs fictícios, com ou sem máscara, validados matematicamente e prontos para testar
                             integrações e validações. Disponível tanto nos formatos numéricos quanto alfanuméricos para
                             gerar CNPJ válido em segundos.
                         </h2>
                     </div>
 
-                    <div class="flex flex-col gap-6 max-w-96 mx-auto">
+                    <div class="flex flex-col gap-6 mx-auto max-w-96">
                         <!-- Campo resultado -->
-                        <div class="flex flex-wrap align-middle items-stretch mt-4 gap-1">
+                        <div class="flex flex-wrap items-stretch gap-1 mt-4 align-middle">
                             <div class="relative flex-1">
                                 <input id="campo-resultado" type="text" readonly
-                                    class="w-full rounded-lg text-slate-600 dark:text-zinc-50 text-center border-slate-300 dark:border-slate-600 bg-zinc-200/50 dark:bg-slate-900 px-3 pr-12 py-2 text-lg font-semibold shadow-inner" />
+                                    class="w-full px-3 py-2 pr-12 text-lg font-semibold text-center rounded-lg shadow-inner text-slate-600 dark:text-zinc-50 border-slate-300 dark:border-slate-600 bg-zinc-200/50 dark:bg-slate-900" />
                                 <button id="botao-copiar" type="button" title="Copiar CNPJ"
-                                    class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded text-violet-500 dark:text-violet-400 transition-all ease-in-out hover:text-violet-600 dark:hover:text-violet-600 px-2 py-1 text-xs duration-300 active:scale-75"
+                                    class="absolute inline-flex items-center justify-center px-2 py-1 text-xs transition-all duration-300 ease-in-out -translate-y-1/2 rounded right-2 top-1/2 text-violet-500 dark:text-violet-400 hover:text-violet-600 dark:hover:text-violet-600 active:scale-75"
                                     aria-label="Copiar CNPJ">
                                     <svg class="w-8 h-8" aria-hidden="true" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
@@ -203,11 +203,11 @@
                             </div>
 
                             <!-- Barra com o campo tempo-restante -->
-                            <div id="tempo-restante" class="text-sm text-slate-600 dark:text-slate-500 hidden"></div>
+                            <div id="tempo-restante" class="hidden text-sm text-slate-600 dark:text-slate-500"></div>
 
                             <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-300 dark:bg-slate-600">
                                 <div id="barra"
-                                    class="h-full w-full origin-left bg-violet-500 dark:bg-violet-500 transition-transform duration-100 ease-linear">
+                                    class="w-full h-full transition-transform duration-100 ease-linear origin-left bg-violet-500 dark:bg-violet-500">
                                 </div>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                         <div class="flex flex-col items-center gap-8 mt-2 text-sm text-slate-600 dark:text-slate-500">
                             <div class="flex items-center gap-6">
                                 <label for="toggle-mascara"
-                                    class="inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-slate-600 dark:text-zinc-50 select-none">
+                                    class="inline-flex items-center gap-3 text-sm font-medium cursor-pointer select-none text-slate-600 dark:text-zinc-50">
                                     <input id="toggle-mascara" type="checkbox" class="sr-only peer" checked />
                                     <div
                                         class="efeito-onda-base efeito-onda-escuro relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
@@ -226,7 +226,7 @@
                                 </label>
 
                                 <label for="toggle-alfanumerico"
-                                    class="inline-flex cursor-pointer items-center gap-3 text-sm font-medium text-slate-600 dark:text-zinc-50 select-none">
+                                    class="inline-flex items-center gap-3 text-sm font-medium cursor-pointer select-none text-slate-600 dark:text-zinc-50">
                                     <input id="toggle-alfanumerico" type="checkbox" class="sr-only peer" checked />
                                     <div
                                         class="efeito-onda-base efeito-onda-escuro relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
@@ -239,31 +239,31 @@
                             <!-- Botões -->
                             <div class="flex w-96 mt-2 space-x-8 pt-0.5">
                                 <button id="botao-gerar"
-                                    class="efeito-onda-base efeito-onda-claro text-md flex-1 rounded-lg border-2 border-violet-500 dark:border-violet-500 bg-transparent text-violet-500 dark:text-violet-500 font-semibold px-1 py-2 transition-all duration-300 hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400 dark:hover:border-violet-400 active:scale-95">
+                                    class="flex-1 px-1 py-2 font-semibold transition-all duration-300 bg-transparent border-2 rounded-lg efeito-onda-base efeito-onda-claro text-md border-violet-500 dark:border-violet-500 text-violet-500 dark:text-violet-500 hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400 dark:hover:border-violet-400 active:scale-95">
                                     Gerar +1 CNPJ
                                 </button>
 
                                 <button id="botao-gerar-10"
-                                    class="efeito-onda-base efeito-onda-escuro text-md relative flex-1 rounded-lg bg-violet-500 text-white font-semibold px-1 py-2 transition-all duration-300 hover:bg-violet-600 active:scale-95">
+                                    class="relative flex-1 px-1 py-2 font-semibold text-white transition-all duration-300 rounded-lg efeito-onda-base efeito-onda-escuro text-md bg-violet-500 hover:bg-violet-600 active:scale-95">
                                     Gerar +10 CNPJs
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="painel-recentes" class="w-full md:w-80 h-96 flex flex-col">
+                <div id="painel-recentes" class="flex flex-col w-full md:w-80 h-96">
                     <div
-                        class="bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl p-4 flex flex-col h-full transition-colors duration-500">
+                        class="flex flex-col h-full p-4 transition-colors duration-500 shadow-2xl bg-zinc-50 dark:bg-slate-800 rounded-3xl">
                         <div class="flex justify-center gap-2 mb-4">
-                            <h2 class="font-bold text-2xl text-center text-slate-600 dark:text-zinc-50 pb-2">Histórico
+                            <h2 class="pb-2 text-2xl font-bold text-center text-slate-600 dark:text-zinc-50">Histórico
                                 <span id="contador-historico" title="Total de itens"></span>
                             </h2>
                         </div>
                         <ul id="lista-recentes"
-                            class="scroll-personalizado flex-1 overflow-y-auto space-y-2 ml-2 pr-2 py-3 px-2 text-md text-slate-600 dark:text-slate-500 shadow-inner shadow-slate-300 dark:shadow-slate-900 rounded-lg transition-all ease-in-out duration-300">
+                            class="flex-1 px-2 py-3 pr-2 ml-2 space-y-2 overflow-y-auto transition-all duration-300 ease-in-out rounded-lg shadow-inner scroll-personalizado text-md text-slate-600 dark:text-slate-500 shadow-slate-300 dark:shadow-slate-900">
                         </ul>
 
-                        <div class="flex w-full md:w-80 mt-2 justify-center pt-3">
+                        <div class="flex justify-center w-full pt-3 mt-2 md:w-80">
                             <button id="botao-copiar-todos"
                                 class="flex mb-3 md:mr-7 gap-2 efeito-onda-base efeito-onda-claro relative text-violet-500 dark:text-violet-400 text-sm font-semibold px-8 py-2 rounded-lg border border-violet-500/40 shadow-[0_0_6px_1px_rgba(139,92,246,0.25)] animate-pulse-slow hover:shadow-[0_0_12px_2px_rgba(139,92,246,0.5)] hover:border-violet-500 hover:text-violet-300 transition-all duration-500 ease-in-out active:scale-95 hover:text-violet-600">
                                 Copiar todos
@@ -286,9 +286,7 @@
             <details id="aviso-importante-gerador" open
                 class="group mt-4 max-w-[920px] w-full mx-auto bg-zinc-50 dark:bg-slate-800 border border-pink-400 dark:border-pink-500 rounded-2xl shadow-lg px-6 py-2 text-slate-700 dark:text-zinc-200 text-xs leading-relaxed transition-all duration-300">
 
-                <summary class="flex items-center justify-between cursor-pointer select-none mb-2 text-lg font-bold
-           text-pink-500 hover:text-pink-600 dark:text-pink-500 dark:hover:text-pink-400
-           rounded-lg transition-all duration-300">
+                <summary class="flex items-center justify-between mb-2 text-lg font-bold text-pink-500 transition-all duration-300 rounded-lg cursor-pointer select-none hover:text-pink-600 dark:text-pink-500 dark:hover:text-pink-400">
 
                     <div class="flex items-center gap-2 pt-2">
                         <svg class="mt-0.5 w-6 h-6 text-pink-500 dark:text-pink-500 transition-colors duration-300
@@ -301,13 +299,13 @@
                     </div>
 
                     <div class="flex items-center gap-1 mt-2">
-                        <svg class="hidden group-open:block w-6 h-6 text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100 transition-all duration-300 ease-in-out"
+                        <svg class="hidden w-6 h-6 transition-all duration-300 ease-in-out group-open:block text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M6 18 17.94 6M18 18 6.06 6" />
                         </svg>
 
-                        <svg class="block group-open:hidden w-6 h-6 text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100 transition-all duration-300 ease-in-out"
+                        <svg class="block w-6 h-6 transition-all duration-300 ease-in-out group-open:hidden text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M5 12h14m-7 7V5" />
@@ -315,7 +313,7 @@
                     </div>
                 </summary>
 
-                <div class="ml-1 mt-4 space-y-2 text-sm text-slate-500 dark:text-zinc-50">
+                <div class="mt-4 ml-1 space-y-2 text-sm text-slate-500 dark:text-zinc-50">
                     <p>
                         Este gerador <strong>não tem qualquer vínculo com a Receita Federal do Brasil</strong>.
                         Os CNPJs criados aqui são <strong>valores fictícios</strong>, gerados a partir de
@@ -333,7 +331,7 @@
                         matematicamente falando, <em>poderia</em> existir.
                     </p>
 
-                    <p class="italic text-slate-300 dark:text-slate-400 mt-3">
+                    <p class="mt-3 italic text-slate-300 dark:text-slate-400">
                         Brinque com os números, não com a Receita Federal.<span class="not-italic"> 😇</span>
                     </p>
 
@@ -344,10 +342,10 @@
     </main>
 
     <footer
-        class="mt-2 bg-slate-900 px-6 py-6 text-slate-200 dark:text-zinc-50 transition-colors duration-500">
-        <div class="mx-auto flex w-full max-w-4xl flex-col gap-8">
-            <div class="flex flex-row justify-between gap-2 text-sm text-slate-100 dark:text-slate-500 px-6 md:px-28">
-                <h2 class="text-xl font-semibold flex items-center gap-2">🔗 Links</h2>
+        class="px-6 py-6 mt-2 transition-colors duration-500 bg-slate-900 text-slate-200 dark:text-zinc-50">
+        <div class="flex flex-col w-full max-w-4xl gap-8 mx-auto">
+            <div class="flex flex-row justify-between gap-2 px-6 text-sm text-slate-100 dark:text-slate-500 md:px-28">
+                <h2 class="flex items-center gap-2 text-xl font-semibold">🔗 Links</h2>
                 <ul class="grid gap-3 text-sm">
                     <li>
                         <a href="https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico"
@@ -421,12 +419,12 @@
         class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none">
     </div>
 
-    <script type="module"  defer src="../dist/src/interface/tema.js?v=1.3.0"></script>
-    <script type="module"  defer src="../dist/src/interface/menu.js?v=1.3.0"></script>
-     <script type="module"  defer src="../dist/src/interface/transicao.js?v=1.3.0"></script>
-    <script type="module"  defer src="../dist/src/cnpj/gerador-cnpj.js?v=1.3.0"></script>
-    <script type="module"  defer src="../dist/src/gerais/persistencia.js?v=1.3.0"></script>
-    <script type="module"  defer src="../dist/src/gerais/cookies.js?v=1.3.0"></script>
+    <script type="module"  defer  src="../../dist/src/interface/tema.js?v=1.4.0"></script>
+    <script type="module"  defer  src="../../dist/src/interface/menu.js?v=1.3.0&v=1.4.0"></script>
+     <script type="module"  defer  src="../../dist/src/interface/transicao.js?v=1.3.0&v=1.4.0"></script>
+    <script type="module"  defer  src="../../dist/src/cnpj/gerador-cnpj.js?v=1.3.0&v=1.4.0"></script>
+    <script type="module"  defer  src="../../dist/src/gerais/persistencia.js?v=1.3.0&v=1.4.0"></script>
+    <script type="module"  defer  src="../../dist/src/gerais/cookies.js?v=1.3.0&v=1.4.0"></script>
 
 </body>
 

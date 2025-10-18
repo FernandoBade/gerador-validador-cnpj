@@ -6,7 +6,7 @@
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
 
-    <script type="module"  src="/dist/src/interface/transicao.js?v=1.3.0" defer></script>
+    <script type="module"   src="/dist/src/interface/transicao.js?v=1.3.0&v=1.4.0" defer></script>
     <script>
         window.addEventListener('load', () => {
             document.body.classList.add('ready');
@@ -16,15 +16,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Validador de CNPJ via API – Consulte dados da Receita Federal com OpenCNPJ</title>
+    <title>Validador de CNPJ – Valide CNPJ numérico ou alfanumérico e consulte dados na Receita Federal</title>
     <meta name="description"
-        content="Use nossa API para validar CNPJs automaticamente com dados da Receita Federal via OpenCNPJ, ideal para sistemas e integrações." />
+        content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros." />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="pt-BR" />
     <meta name="geo.region" content="BR" />
     <meta name="geo.placename" content="Brasil" />
     <meta name="author" content="Gerador e Validador de CNPJ" />
-    <link rel="canonical" href="https://cnpj.bade.digital/validador-cnpj-api/" />
+    <link rel="canonical" href="https://cnpj.bade.digital/ferramentas/validador-cnpj/" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -34,19 +34,19 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:title"
-        content="Validador de CNPJ via API – Consulte dados da Receita Federal com OpenCNPJ" />
+        content="Validador de CNPJ – Valide CNPJ numérico ou alfanumérico e consulte dados na Receita Federal" />
     <meta property="og:description"
-        content="Use nossa API para validar CNPJs automaticamente com dados da Receita Federal via OpenCNPJ, ideal para sistemas e integrações." />
-    <meta property="og:url" content="https://cnpj.bade.digital/validador-cnpj-api/" />
+        content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros." />
+    <meta property="og:url" content="https://cnpj.bade.digital/ferramentas/validador-cnpj/" />
     <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
     <meta property="og:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
-    <meta property="og:image:alt" content="Integração via API para validar CNPJ com a Receita Federal" />
+    <meta property="og:image:alt" content="Painel do validador de CNPJ com histórico de verificações" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title"
-        content="Validador de CNPJ via API – Consulte dados da Receita Federal com OpenCNPJ" />
+        content="Validador de CNPJ – Valide CNPJ numérico ou alfanumérico e consulte dados na Receita Federal" />
     <meta name="twitter:description"
-        content="Use nossa API para validar CNPJs automaticamente com dados da Receita Federal via OpenCNPJ, ideal para sistemas e integrações." />
+        content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros." />
     <meta name="twitter:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
 
     <script type="application/ld+json">
@@ -68,8 +68,8 @@
     </script>
 
     <link rel="stylesheet" href="/dist/assets/tailwind.min.css?v=1.3.0">
-    
-    <link rel="stylesheet" href="../dist/src/es?v=1.3.0" />
+
+    <link rel="stylesheet" href="/dist/assets/controle-tema.min.css?v=1.3.0" />
 
     <script id="sw-unregister">
       (function(){
@@ -136,11 +136,12 @@
                     class="flex flex-col justify-between w-full max-w-xl px-8 pb-8 transition-colors duration-500 shadow-2xl h-min bg-zinc-50 dark:bg-slate-800 rounded-3xl">
                     <div class="flex flex-col gap-1 text-center">
                         <h1 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
-                            Validador de CNPJ
+                            Validador de CNPJ Alfanumérico
                         </h1>
                         <h2 class="my-4 text-sm font-semibold text-slate-600 dark:text-zinc-50">
-                            Valide CNPJs em segundos: checagem de estrutura, dígitos verificadores e formatação com
-                            integração para consulta CNPJ automática na Receita Federal.
+                            Faça a validação de CNPJ real ou fictício em segundos. Nosso validador verifica a estrutura, os
+                            dígitos verificadores e a formatação, garantindo se o CNPJ é matematicamente válido e permitindo
+                            consulta CNPJ com dados oficiais da Receita Federal.
                         </h2>
                     </div>
 
@@ -191,7 +192,7 @@
 
                             <div class="flex w-auto gap-4 mt-6">
                                 <button id="botao-validar" type="button"
-                                    class="inline-flex items-center justify-center flex-1 hidden px-8 py-2 mb-4 text-sm font-semibold transition-all duration-300 ease-in-out rounded-lg shadow-sm efeito-onda-base efeito-onda-escuro bg-violet-500 dark:bg-violet-500 text-zinc-50 hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none hover:shadow-md dark:hover:shadow-md focus:ring-2 focus:ring-slate-300 dark:focus:ring-violet-500 active:scale-95">
+                                    class="flex-1 px-10 py-2 font-semibold transition-all duration-300 bg-transparent border-2 rounded-lg efeito-onda-base efeito-onda-claro text-md border-violet-500 dark:border-violet-500 text-violet-500 dark:text-violet-500 hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400 dark:hover:border-violet-400 active:scale-95">
                                     Validar CNPJ
                                 </button>
                                 <button id="botao-validar-massa" type="button"
@@ -231,19 +232,21 @@
             </div>
 
 
-            <details id="aviso-open-cnpj" open
-                class="group mt-4 max-w-[920px] w-full mx-auto bg-zinc-50 dark:bg-slate-800 border border-sky-400 dark:border-sky-500 rounded-2xl shadow-lg px-6 py-3 text-slate-700 dark:text-zinc-200 text-xs leading-relaxed transition-all duration-300">
+            <details id="aviso-importante-validador" open
+                class="group mt-4 max-w-[920px] w-full mx-auto bg-zinc-50 dark:bg-slate-800 border border-pink-400 dark:border-pink-500 rounded-2xl shadow-lg px-6 py-2 text-slate-700 dark:text-zinc-200 text-xs leading-relaxed transition-all duration-300">
 
-                <summary
-                    class="flex items-center justify-between cursor-pointer select-none mb-2 text-[1rem] font-bold text-sky-500 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-300 rounded-lg transition-all duration-300">
+                <summary class="flex items-center justify-between cursor-pointer select-none mb-2 text-[1rem] font-bold
+           text-pink-500 hover:text-pink-600 dark:text-pink-500 dark:hover:text-pink-400
+           rounded-lg transition-all duration-300">
 
                     <div class="flex items-center gap-2 pt-2 text-lg">
-                        <svg class="mt-0.5 w-6 h-6 text-sky-500 dark:text-sky-400 transition-colors duration-300 group-hover:text-sky-600 dark:group-hover:text-sky-300 shrink-0"
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <svg class="mt-0.5 w-6 h-6 text-pink-500 dark:text-pink-500 transition-colors duration-300
+                  group-hover:text-pink-600 dark:group-hover:text-pink-400 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                        Sobre os dados consultados
+                        Importante
                     </div>
 
                     <div class="flex items-center gap-1 mt-1">
@@ -263,33 +266,31 @@
 
                 <div class="mt-4 ml-1 space-y-2 text-sm text-slate-500 dark:text-zinc-50">
                     <p>
-                        Os dados usados nesta validação de CNPJ, quando disponíveis, são fornecidos gratuitamente pelo projeto
-                        <strong><a class="font-semibold underline underline-offset-4 decoration-sky-600"
-                                href="https://opencnpj.org" target="_blank"
-                                rel="noopener noreferrer">OpenCNPJ</a></strong>, permitindo verificar CNPJ em massa.
+                        Este validador <strong>não tem qualquer vínculo com a Receita Federal do Brasil</strong>.
+                        Ele apenas verifica se um número de CNPJ <strong>segue as regras matemáticas válidas</strong> de
+                        <strong><a class="underline underline-offset-4 decoration-pink-600"
+                                href="../artigos/como-a-validacao-de-cnpj-e-feita/">cálculo de dígitos
+                                verificadores</a></strong> e ajuda a verificar CNPJ antes de qualquer integração.
                     </p>
                     <p>
-                        As informações são atualizadas mensalmente e refletem os dados públicos da Receita Federal.
-                        De qualquer forma,
-                        por segurança, sempre confira e valide os dados diretamente pelo <strong><a
-                                class="underline underline-offset-4 decoration-sky-600"
-                                target="_blank"
-                                href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp">site oficial</a></strong>.
+                        Isso significa que o resultado indica se o CNPJ é <strong>estruturalmente válido</strong>,
+                        mas <strong>não informa se ele existe, está ativo, suspenso ou baixado</strong> na base da
+                        Receita.
                     </p>
                     <p>
-                        Se o projeto te ajudou, considere dar aquela força! As opções de apoio estão disponíveis na
-                        <strong><a class="font-semibold underline underline-offset-4 decoration-sky-600"
-                                href="https://opencnpj.org" target="_blank" rel="noopener noreferrer">página
-                                oficial</a></strong>.
+                        Para saber a situação cadastral de um CNPJ, é necessário consultar o
+                        <strong><a class="underline underline-offset-4 decoration-pink-600"
+                                href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp"
+                                target="_blank">site
+                                oficial da Receita Federal</a></strong>.
+                    </p>
+                    <p class="mt-3 italic text-slate-300 dark:text-slate-400">
+                        O validador faz a conta, não o milagre. <span class="not-italic">😄</span>
                     </p>
 
-                    <p class="mt-3 italic text-slate-300 dark:text-slate-400">
-                        Dá pra ajudar a pagar a coquinha gelada do dev, vai? O projeto manda bem demais! <span
-                            class="not-italic">😉</span>
-                    </p>
+
                 </div>
             </details>
-
 
 
         </div>
@@ -361,39 +362,15 @@
         </div>
     </footer>
 
-    <div id="modal-dados-cnpj"
-        class="fixed inset-0 z-50 flex items-center justify-center hidden px-4 py-6 transition-opacity duration-300 ease-out opacity-0 pointer-events-none bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-sm">
-        <div id="modal-caixa-cnpj" role="dialog" aria-modal="true" aria-labelledby="modal-titulo-cnpj"
-            class="w-full max-w-3xl overflow-hidden transition-transform duration-300 ease-out transform scale-95 border shadow-2xl bg-zinc-50 dark:bg-slate-900 rounded-3xl border-slate-200/70 dark:border-slate-700">
-            <div class="flex items-start justify-between gap-4 px-6 pt-6">
-                <div>
-                    <p class="text-xs tracking-wide uppercase text-slate-500 dark:text-slate-400">Detalhes do CNPJ</p>
-                    <h3 id="modal-titulo-cnpj" class="mt-1 text-2xl font-bold text-slate-700 dark:text-zinc-50"></h3>
-                </div>
-                <button id="botao-fechar-modal-cnpj" type="button"
-                    class="p-2 transition-all duration-300 rounded-full efeito-onda-base efeito-onda-escuro text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-zinc-200">
-                    <span class="sr-only">Fechar detalhes</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                            d="m16.5 8.25-8.5 8.5M8 8l8.5 8.5" />
-                    </svg>
-                </button>
-            </div>
-            <div id="modal-conteudo-cnpj"
-                class="px-6 pb-6 pt-4 space-y-4 text-sm text-slate-600 dark:text-slate-300 max-h-[80vh] overflow-y-auto scroll-personalizado">
-            </div>
-        </div>
-    </div>
-
     <div id="toast"
         class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none">
     </div>
 
-    <script type="module"  defer src="../dist/src/interface/tema.js?v=1.3.0"></script>
-    <script type="module"  defer src="../dist/src/interface/menu.js?v=1.3.0"></script>
-    <script type="module"  defer src="../dist/src/cnpj/validador-cnpj-api.js?v=1.3.0"></script>
-    <script type="module"  defer src="../dist/src/gerais/persistencia.js?v=1.3.0"></script>
-    <script type="module"  defer src="../dist/src/gerais/cookies.js?v=1.3.0"></script>
+    <script type="module"  defer  src="../../dist/src/interface/tema.js?v=1.3.0&v=1.4.0"></script>
+    <script type="module"  defer  src="../../dist/src/interface/menu.js?v=1.3.0&v=1.4.0"></script>
+    <script type="module"  defer  src="../../dist/src/cnpj/validador-cnpj.js?v=1.3.0&v=1.4.0"></script>
+    <script type="module"  defer  src="../../dist/src/gerais/persistencia.js?v=1.3.0&v=1.4.0"></script>
+    <script type="module"  defer  src="../../dist/src/gerais/cookies.js?v=1.3.0&v=1.4.0"></script>
 
 </body>
 

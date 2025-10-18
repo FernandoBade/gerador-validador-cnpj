@@ -7,7 +7,7 @@
 import { ClasseAviso, IntervaloTemporizador, TipoAviso } from "../gerais/enums.js";
 import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO } from "../gerais/constantes.js";
 import { htmlCookies, inicializarAvisoDeCookies } from "../gerais/cookies.js";
-import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro } from "../cnpj/formatacao-cnpj.js";
+import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro } from "./formatacao-cnpj.js";
 import { copiarTexto, inicializarEfeitoOnda } from "../interface/interface.js";
 import { exibirAviso } from "../gerais/mensageria.js";
 import { atualizarContadorHistorico } from "../interface/contador-historico.js";
@@ -136,7 +136,7 @@ function normalizarDadosOpenCnpj(registro, puro) {
     const porte = extrairTexto(registro, ["porte", "porte_empresa"]) ?? extrairTexto(estabelecimento, ["porte"]);
     const telefone = extrairTelefones(estabelecimento, registro);
     const email = extrairTexto(estabelecimento, ["email"]) ?? extrairTexto(registro, ["email"]);
-    const endereco = montarEndereco(estabelecimento);
+    const endereco = montarEndereco(estabelecimento) ?? montarEndereco(registro);
     const atividades = extrairAtividades(registro, estabelecimento);
     const socios = extrairSocios(registro, estabelecimento);
     const cnpjNormalizado = normalizarPuro(extrairTexto(estabelecimento, ["cnpj", "cnpj_completo", "cnpj_basico"])
@@ -217,30 +217,22 @@ function extrairNumero(origem, chaves) {
 /**
  * @summary Monta o endereço legível a partir do estabelecimento identificado.
  */
-function montarEndereco(estabelecimento) {
-    if (!estabelecimento)
+function montarEndereco(origem) {
+    if (!origem)
         return null;
-    const logradouroBase = extrairTexto(estabelecimento, ["logradouro", "nome_logradouro"]);
-    const tipoLogradouro = extrairTexto(estabelecimento, ["tipo_logradouro"]);
+    const logradouroBase = extrairTexto(origem, ["logradouro", "nome_logradouro"]);
+    const tipoLogradouro = extrairTexto(origem, ["tipo_logradouro"]);
     const logradouro = tipoLogradouro ? `${tipoLogradouro} ${logradouroBase ?? ""}`.trim() : logradouroBase;
-    const numero = extrairTexto(estabelecimento, ["numero", "numero_local"]);
-    const complemento = extrairTexto(estabelecimento, ["complemento"]);
-    const bairro = extrairTexto(estabelecimento, ["bairro", "bairro_logradouro"]);
-    const municipio = extrairTexto(estabelecimento, ["municipio", "cidade", "municipio_texto"]);
-    const uf = extrairTexto(estabelecimento, ["uf", "estado"]);
-    const cep = extrairTexto(estabelecimento, ["cep"]);
+    const numero = extrairTexto(origem, ["numero", "numero_local"]);
+    const complemento = extrairTexto(origem, ["complemento"]);
+    const bairro = extrairTexto(origem, ["bairro", "bairro_logradouro"]);
+    const municipio = extrairTexto(origem, ["municipio", "cidade", "municipio_texto"]);
+    const uf = extrairTexto(origem, ["uf", "estado"]);
+    const cep = extrairTexto(origem, ["cep"]);
     if (![logradouro, numero, complemento, bairro, municipio, uf, cep].some(Boolean)) {
         return null;
     }
-    return {
-        logradouro: logradouro ?? undefined,
-        numero: numero ?? undefined,
-        complemento: complemento ?? undefined,
-        bairro: bairro ?? undefined,
-        municipio: municipio ?? undefined,
-        uf: uf ?? undefined,
-        cep: cep ?? undefined,
-    };
+    return { logradouro, numero, complemento, bairro, municipio, uf, cep };
 }
 /**
  * @summary Extrai e concatena os telefones disponíveis na resposta.
@@ -576,25 +568,25 @@ class ValidadorCnpjApi {
         this.historico.forEach((item) => {
             const elemento = document.createElement("li");
             elemento.className =
-                "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-1 hover:ring-slate-300 transition-all duration-300 dark:hover:ring-slate-900 cursor-pointer";
+                "flex items-center justify-between gap-3 px-3 py-1 transition-all duration-300 rounded-md cursor-pointer ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl hover:ring-slate-300 dark:hover:ring-slate-900";
             const indicador = document.createElement("span");
             indicador.className = (item.valido
                 ? "inline-block w-2 h-2 rounded-full border bg-teal-500 border-emerald-500 ring-2 ring-teal-500/40 shadow-sm shadow-current transition-all duration-300"
                 : "inline-block w-2 h-2 rounded-full border bg-red-400 border-red-500 ring-2 ring-red-400/40 shadow-sm shadow-current transition-all duration-300");
             indicador.setAttribute("title", item.valido ? "Dados encontrados" : item.mensagem);
             const texto = document.createElement("span");
-            texto.className = "text-sm font-semibold text-slate-600 dark:text-zinc-50 break-words flex-1";
+            texto.className = "flex-1 text-sm font-semibold break-words text-slate-600 dark:text-zinc-50";
             const exibicao = aplicarMascaraAtiva ? aplicarMascara(item.puro) : item.puro;
             texto.textContent = exibicao;
             texto.setAttribute("title", item.mensagem);
             const containerEsquerdo = document.createElement("div");
-            containerEsquerdo.className = "flex items-center gap-3 flex-1";
+            containerEsquerdo.className = "flex items-center flex-1 gap-3";
             containerEsquerdo.append(indicador, texto);
             containerEsquerdo.addEventListener("click", () => {
                 this.exibirModalCnpj(item);
             });
             const botaoCopiar = document.createElement("button");
-            botaoCopiar.className = "ml-1 inline-flex items-center justify-center rounded text-violet-500 transition-all dark:text-violet-500 dark:hover:text-violet-600 ease-in-out hover:text-violet-600 hover:scale-110 py-1 text-xs";
+            botaoCopiar.className = "inline-flex items-center justify-center py-1 ml-1 text-xs transition-all ease-in-out rounded text-violet-500 dark:text-violet-500 dark:hover:text-violet-600 hover:text-violet-600 hover:scale-110";
             botaoCopiar.setAttribute("title", "Copiar esse CNPJ");
             botaoCopiar.innerHTML = `
                 <svg class="w-6 h-6" aria-hidden="true" fill="none" viewBox="0 0 24 24">
