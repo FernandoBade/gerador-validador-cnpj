@@ -6,7 +6,7 @@
 
 [![Versão](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico)
 [![Licença ISC](https://img.shields.io/badge/license-ISC-green.svg)](LICENSE)
-[![Demo Online](https://img.shields.io/badge/demo-online-brightgreen.svg)](https://cnpj-2026.bade.digital/)
+[![Demo Online](https://img.shields.io/badge/demo-online-brightgreen.svg)](https://cnpj.bade.digital/)
 [![Feito com TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Live Server](https://img.shields.io/badge/Live--Server-FF6B6B?logo=vercel&logoColor=white)](https://www.npmjs.com/package/live-server)
@@ -75,7 +75,7 @@ Antecipar a adaptação ao **CNPJ alfanumérico 2026**, fornecendo:
 
 ## 🔗 Links
 
-- [Versão online](https://cnpj-2026.bade.digital/)
+- [Versão online](https://cnpj.bade.digital/)
 - [Receita Federal — CNPJ Alfanumérico (2026)](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico)
 - [Manual de cálculo do DV do CNPJ](https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view)
 - [LinkedIn](https://linkedin.com/in/fernandobade)
@@ -130,8 +130,8 @@ Observações:
   - `src/cookies.ts` (banner de cookies e consentimento)
 - Saída JavaScript gerada em `dist/` (conforme `tsconfig.json`).
 - Páginas referenciam diretamente os módulos:
-  - Gerador: `paginas/gerador-cnpj.html` → `../dist/src/gerador.js`
-  - Validador: `paginas/validador-cnpj.html` → `../dist/src/validador.js`
+  - Gerador: `gerador-cnpj/index.html` → `../dist/src/gerador.js`
+  - Validador: `validador-cnpj/index.html` → `../dist/src/validador.js`
   - Tema: todas as páginas incluem `../dist/src/tema.js`
 
 ### Qualidade de código

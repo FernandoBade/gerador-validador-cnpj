@@ -13,16 +13,56 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Validador de CNPJ Alfanumérico | Novo padrão 2026</title>
+    <title>Validador de CNPJ via API – Consulte dados da Receita Federal com OpenCNPJ</title>
     <meta name="description"
-        content="Valide CNPJs alfanuméricos individuais ou em massa, com suporte a máscara e histórico de resultados." />
+        content="Use nossa API para validar CNPJs automaticamente com dados da Receita Federal via OpenCNPJ, ideal para sistemas e integrações." />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="pt-BR" />
+    <meta name="geo.region" content="BR" />
+    <meta name="geo.placename" content="Brasil" />
+    <meta name="author" content="Gerador e Validador de CNPJ" />
+    <link rel="canonical" href="https://cnpj.bade.digital/validador-cnpj-api/" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#2563eb" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title"
+        content="Validador de CNPJ via API – Consulte dados da Receita Federal com OpenCNPJ" />
+    <meta property="og:description"
+        content="Use nossa API para validar CNPJs automaticamente com dados da Receita Federal via OpenCNPJ, ideal para sistemas e integrações." />
+    <meta property="og:url" content="https://cnpj.bade.digital/validador-cnpj-api/" />
+    <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
+    <meta property="og:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
+    <meta property="og:image:alt" content="Integração via API para validar CNPJ com a Receita Federal" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title"
+        content="Validador de CNPJ via API – Consulte dados da Receita Federal com OpenCNPJ" />
+    <meta name="twitter:description"
+        content="Use nossa API para validar CNPJs automaticamente com dados da Receita Federal via OpenCNPJ, ideal para sistemas e integrações." />
+    <meta name="twitter:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Gerador e Validador de CNPJ",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "inLanguage": "pt-BR",
+        "description": "Ferramenta online para gerar e validar CNPJs reais, com dados oficiais da Receita Federal via API OpenCNPJ.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BRL"
+        },
+        "url": "https://cnpj.bade.digital/"
+      }
+    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -83,8 +123,8 @@
                             Validador de CNPJ
                         </h1>
                         <h2 class="text-sm font-semibold text-slate-600 dark:text-zinc-50 my-4">
-                            Valide CNPJs em segundos: checagem de estrutura, dígitos verificadores e formatação.
-                            Consulta automática aos dados públicos da Receita Federal.
+                            Valide CNPJs em segundos: checagem de estrutura, dígitos verificadores e formatação com
+                            integração para consulta CNPJ automática na Receita Federal.
                         </h2>
                     </div>
 
@@ -207,10 +247,10 @@
 
                 <div class="ml-1 mt-4 space-y-2 text-sm text-slate-500 dark:text-zinc-50">
                     <p>
-                        Os dados usados nesta validação, quando disponíveis, são fornecidos gratuitamente pelo projeto
+                        Os dados usados nesta validação de CNPJ, quando disponíveis, são fornecidos gratuitamente pelo projeto
                         <strong><a class="underline underline-offset-4 decoration-sky-600 font-semibold"
                                 href="https://opencnpj.org" target="_blank"
-                                rel="noopener noreferrer">OpenCNPJ</a></strong>.
+                                rel="noopener noreferrer">OpenCNPJ</a></strong>, permitindo verificar CNPJ em massa.
                     </p>
                     <p>
                         As informações são atualizadas mensalmente e refletem os dados públicos da Receita Federal.
