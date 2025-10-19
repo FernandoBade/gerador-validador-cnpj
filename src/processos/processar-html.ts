@@ -9,7 +9,6 @@ import path from 'path'
  */
 
 const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 /**
  * Define a raiz do projeto a partir do diretório atual de execução.
  * Isso garante compatibilidade tanto no src quanto no dist.
@@ -22,6 +21,8 @@ const raiz = process.cwd()
 function obterVersao(): string {
     try {
         const pacote = JSON.parse(fs.readFileSync(path.join(raiz, 'package.json'), 'utf8'))
+        console.log(`Versão do pacote lida do package.json: ${versao}`)
+        console.log(`Pacote: ${pacote}`)
         return pacote.version || String(Date.now())
     } catch {
         return String(Date.now())
