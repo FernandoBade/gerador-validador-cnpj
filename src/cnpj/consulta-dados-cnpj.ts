@@ -622,8 +622,8 @@ class ValidadorCnpjApi {
             }
         });
 
-        botaoColar.addEventListener("click", async () => {
-            await this.colarDoClipboard();
+        botaoColar.addEventListener("click", () => {
+            this.abrirDetalhesDoCampoAtual();
         });
 
         modalOverlay.addEventListener("click", (evento) => {
@@ -684,6 +684,34 @@ class ValidadorCnpjApi {
         } catch {
             this.exibirAviso("Não foi possível acessar a área de transferência", TipoAviso.Erro);
         }
+    }
+
+    /**
+     * @summary Abre o modal de detalhes com base no valor atual do campo único.
+     * Se o CNPJ ainda não foi consultado, exibe um aviso orientando a consulta.
+     */
+    private abrirDetalhesDoCampoAtual(): void {
+        const { campoUnico } = this.elementos;
+        const valor = campoUnico.value.trim();
+
+        if (!valor) {
+            this.exibirAviso("Informe um CNPJ para ver os detalhes", TipoAviso.Info);
+            return;
+        }
+
+        const puro = normalizarPuro(valor);
+        if (puro.length < 14) {
+            this.exibirAviso("Insira os 14 caracteres antes de ver os dados", TipoAviso.Info);
+            return;
+        }
+
+        const item = this.historico.find((h) => h.puro === puro);
+        if (!item) {
+            this.exibirAviso("Consulte o CNPJ primeiro para ver os detalhes", TipoAviso.Info);
+            return;
+        }
+
+        this.exibirModalCnpj(item);
     }
 
     /**
@@ -1000,7 +1028,7 @@ class ValidadorCnpjApi {
         const tipo = this.obterTipoAviso(resultado);
 
         const mensagem = resultado.valido
-            ? `Dados do CNPJ ${exibicao} encontrados com sucesso.`
+            ? `Dados do CNPJ ${exibicao} encontrados com sucesso`
             : resultado.mensagem;
 
         this.exibirAviso(mensagem, tipo);
@@ -1015,19 +1043,19 @@ class ValidadorCnpjApi {
         const invalidos = total - validos;
 
         if (validos === total && total > 0) {
-            this.exibirAviso(`Todos os ${total} CNPJs retornaram dados no OpenCNPJ.`, TipoAviso.Sucesso);
+            this.exibirAviso(`Todos os ${total} CNPJs retornaram dados no OpenCNPJ`, TipoAviso.Sucesso);
             return;
         }
 
         if (validos > 0) {
             this.exibirAviso(
-                `${validos} de ${total} CNPJs retornaram dados. ${invalidos} não foram localizados ou apresentaram erro.`,
+                `${validos} de ${total} CNPJs retornaram dados. ${invalidos} não foram localizados ou apresentaram erro`,
                 TipoAviso.InfoAlternativo,
             );
             return;
         }
 
-        this.exibirAviso("Nenhum dos CNPJs informados foi localizado no OpenCNPJ.", TipoAviso.Erro);
+        this.exibirAviso("Nenhum dos CNPJs informados foi localizado no OpenCNPJ", TipoAviso.Erro);
     }
 
     /**
@@ -1156,7 +1184,7 @@ class ValidadorCnpjApi {
 
             const total = novo.split(",").map((parte) => parte.trim()).filter(Boolean).length;
             if (total >= LIMITE && /[;,]|\n/.test(textoOrig)) {
-                exibirAviso(this.elementos.areaAviso, `Limite de ${LIMITE} CNPJs atingido. Os extras foram ignorados.`, TipoAviso.Info);
+                exibirAviso(this.elementos.areaAviso, `Limite de ${LIMITE} CNPJs atingido. Os extras foram ignorados`, TipoAviso.Info);
             }
 
             this.atualizarEstadoBotaoValidarMassa(total);

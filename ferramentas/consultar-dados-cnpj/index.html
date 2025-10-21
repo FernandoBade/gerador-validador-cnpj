@@ -6,7 +6,7 @@
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
 
-    <script type="module"   src="/dist/src/interface/transicao.js?v=1.3.0&v=1.4.0" defer></script>
+    <script type="module"         src="/dist/src/interface/transicao.js?v=1.3.0&v=1.4.0&v=1760933275441&v=1761005323087&v=1761006677354&v=1761007773735&v=1761009724159&v=1761009818764" defer></script>
     <script>
         window.addEventListener('load', () => {
             document.body.classList.add('ready');
@@ -162,7 +162,7 @@
                                     placeholder="00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00"></textarea>
                                 <button id="botao-colar" type="button" title="Colar CNPJ"
                                     class="absolute inline-flex items-center justify-center px-2 py-1 text-xs transition-all duration-300 ease-in-out -translate-y-1/2 rounded right-2 top-1/2 text-violet-500 dark:text-violet-500 hover:text-violet-600 dark:hover:text-violet-600 hover:scale-110"
-                                    aria-label="Copiar CNPJ alfanumérico">
+                                    aria-label="Colar CNPJ">
                                     <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -238,7 +238,7 @@
             </div>
 
 
-            <details id="aviso-open-cnpj" open
+            <details id="aviso-open-cnpj"
                 class="group mt-4 max-w-[920px] w-full mx-auto bg-zinc-50 dark:bg-slate-800 border border-sky-400 dark:border-sky-500 rounded-2xl shadow-lg px-6 py-3 text-slate-700 dark:text-zinc-200 text-xs leading-relaxed transition-all duration-300">
 
                 <summary
@@ -273,14 +273,14 @@
                         Os dados exibidos nesta consulta de CNPJ, quando disponíveis, são fornecidos gratuitamente pelo projeto
                         <strong><a class="font-semibold underline underline-offset-4 decoration-sky-600"
                                 href="https://opencnpj.org" target="_blank"
-                                rel="noopener noreferrer">OpenCNPJ</a></strong>, permitindo consulta em massa de CNPJs.
+                                rel="noopener noreferrer">OpenCNPJ</a></strong>, permitindo consulta de dados reais de CNPJs.
                     </p>
                     <p>
                         As informações são atualizadas uma vez por mês e refletem dados públicos da Receita Federal. Por isso, pode haver leve defasagem entre uma atualização e outra.
-                        Para conferência oficial, verifique diretamente no <strong><a
+                        Para conferência oficial, verifique diretamente no site do <strong><a
                                 class="underline underline-offset-4 decoration-sky-600"
                                 target="_blank"
-                                href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp">site da Receita Federal</a></strong>.
+                                href="https://www.gov.br/pt-br/servicos/consultar-cadastro-nacional-de-pessoas-juridicas">Gov.br</a></strong>.
                     </p>
                     <p>
                         Se o projeto te ajudou, considere dar aquela força! As opções de apoio estão disponíveis na
@@ -395,11 +395,75 @@
         class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none">
     </div>
 
-    <script type="module"  defer  src="../../dist/src/interface/tema.js?v=1.3.0&v=1.4.0"></script>
-    <script type="module"  defer  src="../../dist/src/interface/menu.js?v=1.3.0&v=1.4.0"></script>
-    <script type="module"  defer  src="../../dist/src/cnpj/validador-cnpj-api.js?v=1.3.0&v=1.4.0"></script>
-    <script type="module"  defer  src="../../dist/src/gerais/persistencia.js?v=1.3.0&v=1.4.0"></script>
-    <script type="module"  defer  src="../../dist/src/gerais/cookies.js?v=1.3.0&v=1.4.0"></script>
+    <script type="module"  defer        src="../../dist/src/interface/tema.js?v=1.3.0&v=1.4.0&v=1760933275441&v=1761005323087&v=1761006677354&v=1761007773735&v=1761009724159&v=1761009818764"></script>
+    <script type="module"  defer        src="../../dist/src/interface/menu.js?v=1.3.0&v=1.4.0&v=1760933275441&v=1761005323087&v=1761006677354&v=1761007773735&v=1761009724159&v=1761009818764"></script>
+
+    <script>
+      (function() {
+        // 1) Força o botão "botao-colar" a realmente colar do clipboard
+        var botaoColar = document.getElementById('botao-colar');
+        var campoUnico = document.getElementById('campo-unico');
+        if (botaoColar && campoUnico) {
+          botaoColar.addEventListener('click', function(e) {
+            // Captura primeiro para impedir o listener do módulo (abrir detalhes)
+          }, true);
+          botaoColar.addEventListener('click', async function(e) {
+            try {
+              e.preventDefault();
+              if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+              e.stopPropagation();
+              var texto = await navigator.clipboard.readText();
+              if (texto) {
+                campoUnico.value = (texto || '').trim();
+                // Dispara evento de input para atualizar estado do botão de consulta
+                var evt = new Event('input', { bubbles: true });
+                campoUnico.dispatchEvent(evt);
+              }
+            } catch (err) {
+              // Silencioso: se não conseguir acessar a área de transferência, não quebra nada
+            }
+          }, true);
+        }
+
+        // 2) No histórico, trocar botão de copiar por "olho" que abre a modal
+        function aplicarOlhoNosBotoes(lista) {
+          if (!lista) return;
+          var botoes = lista.querySelectorAll('button[title*="Copiar" i]:not([data-olho])');
+          botoes.forEach(function(btn) {
+            // Ajusta rótulos
+            btn.setAttribute('data-olho', '1');
+            btn.setAttribute('title', 'Ver mais detalhes');
+            btn.setAttribute('aria-label', 'Ver mais detalhes');
+            // Substitui ícone pelo "olho"
+            btn.innerHTML = '<svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">\
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 12c2.15-4.2 6.16-7.5 9.75-7.5s7.6 3.3 9.75 7.5c-2.15 4.2-6.16 7.5-9.75 7.5s-7.6-3.3-9.75-7.5Z" />\
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />\
+              </svg>';
+            // Intercepta clique em captura para evitar o handler de cópia do módulo
+            btn.addEventListener('click', function(e) {
+              e.preventDefault();
+              if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+              e.stopPropagation();
+              // Dispara clique no container da esquerda (que já abre a modal)
+              var left = btn.previousElementSibling;
+              if (left && typeof left.click === 'function') left.click();
+            }, true);
+          });
+        }
+
+        var lista = document.getElementById('lista-historico-validacao');
+        if (lista) {
+          // Observa inserções para ajustar novos itens
+          var obs = new MutationObserver(function() { aplicarOlhoNosBotoes(lista); });
+          obs.observe(lista, { childList: true, subtree: true });
+          // Aplica imediatamente se já houver itens
+          aplicarOlhoNosBotoes(lista);
+        }
+      })();
+    </script>
+    <script type="module"  defer        src="../../dist/src/cnpj/consulta-dados-cnpj.js?v=1.4.0&v=1760933275441&v=1761005323087&v=1761006677354&v=1761007773735&v=1761009724159&v=1761009818764"></script>
+    <script type="module"  defer        src="../../dist/src/gerais/persistencia.js?v=1.3.0&v=1.4.0&v=1760933275441&v=1761005323087&v=1761006677354&v=1761007773735&v=1761009724159&v=1761009818764"></script>
+    <script type="module"  defer        src="../../dist/src/gerais/cookies.js?v=1.3.0&v=1.4.0&v=1760933275441&v=1761005323087&v=1761006677354&v=1761007773735&v=1761009724159&v=1761009818764"></script>
 
 </body>
 

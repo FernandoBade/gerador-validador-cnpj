@@ -9,7 +9,8 @@
         "servidor": "live-server --port=5173 --open=index.html --watch=.",
         "desenvolvimento": "concurrently -n TS,SERV \"npm run compilar:assistido\" \"npm run servidor\"",
         "compilar:assistido": "tsc -w -p tsconfig.json",
-        "processar": "ts-node src/processos/minificar-css.ts && ts-node src/processos/processar-html.ts",
+        "tailwind": "node ./node_modules/tailwindcss/lib/cli.js -i ./src/estilos/tailwind.css -o ./dist/assets/tailwind.min.css -c ./tailwind.config.js --minify",
+        "processar": "ts-node src/processos/compilar-tailwind.ts && ts-node src/processos/minificar-css.ts && ts-node src/processos/processar-html.ts",
 
         "lintar": "eslint . --ext .ts",
         "lintar:correcao": "eslint . --ext .ts --fix",

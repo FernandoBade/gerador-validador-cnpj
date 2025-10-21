@@ -8,32 +8,36 @@
  * @summary HTML do menu superior fixo, com links principais e submenu.
  */
 export const htmlMenu = `
-<nav id="menu-superior" class="fixed top-0 inset-x-0 z-50 bg-transparent backdrop-blur-lg shadow-lg">
-  <div class="mx-auto max-w-6xl px-4">
-    <div class="h-14 flex items-center justify-between">
-      <a href="/index.html" class="text-slate-700 dark:text-zinc-50 font-semibold tracking-wide">CNPJ 2026</a>
-      <button id="menu-mobile-toggle" class="md:hidden inline-flex items-center justify-center p-2 rounded text-slate-700 dark:text-zinc-50 hover:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-600" aria-controls="menu-mobile" aria-expanded="false" aria-label="Abrir menu">
-        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-      <ul class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-zinc-50">
-        <li><a href="/index.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Início</a></li>
-        <li><a href="/ferramentas/gerador-cnpj/" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Gerador</a></li>
-        <li><a href="/ferramentas/validador-cnpj/" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Validador</a></li>
-        <li><a href="/ferramentas/consultar-dados-cnpj/" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Consultar dados de CNPJ</a></li>
-        <li><a href="/artigos/como-a-validacao-de-cnpj-e-feita/" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Como funciona</a></li>
-      </ul>
-    </div>
-    <div id="menu-mobile" class="md:hidden hidden pb-3">
-      <ul class="mt-2 grid gap-1 text-sm font-medium text-slate-700 dark:text-zinc-50">
-        <li><a href="/index.html" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Início</a></li>
-        <li><a href="/ferramentas/gerador-cnpj/" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Gerador</a></li>
-        <li><a href="/ferramentas/validador-cnpj/" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Validador</a></li>
-        <li><a href="/ferramentas/consultar-dados-cnpj/" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Consultar dados de CNPJ</a></li>
-        <li><a href="/artigos/como-a-validacao-de-cnpj-e-feita/" class="block px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Como funciona</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>`;
+    <nav id="menu-superior" class="fixed top-0 inset-x-0 z-50 bg-transparent backdrop-blur-lg shadow-lg">
+        <div class="mx-auto max-w-6xl px-4">
+            <div class="h-14 flex items-center justify-between">
+            <a href="/index.html" class="text-slate-700 dark:text-zinc-50 font-semibold tracking-wide">CNPJ 2026</a>
+            <button id="menu-mobile-toggle" class="md:hidden inline-flex items-center justify-center p-2 rounded text-slate-700 dark:text-zinc-50 hover:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-600" aria-controls="menu-mobile" aria-expanded="false" aria-label="Abrir menu">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+                <ul class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-zinc-50">
+                    <li><a href="/index.html" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Início</a></li>
+                    <li><a href="/ferramentas/gerador-cnpj/" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Gerador</a></li>
+                    <li><a href="/ferramentas/validador-cnpj/" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Validador</a></li>
+                    <li><a href="/ferramentas/consultar-dados-cnpj/" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Consultar dados de CNPJ</a></li>
+                    <li><a href="/artigos/como-a-validacao-de-cnpj-e-feita/" class="hover:text-slate-400 dark:hover:text-slate-400 transition-colors">Como funciona</a></li>
+                </ul>
+            </div>
+
+            <!-- Menu Mobile -->
+            <div id="menu-mobile" class="md:hidden hidden pb-3">
+                <ul class="mt-2 flex flex-col items-start gap-1 text-sm font-medium text-slate-700 dark:text-zinc-50">
+                    <li><a href="/index.html" class="block w-full px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Início</a></li>
+                    <li><a href="/ferramentas/gerador-cnpj/" class="block w-full px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Gerador</a></li>
+                    <li><a href="/ferramentas/validador-cnpj/" class="block w-full px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Validador</a></li>
+                    <li><a href="/ferramentas/consultar-dados-cnpj/" class="block w-full px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Consultar dados de CNPJ</a></li>
+                    <li><a href="/artigos/como-a-validacao-de-cnpj-e-feita/" class="block w-full px-3 py-2 rounded hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors">Como funciona</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>`;
 /**
  * @summary Insere o menu no topo da página e configura o dropdown.
  */
