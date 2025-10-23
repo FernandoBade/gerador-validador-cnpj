@@ -54,13 +54,6 @@ Cada módulo (gerador, validador e consulta) é independente, permitindo fácil 
 Os dados de consulta são exibidos de forma clara e responsiva, e a validação é feita em tempo real, garantindo a precisão da estrutura matemática e do DV antes de consultar os dados oficiais.
 
 
-## 🌐 Links Importantes
-- 🔗 [Versão online](https://cnpj.bade.digital/)
-- 📘 [Receita Federal — CNPJ Alfanumérico (2026)](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico)
-- 📄 [Manual de cálculo do DV do CNPJ (SERPRO)](https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view)
-- 💼 [LinkedIn — Fernando Bade](https://linkedin.com/in/fernandobade)
-
-
 
 ## 🧩 Estrutura do Projeto
 
@@ -124,29 +117,19 @@ Este projeto foi otimizado com:
   - “Validar CNPJ alfanumérico 2026”
 
 
-## 🌐 Links Úteis
-
-- 🧮 **Versão Online:**
-  [https://cnpj.bade.digital](https://cnpj.bade.digital)
-  Teste agora o gerador, o validador e a consulta de CNPJ direto do navegador.
-
-- 📘 **Documentação Oficial:**
-  [Receita Federal — CNPJ Alfanumérico (2026)](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico)
-  Explicação completa sobre o novo formato e cronograma de adoção.
-
-- 🔢 **Manual do Dígito Verificador:**
-  [SERPRO — Manual de Cálculo do DV do CNPJ (PDF)](https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view)
-
-- 🔍 **API Pública de Consulta:**
-  [OpenCNPJ.org](https://opencnpj.org)
-  Base de dados aberta e gratuita usada pelo projeto para retornar informações reais de empresas.
-
+## 🌐 Links
+- 🔗 [OpenCNPJ](https://opencnpj.org/)
+- 📘 [Receita Federal - CNPJ Alfanumérico (2026)](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico)
+- 📄 [Manual de cálculo do DV do CNPJ (SERPRO)](https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view)
+- 💼 [LinkedIn](https://linkedin.com/in/fernandobade)
 
 ## 📜 Licença
 Distribuído sob a **Licença ISC**.
-Sinta-se livre para usar, estudar e contribuir.
+Sinta-se livre para usar, estudar e contribuir, só não esquece de falar bem do projeto por aí.
+
 
 ---
+---
+<br>
 
-Quer experimentar?
-👉 Acesse **[cnpj.bade.digital](https://cnpj.bade.digital)** e teste o **gerador**, o **validador** e a **consulta de CNPJ** diretamente no navegador.
+>_Forjado de uma mistura clássica: uma ideia aleatória, café demais e a ausência do PC pra jogar um dotinha._ 😎
