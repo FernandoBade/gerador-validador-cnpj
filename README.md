@@ -16,128 +16,137 @@
 
 <div align="center">
 
-# Gerador e Validador de CNPJ (numérico e alfanumérico 2026)
+# 🧾 Gerador e validador de CNPJ - Consulta, geração e validação online
 
 </div>
 
-Ferramenta gratuita para gerar, validar e consultar dados de CNPJ no formato numérico e no novo padrão alfanumérico (2026). Ideal para desenvolvedores, analistas e empresas adequarem sistemas, bancos de dados e integrações ao novo CNPJ da Receita Federal, com validação via módulo 11 e consulta pública de dados cadastrais.
+Um projeto completo e gratuito para **gerar, validar e consultar CNPJs**, atualizado para o **novo padrão alfanumérico de 2026**. Ideal para desenvolvedores, analistas e curiosos que precisam testar integrações, validar registros ou apenas entender como funciona a estrutura do CNPJ.
 
-- Acesse online: https://cnpj.bade.digital/
+
+>📎Acesse: https://cnpj.bade.digital/
+
+
+## ✨ Funcionalidades Principais
+
+### 🔍 [Consulta de Dados de CNPJ](https://cnpj.bade.digital/ferramentas/consultar-dados-cnpj/)
+- Realize **consultas online de CNPJs reais** com integração à **API [OpenCNPJ](https://opencnpj.org)**.
+- Obtenha dados oficiais atualizados da **Receita Federal**.
+- Consulte CNPJs em massa com **retorno rápido e interface amigável**.
+
+### ✅ [Validador de CNPJ](https://cnpj.bade.digital/ferramentas/validador-cnpj/)
+- Valide CNPJs **numéricos e alfanuméricos** conforme o novo padrão **2026**.
+- Geração e verificação dos **dígitos verificadores (DV)** seguindo o manual oficial do **SERPRO**.
+- Suporte à **validação em massa** e exibição de relatórios instantâneos.
+- Histórico automático das **últimas 100 validações realizadas**.
+
+### ⚙️ [Gerador de CNPJ](https://cnpj.bade.digital/ferramentas/gerador-cnpj/)
+- Gere **CNPJs válidos para testes e integrações**, com opção de **máscara automática**.
+- Produz até **100 CNPJs de uma vez**, prontos para copiar com um clique.
+- Totalmente compatível com o novo formato **alfanumérico**.
+
+
+
+
+## 🧠 Como Funciona
+O projeto é escrito em **TypeScript** e utiliza **TailwindCSS** para o layout.
+Cada módulo (gerador, validador e consulta) é independente, permitindo fácil manutenção e integração com outros sistemas.
+
+Os dados de consulta são exibidos de forma clara e responsiva, e a validação é feita em tempo real, garantindo a precisão da estrutura matemática e do DV antes de consultar os dados oficiais.
+
+
+## 🌐 Links Importantes
+- 🔗 [Versão online](https://cnpj.bade.digital/)
+- 📘 [Receita Federal — CNPJ Alfanumérico (2026)](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico)
+- 📄 [Manual de cálculo do DV do CNPJ (SERPRO)](https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view)
+- 💼 [LinkedIn — Fernando Bade](https://linkedin.com/in/fernandobade)
+
+
+
+## 🧩 Estrutura do Projeto
+
+
+```
+
+│ // build
+│
+├── dist/ # Saída JS/CSS minificada usada no site
+│ └── src/cnpj/.js # Builds dos módulos (validador, gerador, consulta)
+│
+│ // projeto principal
+│
+├── src/
+│ ├── cnpj/
+│ │ ├── algoritmo-cnpj.ts
+│ │ ├── formatacao-cnpj.ts
+│ │ ├── gerador-cnpj.ts
+│ │ ├── validador-cnpj.ts
+│ │ └── consulta-dados-cnpj.ts
+│ │
+│ ├── interface/
+│ │ ├── interface.ts
+│ │ ├── menu.ts
+│ │ ├── tema.ts
+│ │ ├── transicao.ts
+│ │ └── contador-historico.ts
+│ │
+│ ├── gerais/
+│ │ ├── constantes.ts
+│ │ ├── enums.ts
+│ │ ├── mensageria.ts
+│ │ ├── persistencia.ts
+│ │ ├── cookies.ts
+│ │ └── tipos.ts
+│
+│ // páginas
+│
+├── ferramentas/
+│ ├── gerador-cnpj/
+│ ├── validador-cnpj/
+│ └── consultar-dados-cnpj/
+│
+│ // S.E.O.
+│
+├── sitemap.xml
+├── robots.txt
+└── [...]
+
+```
+
+
+## 📈 SEO e Otimização
+Este projeto foi otimizado com:
+- **Metadados completos (Open Graph, Twitter Cards e JSON-LD)**
+- **URLs canônicas e estrutura otimizada para indexação**
+- **Integração com sitemap e robots.txt** para melhor ranqueamento
+- **Conteúdo semântico** voltado para buscas como:
+  - “Consultar CNPJ online”
+  - “Gerar CNPJ válido”
+  - “Validar CNPJ alfanumérico 2026”
+
+
+## 🌐 Links Úteis
+
+- 🧮 **Versão Online:**
+  [https://cnpj.bade.digital](https://cnpj.bade.digital)
+  Teste agora o gerador, o validador e a consulta de CNPJ direto do navegador.
+
+- 📘 **Documentação Oficial:**
+  [Receita Federal — CNPJ Alfanumérico (2026)](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico)
+  Explicação completa sobre o novo formato e cronograma de adoção.
+
+- 🔢 **Manual do Dígito Verificador:**
+  [SERPRO — Manual de Cálculo do DV do CNPJ (PDF)](https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view)
+
+- 🔍 **API Pública de Consulta:**
+  [OpenCNPJ.org](https://opencnpj.org)
+  Base de dados aberta e gratuita usada pelo projeto para retornar informações reais de empresas.
+
+
+## 📜 Licença
+Distribuído sob a **Licença ISC**.
+Sinta-se livre para usar, estudar e contribuir.
 
 ---
 
-## Objetivo
-
-Antecipar a adaptação ao CNPJ alfanumérico 2026, oferecendo:
-
-- Gerador: cria CNPJs válidos (numéricos e alfanuméricos) com ou sem máscara oficial (`##.###.###/####-##`).
-- Validador: valida um único CNPJ ou listas (em massa) com histórico e cópia rápida.
-- Consulta de dados: integra a API pública do OpenCNPJ para retornar dados cadastrais.
-
-## Novas Páginas
-
-- Página inicial: `index.html` (atalhos e visão geral).
-- Ferramenta – Gerador de CNPJ: `ferramentas/gerador-cnpj/index.html`.
-- Ferramenta – Validador de CNPJ: `ferramentas/validador-cnpj/index.html`.
-- Ferramenta – Consultar Dados CNPJ: `ferramentas/consultar-dados-cnpj/index.html` (com OpenCNPJ).
-- Artigo – Como a validação de CNPJ é feita: `artigos/como-a-validacao-de-cnpj-e-feita/index.html`.
-
-## Acesso Direto às Ferramentas
-
-- Gerador de CNPJ: https://cnpj.bade.digital/ferramentas/gerador-cnpj/
-- Validador de CNPJ: https://cnpj.bade.digital/ferramentas/validador-cnpj/
-- Consultar Dados de CNPJ (OpenCNPJ): https://cnpj.bade.digital/ferramentas/consultar-dados-cnpj/
-
-## Árvore do Projeto
-
-```
-.
-├─ index.html
-├─ ferramentas/
-│  ├─ gerador-cnpj/
-│  │  └─ index.html
-│  ├─ validador-cnpj/
-│  │  └─ index.html
-│  └─ consultar-dados-cnpj/
-│     └─ index.html
-├─ artigos/
-│  └─ como-a-validacao-de-cnpj-e-feita/
-│     └─ index.html
-│  └─ [...]
-├─ src/
-│  ├─ cnpj/
-│  │  ├─ algoritmo-cnpj.ts
-│  │  ├─ formatacao-cnpj.ts
-│  │  ├─ gerador-cnpj.ts
-│  │  ├─ validador-cnpj.ts
-│  │  └─ consulta-dados-cnpj.ts
-│  ├─ gerais/
-│  ├─ interface/
-│  ├─ estilos/
-│  └─ processos/
-├─ dist/
-├─ img/
-├─ sitemap.xml
-├─ robots.txt
-├─ site.webmanifest
-├─ package.json
-└─ tsconfig.json
-```
-
-## Integração com OpenCNPJ (Consulta de Dados)
-
-A página `ferramentas/consultar-dados-cnpj/index.html` integra a API pública do OpenCNPJ para consulta de dados cadastrais de empresas. A implementação utiliza `src/cnpj/consulta-dados-cnpj.ts` e o endpoint base `https://api.opencnpj.org/{cnpj}`.
-
-- Site do projeto: https://opencnpj.org/
-- Repositório: https://github.com/Hitmasu/opencnpj
-
-Como funciona:
-
-- Normaliza o CNPJ (apenas dígitos) e consulta `GET https://api.opencnpj.org/{cnpj}` com `Accept: application/json`.
-- Retornos tratados: `200` (dados encontrados), `404` (CNPJ não encontrado), `429` (limite de consultas), demais erros de rede/serviço.
-- Campos exibidos: razão social, nome fantasia, situação cadastral e data, natureza jurídica, porte, endereço completo, contatos, CNAE principal/secundários e sócios (quando disponíveis).
-- Uso é público e sujeito a limitações do OpenCNPJ; não requer chave para consultas básicas.
-
-Observação: respostas são normalizadas antes de exibição para manter a consistência da UI e do histórico de consultas.
-
-## Como Usar
-
-1) Clone o repositório
-
-```bash
-git clone https://github.com/FernandoBade/gerador-validador-cnpj.git
-cd gerador-validador-cnpj
-```
-
-2) Instale dependências e rode em desenvolvimento
-
-```bash
-npm install
-npm run desenvolvimento
-```
-
-3) Alternativamente, abra `index.html` diretamente no navegador para uso local básico.
-
-## Ambiente de Desenvolvimento
-
-- Node.js 18+ e npm: https://nodejs.org/
-- TypeScript 5, ESLint, Prettier, TailwindCSS (build leve via scripts).
-- Scripts principais:
-  - `npm run servidor` (live server na porta 5173).
-  - `npm run compilar` e `npm run compilar:assistido` (TS → `dist/`).
-  - `npm run desenvolvimento` (compilação assistida + servidor).
-  - `npm run lintar`/`lintar:correcao` e `npm run formatar`/`formatar:verificar`.
-
-## Links Úteis
-
-- [Versão online](https://cnpj.bade.digital/)
-- [Receita Federal – CNPJ Alfanumérico (2026)](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico)
-- [Manual de cálculo do DV do CNPJ](https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view)
-- [OpenCNPJ](https://opencnpj.org/) | [Código‑fonte](https://github.com/Hitmasu/opencnpj)
-
-## Licença
-
-Licença ISC. Pode usar, modificar e distribuir livremente, mantendo os créditos ao projeto.
-
-> _Forjado de uma mistura clássica: uma ideia aleatória, café demais e a ausência do PC pra jogar um dotinha._
-
+Quer experimentar?
+👉 Acesse **[cnpj.bade.digital](https://cnpj.bade.digital)** e teste o **gerador**, o **validador** e a **consulta de CNPJ** diretamente no navegador.
