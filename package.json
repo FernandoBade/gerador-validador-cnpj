@@ -7,10 +7,15 @@
     "scripts": {
         "compilar": "tsc -p tsconfig.json",
         "servidor": "live-server --port=5173 --open=index.html --watch=.",
-        "desenvolvimento": "concurrently -n TS,SERV \"npm run compilar:assistido\" \"npm run servidor\"",
         "compilar:assistido": "tsc -w -p tsconfig.json",
         "tailwind": "node ./node_modules/tailwindcss/lib/cli.js -i ./src/estilos/tailwind.css -o ./dist/assets/tailwind.min.css -c ./tailwind.config.js --minify",
-        "processar": "ts-node src/processos/compilar-tailwind.ts && ts-node src/processos/minificar-css.ts && ts-node src/processos/processar-html.ts",
+        "tailwind:assistido": "node ./node_modules/tailwindcss/lib/cli.js -i ./src/estilos/tailwind.css -o ./dist/assets/tailwind.min.css -c ./tailwind.config.js --minify --watch",
+        "minificar:css": "ts-node src/processos/minificar-css.ts",
+        "minificar:css:assistido": "nodemon --watch src/estilos/controle-tema.css --ext css --exec \"npm run minificar:css\"",
+        "processar:html": "ts-node src/processos/processar-html.ts",
+        "processar:html:assistido": "nodemon --watch index.html --watch artigos --watch ferramentas --ext html --ignore dist --ignore node_modules --exec \"npm run processar:html\"",
+        "desenvolvimento": "concurrently -n TS,TAILWIND,CSS,HTML,SERV \"npm run compilar:assistido\" \"npm run tailwind:assistido\" \"npm run minificar:css:assistido\" \"npm run processar:html:assistido\" \"npm run servidor\"",
+        "processar": "npm run compilar && npm run tailwind && npm run minificar:css && npm run processar:html",
 
         "lintar": "eslint . --ext .ts",
         "lintar:correcao": "eslint . --ext .ts --fix",
