@@ -5,6 +5,8 @@
    - Fixo no topo, cores consistentes em light/dark
 ============================ */
 
+import { Console } from "console";
+
 /**
  * @summary HTML do menu superior fixo, com links principais e submenu.
  */
@@ -66,7 +68,7 @@ export const htmlMenu = `
  * @summary Insere o menu no topo da página e configura o dropdown.
  */
 export function inicializarMenu(): void {
-    if (document.getElementById("menu-superior")) return;
+    if (document.getElementById("menu-superior") as HTMLElement) return;
     document.body.insertAdjacentHTML("afterbegin", htmlMenu);
     document.body.classList.add("transition-all", "duration-200", "ease-out");
 
@@ -83,18 +85,19 @@ export function inicializarMenu(): void {
 
         atualizarPadding();
 
-        let timer: number | undefined;
+        let temporizador: number | undefined;
+
         const onResize = () => {
-            if (timer) window.clearTimeout(timer);
-            timer = window.setTimeout(() => atualizarPadding(), 80);
+            if (temporizador) window.clearTimeout(temporizador);
+            temporizador = window.setTimeout(() => atualizarPadding(), 80);
         };
+
         window.addEventListener("resize", onResize);
 
-        if ("ResizeObserver" in window) {
-            const ro = new (window as any).ResizeObserver(() => atualizarPadding());
+        if (typeof ResizeObserver !== "undefined") {
+            const ro = new ResizeObserver(() => atualizarPadding());
             ro.observe(nav);
 
-            (nav as any).__resizeObserver = ro;
         } else {
 
             const mo = new MutationObserver(() => atualizarPadding());
@@ -111,7 +114,9 @@ export function inicializarMenu(): void {
     if (botao && submenu) {
         const fechar = () => { submenu.classList.add("hidden"); botao.setAttribute("aria-expanded", "false"); };
         const alternar = () => { const aberto = submenu.classList.contains("hidden"); submenu.classList.toggle("hidden", !aberto); botao.setAttribute("aria-expanded", aberto ? "true" : "false"); };
+
         botao.addEventListener("click", (e) => { e.preventDefault(); alternar(); });
+
         document.addEventListener("click", (e) => { const alvo = e.target as Node; if (!submenu.contains(alvo) && !botao.contains(alvo)) fechar(); });
         document.addEventListener("keydown", (e) => { if (e.key === "Escape") fechar(); });
     }
@@ -141,7 +146,7 @@ export function inicializarMenu(): void {
  */
 function destacarLinkAtivo(): void {
     const nav = document.getElementById("menu-superior");
-    if (!nav) return;
+    if (!(nav instanceof HTMLElement)) return;
 
     const normalizar = (p: string): string => {
         if (!p || p === "/") return "/index.html";
@@ -172,7 +177,7 @@ function destacarLinkAtivo(): void {
                 link.setAttribute("aria-current", "page");
             }
         } catch {
-            /* ignora URLs inválidas */
+            console.info("Erro no componente de menu: link inválido encontrado:", link);
         }
     });
 }

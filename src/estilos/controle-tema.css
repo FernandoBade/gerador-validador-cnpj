@@ -33,6 +33,10 @@ a {
   background-color: rgb(51 65 85);
 }
 
+.trilha, .controle-tema * {
+  user-select: none;
+}
+
 @layer utilities {
   .scroll-personalizado::-webkit-scrollbar {
     width: 8px;
@@ -112,17 +116,17 @@ a {
 
 /* Cores da onda para cada tipo de botão */
 .efeito-onda-claro { /* botões SEM fundo (border/ghost) */
-  --onda: rgba(99, 102, 241, 0.32);   /* violeta visível no light */
+  --onda: rgba(99, 102, 241, 0.32);
 }
 .dark .efeito-onda-claro {
-  --onda: rgba(167, 139, 250, 0.45);  /* lilás no dark */
+  --onda: rgba(167, 139, 250, 0.45);
 }
 
 .efeito-onda-escuro { /* botões COM fundo sólido */
-  --onda: rgba(255, 255, 255, 0.50);  /* branco translúcido no light */
+  --onda: rgba(255, 255, 255, 0.50);
 }
 .dark .efeito-onda-escuro {
-  --onda: rgba(255, 255, 255, 0.45);  /* branco translúcido no dark */
+  --onda: rgba(255, 255, 255, 0.45); 
 }
 
 /* Bolha da onda (injetada via TS) */

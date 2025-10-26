@@ -1,3 +1,11 @@
+/* ============================
+   Controle de Tema (Claro/Escuro)
+   - Lê e persiste preferência no localStorage
+   - Sincroniza com a preferência do sistema (prefers-color-scheme)
+   - Inicializa o toggle de tema e mantém estado consistente
+============================ */
+
+
 /**
  * @summary Chave única usada para armazenar o tema atual no localStorage.
  */
@@ -89,9 +97,3 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export { };
-/* ============================
-   Controle de Tema (Claro/Escuro)
-   - Lê e persiste preferência no localStorage
-   - Sincroniza com a preferência do sistema (prefers-color-scheme)
-   - Inicializa o toggle de tema e mantém estado consistente
-============================ */

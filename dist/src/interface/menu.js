@@ -75,17 +75,16 @@ export function inicializarMenu() {
             document.body.style.paddingTop = `calc(${altura}px + env(safe-area-inset-top))`;
         };
         atualizarPadding();
-        let timer;
+        let temporizador;
         const onResize = () => {
-            if (timer)
-                window.clearTimeout(timer);
-            timer = window.setTimeout(() => atualizarPadding(), 80);
+            if (temporizador)
+                window.clearTimeout(temporizador);
+            temporizador = window.setTimeout(() => atualizarPadding(), 80);
         };
         window.addEventListener("resize", onResize);
-        if ("ResizeObserver" in window) {
-            const ro = new window.ResizeObserver(() => atualizarPadding());
+        if (typeof ResizeObserver !== "undefined") {
+            const ro = new ResizeObserver(() => atualizarPadding());
             ro.observe(nav);
-            nav.__resizeObserver = ro;
         }
         else {
             const mo = new MutationObserver(() => atualizarPadding());
@@ -134,7 +133,7 @@ export function inicializarMenu() {
  */
 function destacarLinkAtivo() {
     const nav = document.getElementById("menu-superior");
-    if (!nav)
+    if (!(nav instanceof HTMLElement))
         return;
     const normalizar = (p) => {
         if (!p || p === "/")
@@ -154,7 +153,7 @@ function destacarLinkAtivo() {
             }
         }
         catch {
-            /* ignora URLs inválidas */
+            console.info("Erro no componente de menu: link inválido encontrado:", link);
         }
     });
 }
