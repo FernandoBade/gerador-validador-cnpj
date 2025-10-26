@@ -16,7 +16,6 @@
         "processar:html:assistido": "nodemon --watch index.html --watch artigos --watch ferramentas --ext html --ignore dist --ignore node_modules --exec \"npm run processar:html\"",
         "desenvolvimento": "concurrently -n TS,TAILWIND,CSS,HTML,SERV \"npm run compilar:assistido\" \"npm run tailwind:assistido\" \"npm run minificar:css:assistido\" \"npm run processar:html:assistido\" \"npm run servidor\"",
         "processar": "npm run compilar && npm run tailwind && npm run minificar:css && npm run processar:html",
-
         "lintar": "eslint . --ext .ts",
         "lintar:correcao": "eslint . --ext .ts --fix",
         "formatar": "prettier --write .",
