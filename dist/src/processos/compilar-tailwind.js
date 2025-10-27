@@ -40,3 +40,4 @@ function compilar() {
     }
 }
 compilar();
+//# sourceMappingURL=compilar-tailwind.js.map

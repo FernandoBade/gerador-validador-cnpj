@@ -67,3 +67,4 @@ export function inicializarEfeitoOnda() {
     });
 }
 export { TipoAviso };
+//# sourceMappingURL=interface.js.map

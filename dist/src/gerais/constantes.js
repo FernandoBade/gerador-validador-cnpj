@@ -38,3 +38,4 @@ export const CLASSES_AVISO_VISIVEL = [
     ClasseAviso.TranslacaoVisivel,
     ClasseAviso.PonteiroAtivo,
 ];
+//# sourceMappingURL=constantes.js.map

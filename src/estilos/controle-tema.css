@@ -51,7 +51,7 @@ a {
   }
 
   .scroll-personalizado::-webkit-scrollbar-thumb {
-    background-color: #a855f7; /* violet-500 */
+    background-color: #8b5cf6; /* violet-500 */
     border-radius: 4px;
     cursor: pointer;
     overflow-y: scroll;
@@ -63,7 +63,7 @@ a {
   }
 
   .dark .scroll-personalizado::-webkit-scrollbar-thumb {
-    background-color: #8b5cf6; /* violet-400 */
+    background-color: #7c3aed; /* violet-400 */
     cursor: pointer;
   }
 
@@ -126,7 +126,7 @@ a {
   --onda: rgba(255, 255, 255, 0.50);
 }
 .dark .efeito-onda-escuro {
-  --onda: rgba(255, 255, 255, 0.45); 
+  --onda: rgba(255, 255, 255, 0.45);
 }
 
 /* Bolha da onda (injetada via TS) */

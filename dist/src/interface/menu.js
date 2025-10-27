@@ -164,3 +164,4 @@ inicializarMenu();
 document.addEventListener("DOMContentLoaded", () => {
     inicializarMenu();
 });
+//# sourceMappingURL=menu.js.map

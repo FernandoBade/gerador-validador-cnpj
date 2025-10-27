@@ -29,3 +29,4 @@ function executar() {
     console.log(`[minificar-css] Gerado: ${path.relative(process.cwd(), caminhoSaida)} (${cssMinificado.length} bytes)`);
 }
 executar();
+//# sourceMappingURL=minificar-css.js.map

@@ -95,3 +95,4 @@ function iniciarQuandoDomPronto() {
     }
 }
 iniciarQuandoDomPronto();
+//# sourceMappingURL=persistencia.js.map

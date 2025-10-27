@@ -66,3 +66,4 @@ iniciarFadeIn().catch(() => {
         prepaint.remove();
     document.body.style.opacity = '1';
 });
+//# sourceMappingURL=transicao.js.map

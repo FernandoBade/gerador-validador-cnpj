@@ -48,3 +48,4 @@ export function validarCnpjPuro(puro) {
     return puro.endsWith(`${dv1}${dv2}`);
 }
 export { PESOS_DIGITOS };
+//# sourceMappingURL=algoritmo-cnpj.js.map

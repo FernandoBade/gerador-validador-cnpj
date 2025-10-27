@@ -12,7 +12,7 @@ export const htmlRodape = `
     <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
 
         <p class="text-center font-semibold md:text-left  text-zinc-50 ">
-        ${new Date().getFullYear()} • Versão 1.5.0 • Licensa ISC
+        ${new Date().getFullYear()} • Versão 1.8.0 • Licensa ISC
             <a href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico/blob/main/LICENSE"
                 class="hover:text-violet-500 dark:hover:text-violet-400 transition-colors">
             </a>

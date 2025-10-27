@@ -77,3 +77,4 @@ const inicializarControleTema = () => {
 document.addEventListener("DOMContentLoaded", () => {
     inicializarControleTema();
 });
+//# sourceMappingURL=tema.js.map

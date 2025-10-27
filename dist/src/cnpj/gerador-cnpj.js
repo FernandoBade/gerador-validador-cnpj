@@ -403,3 +403,4 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     void new GeradorCnpj(elementos);
 });
+//# sourceMappingURL=gerador-cnpj.js.map

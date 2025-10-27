@@ -492,3 +492,4 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     void new ValidadorCnpj(elementos);
 });
+//# sourceMappingURL=validador-cnpj.js.map

@@ -9,7 +9,7 @@ import { ClasseAviso, IntervaloTemporizador, TipoAviso } from "../gerais/enums.j
 import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO } from "../gerais/constantes.js";
 import { htmlCookies, inicializarAvisoDeCookies } from "../gerais/cookies.js";
 import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro } from "./formatacao-cnpj.js";
-import { copiarTexto, inicializarEfeitoOnda } from "../interface/interface.js";
+import { inicializarEfeitoOnda } from "../interface/interface.js";
 import { exibirAviso } from "../gerais/mensageria.js";
 import { atualizarContadorHistorico } from "../interface/contador-historico.js";
 
@@ -77,6 +77,8 @@ export interface ResultadoValidacaoApi {
     mensagem: string;
     statusHttp: number;
     dados: DadosCnpj | null;
+    carregando?: boolean;
+    mensagemComplementar?: string;
 }
 
 /**
@@ -99,46 +101,17 @@ interface ElementosValidador {
     modalCaixa: HTMLDivElement;
 }
 
-type RegistroGenerico = Record<string, unknown>;
 
-interface RegistroOpenCnpj extends RegistroGenerico {
-    estabelecimento?: unknown;
-    estabelecimentos?: unknown;
-}
-
-interface RegistroEstabelecimento extends RegistroGenerico {
-    cnpj?: string;
-    razao_social?: string;
-    nome_empresarial?: string;
-    nome_fantasia?: string;
-    situacao_cadastral?: string;
-    data_situacao_cadastral?: string;
-    natureza_juridica?: string;
-    porte?: string;
-    tipo_logradouro?: string;
-    logradouro?: string;
-    numero?: string;
-    complemento?: string;
-    bairro?: string;
-    municipio?: string;
-    municipio_texto?: string;
-    cidade?: string;
-    uf?: string;
-    estado?: string;
-    cep?: string;
-    email?: string;
-    telefone?: string;
-    telefone1?: string;
-    telefone2?: string;
-    telefone3?: string;
-}
 
 /**
  * @summary Erro especializado que transporta o status HTTP retornado pela API.
  */
 class ErroOpenCnpjApi extends Error {
-    public constructor(public readonly statusHttp: number, mensagem: string) {
+    public readonly statusHttp: number;
+
+    public constructor(statusHttp: number, mensagem: string) {
         super(mensagem);
+        this.statusHttp = statusHttp;
         this.name = "ErroOpenCnpjApi";
     }
 }
@@ -175,7 +148,7 @@ export async function buscarDadosCnpj(cnpj: string): Promise<DadosCnpj | null> {
         throw new ErroOpenCnpjApi(resposta.status, "Não foi possível consultar o CNPJ na API do OpenCNPJ.");
     }
 
-    const dados = (await resposta.json()) as RegistroOpenCnpj;
+    const dados = (await resposta.json());
     return normalizarDadosOpenCnpj(dados, puro);
 }
 
@@ -200,7 +173,8 @@ export async function validarCnpjIndividual(cnpj: string): Promise<ResultadoVali
             return {
                 puro,
                 valido: false,
-                mensagem: "CNPJ não encontrado na base pública do OpenCNPJ.",
+                mensagem: `CNPJ não encontrado na base pública da Receita Federal, consultando via OpenCNPJ. `,
+                mensagemComplementar: `Para confirmar, consulte diretamente no <a href="https://www.gov.br/pt-br/servicos/consultar-cadastro-nacional-de-pessoas-juridicas" target="_blank" class="underline underline-offset-4 decoration-2 !decoration-violet-500" rel="noopener noreferrer">Gov.br</a>.`,
                 statusHttp: 404,
                 dados: null,
             };
@@ -249,303 +223,75 @@ export async function validarCnpjsEmMassa(listaCnpjs: string[]): Promise<Resulta
 /**
  * @summary Normaliza e estrutura os dados recebidos do OpenCNPJ para consumo interno.
  */
-function normalizarDadosOpenCnpj(registro: RegistroOpenCnpj, puro: string): DadosCnpj {
-    const estabelecimento = extrairEstabelecimento(registro);
+function normalizarDadosOpenCnpj(registro: Record<string, unknown>, puro: string): DadosCnpj {
+    const str = (v: unknown): string | undefined =>
+        typeof v === "string" && v.trim() ? v.trim() : undefined;
 
-    const nomeEmpresarial =
-        extrairTexto(registro, ["razao_social", "nome_empresarial", "nome"])
-        ?? extrairTexto(estabelecimento, ["razao_social", "nome_empresarial"]);
+    const num = (v: unknown): number | undefined => {
+        if (typeof v === "number") return v;
+        if (typeof v === "string") {
+            const n = parseFloat(v.replace(/\./g, "").replace(",", "."));
+            return isFinite(n) ? n : undefined;
+        }
+        return undefined;
+    };
 
-    const nomeFantasia =
-        extrairTexto(estabelecimento, ["nome_fantasia", "nome_fantasia_simplificado"])
-        ?? extrairTexto(registro, ["nome_fantasia"]);
+    const telefones =
+        Array.isArray(registro.telefones) && registro.telefones.length
+            ? registro.telefones
+                .map(
+                    (t: any) =>
+                        t && typeof t === "object" && t.ddd && t.numero
+                            ? `(${t.ddd}) ${t.numero}`
+                            : undefined
+                )
+                .filter(Boolean)
+                .join(" / ")
+            : undefined;
 
-    const situacaoCadastral =
-        extrairTexto(estabelecimento, ["situacao_cadastral", "descricao_situacao_cadastral"])
-        ?? extrairTexto(registro, ["situacao_cadastral"]);
-
-    const dataSituacaoCadastral =
-        extrairTexto(estabelecimento, ["data_situacao_cadastral"])
-        ?? extrairTexto(registro, ["data_situacao_cadastral"]);
-
-    const naturezaJuridica =
-        extrairTexto(registro, ["natureza_juridica", "descricao_natureza_juridica"])
-        ?? extrairTexto(estabelecimento, ["natureza_juridica"]);
-
-    const capitalSocial = extrairNumero(registro, ["capital_social"]) ?? extrairNumero(estabelecimento, ["capital_social"]);
-    const porte = extrairTexto(registro, ["porte", "porte_empresa"]) ?? extrairTexto(estabelecimento, ["porte"]);
-    const telefone = extrairTelefones(estabelecimento, registro);
-    const email = extrairTexto(estabelecimento, ["email"]) ?? extrairTexto(registro, ["email"]);
-    const endereco = montarEndereco(estabelecimento) ?? montarEndereco(registro as RegistroEstabelecimento);
-    const atividades = extrairAtividades(registro, estabelecimento);
-    const socios = extrairSocios(registro, estabelecimento);
-
-    const cnpjNormalizado =
-        normalizarPuro(
-            extrairTexto(estabelecimento, ["cnpj", "cnpj_completo", "cnpj_basico"])
-            ?? extrairTexto(registro, ["cnpj", "cnpj_basico"]) ?? puro,
-        );
+    const socios =
+        Array.isArray(registro.QSA) && registro.QSA.length
+            ? (registro.QSA as any[]).map((s) => ({
+                nome: str(s.nome_socio),
+                qualificacao: str(s.qualificacao_socio),
+                tipo: str(s.identificador_socio),
+                pais: undefined,
+                entrada: str(s.data_entrada_sociedade),
+            }))
+            : [];
 
     return {
-        cnpj: cnpjNormalizado || puro,
-        nomeEmpresarial,
-        nomeFantasia,
-        situacaoCadastral,
-        dataSituacaoCadastral,
-        naturezaJuridica,
-        capitalSocial,
-        porte,
-        telefone,
-        email,
-        endereco,
-        atividadePrincipal: atividades.principal,
-        atividadesSecundarias: atividades.secundarias,
+        cnpj: normalizarPuro(str(registro.cnpj) ?? puro),
+        nomeEmpresarial: str(registro.razao_social),
+        nomeFantasia: str(registro.nome_fantasia),
+        situacaoCadastral: str(registro.situacao_cadastral),
+        dataSituacaoCadastral: str(registro.data_situacao_cadastral),
+        naturezaJuridica: str(registro.natureza_juridica),
+        capitalSocial: num(registro.capital_social),
+        porte: str(registro.porte_empresa),
+        telefone: telefones,
+        email: str(registro.email),
+        endereco: {
+            logradouro: str(registro.logradouro),
+            numero: str(registro.numero),
+            complemento: str(registro.complemento),
+            bairro: str(registro.bairro),
+            municipio: str(registro.municipio),
+            uf: str(registro.uf),
+            cep: str(registro.cep),
+        },
+        atividadePrincipal: str(registro.cnae_principal)
+            ? { codigo: str(registro.cnae_principal)!, descricao: undefined }
+            : null,
+        atividadesSecundarias: Array.isArray(registro.cnaes_secundarios)
+            ? registro.cnaes_secundarios.map((c: any) => ({ codigo: String(c) }))
+            : [],
         socios,
-        dadosOriginais: registro as Record<string, unknown>,
+        dadosOriginais: registro,
     };
 }
 
-/**
- * @summary Localiza o objeto de estabelecimento prioritário dentro da resposta.
- */
-function extrairEstabelecimento(registro: RegistroOpenCnpj): RegistroEstabelecimento | null {
-    const candidatoDireto = registro.estabelecimento;
-    if (candidatoDireto && typeof candidatoDireto === "object") {
-        return candidatoDireto as RegistroEstabelecimento;
-    }
 
-    const candidatosLista = registro.estabelecimentos;
-    if (Array.isArray(candidatosLista) && candidatosLista.length > 0) {
-        const primeiro = candidatosLista[0];
-        if (primeiro && typeof primeiro === "object") {
-            return primeiro as RegistroEstabelecimento;
-        }
-    }
-
-    return null;
-}
-
-/**
- * @summary Tenta obter um texto limpo a partir de várias chaves possíveis.
- */
-function extrairTexto(origem: RegistroGenerico | RegistroEstabelecimento | null | undefined, chaves: string[]): string | undefined {
-    if (!origem) return undefined;
-    for (const chave of chaves) {
-        const valor = origem[chave];
-        if (typeof valor === "string") {
-            const texto = valor.trim();
-            if (texto.length > 0) {
-                return texto;
-            }
-        }
-    }
-    return undefined;
-}
-
-/**
- * @summary Converte valores numéricos representados como string para number, quando possível.
- */
-function extrairNumero(origem: RegistroGenerico | RegistroEstabelecimento | null | undefined, chaves: string[]): number | undefined {
-    if (!origem) return undefined;
-    for (const chave of chaves) {
-        const valor = origem[chave];
-        if (typeof valor === "number" && Number.isFinite(valor)) {
-            return valor;
-        }
-        if (typeof valor === "string") {
-            const normalizado = valor.replace(/\./g, "").replace(/,/g, ".");
-            const numero = Number.parseFloat(normalizado);
-            if (Number.isFinite(numero)) {
-                return numero;
-            }
-        }
-    }
-    return undefined;
-}
-
-/**
- * @summary Monta o endereço legível a partir do estabelecimento identificado.
- */
-function montarEndereco(origem: RegistroEstabelecimento | RegistroGenerico | null): EnderecoCnpj | null {
-    if (!origem) return null;
-
-    const logradouroBase = extrairTexto(origem, ["logradouro", "nome_logradouro"]);
-    const tipoLogradouro = extrairTexto(origem, ["tipo_logradouro"]);
-    const logradouro = tipoLogradouro ? `${tipoLogradouro} ${logradouroBase ?? ""}`.trim() : logradouroBase;
-
-    const numero = extrairTexto(origem, ["numero", "numero_local"]);
-    const complemento = extrairTexto(origem, ["complemento"]);
-    const bairro = extrairTexto(origem, ["bairro", "bairro_logradouro"]);
-    const municipio = extrairTexto(origem, ["municipio", "cidade", "municipio_texto"]);
-    const uf = extrairTexto(origem, ["uf", "estado"]);
-    const cep = extrairTexto(origem, ["cep"]);
-
-    if (![logradouro, numero, complemento, bairro, municipio, uf, cep].some(Boolean)) {
-        return null;
-    }
-
-    return { logradouro, numero, complemento, bairro, municipio, uf, cep };
-}
-
-/**
- * @summary Extrai e concatena os telefones disponíveis na resposta.
- */
-function extrairTelefones(estabelecimento: RegistroEstabelecimento | null, registro: RegistroOpenCnpj): string | undefined {
-    const candidatos = [
-        extrairTexto(estabelecimento, ["telefone", "telefone1"]),
-        extrairTexto(estabelecimento, ["telefone2"]),
-        extrairTexto(estabelecimento, ["telefone3"]),
-        extrairTexto(registro, ["telefone", "telefone1", "telefone2"]),
-    ].filter((valor): valor is string => Boolean(valor));
-
-    const unicos = Array.from(new Set(candidatos.map((valor) => valor.trim()).filter(Boolean)));
-    if (unicos.length === 0) return undefined;
-    return unicos.join(" / ");
-}
-
-/**
- * @summary Normaliza as atividades principal e secundárias retornadas.
- */
-function extrairAtividades(
-    registro: RegistroOpenCnpj,
-    estabelecimento: RegistroEstabelecimento | null,
-): { principal: AtividadeCnpj | null; secundarias: AtividadeCnpj[] } {
-    const colecoesPossiveis: unknown[] = [];
-    const principalPossiveis: unknown[] = [];
-
-    principalPossiveis.push(
-        (registro as RegistroGenerico)["atividade_principal"],
-        (registro as RegistroGenerico)["atividades_principais"],
-        (registro as RegistroGenerico)["atividades_economicas"],
-        estabelecimento ? (estabelecimento as RegistroGenerico)["atividade_principal"] : undefined,
-        estabelecimento ? (estabelecimento as RegistroGenerico)["atividades_economicas_principais"] : undefined,
-    );
-
-    colecoesPossiveis.push(
-        (registro as RegistroGenerico)["atividades_secundarias"],
-        (registro as RegistroGenerico)["atividades_economicas"],
-        estabelecimento ? (estabelecimento as RegistroGenerico)["atividades_secundarias"] : undefined,
-        estabelecimento ? (estabelecimento as RegistroGenerico)["atividades_economicas_secundarias"] : undefined,
-    );
-
-    const principal = localizarAtividadePrincipal(principalPossiveis);
-    const secundarias = localizarAtividadesSecundarias(colecoesPossiveis);
-
-    return { principal, secundarias };
-}
-
-/**
- * @summary Constrói a lista de sócios a partir das possíveis coleções disponíveis.
- */
-function extrairSocios(
-    registro: RegistroOpenCnpj,
-    estabelecimento: RegistroEstabelecimento | null,
-): SocioCnpj[] {
-    const colecoes: unknown[] = [
-        (registro as RegistroGenerico)["socios"],
-        (registro as RegistroGenerico)["quadro_societario"],
-        (registro as RegistroGenerico)["qsa"],
-        (registro as RegistroGenerico)["quadroSocietario"],
-    ];
-
-    if (estabelecimento) {
-        colecoes.push((estabelecimento as RegistroGenerico)["socios"]);
-    }
-
-    const sociosMap = new Map<string, SocioCnpj>();
-
-    for (const colecao of colecoes) {
-        if (!colecao) continue;
-        const lista = Array.isArray(colecao) ? colecao : [colecao];
-        for (const item of lista) {
-            if (!item || typeof item !== "object") continue;
-            const registroSocio = item as RegistroGenerico;
-            const nome =
-                extrairTexto(registroSocio, [
-                    "nome",
-                    "nome_socio",
-                    "nome_socio_razao_social",
-                    "socio",
-                    "razao_social",
-                ]);
-            const chave = (nome ?? "desconhecido").toUpperCase();
-            if (!sociosMap.has(chave)) {
-                sociosMap.set(chave, {
-                    nome,
-                    qualificacao: extrairTexto(registroSocio, [
-                        "qualificacao",
-                        "qualificacao_socio",
-                        "qualificacao_representante",
-                    ]),
-                    tipo: extrairTexto(registroSocio, ["tipo", "identificador_socio", "tipo_socio"]),
-                    pais: extrairTexto(registroSocio, ["pais", "pais_origem", "pais_residencia"]),
-                    entrada: extrairTexto(registroSocio, [
-                        "data_entrada",
-                        "data_inicio_sociedade",
-                        "data_de_entrada",
-                    ]),
-                });
-            }
-        }
-    }
-
-    return Array.from(sociosMap.values());
-}
-
-/**
- * @summary Localiza a atividade principal considerando diferentes formatos.
- */
-function localizarAtividadePrincipal(possiveis: unknown[]): AtividadeCnpj | null {
-    for (const candidato of possiveis) {
-        if (!candidato) continue;
-        if (Array.isArray(candidato)) {
-            for (const item of candidato) {
-                const atividade = construirAtividade(item);
-                if (atividade) return atividade;
-            }
-        } else if (typeof candidato === "object") {
-            const atividade = construirAtividade(candidato);
-            if (atividade) return atividade;
-        }
-    }
-    return null;
-}
-
-/**
- * @summary Constrói a lista de atividades secundárias a partir de vários formatos possíveis.
- */
-function localizarAtividadesSecundarias(possiveis: unknown[]): AtividadeCnpj[] {
-    const atividades: AtividadeCnpj[] = [];
-    const vistos = new Set<string>();
-
-    for (const candidato of possiveis) {
-        if (!candidato) continue;
-        const lista = Array.isArray(candidato) ? candidato : [candidato];
-        for (const item of lista) {
-            const atividade = construirAtividade(item);
-            if (!atividade) continue;
-            const chave = `${atividade.codigo ?? ""}|${atividade.descricao ?? ""}`;
-            if (!vistos.has(chave)) {
-                vistos.add(chave);
-                atividades.push(atividade);
-            }
-        }
-    }
-
-    return atividades;
-}
-
-/**
- * @summary Normaliza um possível objeto de atividade em estrutura conhecida.
- */
-function construirAtividade(entrada: unknown): AtividadeCnpj | null {
-    if (!entrada || typeof entrada !== "object") return null;
-    const registro = entrada as RegistroGenerico;
-    const codigo = extrairTexto(registro, ["codigo", "code", "cnae", "cnae_principal", "classe"]);
-    const descricao = extrairTexto(registro, ["descricao", "text", "atividade", "descricao_atividade"]);
-    if (!codigo && !descricao) return null;
-    return { codigo: codigo ?? undefined, descricao: descricao ?? undefined };
-}
 
 /**
  * @summary Escapa caracteres especiais para exibição segura em HTML.
@@ -623,7 +369,7 @@ class ValidadorCnpjApi {
         });
 
         botaoColar.addEventListener("click", () => {
-            this.abrirDetalhesDoCampoAtual();
+            void this.colarDoClipboard();
         });
 
         modalOverlay.addEventListener("click", (evento) => {
@@ -669,22 +415,45 @@ class ValidadorCnpjApi {
     }
 
     /**
-     * @summary Cola conteúdo da área de transferência no campo de consulta única.
+     * @summary Cola conteúdo da área de transferência no campo de consulta única,
+     * aplicando máscara conforme o toggle ativo.
      */
     private async colarDoClipboard(): Promise<void> {
         try {
-            const texto = await navigator.clipboard.readText();
-            if (!texto) {
+            const textoBruto = (await navigator.clipboard.readText()).trim();
+
+            if (!textoBruto) {
                 exibirAviso(this.elementos.areaAviso, "Nenhum conteúdo disponível para colar", TipoAviso.Info);
                 return;
             }
-            this.elementos.campoUnico.value = texto.trim();
-            exibirAviso(this.elementos.areaAviso, `Conteúdo colado: ${texto}`, TipoAviso.InfoAlternativo);
+
+            const puro = normalizarPuro(textoBruto);
+
+            if (!puro || puro.length === 0) {
+                this.exibirAviso("Conteúdo inválido para colar", TipoAviso.Erro);
+                return;
+            }
+
+            const limitado = puro.slice(0, 14);
+
+            const usarMascara = this.elementos.controleMascara.checked;
+            const exibicao = usarMascara
+                ? aplicarMascaraProgressiva(limitado)
+                : limitado;
+
+            this.elementos.campoUnico.value = exibicao;
             this.atualizarEstadoBotaoValidarUnico();
+
+            exibirAviso(
+                this.elementos.areaAviso,
+                `Conteúdo colado: ${exibicao}`,
+                TipoAviso.InfoAlternativo
+            );
         } catch {
             this.exibirAviso("Não foi possível acessar a área de transferência", TipoAviso.Erro);
         }
     }
+
 
     /**
      * @summary Abre o modal de detalhes com base no valor atual do campo único.
@@ -729,20 +498,33 @@ class ValidadorCnpjApi {
             exibirAviso(this.elementos.areaAviso, "Insira os 14 caracteres antes da consulta", TipoAviso.Info);
             return;
         }
+        const usarMascara = this.elementos.controleMascara.checked;
+        const exibicao = usarMascara ? aplicarMascara(puro) : puro;
+        this.exibirAviso(`Iniciando validação do CNPJ ${exibicao}`, TipoAviso.InfoAlternativo);
+        const placeholder: ResultadoValidacaoApi = {
+            puro,
+            valido: false,
+            mensagem: "Buscando dados...",
+            statusHttp: 0,
+            dados: null,
+            carregando: true,
+        };
+        this.adicionarAoHistorico(placeholder);
+        this.renderizarHistorico();
+        this.exibirAviso("Consultando OpenCNPJ...", TipoAviso.Info);
 
-        const { botaoValidarUnico } = this.elementos;
-        botaoValidarUnico.disabled = true;
-        botaoValidarUnico.classList.add("opacity-60", "cursor-not-allowed");
+        const resultado = await validarCnpjIndividual(valor);
 
-        try {
-            const resultado = await validarCnpjIndividual(valor);
+        const indice = this.historico.findIndex(
+            (h) => h.puro === resultado.puro && (h as ResultadoValidacaoApi).carregando === true,
+        );
+        if (indice >= 0) {
+            this.historico[indice] = resultado;
+        } else {
             this.adicionarAoHistorico(resultado);
-            this.renderizarHistorico();
-            this.notificarResultado(resultado);
-        } finally {
-            botaoValidarUnico.disabled = false;
-            botaoValidarUnico.classList.remove("opacity-60", "cursor-not-allowed");
         }
+        this.renderizarHistorico();
+        this.notificarResultado(resultado);
     }
 
     /**
@@ -769,22 +551,44 @@ class ValidadorCnpjApi {
             exibirAviso(this.elementos.areaAviso, "Limite de 100 CNPJs por validação", TipoAviso.Erro);
             return;
         }
+        this.exibirAviso(`Iniciando validação de ${entradas.length} CNPJs`, TipoAviso.InfoAlternativo);
 
-        const { botaoValidarMassa } = this.elementos;
-        botaoValidarMassa.disabled = true;
-        botaoValidarMassa.classList.add("opacity-60", "cursor-not-allowed");
 
-        try {
-            const resultados = await validarCnpjsEmMassa(entradas);
-            resultados.forEach((resultado) => {
-                this.adicionarAoHistorico(resultado);
-            });
-            this.renderizarHistorico();
-            this.notificarResumoMassa(resultados);
-        } finally {
-            botaoValidarMassa.disabled = false;
-            botaoValidarMassa.classList.remove("opacity-60", "cursor-not-allowed");
+        const puros = entradas.map((parte) => normalizarPuro(parte));
+
+        for (const puro of [...puros].reverse()) {
+            if (!puro) continue;
+            const placeholder: ResultadoValidacaoApi = {
+                puro,
+                valido: false,
+                mensagem: "Consultando no OpenCNPJ...",
+                statusHttp: 0,
+                dados: null,
+                carregando: true,
+            };
+            this.adicionarAoHistorico(placeholder); // continua usando unshift
         }
+        this.renderizarHistorico();
+
+        this.exibirAviso("Consultando OpenCNPJ...", TipoAviso.Info);
+
+        const resultados: ResultadoValidacaoApi[] = [];
+        for (const entrada of entradas) {
+            const resultado = await validarCnpjIndividual(entrada);
+            resultados.push(resultado);
+
+            const idx = this.historico.findIndex(
+                (h) => h.puro === resultado.puro && (h as ResultadoValidacaoApi).carregando === true,
+            );
+            if (idx >= 0) {
+                this.historico[idx] = resultado;
+            } else {
+                this.adicionarAoHistorico(resultado);
+            }
+        }
+
+        this.renderizarHistorico();
+        this.notificarResumoMassa(resultados);
     }
 
     /**
@@ -815,10 +619,21 @@ class ValidadorCnpjApi {
                 "flex items-center justify-between gap-3 px-3 py-1 transition-all duration-300 rounded-md cursor-pointer ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl hover:ring-slate-300 dark:hover:ring-slate-900";
 
             const indicador = document.createElement("span");
-            indicador.className = (item.valido
-                ? "inline-block w-2 h-2 rounded-full border bg-teal-500 border-emerald-500 ring-2 ring-teal-500/40 shadow-sm shadow-current transition-all duration-300"
-                : "inline-block w-2 h-2 rounded-full border bg-red-400 border-red-500 ring-2 ring-red-400/40 shadow-sm shadow-current transition-all duration-300");
-            indicador.setAttribute("title", item.valido ? "Dados encontrados" : item.mensagem);
+            if (item.carregando) {
+                indicador.innerHTML = `
+                    <span class="relative flex size-2">
+                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-500 opacity-75"></span>
+                    <span class="relative inline-flex size-2 rounded-full bg-blue-500 boder boder-blue-500"></span>
+                    </span>
+                    `;
+                indicador.className = "flex items-center gap-2 text-xs text-blue-600 dark:text-blue-400";
+                indicador.setAttribute("title", "Consulta em andamento...");
+            } else {
+                indicador.className = (item.valido
+                    ? "inline-block w-2 h-2 rounded-full border bg-teal-500 border-emerald-500 ring-2 ring-teal-500/40 shadow-sm shadow-current transition-all duration-300"
+                    : "inline-block w-2 h-2 rounded-full border bg-red-400 border-red-500 ring-2 ring-red-400/40 shadow-sm shadow-current transition-all duration-300");
+                indicador.setAttribute("title", item.valido ? "Dados encontrados" : item.mensagem);
+            }
 
             const texto = document.createElement("span");
             texto.className = "flex-1 text-sm font-semibold break-words text-slate-600 dark:text-zinc-50";
@@ -831,32 +646,47 @@ class ValidadorCnpjApi {
             containerEsquerdo.append(indicador, texto);
 
             containerEsquerdo.addEventListener("click", () => {
+                if ((item as ResultadoValidacaoApi).carregando) {
+                    this.exibirAviso("Consulta em andamento...", TipoAviso.Info);
+                    return;
+                }
                 this.exibirModalCnpj(item);
             });
 
-            const botaoCopiar = document.createElement("button");
-            botaoCopiar.className = "inline-flex items-center justify-center py-1 ml-1 text-xs transition-all ease-in-out rounded text-violet-500 dark:text-violet-500 dark:hover:text-violet-600 hover:text-violet-600 hover:scale-110";
-            botaoCopiar.setAttribute("title", "Copiar esse CNPJ");
-            botaoCopiar.innerHTML = `
-                <svg class="w-6 h-6" aria-hidden="true" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
-                        d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z" />
-                </svg>
-            `;
+            const botaoVisualizar = document.createElement("button");
+            botaoVisualizar.className = "inline-flex items-center justify-center py-1 ml-1 text-xs transition-all ease-in-out rounded text-violet-500 dark:text-violet-500 dark:hover:text-violet-600 hover:text-violet-600 hover:scale-110";
+            botaoVisualizar.setAttribute("title", "Ver mais detalhes");
+            botaoVisualizar.setAttribute("aria-label", "Ver mais detalhes");
+            botaoVisualizar.classList.add("opacity50");
+            botaoVisualizar.innerHTML = `
+                            <svg class="w-6 h-6 text-slate-600 dark:text-slate-300 opacity-25" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                            </svg>`
 
-            botaoCopiar.addEventListener("click", async (evento) => {
-                evento.preventDefault();
-                evento.stopPropagation();
-                const textoParaCopiar = aplicarMascaraAtiva ? aplicarMascara(item.puro) : item.puro;
-                try {
-                    await copiarTexto(textoParaCopiar);
-                    exibirAviso(this.elementos.areaAviso, `CNPJ copiado: ${textoParaCopiar}`, TipoAviso.InfoAlternativo);
-                } catch {
-                    exibirAviso(this.elementos.areaAviso, "Falha ao copiar", TipoAviso.Erro);
-                }
-            });
+            if (!item.carregando) {
+                botaoVisualizar.addEventListener("click", (evento) => {
+                    evento.preventDefault();
+                    evento.stopPropagation();
+                    this.exibirModalCnpj(item);
+                });
+            } else {
+                botaoVisualizar.addEventListener("click", (evento) => {
+                    evento.preventDefault();
+                    evento.stopPropagation();
+                    this.exibirAviso("Consulta em andamento...", TipoAviso.Info);
+                });
+            }
 
-            elemento.append(containerEsquerdo, botaoCopiar);
+            if (item.valido) {
+                botaoVisualizar.classList.add("opacity50");
+                botaoVisualizar.innerHTML =
+                    `<svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">\
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 12c2.15-4.2 6.16-7.5 9.75-7.5s7.6 3.3 9.75 7.5c-2.15 4.2-6.16 7.5-9.75 7.5s-7.6-3.3-9.75-7.5Z" />\
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />\
+                    </svg>`
+            }
+
+            elemento.append(containerEsquerdo, botaoVisualizar);
             listaHistorico.appendChild(elemento);
         });
 
@@ -873,10 +703,10 @@ class ValidadorCnpjApi {
 
         if (!resultado.valido || !resultado.dados) {
             modalConteudo.innerHTML = `
-                <p class="text-sm text-slate-600 dark:text-slate-300">
-                    ${escaparHtml(resultado.mensagem)}
+                    <p class="text-sm text-slate-600 dark:text-slate-300" >
+                        ${resultado.mensagem} ${resultado.mensagemComplementar ? resultado.mensagemComplementar : ""}
                 </p>
-            `;
+                    `;
         } else {
             const dados = resultado.dados;
             const endereco = dados.endereco
@@ -887,7 +717,7 @@ class ValidadorCnpjApi {
                     dados.endereco.bairro,
                     dados.endereco.municipio,
                     dados.endereco.uf,
-                    dados.endereco.cep ? `CEP: ${dados.endereco.cep}` : undefined,
+                    dados.endereco.cep ? `CEP: ${dados.endereco.cep} ` : undefined,
                 ].filter(Boolean).join(", ")
                 : "Não informado";
 
@@ -896,13 +726,14 @@ class ValidadorCnpjApi {
                 : "Não informada";
 
             const atividadesSecundarias = dados.atividadesSecundarias && dados.atividadesSecundarias.length > 0
-                ? `<ul class="list-disc list-inside space-y-1">${dados.atividadesSecundarias
+                ? `<ul class="ml-2 list-disc list-inside font-semibold space-y-1" > ${dados.atividadesSecundarias
                     .map((atividade) => `<li>${escaparHtml([atividade.codigo, atividade.descricao].filter(Boolean).join(" - ") || "")}</li>`)
-                    .join("")}</ul>`
+                    .join("")
+                } </ul>`
                 : "<p class=\"text-sm\">Nenhuma atividade secundária informada.</p>";
 
             const socios = dados.socios && dados.socios.length > 0
-                ? `<ul class="list-disc list-inside space-y-1">${dados.socios
+                ? `<ul class="ml-2 list-disc list-inside font-semibold space-y-1">${dados.socios
                     .map((socio) => {
                         const linha = [socio.nome, socio.qualificacao, socio.pais]
                             .filter((parte) => (parte ?? "").toString().trim().length > 0)
@@ -1200,7 +1031,21 @@ class ValidadorCnpjApi {
         campoMassa.addEventListener("paste", (evento) => {
             evento.preventDefault();
             const texto = (evento.clipboardData?.getData("text") ?? "").trim();
-            reformatar(texto);
+
+            if (!texto) {
+                exibirAviso(this.elementos.areaAviso, "Nenhum conteúdo disponível para colar", TipoAviso.Info);
+                return;
+            }
+
+            const textoNormalizado = texto
+                .replace(/[\n\r]+/g, ",")
+                .replace(/\s+/g, " ")
+                .replace(/,+/g, ",");
+
+            campoMassa.value = textoNormalizado;
+            this.elementos.campoMassa.dispatchEvent(new Event("input"));
+
+            exibirAviso(this.elementos.areaAviso, "Conteúdo colado no modo em massa", TipoAviso.InfoAlternativo);
         });
 
         controleMascara.addEventListener("change", () => reformatar(campoMassa.value));
@@ -1341,4 +1186,3 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export { };
-

@@ -45,3 +45,4 @@ export var TipoAviso;
     TipoAviso["Erro"] = "erro";
     TipoAviso["InfoAlternativo"] = "infoAlternativo";
 })(TipoAviso || (TipoAviso = {}));
+//# sourceMappingURL=enums.js.map

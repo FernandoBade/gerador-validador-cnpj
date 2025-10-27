@@ -5,8 +5,6 @@
    - Fixo no topo, cores consistentes em light/dark
 ============================ */
 
-import { Console } from "console";
-
 /**
  * @summary HTML do menu superior fixo, com links principais e submenu.
  */

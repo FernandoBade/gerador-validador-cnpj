@@ -32,3 +32,4 @@ export function exibirAviso(areaAviso, mensagem, tipo = TipoAviso.Sucesso) {
     timeoutsPorArea.set(areaAviso, timeout);
 }
 export { TipoAviso };
+//# sourceMappingURL=mensageria.js.map

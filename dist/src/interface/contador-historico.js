@@ -23,3 +23,4 @@ export function atualizarContadorHistorico(alvo, total, limite = 100, mostrarQua
         alvo.className = "hidden";
     }
 }
+//# sourceMappingURL=contador-historico.js.map

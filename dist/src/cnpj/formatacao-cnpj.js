@@ -29,3 +29,4 @@ export function aplicarMascaraProgressiva(puro) {
         return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8)}`;
     return `${puro.slice(0, 2)}.${puro.slice(2, 5)}.${puro.slice(5, 8)}/${puro.slice(8, 12)}-${puro.slice(12, 14)}`;
 }
+//# sourceMappingURL=formatacao-cnpj.js.map

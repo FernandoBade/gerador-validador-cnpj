@@ -115,3 +115,4 @@ function executar() {
     console.log(`[processar-html] Arquivos alterados: ${alterados}`);
 }
 executar();
+//# sourceMappingURL=processar-html.js.map
