@@ -113,32 +113,16 @@
     </script>
 </head>
 
-<body class="scroll-personalizado flex flex-col min-h-screen font-sans bg-slate-100/50 text-slate-900 dark:bg-slate-800 dark:text-zinc-50">
-    <!-- Início Tag: Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LSGCFMM" height="0" width="0"
-            style="display: none; visibility: hidden"></iframe></noscript>
-    <!-- Fim Tag: Google Tag Manager (noscript) -->
+<body
+    class="scroll-personalizado flex flex-col min-h-screen font-sans transition-colors duration-500 bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-zinc-50">
 
-    <main class="min-h-screen flex flex-col">
-        <div class="flex items-center justify-center flex-1 px-4 py-6">
+    <main class="flex items-center justify-center flex-1 px-4 py-6">
+        <div class="justify-center min-h-screen flex flex-col">
             <div class="flex flex-col items-stretch gap-6">
-                <div class="flex items-center justify-end w-full md:justify-end">
-                    <!--Início banner AdSense: Topo -->
-                    <!-- <div class="hidden md:block">
-                    <ins class="adsbygoogle" style="display:block;width:728px;height:90px"
-                        data-ad-client="ca-pub-1688022090499793" data-ad-slot="2668944914"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div> -->
-                    <!--Fim banner AdSense: Topo -->
-
-                </div>
-
-                <div class="flex flex-col md:flex-row gap-6 items-start justify-center ">
+                <div class="flex flex-col items-start justify-center gap-6 md:flex-row">
                     <!-- Card principal -->
                     <div
-                        class="flex flex-col justify-between w-full max-w-xl px-8 pb-8 transition-colors duration-500 shadow-2xl h-96 bg-zinc-50 dark:bg-slate-800 rounded-3xl">
+                        class="flex flex-col justify-between w-full max-w-xl px-8 pb-8 transition-colors duration-500 shadow-2xl h-min bg-zinc-50 dark:bg-slate-800 rounded-3xl">
                         <div class="flex flex-col gap-1 text-center">
                             <h1 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
                                 Gerador de CNPJ
@@ -153,7 +137,6 @@
                         </div>
 
                         <div class="flex flex-col gap-6 mx-auto max-w-96">
-                            <!-- Campo resultado -->
                             <div class="flex flex-wrap items-stretch gap-1 mt-4 align-middle">
                                 <div class="relative flex-1">
                                     <input id="campo-resultado" type="text" readonly
@@ -182,7 +165,7 @@
                             <!-- Toggle -->
                             <div
                                 class="flex flex-col items-center gap-8 mt-2 text-sm text-slate-600 dark:text-slate-500">
-                                <div class="flex items-center gap-6">
+                                <div class="flex items-start gap-6 flex-col justify-evenly md:flex-row">
                                     <label for="toggle-mascara"
                                         class="inline-flex items-center gap-3 text-sm font-medium cursor-pointer select-none text-slate-600 dark:text-zinc-50">
                                         <input id="toggle-mascara" type="checkbox" class="sr-only peer" checked />
@@ -205,7 +188,7 @@
                                 </div>
 
                                 <!-- Botões -->
-                                <div class="flex w-96 mt-2 space-x-8 pt-0.5">
+                                <div class="flex w-full mt-2 space-x-4 sm:space-x-8 pt-0.5">
                                     <button id="botao-gerar"
                                         class="flex-1 px-1 py-2 font-semibold transition-all duration-300 bg-transparent border-2 rounded-lg efeito-onda-base efeito-onda-claro text-md border-violet-500 dark:border-violet-500 text-violet-500 dark:text-violet-500 hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400 dark:hover:border-violet-400 active:scale-95">
                                         Gerar +1 CNPJ

@@ -803,10 +803,48 @@ class ValidadorCnpjApi {
                     </div>
                 </div>
                 <div class="mt-6">
-                    <details class="bg-zinc-100 dark:bg-slate-900/60 rounded-xl p-4">
-                        <summary class="cursor-pointer text-sm font-semibold text-slate-600 dark:text-slate-200">Ver dados completos (JSON)</summary>
-                        <pre class="mt-3 max-h-64 overflow-auto scroll-personalizado text-xs bg-black/80 text-emerald-300 rounded-lg p-3">${jsonBruto}</pre>
+                    <details class="bg-zinc-100 dark:bg-slate-900/60 rounded-xl p-4 group">
+                    <summary
+                        class="cursor-pointer text-sm font-semibold text-slate-600 dark:text-slate-200 flex items-center justify-between"
+                    >
+                        <span class="flex items-center gap-2">
+                        <svg
+                            class="w-4 h-4 text-slate-500 transition-transform duration-300 group-open:rotate-90"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                        Ver dados completos (JSON)
+                        </span>
+
+                        <button
+                        type="button"
+                        class="flex items-center justify-center ml-2 rounded text-violet-500 dark:text-violet-400 hover:text-violet-600 dark:hover:text-violet-600 active:scale-90 transition-all duration-300 ease-in-out"
+                        onclick="(function(botao){
+                            const pre = botao.closest('details').querySelector('pre');
+                            const texto = pre.textContent.trim();
+                            navigator.clipboard.writeText(texto)
+                            .then(() => document.dispatchEvent(new CustomEvent('jsonCopiado')))
+                            .catch(() => document.dispatchEvent(new CustomEvent('jsonNaoCopiado')))
+                        })(this)"
+                        title="Copiar JSON"
+                        aria-label="Copiar JSON"
+                        >
+                        <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linejoin="round" stroke-width="2" d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z"/>
+                        </svg>
+                        </button>
+                    </summary>
+
+                    <pre
+                        class="mt-3 max-h-64 overflow-auto scroll-personalizado text-xs bg-slate-800 dark:bg-slate-800 text-teal-500 rounded-lg p-3"
+                    >${jsonBruto}</pre>
                     </details>
+
                 </div>
             `;
         }
@@ -1183,6 +1221,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     void new ValidadorCnpjApi(elementos);
+
+    document.addEventListener('jsonCopiado', () => {
+        exibirAviso(elementos.areaAviso, 'JSON copiado!', TipoAviso.InfoAlternativo);
+    });
+
+    document.addEventListener('jsonNaoCopiado ', () => {
+        exibirAviso(elementos.areaAviso, 'Não foi possível copiar o JSON!', TipoAviso.Erro);
+    });
+
 });
 
 export { };

@@ -13,7 +13,7 @@ const timeoutsPorArea = new WeakMap();
  * @param tipo Tipo de aviso para estilização (sucesso, info, erro, etc.).
  */
 export function exibirAviso(areaAviso, mensagem, tipo = TipoAviso.Sucesso) {
-    const classesBase = "fixed bottom-6 right-6 min-w-3xs max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out";
+    const classesBase = "z-[9999] fixed bottom-6 right-6 min-w-3xs max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out";
     areaAviso.textContent = mensagem;
     areaAviso.className = `${classesBase} ${MAPA_CLASSES_TIPO_AVISO[tipo].join(" ")} ${ClasseAviso.OpacidadeOculta} ${ClasseAviso.TranslacaoOculta} ${ClasseAviso.PonteiroDesativado}`;
     requestAnimationFrame(() => {
