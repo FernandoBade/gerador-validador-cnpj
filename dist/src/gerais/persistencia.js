@@ -88,7 +88,9 @@ export function inicializarPersistenciaDeUmDetails(seletor) {
  */
 function iniciarQuandoDomPronto() {
     if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", () => inicializarPersistenciaDeTodosOsDetails(), { once: true });
+        document.addEventListener("DOMContentLoaded", () => inicializarPersistenciaDeTodosOsDetails(), {
+            once: true,
+        });
     }
     else {
         inicializarPersistenciaDeTodosOsDetails();

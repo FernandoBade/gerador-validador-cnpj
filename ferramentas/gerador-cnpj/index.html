@@ -1,23 +1,24 @@
 <!doctype html>
 <html lang="pt-BR">
-
-<head>
+  <head>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <script type="module" src="/dist/src/interface/transicao.js" defer></script>
     <script>
-        window.addEventListener('load', () => {
-            document.body.classList.add('ready');
-        });
+      window.addEventListener("load", () => {
+        document.body.classList.add("ready");
+      });
     </script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Gerador de CNPJ – Crie CNPJs válidos e copie em massa</title>
-    <meta name="description"
-        content="Gere CNPJs válidos instantaneamente, com formato numérico e alfanumérico, prontos para testes e integrações." />
+    <meta
+      name="description"
+      content="Gere CNPJs válidos instantaneamente, com formato numérico e alfanumérico, prontos para testes e integrações."
+    />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="pt-BR" />
     <meta name="geo.region" content="BR" />
@@ -26,29 +27,35 @@
     <link rel="canonical" href="https://cnpj.bade.digital/ferramentas/gerador-cnpj/" />
 
     <!-- Favicons / PWA -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#2563eb" />
-
 
     <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:title" content="Gerador de CNPJ – Crie CNPJs válidos e copie em massa" />
-    <meta property="og:description"
-        content="Gere CNPJs válidos instantaneamente, com formato numérico e alfanumérico, prontos para testes e integrações." />
+    <meta
+      property="og:description"
+      content="Gere CNPJs válidos instantaneamente, com formato numérico e alfanumérico, prontos para testes e integrações."
+    />
     <meta property="og:url" content="https://cnpj.bade.digital/ferramentas/gerador-cnpj/" />
     <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
     <meta property="og:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
-    <meta property="og:image:alt" content="Painel do gerador de CNPJ com histórico e botões de copiar" />
+    <meta
+      property="og:image:alt"
+      content="Painel do gerador de CNPJ com histórico e botões de copiar"
+    />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Gerador de CNPJ – Crie CNPJs válidos e copie em massa" />
-    <meta name="twitter:description"
-        content="Gere CNPJs válidos instantaneamente, com formato numérico e alfanumérico, prontos para testes e integrações." />
+    <meta
+      name="twitter:description"
+      content="Gere CNPJs válidos instantaneamente, com formato numérico e alfanumérico, prontos para testes e integrações."
+    />
     <meta name="twitter:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
 
     <!-- JSON-LD Schema.org -->
@@ -71,233 +78,336 @@
     </script>
 
     <!-- Tailwind -->
-    <link rel="stylesheet" href="/dist/assets/tailwind.min.css">
+    <link rel="stylesheet" href="/dist/assets/tailwind.min.css" />
 
     <link rel="stylesheet" href="/dist/assets/controle-tema.min.css" />
 
     <!-- Google Tag Manager -->
     <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                "gtm.start": new Date().getTime(),
-                event: "gtm.js",
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != "dataLayer" ? "&l=" + l : "";
-            j.async = true;
-            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, "script", "dataLayer", "GTM-5LSGCFMM");
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          "gtm.start": new Date().getTime(),
+          event: "gtm.js",
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-5LSGCFMM");
     </script>
     <!-- End Google Tag Manager -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1688022090499793"
-        crossorigin="anonymous"></script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1688022090499793"
+      crossorigin="anonymous"
+    ></script>
 
     <script id="sw-unregister">
-        (function () {
-            if ('serviceWorker' in navigator) {
-                // Tenta desregistrar todos os SWs já instalados
-                navigator.serviceWorker.getRegistrations().then(function (regs) {
-                    regs.forEach(function (r) { r.unregister().catch(function () {/* noop */ }); });
-                }).catch(function () {/* noop */ });
-                // Se ainda houver um SW controlando, força atualização
-                navigator.serviceWorker.getRegistration && navigator.serviceWorker.getRegistration().then(function (reg) {
-                    if (reg && reg.active) {
-                        reg.update().catch(function () {/* noop */ });
-                    }
+      (function () {
+        if ("serviceWorker" in navigator) {
+          // Tenta desregistrar todos os SWs já instalados
+          navigator.serviceWorker
+            .getRegistrations()
+            .then(function (regs) {
+              regs.forEach(function (r) {
+                r.unregister().catch(function () {
+                  /* noop */
                 });
-            }
-        })();
+              });
+            })
+            .catch(function () {
+              /* noop */
+            });
+          // Se ainda houver um SW controlando, força atualização
+          navigator.serviceWorker.getRegistration &&
+            navigator.serviceWorker.getRegistration().then(function (reg) {
+              if (reg && reg.active) {
+                reg.update().catch(function () {
+                  /* noop */
+                });
+              }
+            });
+        }
+      })();
     </script>
-</head>
+  </head>
 
-<body
-    class="scroll-personalizado flex flex-col min-h-screen font-sans transition-colors duration-500 bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-zinc-50">
-
+  <body
+    class="scroll-personalizado flex flex-col min-h-screen font-sans transition-colors duration-500 bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-zinc-50"
+  >
     <main class="flex items-center justify-center flex-1 px-4 py-6">
-        <div class="justify-center min-h-screen flex flex-col">
-            <div class="flex flex-col items-stretch gap-6">
-                <div class="flex flex-col items-start justify-center gap-6 md:flex-row">
-                    <!-- Card principal -->
+      <div class="justify-center min-h-screen flex flex-col">
+        <div class="flex flex-col items-stretch gap-6">
+          <div class="flex flex-col items-start justify-center gap-6 md:flex-row">
+            <!-- Card principal -->
+            <div
+              class="flex flex-col justify-between w-full max-w-xl px-8 pb-8 transition-colors duration-500 shadow-2xl h-min bg-zinc-50 dark:bg-slate-800 rounded-3xl"
+            >
+              <div class="flex flex-col gap-1 text-center">
+                <h1 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
+                  Gerador de CNPJ
+                </h1>
+                <h2 class="my-4 text-sm font-semibold text-slate-600 dark:text-zinc-50">
+                  Gere CNPJs fictícios, com ou sem máscara, validados matematicamente e prontos para
+                  testar integrações e validações. Disponível tanto nos formatos numéricos quanto
+                  alfanuméricos para gerar CNPJ válido em segundos.
+                </h2>
+              </div>
+
+              <div class="flex flex-col gap-6 mx-auto max-w-96">
+                <div class="flex flex-wrap items-stretch gap-1 mt-4 align-middle">
+                  <div class="relative flex-1">
+                    <input
+                      id="campo-resultado"
+                      type="text"
+                      readonly
+                      class="w-full px-3 py-2 pr-12 text-lg font-semibold text-center rounded-lg shadow-inner text-slate-600 dark:text-zinc-50 border-slate-300 dark:border-slate-600 bg-zinc-200/50 dark:bg-slate-900"
+                    />
+                    <button
+                      id="botao-copiar"
+                      type="button"
+                      title="Copiar CNPJ"
+                      class="absolute inline-flex items-center justify-center px-2 py-1 text-xs transition-all duration-300 ease-in-out -translate-y-1/2 rounded right-2 top-1/2 text-violet-500 dark:text-violet-400 hover:text-violet-600 dark:hover:text-violet-600 active:scale-75"
+                      aria-label="Copiar CNPJ"
+                    >
+                      <svg class="w-8 h-8" aria-hidden="true" fill="none" viewBox="0 0 24 24">
+                        <path
+                          stroke="currentColor"
+                          stroke-linejoin="round"
+                          stroke-width="1.5"
+                          d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+
+                  <!-- Barra com o campo tempo-restante -->
+                  <div
+                    id="tempo-restante"
+                    class="hidden text-sm text-slate-600 dark:text-slate-500"
+                  ></div>
+
+                  <div
+                    class="h-1.5 w-full overflow-hidden rounded-full bg-slate-300 dark:bg-slate-600"
+                  >
                     <div
-                        class="flex flex-col justify-between w-full max-w-xl px-8 pb-8 transition-colors duration-500 shadow-2xl h-min bg-zinc-50 dark:bg-slate-800 rounded-3xl">
-                        <div class="flex flex-col gap-1 text-center">
-                            <h1 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
-                                Gerador de CNPJ
-                            </h1>
-                            <h2 class="my-4 text-sm font-semibold text-slate-600 dark:text-zinc-50">
-                                Gere CNPJs fictícios, com ou sem máscara, validados matematicamente e prontos para
-                                testar
-                                integrações e validações. Disponível tanto nos formatos numéricos quanto alfanuméricos
-                                para
-                                gerar CNPJ válido em segundos.
-                            </h2>
-                        </div>
-
-                        <div class="flex flex-col gap-6 mx-auto max-w-96">
-                            <div class="flex flex-wrap items-stretch gap-1 mt-4 align-middle">
-                                <div class="relative flex-1">
-                                    <input id="campo-resultado" type="text" readonly
-                                        class="w-full px-3 py-2 pr-12 text-lg font-semibold text-center rounded-lg shadow-inner text-slate-600 dark:text-zinc-50 border-slate-300 dark:border-slate-600 bg-zinc-200/50 dark:bg-slate-900" />
-                                    <button id="botao-copiar" type="button" title="Copiar CNPJ"
-                                        class="absolute inline-flex items-center justify-center px-2 py-1 text-xs transition-all duration-300 ease-in-out -translate-y-1/2 rounded right-2 top-1/2 text-violet-500 dark:text-violet-400 hover:text-violet-600 dark:hover:text-violet-600 active:scale-75"
-                                        aria-label="Copiar CNPJ">
-                                        <svg class="w-8 h-8" aria-hidden="true" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
-                                                d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z" />
-                                        </svg>
-                                    </button>
-                                </div>
-
-                                <!-- Barra com o campo tempo-restante -->
-                                <div id="tempo-restante" class="hidden text-sm text-slate-600 dark:text-slate-500">
-                                </div>
-
-                                <div class="h-1.5 w-full overflow-hidden rounded-full bg-slate-300 dark:bg-slate-600">
-                                    <div id="barra"
-                                        class="w-full h-full transition-transform duration-100 ease-linear origin-left bg-violet-500 dark:bg-violet-500">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Toggle -->
-                            <div
-                                class="flex flex-col items-center gap-8 mt-2 text-sm text-slate-600 dark:text-slate-500">
-                                <div class="flex items-start gap-6 flex-col justify-evenly md:flex-row">
-                                    <label for="toggle-mascara"
-                                        class="inline-flex items-center gap-3 text-sm font-medium cursor-pointer select-none text-slate-600 dark:text-zinc-50">
-                                        <input id="toggle-mascara" type="checkbox" class="sr-only peer" checked />
-                                        <div
-                                            class="efeito-onda-base efeito-onda-escuro relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
-                                        </div>
-                                        <span class="transition-colors duration-300 peer-checked:text-bold">Aplicar
-                                            máscara</span>
-                                    </label>
-
-                                    <label for="toggle-alfanumerico"
-                                        class="inline-flex items-center gap-3 text-sm font-medium cursor-pointer select-none text-slate-600 dark:text-zinc-50">
-                                        <input id="toggle-alfanumerico" type="checkbox" class="sr-only peer" checked />
-                                        <div
-                                            class="efeito-onda-base efeito-onda-escuro relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
-                                        </div>
-                                        <span class="transition-colors duration-300 peer-checked:text-bold">Com
-                                            alfanuméricos</span>
-                                    </label>
-                                </div>
-
-                                <!-- Botões -->
-                                <div class="flex w-full mt-2 space-x-4 sm:space-x-8 pt-0.5">
-                                    <button id="botao-gerar"
-                                        class="flex-1 px-1 py-2 font-semibold transition-all duration-300 bg-transparent border-2 rounded-lg efeito-onda-base efeito-onda-claro text-md border-violet-500 dark:border-violet-500 text-violet-500 dark:text-violet-500 hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400 dark:hover:border-violet-400 active:scale-95">
-                                        Gerar +1 CNPJ
-                                    </button>
-
-                                    <button id="botao-gerar-10"
-                                        class="relative flex-1 px-1 py-2 font-semibold text-white transition-all duration-300 rounded-lg efeito-onda-base efeito-onda-escuro text-md bg-violet-500 hover:bg-violet-600 active:scale-95">
-                                        Gerar +10 CNPJs
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="painel-recentes" class="flex flex-col w-full md:w-80 h-96">
-                        <div
-                            class="flex flex-col h-full p-4 transition-colors duration-500 shadow-2xl bg-zinc-50 dark:bg-slate-800 rounded-3xl">
-                            <div class="flex justify-center gap-2 mb-4">
-                                <h2 class="pb-2 text-2xl font-bold text-center text-slate-600 dark:text-zinc-50">
-                                    Histórico
-                                    <span id="contador-historico" title="Total de itens"></span>
-                                </h2>
-                            </div>
-                            <ul id="lista-recentes"
-                                class="flex-1 px-2 py-3 pr-2 ml-2 space-y-2 overflow-y-auto transition-all duration-300 ease-in-out rounded-lg shadow-inner scroll-personalizado text-md text-slate-600 dark:text-slate-500 shadow-slate-300 dark:shadow-slate-900">
-                            </ul>
-
-                            <div class="flex justify-center w-full pt-3 mt-2 md:w-80">
-                                <button id="botao-copiar-todos"
-                                    class="flex mb-3 md:mr-7 gap-2 efeito-onda-base efeito-onda-claro relative text-violet-500 dark:text-violet-400 text-sm font-semibold px-8 py-2 rounded-lg border border-violet-500/40 shadow-[0_0_6px_1px_rgba(139,92,246,0.25)] animate-pulse-slow hover:shadow-[0_0_12px_2px_rgba(139,92,246,0.5)] hover:border-violet-500 transition-all duration-500 ease-in-out active:scale-95 hover:text-violet-600">
-                                    Copiar todos
-                                    <svg class="w-6 h-6 text-violet-500 dark:text-violet-400" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd"
-                                            d="M7 9v6a4 4 0 0 0 4 4h4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1v2Z"
-                                            clip-rule="evenodd" />
-                                        <path fill-rule="evenodd"
-                                            d="M13 3.054V7H9.2a2 2 0 0 1 .281-.432l2.46-2.87A2 2 0 0 1 13 3.054ZM15 3v4a2 2 0 0 1-2 2H9v6a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-3Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                      id="barra"
+                      class="w-full h-full transition-transform duration-100 ease-linear origin-left bg-violet-500 dark:bg-violet-500"
+                    ></div>
+                  </div>
                 </div>
 
-                <details id="aviso-importante-gerador"
-                    class="group mt-4 max-w-[920px] w-full mx-auto bg-zinc-50 dark:bg-slate-800 border border-pink-400 dark:border-pink-500 rounded-2xl shadow-lg px-6 py-2 text-slate-700 dark:text-zinc-200 text-xs leading-relaxed transition-all duration-300">
+                <!-- Toggle -->
+                <div
+                  class="flex flex-col items-center gap-8 mt-2 text-sm text-slate-600 dark:text-slate-500"
+                >
+                  <div class="flex items-start gap-6 flex-col justify-evenly md:flex-row">
+                    <label
+                      for="toggle-mascara"
+                      class="inline-flex items-center gap-3 text-sm font-medium cursor-pointer select-none text-slate-600 dark:text-zinc-50"
+                    >
+                      <input id="toggle-mascara" type="checkbox" class="sr-only peer" checked />
+                      <div
+                        class="efeito-onda-base efeito-onda-escuro relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5"
+                      ></div>
+                      <span class="transition-colors duration-300 peer-checked:text-bold"
+                        >Aplicar máscara</span
+                      >
+                    </label>
 
-                    <summary
-                        class="flex items-center justify-between mb-2 text-lg font-bold text-pink-500 transition-all duration-300 rounded-lg cursor-pointer select-none hover:text-pink-600 dark:text-pink-500 dark:hover:text-pink-400">
+                    <label
+                      for="toggle-alfanumerico"
+                      class="inline-flex items-center gap-3 text-sm font-medium cursor-pointer select-none text-slate-600 dark:text-zinc-50"
+                    >
+                      <input
+                        id="toggle-alfanumerico"
+                        type="checkbox"
+                        class="sr-only peer"
+                        checked
+                      />
+                      <div
+                        class="efeito-onda-base efeito-onda-escuro relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5"
+                      ></div>
+                      <span class="transition-colors duration-300 peer-checked:text-bold"
+                        >Com alfanuméricos</span
+                      >
+                    </label>
+                  </div>
 
-                        <div class="flex items-center gap-2 pt-2">
-                            <svg class="mt-0.5 w-6 h-6 text-pink-500 dark:text-pink-500 transition-colors duration-300
-                  group-hover:text-pink-600 dark:group-hover:text-pink-400 shrink-0" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-                            Importante
-                        </div>
+                  <!-- Botões -->
+                  <div class="flex w-full mt-2 space-x-4 sm:space-x-8 pt-0.5">
+                    <button
+                      id="botao-gerar"
+                      class="flex-1 px-1 py-2 font-semibold transition-all duration-300 bg-transparent border-2 rounded-lg efeito-onda-base efeito-onda-claro text-md border-violet-500 dark:border-violet-500 text-violet-500 dark:text-violet-500 hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400 dark:hover:border-violet-400 active:scale-95"
+                    >
+                      Gerar +1 CNPJ
+                    </button>
 
-                        <div class="flex items-center gap-1 mt-2">
-                            <svg class="hidden w-6 h-6 transition-all duration-300 ease-in-out group-open:block text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100"
-                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
-                            </svg>
-
-                            <svg class="block w-6 h-6 transition-all duration-300 ease-in-out group-open:hidden text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100"
-                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M5 12h14m-7 7V5" />
-                            </svg>
-                        </div>
-                    </summary>
-
-                    <div class="mt-4 ml-1 space-y-2 text-sm text-slate-500 dark:text-zinc-50">
-                        <p>
-                            Este gerador <strong>não tem qualquer vínculo com a Receita Federal do Brasil</strong>.
-                            Os CNPJs criados aqui são <strong>valores fictícios</strong>, gerados a partir de
-                            <strong><a class="underline underline-offset-4 decoration-pink-600"
-                                    href="../artigos/como-a-validacao-de-cnpj-e-feita/">regras matemáticas
-                                    públicas</a></strong>,
-                            ou seja, cálculos de dígitos verificadores.
-                        </p>
-                        <p>
-                            Eles servem <strong>apenas para testes, estudos e simulações</strong>, e não garantem que o
-                            número
-                            exista ou esteja ativo, suspenso ou baixado na base da Receita. Em resumo, o gerador
-                            <strong>nunca substiturá a <a class="underline underline-offset-4 decoration-pink-600"
-                                    href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp"
-                                    target="_blank">validação oficial</a></strong> — ele apenas indica que o número,
-                            matematicamente falando, <em>poderia</em> existir.
-                        </p>
-
-                        <p class="mt-3 italic text-slate-300 dark:text-slate-400">
-                            Brinque com os números, não com a Receita Federal.<span class="not-italic"> 😇</span>
-                        </p>
-
-                    </div>
-                </details>
+                    <button
+                      id="botao-gerar-10"
+                      class="relative flex-1 px-1 py-2 font-semibold text-white transition-all duration-300 rounded-lg efeito-onda-base efeito-onda-escuro text-md bg-violet-500 hover:bg-violet-600 active:scale-95"
+                    >
+                      Gerar +10 CNPJs
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div id="painel-recentes" class="flex flex-col w-full md:w-80 h-96">
+              <div
+                class="flex flex-col h-full p-4 transition-colors duration-500 shadow-2xl bg-zinc-50 dark:bg-slate-800 rounded-3xl"
+              >
+                <div class="flex justify-center gap-2 mb-4">
+                  <h2 class="pb-2 text-2xl font-bold text-center text-slate-600 dark:text-zinc-50">
+                    Histórico
+                    <span id="contador-historico" title="Total de itens"></span>
+                  </h2>
+                </div>
+                <ul
+                  id="lista-recentes"
+                  class="flex-1 px-2 py-3 pr-2 ml-2 space-y-2 overflow-y-auto transition-all duration-300 ease-in-out rounded-lg shadow-inner scroll-personalizado text-md text-slate-600 dark:text-slate-500 shadow-slate-300 dark:shadow-slate-900"
+                ></ul>
+
+                <div class="flex justify-center w-full pt-3 mt-2 md:w-80">
+                  <button
+                    id="botao-copiar-todos"
+                    class="flex mb-3 md:mr-7 gap-2 efeito-onda-base efeito-onda-claro relative text-violet-500 dark:text-violet-400 text-sm font-semibold px-8 py-2 rounded-lg border border-violet-500/40 shadow-[0_0_6px_1px_rgba(139,92,246,0.25)] animate-pulse-slow hover:shadow-[0_0_12px_2px_rgba(139,92,246,0.5)] hover:border-violet-500 transition-all duration-500 ease-in-out active:scale-95 hover:text-violet-600"
+                  >
+                    Copiar todos
+                    <svg
+                      class="w-6 h-6 text-violet-500 dark:text-violet-400"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M7 9v6a4 4 0 0 0 4 4h4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1v2Z"
+                        clip-rule="evenodd"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        d="M13 3.054V7H9.2a2 2 0 0 1 .281-.432l2.46-2.87A2 2 0 0 1 13 3.054ZM15 3v4a2 2 0 0 1-2 2H9v6a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-3Z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <details
+            id="aviso-importante-gerador"
+            class="group mt-4 max-w-[920px] w-full mx-auto bg-zinc-50 dark:bg-slate-800 border border-pink-400 dark:border-pink-500 rounded-2xl shadow-lg px-6 py-2 text-slate-700 dark:text-zinc-200 text-xs leading-relaxed transition-all duration-300"
+          >
+            <summary
+              class="flex items-center justify-between mb-2 text-lg font-bold text-pink-500 transition-all duration-300 rounded-lg cursor-pointer select-none hover:text-pink-600 dark:text-pink-500 dark:hover:text-pink-400"
+            >
+              <div class="flex items-center gap-2 pt-2">
+                <svg
+                  class="mt-0.5 w-6 h-6 text-pink-500 dark:text-pink-500 transition-colors duration-300 group-hover:text-pink-600 dark:group-hover:text-pink-400 shrink-0"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+                Importante
+              </div>
+
+              <div class="flex items-center gap-1 mt-2">
+                <svg
+                  class="hidden w-6 h-6 transition-all duration-300 ease-in-out group-open:block text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18 17.94 6M18 18 6.06 6"
+                  />
+                </svg>
+
+                <svg
+                  class="block w-6 h-6 transition-all duration-300 ease-in-out group-open:hidden text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 12h14m-7 7V5"
+                  />
+                </svg>
+              </div>
+            </summary>
+
+            <div class="mt-4 ml-1 space-y-2 text-sm text-slate-500 dark:text-zinc-50">
+              <p>
+                Este gerador
+                <strong>não tem qualquer vínculo com a Receita Federal do Brasil</strong>. Os CNPJs
+                criados aqui são <strong>valores fictícios</strong>, gerados a partir de
+                <strong
+                  ><a
+                    class="underline underline-offset-4 decoration-pink-600"
+                    href="../artigos/como-a-validacao-de-cnpj-e-feita/"
+                    >regras matemáticas públicas</a
+                  ></strong
+                >, ou seja, cálculos de dígitos verificadores.
+              </p>
+              <p>
+                Eles servem <strong>apenas para testes, estudos e simulações</strong>, e não
+                garantem que o número exista ou esteja ativo, suspenso ou baixado na base da
+                Receita. Em resumo, o gerador
+                <strong
+                  >nunca substiturá a
+                  <a
+                    class="underline underline-offset-4 decoration-pink-600"
+                    href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp"
+                    target="_blank"
+                    >validação oficial</a
+                  ></strong
+                >
+                — ele apenas indica que o número, matematicamente falando, <em>poderia</em> existir.
+              </p>
+
+              <p class="mt-3 italic text-slate-300 dark:text-slate-400">
+                Brinque com os números, não com a Receita Federal.<span class="not-italic">
+                  😇</span
+                >
+              </p>
+            </div>
+          </details>
         </div>
+      </div>
     </main>
 
-    <div id="toast"
-        class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none">
-    </div>
+    <div
+      id="toast"
+      class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none"
+    ></div>
 
     <script type="module" defer src="../../dist/src/interface/tema.js"></script>
     <script type="module" defer src="../../dist/src/interface/menu.js"></script>
@@ -306,7 +416,5 @@
     <script type="module" defer src="../../dist/src/gerais/persistencia.js"></script>
     <script type="module" defer src="../../dist/src/gerais/cookies.js"></script>
     <script type="module" defer src="../../dist/src/interface/rodape.js"></script>
-
-</body>
-
+  </body>
 </html>

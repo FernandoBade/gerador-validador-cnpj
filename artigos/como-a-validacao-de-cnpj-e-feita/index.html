@@ -1,52 +1,70 @@
 <!doctype html>
 <html lang="pt-BR">
-
-<head>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-    <meta http-equiv="Pragma" content="no-cache"/>
-    <meta http-equiv="Expires" content="0"/>
-    <script type="module"                            src="/dist/src/interface/transicao.js" defer></script>
+  <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script type="module" src="/dist/src/interface/transicao.js" defer></script>
     <script>
-        window.addEventListener('load', () => {
-            document.body.classList.add('ready');
-        });
+      window.addEventListener("load", () => {
+        document.body.classList.add("ready");
+      });
     </script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Como é feita a validação de CNPJ – Saiba como consultar CNPJ na Receita Federal</title>
-    <meta name="description"
-        content="Descubra como funciona a validação de CNPJ numérico e alfanumérico, utilizando a API OpenCNPJ e dados oficiais da Receita Federal." />
+    <meta
+      name="description"
+      content="Descubra como funciona a validação de CNPJ numérico e alfanumérico, utilizando a API OpenCNPJ e dados oficiais da Receita Federal."
+    />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="pt-BR" />
     <meta name="geo.region" content="BR" />
     <meta name="geo.placename" content="Brasil" />
     <meta name="author" content="Equipe Bade Digital" />
-    <link rel="canonical" href="https://cnpj.bade.digital/artigos/como-a-validacao-de-cnpj-e-feita/" />
+    <link
+      rel="canonical"
+      href="https://cnpj.bade.digital/artigos/como-a-validacao-de-cnpj-e-feita/"
+    />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#2563eb" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:title"
-        content="Como é feita a validação de CNPJ – Saiba como consultar CNPJ na Receita Federal" />
-    <meta property="og:description"
-        content="Descubra como funciona a validação de CNPJ numérico e alfanumérico, utilizando a API OpenCNPJ e dados oficiais da Receita Federal." />
-    <meta property="og:url" content="https://cnpj.bade.digital/artigos/como-a-validacao-de-cnpj-e-feita/" />
+    <meta
+      property="og:title"
+      content="Como é feita a validação de CNPJ – Saiba como consultar CNPJ na Receita Federal"
+    />
+    <meta
+      property="og:description"
+      content="Descubra como funciona a validação de CNPJ numérico e alfanumérico, utilizando a API OpenCNPJ e dados oficiais da Receita Federal."
+    />
+    <meta
+      property="og:url"
+      content="https://cnpj.bade.digital/artigos/como-a-validacao-de-cnpj-e-feita/"
+    />
     <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
     <meta property="og:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
-    <meta property="og:image:alt" content="Ilustração do processo de validação de CNPJ com destaque para dígitos verificadores" />
+    <meta
+      property="og:image:alt"
+      content="Ilustração do processo de validação de CNPJ com destaque para dígitos verificadores"
+    />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title"
-        content="Como é feita a validação de CNPJ – Saiba como consultar CNPJ na Receita Federal" />
-    <meta name="twitter:description"
-        content="Descubra como funciona a validação de CNPJ numérico e alfanumérico, utilizando a API OpenCNPJ e dados oficiais da Receita Federal." />
+    <meta
+      name="twitter:title"
+      content="Como é feita a validação de CNPJ – Saiba como consultar CNPJ na Receita Federal"
+    />
+    <meta
+      name="twitter:description"
+      content="Descubra como funciona a validação de CNPJ numérico e alfanumérico, utilizando a API OpenCNPJ e dados oficiais da Receita Federal."
+    />
     <meta name="twitter:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
 
     <script type="application/ld+json">
@@ -62,463 +80,541 @@
       }
     </script>
 
-    <link rel="stylesheet" href="/dist/assets/tailwind.min.css">
-    
+    <link rel="stylesheet" href="/dist/assets/tailwind.min.css" />
+
     <link rel="stylesheet" href="/dist/assets/controle-tema.min.css" />
 
     <script id="sw-unregister">
-      (function(){
-        if ('serviceWorker' in navigator) {
+      (function () {
+        if ("serviceWorker" in navigator) {
           // Tenta desregistrar todos os SWs já instalados
-          navigator.serviceWorker.getRegistrations().then(function(regs){
-            regs.forEach(function(r){ r.unregister().catch(function(){/* noop */}); });
-          }).catch(function(){/* noop */});
+          navigator.serviceWorker
+            .getRegistrations()
+            .then(function (regs) {
+              regs.forEach(function (r) {
+                r.unregister().catch(function () {
+                  /* noop */
+                });
+              });
+            })
+            .catch(function () {
+              /* noop */
+            });
           // Se ainda houver um SW controlando, força atualização
-          navigator.serviceWorker.getRegistration && navigator.serviceWorker.getRegistration().then(function(reg){
-            if (reg && reg.active) {
-              reg.update().catch(function(){/* noop */});
-            }
-          });
+          navigator.serviceWorker.getRegistration &&
+            navigator.serviceWorker.getRegistration().then(function (reg) {
+              if (reg && reg.active) {
+                reg.update().catch(function () {
+                  /* noop */
+                });
+              }
+            });
         }
       })();
     </script>
-</head>
+  </head>
 
-<body
-    class="min-h-screen bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-zinc-50 transition-colors duration-500 font-sans flex flex-col">
-
+  <body
+    class="min-h-screen bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-zinc-50 transition-colors duration-500 font-sans flex flex-col"
+  >
     <main class="flex-1 flex items-center justify-center px-4 py-6">
-        <div class="flex flex-col gap-6 items-stretch w-full max-w-6xl">
-            
+      <div class="flex flex-col gap-6 items-stretch w-full max-w-6xl">
+        <section
+          class="w-full bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl p-8 transition-colors duration-500 flex flex-col gap-6"
+        >
+          <div class="text-center space-y-3">
+            <p class="text-sm uppercase tracking-[0.35em] text-violet-500 font-semibold">
+              Guia didático
+            </p>
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-700 dark:text-zinc-50">
+              Como a validação do CNPJ alfanumérico é feita?
+            </h1>
+            <p class="text-base text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+              O manual “Cálculo dos dígitos verificadores de CNPJ alfanumérico”, publicado pelo
+              SERPRO, descreve um processo em duas etapas para garantir que cada identificador tenha
+              uma estrutura matemática válida. A seguir, mostramos esse passo a passo com a mesma
+              linguagem visual do nosso gerador, explicando como a validação de CNPJ auxilia a
+              verificar CNPJ antes da consulta CNPJ em bases oficiais e como isso se integra às
+              rotinas de consultar CNPJ na Receita Federal.
+            </p>
+          </div>
 
-            <section
-                class="w-full bg-zinc-50 dark:bg-slate-800 rounded-3xl shadow-2xl p-8 transition-colors duration-500 flex flex-col gap-6">
-                <div class="text-center space-y-3">
-                    <p class="text-sm uppercase tracking-[0.35em] text-violet-500 font-semibold">Guia didático</p>
-                    <h1 class="text-3xl md:text-4xl font-bold text-slate-700 dark:text-zinc-50">
-                        Como a validação do CNPJ alfanumérico é feita?
-                    </h1>
-                    <p class="text-base text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-                        O manual “Cálculo dos dígitos verificadores de CNPJ alfanumérico”, publicado pelo SERPRO,
-                        descreve um
-                        processo em duas etapas para garantir que cada identificador tenha uma estrutura matemática
-                        válida. A
-                        seguir, mostramos esse passo a passo com a mesma linguagem visual do nosso gerador, explicando
-                        como a validação de CNPJ auxilia a verificar CNPJ antes da consulta CNPJ em bases oficiais e
-                        como isso se integra às rotinas de consultar CNPJ na Receita Federal.
-                    </p>
-                </div>
+          <div class="grid gap-5 md:grid-cols-3">
+            <article
+              class="bg-white/80 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4"
+            >
+              <header class="space-y-1">
+                <h2 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">
+                  Estrutura do CNPJ
+                </h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">
+                  12 caracteres alfanuméricos + 2 dígitos verificadores (numéricos).
+                </p>
+              </header>
+              <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                A Receita Federal adota o padrão “Corpo + DV”. Os 12 primeiros caracteres podem ser
+                números ou letras maiúsculas (0-9, A-Z). Os dois últimos são os dígitos
+                verificadores, calculados pelo módulo 11. Qualquer CNPJ com tamanho diferente ou
+                caracteres fora desse conjunto é matematicamente inválido.
+              </p>
+            </article>
 
-                <div class="grid gap-5 md:grid-cols-3">
-                    <article
-                        class="bg-white/80 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4">
-                        <header class="space-y-1">
-                            <h2 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">Estrutura do CNPJ</h2>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">
-                                12 caracteres alfanuméricos + 2 dígitos verificadores (numéricos).
-                            </p>
-                        </header>
-                        <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            A Receita Federal adota o padrão “Corpo + DV”. Os 12 primeiros caracteres podem ser números
-                            ou letras
-                            maiúsculas (0-9, A-Z). Os dois últimos são os dígitos verificadores, calculados pelo módulo
-                            11. Qualquer
-                            CNPJ com tamanho diferente ou caracteres fora desse conjunto é matematicamente inválido.
-                        </p>
-                    </article>
+            <article
+              class="bg-white/80 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4"
+            >
+              <header class="space-y-1">
+                <h2 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">
+                  Peso e módulo 11
+                </h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">
+                  Pesos de 2 a 9 aplicados da direita para a esquerda.
+                </p>
+              </header>
+              <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                Para o 1º DV usamos os pesos 5,4,3,2,9,8,7,6,5,4,3,2. Para o 2º DV, o corpo recebe
+                os pesos 6 a 2 e o primeiro DV calculado completa a sequência. Depois de multiplicar
+                cada caractere pelo peso correspondente, somamos tudo e aplicamos
+                <span class="font-semibold text-violet-500">módulo 11</span>. Se o resto for 0 ou 1,
+                o DV vira 0. Caso contrário, usamos <code class="font-mono">11 - resto</code>.
+              </p>
+            </article>
 
-                    <article
-                        class="bg-white/80 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4">
-                        <header class="space-y-1">
-                            <h2 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">Peso e módulo 11</h2>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">
-                                Pesos de 2 a 9 aplicados da direita para a esquerda.
-                            </p>
-                        </header>
-                        <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            Para o 1º DV usamos os pesos 5,4,3,2,9,8,7,6,5,4,3,2. Para o 2º DV, o corpo recebe os pesos
-                            6 a 2 e o
-                            primeiro DV calculado completa a sequência. Depois de multiplicar cada caractere pelo peso
-                            correspondente, somamos tudo e aplicamos <span class="font-semibold text-violet-500">módulo
-                                11</span>.
-                            Se o resto for 0 ou 1, o DV vira 0. Caso contrário, usamos <code
-                                class="font-mono">11 - resto</code>.
-                        </p>
-                    </article>
+            <article
+              class="bg-white/80 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4"
+            >
+              <header class="space-y-1">
+                <h2 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">
+                  Conversão ASCII
+                </h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">
+                  Valor para cálculo = ASCII - 48.
+                </p>
+              </header>
+              <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                Cada caractere recebe um valor numérico conforme a tabela do SERPRO. Basta subtrair
+                48 do código ASCII:
+                <strong>0</strong> (48) vale 0, <strong>A</strong> (65) vira 17,
+                <strong>Z</strong> (90) vira 42. É esse número que participa da multiplicação pelos
+                pesos para formar o somatório do módulo 11.
+              </p>
+            </article>
+          </div>
 
-                    <article
-                        class="bg-white/80 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4">
-                        <header class="space-y-1">
-                            <h2 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">Conversão ASCII</h2>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Valor para cálculo = ASCII - 48.</p>
-                        </header>
-                        <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            Cada caractere recebe um valor numérico conforme a tabela do SERPRO. Basta subtrair 48 do
-                            código ASCII:
-                            <strong>0</strong> (48) vale 0, <strong>A</strong> (65) vira 17, <strong>Z</strong> (90)
-                            vira 42. É esse
-                            número que participa da multiplicação pelos pesos para formar o somatório do módulo 11.
-                        </p>
-                    </article>
-                </div>
+          <section class="grid gap-5 md:grid-cols-2">
+            <article
+              class="bg-white/90 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4"
+            >
+              <header class="space-y-1">
+                <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">
+                  Etapas do cálculo do DV
+                </h3>
+              </header>
+              <ol
+                class="list-decimal list-inside space-y-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300"
+              >
+                <li>Converta os 12 caracteres iniciais para valores numéricos (ASCII - 48).</li>
+                <li>
+                  Multiplique cada valor pelo peso indicado para o primeiro DV (5 a 2 e depois 9 a
+                  2).
+                </li>
+                <li>
+                  Some todos os resultados e aplique módulo 11. Se o resto for menor que 2, o DV é
+                  0. Caso contrário,
+                  <code class="font-mono">11 - resto</code> fornece o valor.
+                </li>
+                <li>
+                  Acrescente o primeiro DV ao final do corpo e repita o processo com os pesos do
+                  segundo DV (6 a 2 e depois 9 a 2).
+                </li>
+                <li>
+                  Compare os dois dígitos obtidos com os dígitos informados no CNPJ. Se ambos
+                  coincidirem, o número é matematicamente válido.
+                </li>
+              </ol>
+            </article>
 
-                <section class="grid gap-5 md:grid-cols-2">
-                    <article
-                        class="bg-white/90 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4">
-                        <header class="space-y-1">
-                            <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">Etapas do cálculo do DV
-                            </h3>
-                        </header>
-                        <ol
-                            class="list-decimal list-inside space-y-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            <li>
-                                Converta os 12 caracteres iniciais para valores numéricos (ASCII - 48).
-                            </li>
-                            <li>
-                                Multiplique cada valor pelo peso indicado para o primeiro DV (5 a 2 e depois 9 a 2).
-                            </li>
-                            <li>
-                                Some todos os resultados e aplique módulo 11. Se o resto for menor que 2, o DV é 0. Caso
-                                contrário,
-                                <code class="font-mono">11 - resto</code> fornece o valor.
-                            </li>
-                            <li>
-                                Acrescente o primeiro DV ao final do corpo e repita o processo com os pesos do segundo
-                                DV (6 a 2 e
-                                depois 9 a 2).
-                            </li>
-                            <li>
-                                Compare os dois dígitos obtidos com os dígitos informados no CNPJ. Se ambos coincidirem,
-                                o número é
-                                matematicamente válido.
-                            </li>
-                        </ol>
-                    </article>
+            <article
+              class="bg-white/90 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4"
+            >
+              <header class="space-y-1">
+                <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">
+                  Exemplo prático
+                </h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400">
+                  Referência do manual oficial (páginas 3 e 4).
+                </p>
+              </header>
+              <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                CNPJ base: <code class="font-mono text-violet-500">12ABC34501DE</code>
+              </p>
+              <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                Valores (ASCII - 48): <span class="font-mono">1 2 17 18 19 3 4 5 0 1 20 21</span>
+              </p>
+              <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                Pesos 1º DV: <span class="font-mono">5 4 3 2 9 8 7 6 5 4 3 2</span> → Somatório 459
+                → Resto 8 →
+                <strong>1º DV = 3</strong>
+              </p>
+              <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                Pesos 2º DV: <span class="font-mono">6 5 4 3 2 9 8 7 6 5 4 3 2</span> → Somatório
+                424 → Resto 6 →
+                <strong>2º DV = 5</strong>
+              </p>
+              <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                Resultado final: <code class="font-mono text-violet-500">12.ABC.345/01DE-35</code>
+              </p>
+            </article>
+          </section>
 
-                    <article
-                        class="bg-white/90 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4">
-                        <header class="space-y-1">
-                            <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">Exemplo prático</h3>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">Referência do manual oficial (páginas
-                                3 e 4).</p>
-                        </header>
-                        <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            CNPJ base: <code class="font-mono text-violet-500">12ABC34501DE</code>
-                        </p>
-                        <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            Valores (ASCII - 48): <span class="font-mono">1 2 17 18 19 3 4 5 0 1 20 21</span>
-                        </p>
-                        <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            Pesos 1º DV: <span class="font-mono">5 4 3 2 9 8 7 6 5 4 3 2</span> → Somatório 459 → Resto
-                            8 →
-                            <strong>1º DV = 3</strong>
-                        </p>
-                        <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            Pesos 2º DV: <span class="font-mono">6 5 4 3 2 9 8 7 6 5 4 3 2</span> → Somatório 424 →
-                            Resto 6 →
-                            <strong>2º DV = 5</strong>
-                        </p>
-                        <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                            Resultado final: <code class="font-mono text-violet-500">12.ABC.345/01DE-35</code>
-                        </p>
-                    </article>
-                </section>
+          <article
+            class="bg-white/95 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4"
+          >
+            <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">
+              CNPJ válido x CNPJ ativo
+            </h3>
+            <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+              Um CNPJ pode ser <strong>matematicamente válido</strong> (estrutura correta e dígitos
+              verificadores compatíveis) e ainda assim não existir na base da Receita Federal ou
+              estar baixado/suspenso. A validação do nosso gerador confirma formato, possíveis
+              combinações e integridade dos dígitos verificadores — mas não substitui consultas
+              oficiais de situação cadastral.
+            </p>
+          </article>
 
-                <article
-                    class="bg-white/95 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4">
-                    <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">CNPJ válido x CNPJ ativo</h3>
-                    <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                        Um CNPJ pode ser <strong>matematicamente válido</strong> (estrutura correta e dígitos
-                        verificadores
-                        compatíveis) e ainda assim não existir na base da Receita Federal ou estar baixado/suspenso. A
-                        validação do
-                        nosso gerador confirma formato, possíveis combinações e integridade dos dígitos verificadores —
-                        mas não
-                        substitui consultas oficiais de situação cadastral.
-                    </p>
-                </article>
-
-                <article
-                    class="bg-white/95 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4">
-                    <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">Tabela resumida — ASCII → Valor
-                        para o DV</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-300">
-                        Baseada na tabela oficial do SERPRO. Subtraia 48 do código ASCII para encontrar o valor usado no
-                        cálculo do
-                        módulo 11.
-                    </p>
-                    <div class="overflow-x-auto rounded-2xl border border-slate-200/40 dark:border-slate-700/60">
-                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700 text-sm">
-                            <thead class="bg-slate-100/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300">
-                                <tr>
-                                    <th scope="col" class="px-3 py-2 text-left font-semibold">Caractere</th>
-                                    <th scope="col" class="px-3 py-2 text-left font-semibold">ASCII</th>
-                                    <th scope="col" class="px-3 py-2 text-left font-semibold">Valor para o DV</th>
-                                </tr>
-                            </thead>
-                            <tbody
-                                class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">0</td>
-                                    <td class="px-3 py-2 font-mono">48</td>
-                                    <td class="px-3 py-2 font-mono">0</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">1</td>
-                                    <td class="px-3 py-2 font-mono">49</td>
-                                    <td class="px-3 py-2 font-mono">1</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">2</td>
-                                    <td class="px-3 py-2 font-mono">50</td>
-                                    <td class="px-3 py-2 font-mono">2</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">3</td>
-                                    <td class="px-3 py-2 font-mono">51</td>
-                                    <td class="px-3 py-2 font-mono">3</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">4</td>
-                                    <td class="px-3 py-2 font-mono">52</td>
-                                    <td class="px-3 py-2 font-mono">4</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">5</td>
-                                    <td class="px-3 py-2 font-mono">53</td>
-                                    <td class="px-3 py-2 font-mono">5</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">6</td>
-                                    <td class="px-3 py-2 font-mono">54</td>
-                                    <td class="px-3 py-2 font-mono">6</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">7</td>
-                                    <td class="px-3 py-2 font-mono">55</td>
-                                    <td class="px-3 py-2 font-mono">7</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">8</td>
-                                    <td class="px-3 py-2 font-mono">56</td>
-                                    <td class="px-3 py-2 font-mono">8</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">9</td>
-                                    <td class="px-3 py-2 font-mono">57</td>
-                                    <td class="px-3 py-2 font-mono">9</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">A</td>
-                                    <td class="px-3 py-2 font-mono">65</td>
-                                    <td class="px-3 py-2 font-mono">17</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">B</td>
-                                    <td class="px-3 py-2 font-mono">66</td>
-                                    <td class="px-3 py-2 font-mono">18</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">C</td>
-                                    <td class="px-3 py-2 font-mono">67</td>
-                                    <td class="px-3 py-2 font-mono">19</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">D</td>
-                                    <td class="px-3 py-2 font-mono">68</td>
-                                    <td class="px-3 py-2 font-mono">20</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">E</td>
-                                    <td class="px-3 py-2 font-mono">69</td>
-                                    <td class="px-3 py-2 font-mono">21</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">F</td>
-                                    <td class="px-3 py-2 font-mono">70</td>
-                                    <td class="px-3 py-2 font-mono">22</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">G</td>
-                                    <td class="px-3 py-2 font-mono">71</td>
-                                    <td class="px-3 py-2 font-mono">23</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">H</td>
-                                    <td class="px-3 py-2 font-mono">72</td>
-                                    <td class="px-3 py-2 font-mono">24</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">I</td>
-                                    <td class="px-3 py-2 font-mono">73</td>
-                                    <td class="px-3 py-2 font-mono">25</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">J</td>
-                                    <td class="px-3 py-2 font-mono">74</td>
-                                    <td class="px-3 py-2 font-mono">26</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">K</td>
-                                    <td class="px-3 py-2 font-mono">75</td>
-                                    <td class="px-3 py-2 font-mono">27</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">L</td>
-                                    <td class="px-3 py-2 font-mono">76</td>
-                                    <td class="px-3 py-2 font-mono">28</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">M</td>
-                                    <td class="px-3 py-2 font-mono">77</td>
-                                    <td class="px-3 py-2 font-mono">29</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">N</td>
-                                    <td class="px-3 py-2 font-mono">78</td>
-                                    <td class="px-3 py-2 font-mono">30</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">O</td>
-                                    <td class="px-3 py-2 font-mono">79</td>
-                                    <td class="px-3 py-2 font-mono">31</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">P</td>
-                                    <td class="px-3 py-2 font-mono">80</td>
-                                    <td class="px-3 py-2 font-mono">32</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">Q</td>
-                                    <td class="px-3 py-2 font-mono">81</td>
-                                    <td class="px-3 py-2 font-mono">33</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">R</td>
-                                    <td class="px-3 py-2 font-mono">82</td>
-                                    <td class="px-3 py-2 font-mono">34</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">S</td>
-                                    <td class="px-3 py-2 font-mono">83</td>
-                                    <td class="px-3 py-2 font-mono">35</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">T</td>
-                                    <td class="px-3 py-2 font-mono">84</td>
-                                    <td class="px-3 py-2 font-mono">36</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">U</td>
-                                    <td class="px-3 py-2 font-mono">85</td>
-                                    <td class="px-3 py-2 font-mono">37</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">V</td>
-                                    <td class="px-3 py-2 font-mono">86</td>
-                                    <td class="px-3 py-2 font-mono">38</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">W</td>
-                                    <td class="px-3 py-2 font-mono">87</td>
-                                    <td class="px-3 py-2 font-mono">39</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">X</td>
-                                    <td class="px-3 py-2 font-mono">88</td>
-                                    <td class="px-3 py-2 font-mono">40</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">Y</td>
-                                    <td class="px-3 py-2 font-mono">89</td>
-                                    <td class="px-3 py-2 font-mono">41</td>
-                                </tr>
-                                <tr class="bg-white/70 dark:bg-slate-900/40">
-                                    <td class="px-3 py-2 font-mono">Z</td>
-                                    <td class="px-3 py-2 font-mono">90</td>
-                                    <td class="px-3 py-2 font-mono">42</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </article>
-            </section>
-        </div>
+          <article
+            class="bg-white/95 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-700/60 rounded-2xl p-6 flex flex-col gap-4"
+          >
+            <h3 class="text-xl font-semibold text-slate-700 dark:text-zinc-50">
+              Tabela resumida — ASCII → Valor para o DV
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">
+              Baseada na tabela oficial do SERPRO. Subtraia 48 do código ASCII para encontrar o
+              valor usado no cálculo do módulo 11.
+            </p>
+            <div
+              class="overflow-x-auto rounded-2xl border border-slate-200/40 dark:border-slate-700/60"
+            >
+              <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700 text-sm">
+                <thead
+                  class="bg-slate-100/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300"
+                >
+                  <tr>
+                    <th scope="col" class="px-3 py-2 text-left font-semibold">Caractere</th>
+                    <th scope="col" class="px-3 py-2 text-left font-semibold">ASCII</th>
+                    <th scope="col" class="px-3 py-2 text-left font-semibold">Valor para o DV</th>
+                  </tr>
+                </thead>
+                <tbody
+                  class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300"
+                >
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">0</td>
+                    <td class="px-3 py-2 font-mono">48</td>
+                    <td class="px-3 py-2 font-mono">0</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">1</td>
+                    <td class="px-3 py-2 font-mono">49</td>
+                    <td class="px-3 py-2 font-mono">1</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">2</td>
+                    <td class="px-3 py-2 font-mono">50</td>
+                    <td class="px-3 py-2 font-mono">2</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">3</td>
+                    <td class="px-3 py-2 font-mono">51</td>
+                    <td class="px-3 py-2 font-mono">3</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">4</td>
+                    <td class="px-3 py-2 font-mono">52</td>
+                    <td class="px-3 py-2 font-mono">4</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">5</td>
+                    <td class="px-3 py-2 font-mono">53</td>
+                    <td class="px-3 py-2 font-mono">5</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">6</td>
+                    <td class="px-3 py-2 font-mono">54</td>
+                    <td class="px-3 py-2 font-mono">6</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">7</td>
+                    <td class="px-3 py-2 font-mono">55</td>
+                    <td class="px-3 py-2 font-mono">7</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">8</td>
+                    <td class="px-3 py-2 font-mono">56</td>
+                    <td class="px-3 py-2 font-mono">8</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">9</td>
+                    <td class="px-3 py-2 font-mono">57</td>
+                    <td class="px-3 py-2 font-mono">9</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">A</td>
+                    <td class="px-3 py-2 font-mono">65</td>
+                    <td class="px-3 py-2 font-mono">17</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">B</td>
+                    <td class="px-3 py-2 font-mono">66</td>
+                    <td class="px-3 py-2 font-mono">18</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">C</td>
+                    <td class="px-3 py-2 font-mono">67</td>
+                    <td class="px-3 py-2 font-mono">19</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">D</td>
+                    <td class="px-3 py-2 font-mono">68</td>
+                    <td class="px-3 py-2 font-mono">20</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">E</td>
+                    <td class="px-3 py-2 font-mono">69</td>
+                    <td class="px-3 py-2 font-mono">21</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">F</td>
+                    <td class="px-3 py-2 font-mono">70</td>
+                    <td class="px-3 py-2 font-mono">22</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">G</td>
+                    <td class="px-3 py-2 font-mono">71</td>
+                    <td class="px-3 py-2 font-mono">23</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">H</td>
+                    <td class="px-3 py-2 font-mono">72</td>
+                    <td class="px-3 py-2 font-mono">24</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">I</td>
+                    <td class="px-3 py-2 font-mono">73</td>
+                    <td class="px-3 py-2 font-mono">25</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">J</td>
+                    <td class="px-3 py-2 font-mono">74</td>
+                    <td class="px-3 py-2 font-mono">26</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">K</td>
+                    <td class="px-3 py-2 font-mono">75</td>
+                    <td class="px-3 py-2 font-mono">27</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">L</td>
+                    <td class="px-3 py-2 font-mono">76</td>
+                    <td class="px-3 py-2 font-mono">28</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">M</td>
+                    <td class="px-3 py-2 font-mono">77</td>
+                    <td class="px-3 py-2 font-mono">29</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">N</td>
+                    <td class="px-3 py-2 font-mono">78</td>
+                    <td class="px-3 py-2 font-mono">30</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">O</td>
+                    <td class="px-3 py-2 font-mono">79</td>
+                    <td class="px-3 py-2 font-mono">31</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">P</td>
+                    <td class="px-3 py-2 font-mono">80</td>
+                    <td class="px-3 py-2 font-mono">32</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">Q</td>
+                    <td class="px-3 py-2 font-mono">81</td>
+                    <td class="px-3 py-2 font-mono">33</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">R</td>
+                    <td class="px-3 py-2 font-mono">82</td>
+                    <td class="px-3 py-2 font-mono">34</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">S</td>
+                    <td class="px-3 py-2 font-mono">83</td>
+                    <td class="px-3 py-2 font-mono">35</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">T</td>
+                    <td class="px-3 py-2 font-mono">84</td>
+                    <td class="px-3 py-2 font-mono">36</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">U</td>
+                    <td class="px-3 py-2 font-mono">85</td>
+                    <td class="px-3 py-2 font-mono">37</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">V</td>
+                    <td class="px-3 py-2 font-mono">86</td>
+                    <td class="px-3 py-2 font-mono">38</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">W</td>
+                    <td class="px-3 py-2 font-mono">87</td>
+                    <td class="px-3 py-2 font-mono">39</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">X</td>
+                    <td class="px-3 py-2 font-mono">88</td>
+                    <td class="px-3 py-2 font-mono">40</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">Y</td>
+                    <td class="px-3 py-2 font-mono">89</td>
+                    <td class="px-3 py-2 font-mono">41</td>
+                  </tr>
+                  <tr class="bg-white/70 dark:bg-slate-900/40">
+                    <td class="px-3 py-2 font-mono">Z</td>
+                    <td class="px-3 py-2 font-mono">90</td>
+                    <td class="px-3 py-2 font-mono">42</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+      </div>
     </main>
 
     <footer
-        class="mt-2 bg-slate-900 dark:bg-slate-900 px-6 py-6 text-slate-200 dark:text-zinc-50 transition-colors duration-500">
-        <div class="mx-auto flex w-full max-w-4xl flex-col gap-8">
-            <div class="flex flex-row justify-between gap-2 text-sm text-slate-100 dark:text-slate-500 px-6 md:px-28">
-                <h2 class="text-xl font-semibold flex items-center gap-2">🔗 Links</h2>
-                <ul class="grid gap-3 text-sm">
-                    <li>
-                        <a href="https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico"
-                            class="flex items-center gap-2 pb-0.5 text-slate-300 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
-                            target="_blank">
-                            <svg class="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd"
-                                    d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11.5c.07 0 .14-.007.207-.021.095.014.193.021.293.021h2a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1h-1a1 1 0 1 0 0 2v11h-2V5a2 2 0 0 0-2-2H5Zm7 4a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm-6 4a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1ZM7 6a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H7Zm1 3V8h1v1H8Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Receita Federal — CNPJ Alfanumérico (2026)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view"
-                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
-                            target="_blank">
-                            <svg class="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd"
-                                    d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2 2 2 0 0 0 2 2h12a2 2 0 0 0 2-2 2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2V4a2 2 0 0 0-2-2h-7Zm-6 9a1 1 0 0 0-1 1v5a1 1 0 1 0 2 0v-1h.5a2.5 2.5 0 0 0 0-5H5Zm1.5 3H6v-1h.5a.5.5 0 0 1 0 1Zm4.5-3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1.376A2.626 2.626 0 0 0 15 15.375v-1.75A2.626 2.626 0 0 0 12.375 11H11Zm1 5v-3h.375a.626.626 0 0 1 .625.626v1.748a.625.625 0 0 1-.626.626H12Zm5-5a1 1 0 0 0-1 1v5a1 1 0 1 0 2 0v-1h1a1 1 0 1 0 0-2h-1v-1h1a1 1 0 1 0 0-2h-2Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Manual de cálculo do DV do CNPJ
-                        </a>
-                    </li>
-                </ul>
-                <ul class="grid gap-3 text-sm">
-                    <li>
-                        <a href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico"
-                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
-                            target="_blank">
-                            <svg class="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd"
-                                    d="M12.006 2a9.847 9.847 0 0 0-6.484 2.44 10.32 10.32 0 0 0-3.393 6.17 10.48 10.48 0 0 0 1.317 6.955 10.045 10.045 0 0 0 5.4 4.418c.504.095.683-.223.683-.494 0-.245-.01-1.052-.014-1.908-2.78.62-3.366-1.21-3.366-1.21a2.711 2.711 0 0 0-1.11-1.5c-.907-.637.07-.621.07-.621.317.044.62.163.885.346.266.183.487.426.647.71.135.253.318.476.538.655a2.079 2.079 0 0 0 2.37.196c.045-.52.27-1.006.635-1.37-2.219-.259-4.554-1.138-4.554-5.07a4.022 4.022 0 0 1 1.031-2.75 3.77 3.77 0 0 1 .096-2.713s.839-.275 2.749 1.05a9.26 9.26 0 0 1 5.004 0c1.906-1.325 2.74-1.05 2.74-1.05.37.858.406 1.828.101 2.713a4.017 4.017 0 0 1 1.029 2.75c0 3.939-2.339 4.805-4.564 5.058a2.471 2.471 0 0 1 .679 1.897c0 1.372-.012 2.477-.012 2.814 0 .272.18.592.687.492a10.05 10.05 0 0 0 5.388-4.421 10.473 10.473 0 0 0 1.313-6.948 10.32 10.32 0 0 0-3.39-6.165A9.847 9.847 0 0 0 12.007 2Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Repositório no GitHub
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://linkedin.com/in/fernandobade"
-                            class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
-                            target="_blank">
-                            <svg class="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd"
-                                    d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z"
-                                    clip-rule="evenodd" />
-                                <path d="M7.2 8.809H4V19.5h3.2V8.809Z" />
-                            </svg>
-                            LinkedIn
-                        </a>
-                    </li>
-                </ul>
-            </div>
+      class="mt-2 bg-slate-900 dark:bg-slate-900 px-6 py-6 text-slate-200 dark:text-zinc-50 transition-colors duration-500"
+    >
+      <div class="mx-auto flex w-full max-w-4xl flex-col gap-8">
+        <div
+          class="flex flex-row justify-between gap-2 text-sm text-slate-100 dark:text-slate-500 px-6 md:px-28"
+        >
+          <h2 class="text-xl font-semibold flex items-center gap-2">🔗 Links</h2>
+          <ul class="grid gap-3 text-sm">
+            <li>
+              <a
+                href="https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico"
+                class="flex items-center gap-2 pb-0.5 text-slate-300 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                target="_blank"
+              >
+                <svg
+                  class="w-6 h-6 text-slate-600"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11.5c.07 0 .14-.007.207-.021.095.014.193.021.293.021h2a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1h-1a1 1 0 1 0 0 2v11h-2V5a2 2 0 0 0-2-2H5Zm7 4a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm-6 4a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1ZM7 6a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H7Zm1 3V8h1v1H8Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Receita Federal — CNPJ Alfanumérico (2026)
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view"
+                class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                target="_blank"
+              >
+                <svg
+                  class="w-6 h-6 text-slate-600"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2 2 2 0 0 0 2 2h12a2 2 0 0 0 2-2 2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2V4a2 2 0 0 0-2-2h-7Zm-6 9a1 1 0 0 0-1 1v5a1 1 0 1 0 2 0v-1h.5a2.5 2.5 0 0 0 0-5H5Zm1.5 3H6v-1h.5a.5.5 0 0 1 0 1Zm4.5-3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1.376A2.626 2.626 0 0 0 15 15.375v-1.75A2.626 2.626 0 0 0 12.375 11H11Zm1 5v-3h.375a.626.626 0 0 1 .625.626v1.748a.625.625 0 0 1-.626.626H12Zm5-5a1 1 0 0 0-1 1v5a1 1 0 1 0 2 0v-1h1a1 1 0 1 0 0-2h-1v-1h1a1 1 0 1 0 0-2h-2Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Manual de cálculo do DV do CNPJ
+              </a>
+            </li>
+          </ul>
+          <ul class="grid gap-3 text-sm">
+            <li>
+              <a
+                href="https://github.com/FernandoBade/GeradorDeCNPJAlfanumerico"
+                class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                target="_blank"
+              >
+                <svg
+                  class="w-6 h-6 text-slate-600"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.006 2a9.847 9.847 0 0 0-6.484 2.44 10.32 10.32 0 0 0-3.393 6.17 10.48 10.48 0 0 0 1.317 6.955 10.045 10.045 0 0 0 5.4 4.418c.504.095.683-.223.683-.494 0-.245-.01-1.052-.014-1.908-2.78.62-3.366-1.21-3.366-1.21a2.711 2.711 0 0 0-1.11-1.5c-.907-.637.07-.621.07-.621.317.044.62.163.885.346.266.183.487.426.647.71.135.253.318.476.538.655a2.079 2.079 0 0 0 2.37.196c.045-.52.27-1.006.635-1.37-2.219-.259-4.554-1.138-4.554-5.07a4.022 4.022 0 0 1 1.031-2.75 3.77 3.77 0 0 1 .096-2.713s.839-.275 2.749 1.05a9.26 9.26 0 0 1 5.004 0c1.906-1.325 2.74-1.05 2.74-1.05.37.858.406 1.828.101 2.713a4.017 4.017 0 0 1 1.029 2.75c0 3.939-2.339 4.805-4.564 5.058a2.471 2.471 0 0 1 .679 1.897c0 1.372-.012 2.477-.012 2.814 0 .272.18.592.687.492a10.05 10.05 0 0 0 5.388-4.421 10.473 10.473 0 0 0 1.313-6.948 10.32 10.32 0 0 0-3.39-6.165A9.847 9.847 0 0 0 12.007 2Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Repositório no GitHub
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://linkedin.com/in/fernandobade"
+                class="flex items-center gap-2 pb-0.5 text-slate-200 dark:text-zinc-50 transition-colors hover:text-violet-500 dark:hover:text-violet-500 focus-visible:text-violet-500 dark:focus-visible:text-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-300"
+                target="_blank"
+              >
+                <svg
+                  class="w-6 h-6 text-slate-600"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z"
+                    clip-rule="evenodd"
+                  />
+                  <path d="M7.2 8.809H4V19.5h3.2V8.809Z" />
+                </svg>
+                LinkedIn
+              </a>
+            </li>
+          </ul>
         </div>
+      </div>
     </footer>
 
-    <div id="toast"
-        class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out opacity-0 translate-y-5 pointer-events-none">
-    </div>
+    <div
+      id="toast"
+      class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out opacity-0 translate-y-5 pointer-events-none"
+    ></div>
 
-    <script type="module"  defer                           src="../../dist/src/interface/tema.js"></script>
-    <script type="module"  defer                           src="../../dist/src/interface/menu.js"></script>
-    <script type="module"  defer                           src="../../dist/src/gerais/cookies.js"></script>
-</body>
-
+    <script type="module" defer src="../../dist/src/interface/tema.js"></script>
+    <script type="module" defer src="../../dist/src/interface/menu.js"></script>
+    <script type="module" defer src="../../dist/src/gerais/cookies.js"></script>
+  </body>
 </html>

@@ -6,9 +6,9 @@
    - Avisos e utilidades de UI reutilizáveis
 ============================ */
 import { ClasseAviso, IntervaloTemporizador, TipoAviso } from "../gerais/enums.js";
-import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, PESOS_DIGITOS } from "../gerais/constantes.js";
+import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, PESOS_DIGITOS, } from "../gerais/constantes.js";
 import { htmlCookies, inicializarAvisoDeCookies } from "../gerais/cookies.js";
-import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro } from "../cnpj/formatacao-cnpj.js";
+import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro, } from "../cnpj/formatacao-cnpj.js";
 import { calcularDigitoVerificador, converterCaractereParaValor } from "../cnpj/algoritmo-cnpj.js";
 import { copiarTexto, inicializarEfeitoOnda } from "../interface/interface.js";
 import { exibirAviso } from "../gerais/mensageria.js";
@@ -39,7 +39,7 @@ class ValidadorCnpj {
      * @summary Registra os manipuladores de eventos da interface.
      */
     configurarEventos() {
-        const { botaoValidarUnico, botaoValidarMassa, controleMascara, controleMassa, botaoColar, } = this.elementos;
+        const { botaoValidarUnico, botaoValidarMassa, controleMascara, controleMassa, botaoColar } = this.elementos;
         botaoValidarUnico.addEventListener("click", () => {
             this.validarUnico();
         });
@@ -63,7 +63,7 @@ class ValidadorCnpj {
      * @summary Alterna entre validação única e em massa com animação suave.
      */
     alternarModoMassa(ativo) {
-        const { campoUnico, campoMassa, botaoValidarUnico, botaoValidarMassa, botaoColar, } = this.elementos;
+        const { campoUnico, campoMassa, botaoValidarUnico, botaoValidarMassa, botaoColar } = this.elementos;
         this.animarAlturaSincronizada(() => {
             campoUnico.classList.toggle("hidden", ativo);
             campoMassa.classList.toggle("hidden", !ativo);
@@ -182,18 +182,20 @@ class ValidadorCnpj {
             elemento.className =
                 "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-1 hover:ring-slate-300 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
             const indicador = document.createElement("span");
-            indicador.className = (item.valido
-                ? 'inline-block w-2 h-2 rounded-full border bg-teal-500 border-emerald-500 ring-2 ring-teal-500/40 shadow-sm shadow-current transition-all duration-300'
-                : 'inline-block w-2 h-2 rounded-full border bg-red-400 border-red-500 ring-2 ring-red-400/40 shadow-sm shadow-current transition-all duration-300');
+            indicador.className = item.valido
+                ? "inline-block w-2 h-2 rounded-full border bg-teal-500 border-emerald-500 ring-2 ring-teal-500/40 shadow-sm shadow-current transition-all duration-300"
+                : "inline-block w-2 h-2 rounded-full border bg-red-400 border-red-500 ring-2 ring-red-400/40 shadow-sm shadow-current transition-all duration-300";
             indicador.setAttribute("title", item.valido ? "CNPJ válido" : "CNPJ inválido");
             const texto = document.createElement("span");
-            texto.className = "text-sm font-semibold text-slate-600 dark:text-zinc-50 break-words flex-1 cursor-default";
+            texto.className =
+                "text-sm font-semibold text-slate-600 dark:text-zinc-50 break-words flex-1 cursor-default";
             texto.textContent = aplicarMascaraAtiva ? aplicarMascara(item.puro) : item.puro;
             const containerEsquerdo = document.createElement("div");
             containerEsquerdo.className = "flex items-center gap-3 flex-1";
             containerEsquerdo.append(indicador, texto);
             const botaoCopiar = document.createElement("button");
-            botaoCopiar.className = "ml-1 inline-flex items-center justify-center rounded text-violet-500 transition-all dark:text-violet-500 dark:hover:text-violet-600 ease-in-out hover:text-violet-600 hover:scale-110 py-1 text-xs";
+            botaoCopiar.className =
+                "ml-1 inline-flex items-center justify-center rounded text-violet-500 transition-all dark:text-violet-500 dark:hover:text-violet-600 ease-in-out hover:text-violet-600 hover:scale-110 py-1 text-xs";
             botaoCopiar.setAttribute("title", "Copiar esse CNPJ");
             botaoCopiar.innerHTML = `
                 <svg class="w-6 h-6" aria-hidden="true" fill="none" viewBox="0 0 24 24">
@@ -240,8 +242,8 @@ class ValidadorCnpj {
         const valores = Array.from(corpo).map((caractere) => converterCaractereParaValor(caractere));
         const primeiroDV = calcularDigitoVerificador(valores, PESOS_DIGITOS.primeiro);
         const segundoDV = calcularDigitoVerificador([...valores, primeiroDV], PESOS_DIGITOS.segundo);
-        const valido = primeiroDV === Number.parseInt(dvInformado[0] ?? "", 10)
-            && segundoDV === Number.parseInt(dvInformado[1] ?? "", 10);
+        const valido = primeiroDV === Number.parseInt(dvInformado[0] ?? "", 10) &&
+            segundoDV === Number.parseInt(dvInformado[1] ?? "", 10);
         return { puro, valido };
     }
     /**
@@ -347,7 +349,10 @@ class ValidadorCnpj {
             else if (novo.length === 0 && campoMassa.value !== "") {
                 campoMassa.value = "";
             }
-            const total = novo.split(",").map(s => s.trim()).filter(Boolean).length;
+            const total = novo
+                .split(",")
+                .map((s) => s.trim())
+                .filter(Boolean).length;
             if (total >= LIMITE && /[;,]|\n/.test(textoOrig)) {
                 exibirAviso(this.elementos.areaAviso, `Limite de ${LIMITE} CNPJs atingido. Os extras foram ignorados.`, TipoAviso.Info);
             }
@@ -407,13 +412,9 @@ class ValidadorCnpj {
      */
     configurarPlaceholderMascara() {
         const { controleMascara, campoUnico } = this.elementos;
-        campoUnico.placeholder = controleMascara.checked
-            ? "00.ABC.000/ABCD-00"
-            : "00ABC000ABCD00";
+        campoUnico.placeholder = controleMascara.checked ? "00.ABC.000/ABCD-00" : "00ABC000ABCD00";
         controleMascara.addEventListener("change", () => {
-            campoUnico.placeholder = controleMascara.checked
-                ? "00.ABC.000/ABCD-00"
-                : "00ABC000ABCD00";
+            campoUnico.placeholder = controleMascara.checked ? "00.ABC.000/ABCD-00" : "00ABC000ABCD00";
         });
     }
     /**

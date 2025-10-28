@@ -5,7 +5,7 @@
    - Exibição detalhada dos dados consultados em modal
 ============================ */
 import { ClasseAviso, IntervaloTemporizador, TipoAviso } from "../gerais/enums.js";
-import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO } from "../gerais/constantes.js";
+import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, } from "../gerais/constantes.js";
 import { htmlCookies, inicializarAvisoDeCookies } from "../gerais/cookies.js";
 import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro } from "./formatacao-cnpj.js";
 import { inicializarEfeitoOnda } from "../interface/interface.js";
@@ -51,7 +51,7 @@ export async function buscarDadosCnpj(cnpj) {
     if (!resposta.ok) {
         throw new ErroOpenCnpjApi(resposta.status, "Não foi possível consultar o CNPJ na API do OpenCNPJ.");
     }
-    const dados = (await resposta.json());
+    const dados = await resposta.json();
     return normalizarDadosOpenCnpj(dados, puro);
 }
 /**
@@ -134,9 +134,7 @@ function normalizarDadosOpenCnpj(registro, puro) {
     };
     const telefones = Array.isArray(registro.telefones) && registro.telefones.length
         ? registro.telefones
-            .map((t) => t && typeof t === "object" && t.ddd && t.numero
-            ? `(${t.ddd}) ${t.numero}`
-            : undefined)
+            .map((t) => t && typeof t === "object" && t.ddd && t.numero ? `(${t.ddd}) ${t.numero}` : undefined)
             .filter(Boolean)
             .join(" / ")
         : undefined;
@@ -255,7 +253,7 @@ class ValidadorCnpjApi {
      * @summary Alterna entre validação unitária e em massa com animação suave.
      */
     alternarModoMassa(ativo) {
-        const { campoUnico, campoMassa, botaoValidarUnico, botaoValidarMassa, botaoColar, } = this.elementos;
+        const { campoUnico, campoMassa, botaoValidarUnico, botaoValidarMassa, botaoColar } = this.elementos;
         this.animarAlturaSincronizada(() => {
             campoUnico.classList.toggle("hidden", ativo);
             campoMassa.classList.toggle("hidden", !ativo);
@@ -291,9 +289,7 @@ class ValidadorCnpjApi {
             }
             const limitado = puro.slice(0, 14);
             const usarMascara = this.elementos.controleMascara.checked;
-            const exibicao = usarMascara
-                ? aplicarMascaraProgressiva(limitado)
-                : limitado;
+            const exibicao = usarMascara ? aplicarMascaraProgressiva(limitado) : limitado;
             this.elementos.campoUnico.value = exibicao;
             this.atualizarEstadoBotaoValidarUnico();
             exibirAviso(this.elementos.areaAviso, `Conteúdo colado: ${exibicao}`, TipoAviso.InfoAlternativo);
@@ -451,9 +447,9 @@ class ValidadorCnpjApi {
                 indicador.setAttribute("title", "Consulta em andamento...");
             }
             else {
-                indicador.className = (item.valido
+                indicador.className = item.valido
                     ? "inline-block w-2 h-2 rounded-full border bg-teal-500 border-emerald-500 ring-2 ring-teal-500/40 shadow-sm shadow-current transition-all duration-300"
-                    : "inline-block w-2 h-2 rounded-full border bg-red-400 border-red-500 ring-2 ring-red-400/40 shadow-sm shadow-current transition-all duration-300");
+                    : "inline-block w-2 h-2 rounded-full border bg-red-400 border-red-500 ring-2 ring-red-400/40 shadow-sm shadow-current transition-all duration-300";
                 indicador.setAttribute("title", item.valido ? "Dados encontrados" : item.mensagem);
             }
             const texto = document.createElement("span");
@@ -472,7 +468,8 @@ class ValidadorCnpjApi {
                 this.exibirModalCnpj(item);
             });
             const botaoVisualizar = document.createElement("button");
-            botaoVisualizar.className = "inline-flex items-center justify-center py-1 ml-1 text-xs transition-all ease-in-out rounded text-violet-500 dark:text-violet-500 dark:hover:text-violet-600 hover:text-violet-600 hover:scale-110";
+            botaoVisualizar.className =
+                "inline-flex items-center justify-center py-1 ml-1 text-xs transition-all ease-in-out rounded text-violet-500 dark:text-violet-500 dark:hover:text-violet-600 hover:text-violet-600 hover:scale-110";
             botaoVisualizar.setAttribute("title", "Ver mais detalhes");
             botaoVisualizar.setAttribute("aria-label", "Ver mais detalhes");
             botaoVisualizar.classList.add("opacity50");
@@ -496,8 +493,7 @@ class ValidadorCnpjApi {
             }
             if (item.valido) {
                 botaoVisualizar.classList.add("opacity50");
-                botaoVisualizar.innerHTML =
-                    `<svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">\
+                botaoVisualizar.innerHTML = `<svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">\
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 12c2.15-4.2 6.16-7.5 9.75-7.5s7.6 3.3 9.75 7.5c-2.15 4.2-6.16 7.5-9.75 7.5s-7.6-3.3-9.75-7.5Z" />\
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />\
                     </svg>`;
@@ -532,27 +528,33 @@ class ValidadorCnpjApi {
                     dados.endereco.municipio,
                     dados.endereco.uf,
                     dados.endereco.cep ? `CEP: ${dados.endereco.cep} ` : undefined,
-                ].filter(Boolean).join(", ")
+                ]
+                    .filter(Boolean)
+                    .join(", ")
                 : "Não informado";
             const atividadePrincipal = dados.atividadePrincipal
-                ? [dados.atividadePrincipal.codigo, dados.atividadePrincipal.descricao].filter(Boolean).join(" - ")
+                ? [dados.atividadePrincipal.codigo, dados.atividadePrincipal.descricao]
+                    .filter(Boolean)
+                    .join(" - ")
                 : "Não informada";
             const atividadesSecundarias = dados.atividadesSecundarias && dados.atividadesSecundarias.length > 0
                 ? `<ul class="ml-2 list-disc list-inside font-semibold space-y-1" > ${dados.atividadesSecundarias
                     .map((atividade) => `<li>${escaparHtml([atividade.codigo, atividade.descricao].filter(Boolean).join(" - ") || "")}</li>`)
                     .join("")} </ul>`
-                : "<p class=\"text-sm\">Nenhuma atividade secundária informada.</p>";
+                : '<p class="text-sm">Nenhuma atividade secundária informada.</p>';
             const socios = dados.socios && dados.socios.length > 0
                 ? `<ul class="ml-2 list-disc list-inside font-semibold space-y-1">${dados.socios
                     .map((socio) => {
                     const linha = [socio.nome, socio.qualificacao, socio.pais]
                         .filter((parte) => (parte ?? "").toString().trim().length > 0)
                         .join(" · ");
-                    const infoEntrada = socio.entrada ? ` <span class=\"text-xs text-slate-500 dark:text-slate-400\">(Desde ${escaparHtml(socio.entrada)})</span>` : "";
+                    const infoEntrada = socio.entrada
+                        ? ` <span class=\"text-xs text-slate-500 dark:text-slate-400\">(Desde ${escaparHtml(socio.entrada)})</span>`
+                        : "";
                     return `<li>${escaparHtml(linha || "Não informado")}${infoEntrada}</li>`;
                 })
                     .join("")}</ul>`
-                : "<p class=\"text-sm\">Nenhum sócio informado.</p>";
+                : '<p class="text-sm">Nenhum sócio informado.</p>';
             const capital = typeof dados.capitalSocial === "number"
                 ? dados.capitalSocial.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
                 : "Não informado";
@@ -662,7 +664,8 @@ class ValidadorCnpjApi {
      */
     abrirModal() {
         const { modalOverlay, modalCaixa, botaoFecharModal } = this.elementos;
-        this.elementoFocoAnterior = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        this.elementoFocoAnterior =
+            document.activeElement instanceof HTMLElement ? document.activeElement : null;
         modalOverlay.classList.remove("hidden");
         requestAnimationFrame(() => {
             modalOverlay.classList.remove("opacity-0", "pointer-events-none");
@@ -827,7 +830,10 @@ class ValidadorCnpjApi {
             else if (novo.length === 0 && campoMassa.value !== "") {
                 campoMassa.value = "";
             }
-            const total = novo.split(",").map((parte) => parte.trim()).filter(Boolean).length;
+            const total = novo
+                .split(",")
+                .map((parte) => parte.trim())
+                .filter(Boolean).length;
             if (total >= LIMITE && /[;,]|\n/.test(textoOrig)) {
                 exibirAviso(this.elementos.areaAviso, `Limite de ${LIMITE} CNPJs atingido. Os extras foram ignorados`, TipoAviso.Info);
             }
@@ -863,9 +869,7 @@ class ValidadorCnpjApi {
     configurarPlaceholderMascara() {
         const { controleMascara, campoUnico } = this.elementos;
         const atualizarPlaceholder = () => {
-            campoUnico.placeholder = controleMascara.checked
-                ? "00.ABC.000/ABCD-00"
-                : "00ABC000ABCD00";
+            campoUnico.placeholder = controleMascara.checked ? "00.ABC.000/ABCD-00" : "00ABC000ABCD00";
         };
         atualizarPlaceholder();
         controleMascara.addEventListener("change", atualizarPlaceholder);
@@ -967,11 +971,11 @@ document.addEventListener("DOMContentLoaded", () => {
         modalCaixa: obterElementoObrigatorio("modal-caixa-cnpj"),
     };
     void new ValidadorCnpjApi(elementos);
-    document.addEventListener('jsonCopiado', () => {
-        exibirAviso(elementos.areaAviso, 'JSON copiado!', TipoAviso.InfoAlternativo);
+    document.addEventListener("jsonCopiado", () => {
+        exibirAviso(elementos.areaAviso, "JSON copiado!", TipoAviso.InfoAlternativo);
     });
-    document.addEventListener('jsonNaoCopiado ', () => {
-        exibirAviso(elementos.areaAviso, 'Não foi possível copiar o JSON!', TipoAviso.Erro);
+    document.addEventListener("jsonNaoCopiado ", () => {
+        exibirAviso(elementos.areaAviso, "Não foi possível copiar o JSON!", TipoAviso.Erro);
     });
 });
 //# sourceMappingURL=consulta-dados-cnpj.js.map

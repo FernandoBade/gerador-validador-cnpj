@@ -9,8 +9,8 @@ import { IntervaloTemporizador, TamanhoIdentificador, TipoAviso } from "../gerai
 import { CARACTERES_PERMITIDOS } from "../gerais/constantes.js";
 import { htmlCookies, inicializarAvisoDeCookies } from "../gerais/cookies.js";
 import { aplicarMascara } from "./formatacao-cnpj.js";
-import { calcularDigitoVerificador, converterCaractereParaValor, verificarSequenciaRepetida, PESOS_DIGITOS } from "../cnpj/algoritmo-cnpj.js";
-import { copiarTexto, inicializarEfeitoOnda, obterElementoObrigatorio } from "../interface/interface.js";
+import { calcularDigitoVerificador, converterCaractereParaValor, verificarSequenciaRepetida, PESOS_DIGITOS, } from "../cnpj/algoritmo-cnpj.js";
+import { copiarTexto, inicializarEfeitoOnda, obterElementoObrigatorio, } from "../interface/interface.js";
 import { exibirAviso } from "../gerais/mensageria.js";
 /**
  * @summary Classe responsável por agrupar regras de negócio e interação com a interface do gerador.
@@ -164,9 +164,7 @@ class GeradorCnpj {
         const limiteTentativas = 2_000;
         for (let tentativa = 0; tentativa < limiteTentativas; tentativa++) {
             const usarAlfanumerico = this.elementos.controleAlfanumerico?.checked !== false;
-            const corpo = usarAlfanumerico
-                ? this.gerarCorpoAlfanumerico()
-                : this.gerarCorpoNumerico();
+            const corpo = usarAlfanumerico ? this.gerarCorpoAlfanumerico() : this.gerarCorpoNumerico();
             if (verificarSequenciaRepetida(corpo)) {
                 continue;
             }
@@ -210,7 +208,9 @@ class GeradorCnpj {
             return;
         }
         const { campoResultado, controleMascara } = this.elementos;
-        campoResultado.value = controleMascara?.checked ? aplicarMascara(this.cnpjAtual) : this.cnpjAtual;
+        campoResultado.value = controleMascara?.checked
+            ? aplicarMascara(this.cnpjAtual)
+            : this.cnpjAtual;
     }
     /**
      * @summary Gera um novo identificador, atualiza o campo de resultado e reinicia a contagem automática.
@@ -294,7 +294,8 @@ class GeradorCnpj {
         this.historico.itens.forEach((puro) => {
             const texto = controleMascara?.checked ? aplicarMascara(puro) : puro;
             const item = document.createElement("li");
-            item.className = "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-1 hover:ring-zinc-200/50 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
+            item.className =
+                "flex items-center justify-between gap-3 rounded-md ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl px-3 py-1 hover:ring-zinc-200/50 transition-all duration-300 dark:hover:ring-slate-900 cursor-default";
             const rotulo = document.createElement("span");
             rotulo.className = "ml-1 text-sm text-slate-600 font-semibold dark:text-zinc-50 break-words";
             rotulo.textContent = texto;

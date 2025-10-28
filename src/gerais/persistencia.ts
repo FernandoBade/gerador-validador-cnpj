@@ -7,22 +7,22 @@
  * @summary Lê um valor do localStorage de forma segura, evitando quebra em contextos onde o storage pode estar bloqueado.
  */
 function lerDoStorage(chave: string): string | null {
-    try {
-        return window.localStorage.getItem(chave);
-    } catch {
-        return null;
-    }
+  try {
+    return window.localStorage.getItem(chave);
+  } catch {
+    return null;
+  }
 }
 
 /**
  * @summary Escreve um valor no localStorage de forma segura, ignorando erros em ambientes restritos.
  */
 function escreverNoStorage(chave: string, valor: string): void {
-    try {
-        window.localStorage.setItem(chave, valor);
-    } catch {
-        // ignora silenciosamente para não quebrar a UI
-    }
+  try {
+    window.localStorage.setItem(chave, valor);
+  } catch {
+    // ignora silenciosamente para não quebrar a UI
+  }
 }
 
 /**
@@ -30,35 +30,35 @@ function escreverNoStorage(chave: string, valor: string): void {
  * Prioriza o atributo data-chave-storage; depois o id; por fim o índice como fallback.
  */
 function gerarChaveParaDetails(details: HTMLDetailsElement, indiceFallback: number): string {
-    const chaveCustom = details.dataset.chaveStorage?.trim();
-    if (chaveCustom && chaveCustom.length > 0) return chaveCustom;
+  const chaveCustom = details.dataset.chaveStorage?.trim();
+  if (chaveCustom && chaveCustom.length > 0) return chaveCustom;
 
-    const id = details.id?.trim();
-    if (id && id.length > 0) return `details-aberto-${id}`;
+  const id = details.id?.trim();
+  if (id && id.length > 0) return `details-aberto-${id}`;
 
-    return `details-estado-${indiceFallback}`;
+  return `details-estado-${indiceFallback}`;
 }
 
 /**
  * @summary Aplica no elemento <details> o estado salvo anteriormente (aberto ou fechado).
  */
 function aplicarEstado(details: HTMLDetailsElement, chave: string): void {
-    const valorSalvo = lerDoStorage(chave);
-    if (valorSalvo === "true") {
-        details.setAttribute("open", "");
-    } else if (valorSalvo === "false") {
-        details.removeAttribute("open");
-    }
-    // Se null, não havia estado salvo: respeita o HTML original
+  const valorSalvo = lerDoStorage(chave);
+  if (valorSalvo === "true") {
+    details.setAttribute("open", "");
+  } else if (valorSalvo === "false") {
+    details.removeAttribute("open");
+  }
+  // Se null, não havia estado salvo: respeita o HTML original
 }
 
 /**
  * @summary Observa mudanças de abrir/fechar em um <details> e persiste o estado automaticamente.
  */
 function observarMudancas(details: HTMLDetailsElement, chave: string): void {
-    details.addEventListener("toggle", () => {
-        escreverNoStorage(chave, String(details.open));
-    });
+  details.addEventListener("toggle", () => {
+    escreverNoStorage(chave, String(details.open));
+  });
 }
 
 /**
@@ -66,13 +66,13 @@ function observarMudancas(details: HTMLDetailsElement, chave: string): void {
  * Usa data-chave-storage ou id para formar a chave; se ausentes, usa um índice incremental.
  */
 export function inicializarPersistenciaDeTodosOsDetails(): void {
-    const todosOsDetails = document.querySelectorAll<HTMLDetailsElement>("details");
+  const todosOsDetails = document.querySelectorAll<HTMLDetailsElement>("details");
 
-    todosOsDetails.forEach((detalhe, indice) => {
-        const chave = gerarChaveParaDetails(detalhe, indice);
-        aplicarEstado(detalhe, chave);
-        observarMudancas(detalhe, chave);
-    });
+  todosOsDetails.forEach((detalhe, indice) => {
+    const chave = gerarChaveParaDetails(detalhe, indice);
+    aplicarEstado(detalhe, chave);
+    observarMudancas(detalhe, chave);
+  });
 }
 
 /**
@@ -80,12 +80,12 @@ export function inicializarPersistenciaDeTodosOsDetails(): void {
  * Útil se você quiser controlar elementos específicos manualmente.
  */
 export function inicializarPersistenciaDeUmDetails(seletor: string): void {
-    const detalhe = document.querySelector<HTMLDetailsElement>(seletor);
-    if (!detalhe) return;
+  const detalhe = document.querySelector<HTMLDetailsElement>(seletor);
+  if (!detalhe) return;
 
-    const chave = gerarChaveParaDetails(detalhe, 0);
-    aplicarEstado(detalhe, chave);
-    observarMudancas(detalhe, chave);
+  const chave = gerarChaveParaDetails(detalhe, 0);
+  aplicarEstado(detalhe, chave);
+  observarMudancas(detalhe, chave);
 }
 
 /**
@@ -93,11 +93,13 @@ export function inicializarPersistenciaDeUmDetails(seletor: string): void {
  * Evita chamadas duplas e garante que os <details> já existam no DOM.
  */
 function iniciarQuandoDomPronto(): void {
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", () => inicializarPersistenciaDeTodosOsDetails(), { once: true });
-    } else {
-        inicializarPersistenciaDeTodosOsDetails();
-    }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => inicializarPersistenciaDeTodosOsDetails(), {
+      once: true,
+    });
+  } else {
+    inicializarPersistenciaDeTodosOsDetails();
+  }
 }
 
 iniciarQuandoDomPronto();

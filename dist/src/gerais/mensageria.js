@@ -3,7 +3,7 @@
    - Exibe avisos temporários com estilos por tipo
    - Reutilizável em todas as páginas
 ============================ */
-import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO } from "./constantes.js";
+import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, } from "./constantes.js";
 import { ClasseAviso, IntervaloTemporizador, TipoAviso } from "./enums.js";
 const timeoutsPorArea = new WeakMap();
 /**

@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 /**
  * Define a raiz do projeto a partir do diretório atual de execução.
  * Isso garante compatibilidade tanto no src quanto no dist.
@@ -10,12 +10,12 @@ const raiz = process.cwd();
  */
 function listarArquivos(diretorio, arquivos = []) {
     for (const entrada of fs.readdirSync(diretorio, { withFileTypes: true })) {
-        if (['node_modules', 'dist'].includes(entrada.name) || entrada.name.startsWith('.git'))
+        if (["node_modules", "dist"].includes(entrada.name) || entrada.name.startsWith(".git"))
             continue;
         const caminhoCompleto = path.join(diretorio, entrada.name);
         if (entrada.isDirectory())
             listarArquivos(caminhoCompleto, arquivos);
-        else if (entrada.isFile() && entrada.name.endsWith('.html'))
+        else if (entrada.isFile() && entrada.name.endsWith(".html"))
             arquivos.push(caminhoCompleto);
     }
     return arquivos;
@@ -26,22 +26,22 @@ function listarArquivos(diretorio, arquivos = []) {
 function processarHtml(conteudo) {
     let html = conteudo;
     const limparParametrosVersao = (url) => {
-        const hashIndex = url.indexOf('#');
-        const hash = hashIndex >= 0 ? url.slice(hashIndex) : '';
+        const hashIndex = url.indexOf("#");
+        const hash = hashIndex >= 0 ? url.slice(hashIndex) : "";
         const semHash = hashIndex >= 0 ? url.slice(0, hashIndex) : url;
-        const interrogacao = semHash.indexOf('?');
+        const interrogacao = semHash.indexOf("?");
         if (interrogacao === -1)
             return url;
         const base = semHash.slice(0, interrogacao);
         const parametros = semHash
             .slice(interrogacao + 1)
-            .split('&')
-            .filter((parametro) => parametro.trim() !== '' && !/^v=/i.test(parametro));
-        const novaQuery = parametros.length > 0 ? `?${parametros.join('&')}` : '';
+            .split("&")
+            .filter((parametro) => parametro.trim() !== "" && !/^v=/i.test(parametro));
+        const novaQuery = parametros.length > 0 ? `?${parametros.join("&")}` : "";
         return `${base}${novaQuery}${hash}`;
     };
     // Remove Tailwind inline e substitui por CSS compilado
-    html = html.replace(/<script>\s*tailwind\.config[\s\S]*?<\/script>/gim, '');
+    html = html.replace(/<script>\s*tailwind\.config[\s\S]*?<\/script>/gim, "");
     html = html.replace(/<script[^>]*src="https:\/\/cdn\.tailwindcss\.com"[^>]*><\/script>/gim, '<link rel="stylesheet" href="/dist/assets/tailwind.min.css">');
     // Atualiza controle-tema.css para a versão minificada
     html = html.replace(/href="(?:\.{1,2}\/)*src\/estilos\/controle-tema\.css"/g, 'href="/dist/assets/controle-tema.min.css"');
@@ -56,7 +56,7 @@ function processarHtml(conteudo) {
         const temDefer = /\bdefer\b/i.test(pre) || /\bdefer\b/i.test(post);
         const srcLimpo = limparParametrosVersao(src);
         const preCorrigido = temDefer ? pre : `${pre} defer`;
-        const separador = /\s$/.test(preCorrigido) ? '' : ' ';
+        const separador = /\s$/.test(preCorrigido) ? "" : " ";
         return `<script${preCorrigido}${separador}src="${srcLimpo}"${post}></script>`;
     });
     // Remove parâmetros de versão remanescentes em links apontando para /dist
@@ -66,7 +66,7 @@ function processarHtml(conteudo) {
         if (!/\/dist\//i.test(href))
             return m;
         const hrefLimpo = limparParametrosVersao(href);
-        const separador = /\s$/.test(pre) ? '' : ' ';
+        const separador = /\s$/.test(pre) ? "" : " ";
         return `<link${pre}${separador}href="${hrefLimpo}"${post}>`;
     });
     // Adiciona metatags para evitar cache agressivo
@@ -99,10 +99,10 @@ function executar() {
     const arquivos = listarArquivos(raiz);
     let alterados = 0;
     for (const arquivo of arquivos) {
-        const antes = fs.readFileSync(arquivo, 'utf8');
+        const antes = fs.readFileSync(arquivo, "utf8");
         const depois = processarHtml(antes);
         if (antes !== depois) {
-            fs.writeFileSync(arquivo, depois, 'utf8');
+            fs.writeFileSync(arquivo, depois, "utf8");
             alterados++;
             console.log(`[processar-html] Atualizado: ${path.relative(raiz, arquivo)}`);
         }

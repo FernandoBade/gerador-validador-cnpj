@@ -24,7 +24,7 @@ export function inicializarAvisoDeCookies() {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             event: "status_consentimento",
-            consentimento: preferencia === "true" ? "aceito" : "recusado"
+            consentimento: preferencia === "true" ? "aceito" : "recusado",
         });
     }
     // Mostra o aviso apenas se o usuário ainda não escolheu
@@ -44,7 +44,7 @@ export function inicializarAvisoDeCookies() {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             event: "status_consentimento",
-            consentimento: "aceito"
+            consentimento: "aceito",
         });
     });
     botaoRecusar.addEventListener("click", () => {
@@ -53,7 +53,7 @@ export function inicializarAvisoDeCookies() {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             event: "status_consentimento",
-            consentimento: "recusado"
+            consentimento: "recusado",
         });
     });
 }
@@ -89,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
         inicializarAvisoDeCookies();
     }
-    catch {
-    }
+    catch { }
 });
 //# sourceMappingURL=cookies.js.map

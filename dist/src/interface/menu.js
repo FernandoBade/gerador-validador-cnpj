@@ -97,33 +97,67 @@ export function inicializarMenu() {
     const botao = document.getElementById("menu-links-gerais");
     const submenu = document.getElementById("submenu-links-gerais");
     if (botao && submenu) {
-        const fechar = () => { submenu.classList.add("hidden"); botao.setAttribute("aria-expanded", "false"); };
-        const alternar = () => { const aberto = submenu.classList.contains("hidden"); submenu.classList.toggle("hidden", !aberto); botao.setAttribute("aria-expanded", aberto ? "true" : "false"); };
-        botao.addEventListener("click", (e) => { e.preventDefault(); alternar(); });
-        document.addEventListener("click", (e) => { const alvo = e.target; if (!submenu.contains(alvo) && !botao.contains(alvo))
-            fechar(); });
-        document.addEventListener("keydown", (e) => { if (e.key === "Escape")
-            fechar(); });
+        const fechar = () => {
+            submenu.classList.add("hidden");
+            botao.setAttribute("aria-expanded", "false");
+        };
+        const alternar = () => {
+            const aberto = submenu.classList.contains("hidden");
+            submenu.classList.toggle("hidden", !aberto);
+            botao.setAttribute("aria-expanded", aberto ? "true" : "false");
+        };
+        botao.addEventListener("click", (e) => {
+            e.preventDefault();
+            alternar();
+        });
+        document.addEventListener("click", (e) => {
+            const alvo = e.target;
+            if (!submenu.contains(alvo) && !botao.contains(alvo))
+                fechar();
+        });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape")
+                fechar();
+        });
     }
     // Mobile geral
     const burger = document.getElementById("menu-mobile-toggle");
     const painel = document.getElementById("menu-mobile");
     if (burger && painel) {
-        const alternarMobile = () => { const aberto = painel.classList.contains("hidden"); painel.classList.toggle("hidden", !aberto); burger.setAttribute("aria-expanded", aberto ? "true" : "false"); };
-        burger.addEventListener("click", (e) => { e.preventDefault(); alternarMobile(); });
-        painel.addEventListener("click", (e) => { const alvo = e.target; if (alvo.tagName.toLowerCase() === "a") {
-            painel.classList.add("hidden");
-            burger.setAttribute("aria-expanded", "false");
-        } });
-        window.addEventListener("resize", () => { if (window.matchMedia("(min-width: 768px)").matches) {
-            painel.classList.add("hidden");
-            burger.setAttribute("aria-expanded", "false");
-        } });
+        const alternarMobile = () => {
+            const aberto = painel.classList.contains("hidden");
+            painel.classList.toggle("hidden", !aberto);
+            burger.setAttribute("aria-expanded", aberto ? "true" : "false");
+        };
+        burger.addEventListener("click", (e) => {
+            e.preventDefault();
+            alternarMobile();
+        });
+        painel.addEventListener("click", (e) => {
+            const alvo = e.target;
+            if (alvo.tagName.toLowerCase() === "a") {
+                painel.classList.add("hidden");
+                burger.setAttribute("aria-expanded", "false");
+            }
+        });
+        window.addEventListener("resize", () => {
+            if (window.matchMedia("(min-width: 768px)").matches) {
+                painel.classList.add("hidden");
+                burger.setAttribute("aria-expanded", "false");
+            }
+        });
         const botaoMob = document.getElementById("menu-links-gerais-mobile");
         const submenuMob = document.getElementById("submenu-links-gerais-mobile");
         if (botaoMob && submenuMob) {
-            const alternarMob = () => { const aberto = submenuMob.classList.contains("hidden"); submenuMob.classList.toggle("hidden", !aberto); botaoMob.setAttribute("aria-expanded", aberto ? "true" : "false"); };
-            botaoMob.addEventListener("click", (e) => { e.preventDefault(); alternarMob(); });
+            const alternarMob = () => {
+                const aberto = submenuMob.classList.contains("hidden");
+                submenuMob.classList.toggle("hidden", !aberto);
+                botaoMob.setAttribute("aria-expanded", aberto ? "true" : "false");
+            };
+            botaoMob.addEventListener("click", (e) => {
+                e.preventDefault();
+                alternarMob();
+            });
         }
     }
     destacarLinkAtivo();

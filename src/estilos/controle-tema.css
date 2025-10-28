@@ -4,7 +4,9 @@ a {
 
 .controle-tema .sol-indicador,
 .controle-tema .lua-indicador {
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 
 /* Modo claro */
@@ -33,7 +35,8 @@ a {
   background-color: rgb(51 65 85);
 }
 
-.trilha, .controle-tema * {
+.trilha,
+.controle-tema * {
   user-select: none;
 }
 
@@ -112,18 +115,23 @@ a {
 }
 
 /* Camada base do efeito */
-.efeito-onda-base { position: relative; overflow: hidden; }
+.efeito-onda-base {
+  position: relative;
+  overflow: hidden;
+}
 
 /* Cores da onda para cada tipo de botão */
-.efeito-onda-claro { /* botões SEM fundo (border/ghost) */
+.efeito-onda-claro {
+  /* botões SEM fundo (border/ghost) */
   --onda: rgba(99, 102, 241, 0.32);
 }
 .dark .efeito-onda-claro {
   --onda: rgba(167, 139, 250, 0.45);
 }
 
-.efeito-onda-escuro { /* botões COM fundo sólido */
-  --onda: rgba(255, 255, 255, 0.50);
+.efeito-onda-escuro {
+  /* botões COM fundo sólido */
+  --onda: rgba(255, 255, 255, 0.5);
 }
 .dark .efeito-onda-escuro {
   --onda: rgba(255, 255, 255, 0.45);
@@ -132,17 +140,20 @@ a {
 /* Bolha da onda (injetada via TS) */
 .efeito-onda-circulo {
   position: absolute;
-  width: 1.25rem;  /* ~20px */
+  width: 1.25rem; /* ~20px */
   height: 1.25rem;
   border-radius: 9999px;
   background: var(--onda);
   transform: scale(0);
-  animation: efeitoOnda .6s linear;
+  animation: efeitoOnda 0.6s linear;
   pointer-events: none;
   z-index: 0; /* deixa texto/ícones acima da onda */
 }
 
 /* Animação */
 @keyframes efeitoOnda {
-  to { transform: scale(12); opacity: 0; }
+  to {
+    transform: scale(12);
+    opacity: 0;
+  }
 }

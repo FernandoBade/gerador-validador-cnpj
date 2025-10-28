@@ -1,63 +1,62 @@
 {
-    "name": "gerador-cnpj-alfanumerico",
-    "version": "1.9.0",
-    "type": "module",
-    "description": "Gerador, validador e consultor de CNPJ com OpenCNPJ. Gera, valida e consulta CNPJs numéricos e alfanuméricos (padrão 2026) rapidinho e sem dor de cabeça. Perfeito pra devs testarem integrações e checarem dados direto da Receita. 😊",
-    "main": "index.html",
-    "scripts": {
-        "compilar": "tsc -p tsconfig.json",
-        "servidor": "live-server --port=5173 --open=index.html --watch=.",
-        "compilar:assistido": "tsc -w -p tsconfig.json",
-        "tailwind": "node ./node_modules/tailwindcss/lib/cli.js -i ./src/estilos/tailwind.css -o ./dist/assets/tailwind.min.css -c ./tailwind.config.js --minify",
-        "tailwind:assistido": "node ./node_modules/tailwindcss/lib/cli.js -i ./src/estilos/tailwind.css -o ./dist/assets/tailwind.min.css -c ./tailwind.config.js --minify --watch",
-        "minificar:css": "ts-node src/processos/minificar-css.ts",
-        "minificar:css:assistido": "nodemon --watch src/estilos/controle-tema.css --ext css --exec \"npm run minificar:css\"",
-        "processar:html": "ts-node src/processos/processar-html.ts",
-        "processar:html:assistido": "nodemon --watch index.html --watch artigos --watch ferramentas --ext html --ignore dist --ignore node_modules --exec \"npm run processar:html\"",
-        "desenvolvimento": "concurrently -n TS,TAILWIND,CSS,HTML,SERV \"npm run compilar:assistido\" \"npm run tailwind:assistido\" \"npm run minificar:css:assistido\" \"npm run processar:html:assistido\" \"npm run servidor\"",
-        "processar": "npm run compilar && npm run tailwind && npm run minificar:css && npm run processar:html",
-
-        "lintar": "eslint . --ext .ts",
-        "lintar:correcao": "eslint . --ext .ts --fix",
-        "formatar": "prettier --write .",
-        "formatar:verificar": "prettier --check ."
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/FernandoBade/gerador-validador-cnpj"
-    },
-    "keywords": [
-        "pescript",
-        "cnpj",
-        "consulta-cnpj",
-        "receita-federal",
-        "tailwind",
-        "validador-cnpj",
-        "digito-verificador",
-        "consulta-cnpj-receita-federal",
-        "gerador-cnpj",
-        "cnpj-alfanumerico",
-        "opencnpj",
-        "cnpj-2026",
-        "gerador-cnpj-alfanumerico"
-    ],
-    "author": "Fernando Bade",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/FernandoBade/gerador-validador-cnpj"
-    },
-    "homepage": "https://cnpj.bade.digital/",
-    "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^8.45.0",
-        "@typescript-eslint/parser": "^8.45.0",
-        "concurrently": "^9.2.1",
-        "eslint": "^9.37.0",
-        "eslint-config-prettier": "^10.1.8",
-        "live-server": "^1.2.0",
-        "nodemon": "^3.1.10",
-        "prettier": "^3.6.2",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.9.3",
-        "tailwindcss": "^3.4.15"
-    }
+  "name": "gerador-cnpj-alfanumerico",
+  "version": "1.9.0",
+  "type": "module",
+  "description": "Gerador, validador e consultor de CNPJ com OpenCNPJ. Gera, valida e consulta CNPJs numéricos e alfanuméricos (padrão 2026) rapidinho e sem dor de cabeça. Perfeito pra devs testarem integrações e checarem dados direto da Receita. 😊",
+  "main": "index.html",
+  "scripts": {
+    "compilar": "tsc -p tsconfig.json",
+    "servidor": "live-server --port=5173 --open=index.html --watch=.",
+    "compilar:assistido": "tsc -w -p tsconfig.json",
+    "tailwind": "node ./node_modules/tailwindcss/lib/cli.js -i ./src/estilos/tailwind.css -o ./dist/assets/tailwind.min.css -c ./tailwind.config.js --minify",
+    "tailwind:assistido": "node ./node_modules/tailwindcss/lib/cli.js -i ./src/estilos/tailwind.css -o ./dist/assets/tailwind.min.css -c ./tailwind.config.js --minify --watch",
+    "minificar:css": "ts-node src/processos/minificar-css.ts",
+    "minificar:css:assistido": "nodemon --watch src/estilos/controle-tema.css --ext css --exec \"npm run minificar:css\"",
+    "processar:html": "ts-node src/processos/processar-html.ts",
+    "processar:html:assistido": "nodemon --watch index.html --watch artigos --watch ferramentas --ext html --ignore dist --ignore node_modules --exec \"npm run processar:html\"",
+    "desenvolvimento": "concurrently -n TS,TAILWIND,CSS,HTML,SERV \"npm run compilar:assistido\" \"npm run tailwind:assistido\" \"npm run minificar:css:assistido\" \"npm run processar:html:assistido\" \"npm run servidor\"",
+    "processar": "npm run compilar && npm run tailwind && npm run minificar:css && npm run processar:html",
+    "lintar": "eslint . --ext .ts",
+    "lintar:correcao": "eslint . --ext .ts --fix",
+    "formatar": "prettier --write .",
+    "formatar:verificar": "prettier --check ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FernandoBade/gerador-validador-cnpj"
+  },
+  "keywords": [
+    "pescript",
+    "cnpj",
+    "consulta-cnpj",
+    "receita-federal",
+    "tailwind",
+    "validador-cnpj",
+    "digito-verificador",
+    "consulta-cnpj-receita-federal",
+    "gerador-cnpj",
+    "cnpj-alfanumerico",
+    "opencnpj",
+    "cnpj-2026",
+    "gerador-cnpj-alfanumerico"
+  ],
+  "author": "Fernando Bade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FernandoBade/gerador-validador-cnpj"
+  },
+  "homepage": "https://cnpj.bade.digital/",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.37.0",
+    "eslint-config-prettier": "^10.1.8",
+    "live-server": "^1.2.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "tailwindcss": "^3.4.15"
+  }
 }

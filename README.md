@@ -22,41 +22,37 @@
 
 Um projeto completo e gratuito para **gerar, validar e consultar CNPJs**, atualizado para o **novo padrão alfanumérico de 2026**. Ideal para desenvolvedores, analistas e curiosos que precisam testar integrações, validar registros ou apenas entender como funciona a estrutura do CNPJ.
 
-
->📎Acesse: https://cnpj.bade.digital/
-
+> 📎Acesse: https://cnpj.bade.digital/
 
 ## ✨ Funcionalidades Principais
 
 ### 🔍 [Consulta de Dados de CNPJ](https://cnpj.bade.digital/ferramentas/consultar-dados-cnpj/)
+
 - Realize **consultas online de CNPJs reais** com integração à **API [OpenCNPJ](https://opencnpj.org)**.
 - Obtenha dados oficiais atualizados da **Receita Federal**.
 - Consulte CNPJs em massa com **retorno rápido e interface amigável**.
 
 ### ✅ [Validador de CNPJ](https://cnpj.bade.digital/ferramentas/validador-cnpj/)
+
 - Valide CNPJs **numéricos e alfanuméricos** conforme o novo padrão **2026**.
 - Geração e verificação dos **dígitos verificadores (DV)** seguindo o manual oficial do **SERPRO**.
 - Suporte à **validação em massa** e exibição de relatórios instantâneos.
 - Histórico automático das **últimas 100 validações realizadas**.
 
 ### ⚙️ [Gerador de CNPJ](https://cnpj.bade.digital/ferramentas/gerador-cnpj/)
+
 - Gere **CNPJs válidos para testes e integrações**, com opção de **máscara automática**.
 - Produz até **100 CNPJs de uma vez**, prontos para copiar com um clique.
 - Totalmente compatível com o novo formato **alfanumérico**.
 
-
-
-
 ## 🧠 Como Funciona
+
 O projeto é escrito em **TypeScript** e utiliza **TailwindCSS** para o layout.
 Cada módulo (gerador, validador e consulta) é independente, permitindo fácil manutenção e integração com outros sistemas.
 
 Os dados de consulta são exibidos de forma clara e responsiva, e a validação é feita em tempo real, garantindo a precisão da estrutura matemática e do DV antes de consultar os dados oficiais.
 
-
-
 ## 🧩 Estrutura do Projeto
-
 
 ```
 
@@ -105,9 +101,10 @@ Os dados de consulta são exibidos de forma clara e responsiva, e a validação 
 
 ```
 
-
 ## 📈 SEO e Otimização
+
 Este projeto foi otimizado com:
+
 - **Metadados completos (Open Graph, Twitter Cards e JSON-LD)**
 - **URLs canônicas e estrutura otimizada para indexação**
 - **Integração com sitemap e robots.txt** para melhor ranqueamento
@@ -116,20 +113,22 @@ Este projeto foi otimizado com:
   - “Gerar CNPJ válido”
   - “Validar CNPJ alfanumérico 2026”
 
-
 ## 🌐 Links
+
 - 🔗 [OpenCNPJ](https://opencnpj.org/)
 - 📘 [Receita Federal - CNPJ Alfanumérico (2026)](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/programas-e-atividades/cnpj-alfanumerico)
 - 📄 [Manual de cálculo do DV do CNPJ (SERPRO)](https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view)
 - 💼 [LinkedIn](https://linkedin.com/in/fernandobade)
 
 ## 📜 Licença
+
 Distribuído sob a **Licença ISC**.
 Sinta-se livre para usar, estudar e contribuir, só não esquece de falar bem do projeto por aí.
 
+---
 
 ---
----
+
 <br>
 
->_Forjado de uma mistura clássica: uma ideia aleatória, café demais e a ausência do PC pra jogar um dotinha._ 😎
+> _Forjado de uma mistura clássica: uma ideia aleatória, café demais e a ausência do PC pra jogar um dotinha._ 😎

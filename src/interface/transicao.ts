@@ -7,13 +7,13 @@
  */
 
 const TEMPO_MINIMO_MS = 1000; // ajuste se quiser mais/menos
-const DURACAO_FADE_MS = 450;  // suavidade do fade-in
+const DURACAO_FADE_MS = 450; // suavidade do fade-in
 
 function injetaPrePaint() {
   // Se já existia de tentativas anteriores, não duplica
-  if (document.getElementById('prepaint-guard')) return;
-  const st = document.createElement('style');
-  st.id = 'prepaint-guard';
+  if (document.getElementById("prepaint-guard")) return;
+  const st = document.createElement("style");
+  st.id = "prepaint-guard";
   st.textContent = `
     /* Mantém o body invisível até liberarmos */
     body { opacity: 0 !important; }
@@ -22,12 +22,12 @@ function injetaPrePaint() {
 }
 
 function esperar(ms: number) {
-  return new Promise<void>(r => setTimeout(r, ms));
+  return new Promise<void>((r) => setTimeout(r, ms));
 }
 
 function quandoJanelaCarregar() {
-  if (document.readyState === 'complete') return Promise.resolve();
-  return new Promise<void>(r => window.addEventListener('load', () => r(), { once: true }));
+  if (document.readyState === "complete") return Promise.resolve();
+  return new Promise<void>((r) => window.addEventListener("load", () => r(), { once: true }));
 }
 
 async function iniciarFadeIn() {
@@ -38,23 +38,23 @@ async function iniciarFadeIn() {
   await Promise.all([quandoJanelaCarregar(), esperar(TEMPO_MINIMO_MS)]);
 
   // 3) Faz 1 único fade-in suave
-  const prepaint = document.getElementById('prepaint-guard');
+  const prepaint = document.getElementById("prepaint-guard");
   // Define a transição do body antes de liberar a opacidade
   document.body.style.transition = `opacity ${DURACAO_FADE_MS}ms ease`;
   // Libera a opacidade na próxima frame para garantir que a transição aplique
   requestAnimationFrame(() => {
     if (prepaint) prepaint.remove();
-    document.body.style.opacity = '1';
+    document.body.style.opacity = "1";
   });
 }
 
 // Evita refazer animação ao voltar via bfcache
-window.addEventListener('pageshow', (e: PageTransitionEvent) => {
+window.addEventListener("pageshow", (e: PageTransitionEvent) => {
   if (e.persisted) {
-    const prepaint = document.getElementById('prepaint-guard');
+    const prepaint = document.getElementById("prepaint-guard");
     if (prepaint) prepaint.remove();
-    document.body.style.transition = 'none';
-    document.body.style.opacity = '1';
+    document.body.style.transition = "none";
+    document.body.style.opacity = "1";
     // Reaplica a transição para próximas navegações
     requestAnimationFrame(() => {
       document.body.style.transition = `opacity ${DURACAO_FADE_MS}ms ease`;
@@ -65,7 +65,7 @@ window.addEventListener('pageshow', (e: PageTransitionEvent) => {
 // Inicia assim que possível (o script está com "defer")
 iniciarFadeIn().catch(() => {
   // fallback duro: se algo falhar, mostra o body
-  const prepaint = document.getElementById('prepaint-guard');
+  const prepaint = document.getElementById("prepaint-guard");
   if (prepaint) prepaint.remove();
-  document.body.style.opacity = '1';
+  document.body.style.opacity = "1";
 });

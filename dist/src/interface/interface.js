@@ -1,7 +1,7 @@
 /* ============================
    Utilidades de interface (UI)
 ============================ */
-import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO } from "../gerais/constantes.js";
+import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, } from "../gerais/constantes.js";
 import { ClasseAviso, IntervaloTemporizador, TipoAviso } from "../gerais/enums.js";
 const timeoutsAviso = new WeakMap();
 /**
