@@ -1,10 +1,5 @@
-import { fileURLToPath } from 'url';
 import fs from 'fs';
 import path from 'path';
-/**
- * @summary Processa arquivos HTML, atualiza links de CSS/JS e remove blocos obsoletos.
- */
-const __filename = fileURLToPath(import.meta.url);
 /**
  * Define a raiz do projeto a partir do diretório atual de execução.
  * Isso garante compatibilidade tanto no src quanto no dist.

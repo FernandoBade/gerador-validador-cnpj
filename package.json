@@ -1,6 +1,6 @@
 {
     "name": "gerador-cnpj-alfanumerico",
-    "version": "1.5.0",
+    "version": "1.9.0",
     "type": "module",
     "description": "Gerador, validador e consultor de CNPJ com OpenCNPJ. Gera, valida e consulta CNPJs numéricos e alfanuméricos (padrão 2026) rapidinho e sem dor de cabeça. Perfeito pra devs testarem integrações e checarem dados direto da Receita. 😊",
     "main": "index.html",
