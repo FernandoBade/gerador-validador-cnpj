@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <script type="module" src="/dist/src/interface/transicao.js" defer></script>
+    <script>
+      window.addEventListener("load", () => {
+        document.body.classList.add("ready");
+      });
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Título do Artigo Exemplo — Template Oficial</title>
+    <meta
+      name="description"
+      content="Modelo padrão de artigo para o projeto Gerador, Validador e Consulta de CNPJ, com componentes prontos e responsivos."
+    />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#2563eb" />
+
+    <link rel="stylesheet" href="/dist/assets/tailwind.min.css" />
+    <link rel="stylesheet" href="/dist/assets/controle-tema.min.css" />
+  </head>
+  <body
+    class="min-h-screen bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-zinc-100 font-sans transition-colors duration-500"
+  >
+    <div class="flex min-h-screen flex-col">
+      <header class="relative isolate overflow-hidden">
+        <div class="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80"
+            alt="Pessoa escrevendo em um caderno"
+            class="h-full w-full object-cover"
+          />
+          <div class="absolute inset-0 bg-slate-900/75"></div>
+        </div>
+        <div class="relative mx-auto flex min-h-[60vh] max-w-5xl flex-col items-center justify-center px-6 py-24 text-center sm:px-10">
+          <p class="text-sm font-semibold uppercase tracking-[0.3em] text-blue-200">artigo destaque</p>
+          <h1 class="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Título do Artigo Exemplo
+          </h1>
+          <p class="mt-4 text-lg text-blue-100">Subtítulo ou Data — 01/01/2025</p>
+        </div>
+      </header>
+
+      <main class="flex-1 bg-gradient-to-b from-slate-100 to-slate-50 px-6 py-16 dark:from-slate-900 dark:to-slate-950 sm:px-8 lg:px-0">
+        <article class="mx-auto flex w-full max-w-4xl flex-col gap-10">
+          <header class="flex flex-col gap-4 text-slate-700 dark:text-slate-200">
+            <h1 class="text-3xl font-bold text-slate-900 dark:text-zinc-50">Título do Artigo Exemplo</h1>
+            <h2 class="text-xl font-semibold text-slate-600 dark:text-slate-300">Subtítulo inspirador para contextualizar o leitor</h2>
+            <p class="text-sm uppercase tracking-wide text-slate-500 dark:text-slate-400">Publicado em 01/01/2025</p>
+          </header>
+
+          <div class="flex flex-col gap-6 text-base leading-relaxed text-slate-700 dark:text-slate-200">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet mi pulvinar, tincidunt ipsum et, blandit
+              ex. Aliquam erat volutpat. Mauris varius, sapien at luctus pellentesque, lacus lacus eleifend justo, vel
+              ullamcorper mauris erat nec urna.
+            </p>
+            <p>
+              Sed sed tortor nec sem dignissim viverra ac ac tellus. Nunc fringilla ante elit, a tincidunt sem tincidunt sit amet.
+              Etiam in augue fermentum, vehicula enim in, ornare tellus. Phasellus lacinia nisi ac est gravida, nec viverra justo
+              interdum.
+            </p>
+            <p>
+              Proin vitae ultrices ex. Cras ac purus tincidunt, posuere odio sed, facilisis nisl. Morbi vel mauris posuere, rutrum
+              dolor vitae, fermentum velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+              curae;
+            </p>
+
+            <h2 class="text-2xl font-semibold text-slate-800 dark:text-zinc-100">Principais tópicos abordados</h2>
+            <ul class="list-disc space-y-2 pl-5 text-left">
+              <li>Contextualização histórica do CNPJ e evolução regulatória.</li>
+              <li>Processos de geração e validação de números com foco em automação.</li>
+              <li>Integrações e boas práticas para compliance e governança de dados.</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-slate-800 dark:text-zinc-100">Trecho destacado</h3>
+            <blockquote class="border-l-4 border-blue-500/50 bg-blue-500/5 px-6 py-4 italic text-lg text-slate-700 dark:text-slate-200">
+              “O futuro do CNPJ está diretamente ligado à capacidade das empresas de traduzirem dados em decisões estratégicas e
+              responsáveis.”
+            </blockquote>
+
+            <p>
+              Aenean congue nisl et tortor ullamcorper, et imperdiet odio cursus. Suspendisse tristique risus sed ipsum aliquet,
+              ac consequat velit tincidunt. Pellentesque venenatis felis vitae lectus pharetra, in porttitor tortor fermentum.
+            </p>
+
+            <figure class="my-10 overflow-hidden rounded-3xl shadow-xl">
+              <img
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80"
+                alt="Equipe colaborando em um escritório"
+                class="w-full object-cover"
+              />
+              <figcaption class="bg-slate-900/80 px-6 py-3 text-sm font-medium text-slate-100">
+                Equipes interdisciplinares são essenciais para transformar dados de CNPJ em estratégias reais.
+              </figcaption>
+            </figure>
+
+            <p>
+              Nullam rutrum, diam et scelerisque finibus, mauris dolor efficitur lorem, quis euismod mi neque quis mi. Donec
+              malesuada fermentum nibh, sed cursus libero molestie nec. Duis hendrerit posuere lorem, at efficitur nisi dapibus
+              ac. Suspendisse vitae fermentum nunc.
+            </p>
+
+            <div class="relative overflow-hidden rounded-3xl border border-blue-200/60 bg-blue-50/60 p-6 shadow-inner dark:border-blue-500/40 dark:bg-blue-500/10">
+              <span class="mb-3 inline-flex items-center rounded-full bg-blue-500 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+                Destaque rápido
+              </span>
+              <p class="text-base text-blue-900 dark:text-blue-100">
+                Did you know? O formato alfanumérico do CNPJ permitirá mais combinações sem alterar a lógica dos dígitos
+                verificadores, mantendo a confiabilidade do cadastro nacional.
+              </p>
+            </div>
+
+            <h2 class="text-2xl font-semibold text-slate-800 dark:text-zinc-100">Exemplo de tabela</h2>
+            <div class="overflow-x-auto">
+              <table class="min-w-full table-auto divide-y divide-slate-200 overflow-hidden rounded-2xl bg-white shadow-md dark:divide-slate-700 dark:bg-slate-800">
+                <thead class="bg-slate-100/80 dark:bg-slate-800/60">
+                  <tr class="text-left text-sm font-semibold text-slate-600 dark:text-slate-200">
+                    <th class="px-4 py-3">Aspecto</th>
+                    <th class="px-4 py-3">Descrição</th>
+                    <th class="px-4 py-3">Impacto</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-sm text-slate-700 dark:divide-slate-700 dark:text-slate-200">
+                  <tr>
+                    <td class="px-4 py-3 font-medium">Formatação</td>
+                    <td class="px-4 py-3">Inclui máscara padrão com pontos, barra e hífen.</td>
+                    <td class="px-4 py-3">Facilita a leitura e reduz erros de digitação.</td>
+                  </tr>
+                  <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                    <td class="px-4 py-3 font-medium">Validação</td>
+                    <td class="px-4 py-3">Aplicação do módulo 11 para cálculo dos dígitos verificadores.</td>
+                    <td class="px-4 py-3">Garante integridade e evita cadastros fraudulentos.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-medium">Consulta</td>
+                    <td class="px-4 py-3">Integração com fontes oficiais atualizadas mensalmente.</td>
+                    <td class="px-4 py-3">Mantém a base de dados confiável para decisões estratégicas.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 class="text-2xl font-semibold text-slate-800 dark:text-zinc-100">Inserindo um vídeo</h2>
+            <div class="relative mt-6 overflow-hidden rounded-3xl shadow-xl">
+              <div class="aspect-video w-full">
+                <iframe
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  title="Vídeo demonstrativo"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  class="h-full w-full"
+                ></iframe>
+              </div>
+            </div>
+
+            <p>
+              Integer ultricies lorem eros, non porta nisl efficitur id. Suspendisse tristique orci nulla, sed tempor orci
+              efficitur id. Curabitur eu tincidunt erat, nec interdum mauris.
+            </p>
+          </div>
+        </article>
+
+        <section class="mx-auto mt-16 w-full max-w-4xl rounded-3xl bg-white/90 p-8 shadow-xl dark:bg-slate-800/80">
+          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200/60 pb-6 dark:border-slate-700/60">
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-600 dark:text-blue-300">CNPJ</span>
+              <span class="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-300">Automação</span>
+              <span class="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-600 dark:text-purple-300">Compliance</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-300">
+              <img
+                src="https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?auto=format&fit=crop&w=120&q=80"
+                alt="Autor"
+                class="h-10 w-10 rounded-full object-cover shadow"
+              />
+              <p>
+                Escrito por
+                <span class="font-semibold text-slate-700 dark:text-zinc-100">Equipe Bade Digital</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-8 space-y-10">
+            <section aria-labelledby="comentarios" class="space-y-4">
+              <div class="flex items-center gap-2">
+                <span class="h-8 w-1 rounded-full bg-blue-500"></span>
+                <h3 id="comentarios" class="text-xl font-semibold text-slate-800 dark:text-zinc-50">Comentários</h3>
+              </div>
+              <p class="rounded-2xl border border-dashed border-slate-300/80 bg-slate-100/60 px-6 py-4 text-sm text-slate-600 dark:border-slate-700/80 dark:bg-slate-900/40 dark:text-slate-300">
+                A seção de comentários ficará disponível em breve. Compartilhe este artigo nas redes sociais para alcançar mais pessoas!
+              </p>
+              <ul class="space-y-6">
+                <li class="rounded-2xl bg-slate-50 px-6 py-5 shadow-sm dark:bg-slate-900/60">
+                  <div class="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
+                    <span class="font-medium text-slate-700 dark:text-zinc-100">Ana Silva</span>
+                    <time datetime="2025-02-10">10/02/2025</time>
+                  </div>
+                  <p class="mt-3 text-sm text-slate-600 dark:text-slate-200">
+                    Excelente estrutura! Será muito útil para documentarmos nossos processos internos de consulta de CNPJ.
+                  </p>
+                </li>
+                <li class="rounded-2xl bg-slate-50 px-6 py-5 shadow-sm dark:bg-slate-900/60">
+                  <div class="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
+                    <span class="font-medium text-slate-700 dark:text-zinc-100">Marcos Pereira</span>
+                    <time datetime="2025-02-08">08/02/2025</time>
+                  </div>
+                  <p class="mt-3 text-sm text-slate-600 dark:text-slate-200">
+                    Gostei do destaque para o novo CNPJ alfanumérico — aguardando mais detalhes!
+                  </p>
+                </li>
+              </ul>
+            </section>
+
+            <section aria-labelledby="relacionados" class="space-y-4">
+              <div class="flex items-center gap-2">
+                <span class="h-8 w-1 rounded-full bg-emerald-500"></span>
+                <h3 id="relacionados" class="text-xl font-semibold text-slate-800 dark:text-zinc-50">Artigos relacionados</h3>
+              </div>
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <a
+                  href="/artigos/cnpj-desvendado-história-estrutura-e-o-futuro-alfanumerico/"
+                  class="group flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white px-4 py-4 shadow transition hover:-translate-y-0.5 hover:border-blue-500/60 hover:shadow-lg dark:border-slate-700/60 dark:bg-slate-800"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=400&q=80"
+                    alt="Equipe trabalhando"
+                    class="h-20 w-20 rounded-2xl object-cover"
+                  />
+                  <div>
+                    <p class="text-sm font-semibold text-slate-800 transition group-hover:text-blue-600 dark:text-zinc-100 dark:group-hover:text-blue-300">
+                      CNPJ Desvendado: história, estrutura e futuro alfanumérico
+                    </p>
+                    <span class="mt-1 inline-flex items-center rounded-full bg-blue-500/10 px-2 py-1 text-[11px] font-medium uppercase tracking-wide text-blue-600 dark:text-blue-300">
+                      Ler artigo
+                    </span>
+                  </div>
+                </a>
+                <a
+                  href="/artigos/como-a-validacao-de-cnpj-e-feita/"
+                  class="group flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white px-4 py-4 shadow transition hover:-translate-y-0.5 hover:border-blue-500/60 hover:shadow-lg dark:border-slate-700/60 dark:bg-slate-800"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?auto=format&fit=crop&w=400&q=80"
+                    alt="Pessoa usando computador"
+                    class="h-20 w-20 rounded-2xl object-cover"
+                  />
+                  <div>
+                    <p class="text-sm font-semibold text-slate-800 transition group-hover:text-blue-600 dark:text-zinc-100 dark:group-hover:text-blue-300">
+                      Como a validação de CNPJ é feita na prática
+                    </p>
+                    <span class="mt-1 inline-flex items-center rounded-full bg-blue-500/10 px-2 py-1 text-[11px] font-medium uppercase tracking-wide text-blue-600 dark:text-blue-300">
+                      Ler artigo
+                    </span>
+                  </div>
+                </a>
+              </div>
+            </section>
+          </div>
+
+          <div class="mt-12 flex flex-wrap items-center justify-between gap-4">
+            <a
+              href="/artigos/index.htm"
+              class="inline-flex items-center justify-center gap-2 rounded-full border border-blue-500/70 bg-blue-500/10 px-6 py-2 text-sm font-semibold text-blue-600 transition hover:-translate-y-0.5 hover:bg-blue-500/20 hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 dark:text-blue-300 dark:hover:text-blue-200"
+            >
+              Ver mais postagens
+            </a>
+            <a
+              href="/"
+              class="inline-flex items-center justify-center rounded-full bg-blue-500 px-5 py-2 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            >
+              Voltar para as ferramentas
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="border-t border-slate-200/70 bg-white/90 px-6 py-8 text-sm text-slate-500 dark:border-slate-700/60 dark:bg-slate-900/80 dark:text-slate-300 sm:px-8 lg:px-10">
+        <div class="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            ©
+            <span class="font-semibold text-slate-700 dark:text-zinc-100">Gerador, Validador e Consulta de CNPJ</span>
+            — Conteúdo atualizado periodicamente.
+          </p>
+          <a
+            href="/artigos/index.htm"
+            class="inline-flex items-center justify-center rounded-full bg-blue-500 px-5 py-2 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+          >
+            Acessar biblioteca de artigos
+          </a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
