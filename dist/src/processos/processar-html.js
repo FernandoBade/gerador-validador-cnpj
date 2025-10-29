@@ -40,12 +40,9 @@ function processarHtml(conteudo) {
         const novaQuery = parametros.length > 0 ? `?${parametros.join("&")}` : "";
         return `${base}${novaQuery}${hash}`;
     };
-    // Remove Tailwind inline e substitui por CSS compilado
     html = html.replace(/<script>\s*tailwind\.config[\s\S]*?<\/script>/gim, "");
     html = html.replace(/<script[^>]*src="https:\/\/cdn\.tailwindcss\.com"[^>]*><\/script>/gim, '<link rel="stylesheet" href="/dist/assets/tailwind.min.css">');
-    // Atualiza controle-tema.css para a versão minificada
     html = html.replace(/href="(?:\.{1,2}\/)*src\/estilos\/controle-tema\.css"/g, 'href="/dist/assets/controle-tema.min.css"');
-    // Adiciona defer e versionamento em scripts locais
     html = html.replace(/<script([^>]*?)src="([^"]*?)"([^>]*)><\/script>/gim, (m, pre, src, post) => {
         if (/^https?:\/\//i.test(src))
             return m;
@@ -59,7 +56,6 @@ function processarHtml(conteudo) {
         const separador = /\s$/.test(preCorrigido) ? "" : " ";
         return `<script${preCorrigido}${separador}src="${srcLimpo}"${post}></script>`;
     });
-    // Remove parâmetros de versão remanescentes em links apontando para /dist
     html = html.replace(/<link([^>]*?)href="([^"]*?)"([^>]*)>/gim, (m, pre, href, post) => {
         if (/^https?:\/\//i.test(href))
             return m;
@@ -69,11 +65,9 @@ function processarHtml(conteudo) {
         const separador = /\s$/.test(pre) ? "" : " ";
         return `<link${pre}${separador}href="${hrefLimpo}"${post}>`;
     });
-    // Adiciona metatags para evitar cache agressivo
     if (!/http-equiv="Cache-Control"/i.test(html)) {
         html = html.replace(/<head(.*?)>/i, (m, attrs) => `<head${attrs}>\n    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>\n    <meta http-equiv="Pragma" content="no-cache"/>\n    <meta http-equiv="Expires" content="0"/>`);
     }
-    // Insere script para desregistrar Service Workers antigos
     if (!/id="sw-unregister"/i.test(html)) {
         const scriptSW = `
     <script id="sw-unregister">

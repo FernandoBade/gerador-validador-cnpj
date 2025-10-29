@@ -26,9 +26,7 @@ function compilar() {
     fs.mkdirSync(saidaDir, { recursive: true });
     const args = ["-i", entrada, "-o", saida, "-c", config, "--minify"];
     try {
-        // Tenta via Node + CLI JS direto (mais estável no Windows)
         if (!construirComNode(args)) {
-            // Fallback: tenta npx
             execFileSync("npx", ["tailwindcss", ...args], { stdio: "inherit" });
         }
         const tamanho = fs.existsSync(saida) ? fs.statSync(saida).size : 0;
