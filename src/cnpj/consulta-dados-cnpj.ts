@@ -312,6 +312,7 @@ function escaparHtml(texto: string): string {
  * @summary Classe responsável por integrar a interface com a API OpenCNPJ.
  */
 class ValidadorCnpjApi {
+    [x: string]: any;
     private readonly historico: ResultadoValidacaoApi[] = [];
     private readonly limiteHistorico = 100;
     private readonly formatando = { unico: false, massa: false };
@@ -528,7 +529,8 @@ class ValidadorCnpjApi {
         }
         this.renderizarHistorico();
         this.notificarResultado(resultado);
-    }
+      this.emitirEventoConclusaoValidacao(resultado, "individual");
+  }
 
     /**
      * @summary Realiza a consulta em massa de CNPJs, respeitando o limite e atualizando o histórico.
