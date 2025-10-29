@@ -29,7 +29,20 @@
 
     <link rel="stylesheet" href="/dist/assets/tailwind.min.css" />
     <link rel="stylesheet" href="/dist/assets/controle-tema.min.css" />
-  </head>
+  
+    <script id="sw-unregister">
+      (function() {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations?.().then((regs) => {
+            regs.forEach((r) => r.unregister().catch(() => {}))
+          }).catch(() => {})
+          navigator.serviceWorker.getRegistration?.().then((reg) => {
+            if (reg?.active) reg.update().catch(() => {})
+          })
+        }
+      })();
+    </script>
+</head>
   <body
     class="min-h-screen bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-zinc-100 font-sans transition-colors duration-500"
   >
