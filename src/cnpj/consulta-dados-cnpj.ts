@@ -105,6 +105,11 @@ interface ElementosValidador {
   modalCaixa: HTMLDivElement;
 }
 
+interface DetalheConsultaCnpjConcluida {
+  resultado: ResultadoValidacaoApi;
+  contexto: "individual" | "massa";
+}
+
 /**
  * @summary Erro especializado que transporta o status HTTP retornado pela API.
  */
@@ -528,6 +533,7 @@ class ValidadorCnpjApi {
     }
     this.renderizarHistorico();
     this.notificarResultado(resultado);
+    this.emitirEventoConclusaoValidacao(resultado, "individual");
   }
 
   /**
@@ -595,6 +601,8 @@ class ValidadorCnpjApi {
       } else {
         this.adicionarAoHistorico(resultado);
       }
+
+      this.emitirEventoConclusaoValidacao(resultado, "massa");
     }
 
     this.renderizarHistorico();
@@ -627,6 +635,7 @@ class ValidadorCnpjApi {
       const elemento = document.createElement("li");
       elemento.className =
         "flex items-center justify-between gap-3 px-3 py-1 transition-all duration-300 rounded-md cursor-pointer ring-2 ring-slate-100 dark:ring-slate-800 dark:shadow-2xl hover:ring-slate-300 dark:hover:ring-slate-900";
+      elemento.dataset.cnpjPuro = item.puro;
 
       const indicador = document.createElement("span");
       if (item.carregando) {
@@ -669,6 +678,8 @@ class ValidadorCnpjApi {
       botaoVisualizar.setAttribute("title", "Ver mais detalhes");
       botaoVisualizar.setAttribute("aria-label", "Ver mais detalhes");
       botaoVisualizar.classList.add("opacity50");
+      botaoVisualizar.dataset.acao = "visualizar-cnpj";
+      botaoVisualizar.dataset.cnpjPuro = item.puro;
       botaoVisualizar.innerHTML = `
                             <svg class="w-6 h-6 text-slate-600 dark:text-slate-300 opacity-25" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
@@ -701,6 +712,19 @@ class ValidadorCnpjApi {
     });
 
     listaHistorico.scrollTop = 0;
+  }
+
+  private emitirEventoConclusaoValidacao(
+    resultado: ResultadoValidacaoApi,
+    contexto: "individual" | "massa",
+  ): void {
+    const evento = new CustomEvent<DetalheConsultaCnpjConcluida>("consultaCnpjConcluida", {
+      detail: {
+        resultado,
+        contexto,
+      },
+    });
+    document.dispatchEvent(evento);
   }
 
   /**
@@ -1268,3 +1292,86 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export {};
+
+// Quando o DOM estiver pronto, verifica a existência do parâmetro `q` para iniciar a consulta automaticamente.
+document.addEventListener("DOMContentLoaded", () => {
+  // Encapsula a lógica em uma função assíncrona para permitir a importação dinâmica do validador.
+  void (async () => {
+    // Obtém o valor do parâmetro `q` presente na query string da URL.
+    const parametros = new URLSearchParams(window.location.search);
+    const parametroCnpj = parametros.get("q");
+    if (!parametroCnpj) {
+      return;
+    }
+
+    // Normaliza o valor removendo caracteres não numéricos e garante o tamanho mínimo exigido.
+    const puro = normalizarPuro(parametroCnpj);
+    if (puro.length !== 14) {
+      return;
+    }
+
+    // Valida o CNPJ usando o algoritmo já existente; se inválido, encerra silenciosamente.
+    const { validarCnpjPuro } = await import("./algoritmo-cnpj.js");
+    if (!validarCnpjPuro(puro)) {
+      return;
+    }
+
+    // Seleciona os elementos já utilizados na interface para preencher o campo e disparar a consulta.
+    const campoUnico = document.getElementById("campo-unico") as HTMLInputElement | null;
+    const botaoValidar = document.getElementById("botao-validar") as HTMLButtonElement | null;
+    const controleMascara = document.getElementById("toggle-mascara-validator") as HTMLInputElement | null;
+    if (!campoUnico || !botaoValidar) {
+      return;
+    }
+
+    const aoConcluirConsulta: EventListener = (evento) => {
+      const detalhe = (evento as CustomEvent<DetalheConsultaCnpjConcluida>).detail;
+      if (!detalhe || detalhe.contexto !== "individual" || detalhe.resultado.puro !== puro) {
+        return;
+      }
+
+      document.removeEventListener("consultaCnpjConcluida", aoConcluirConsulta);
+
+      const tentarAbrirModal = (): boolean => {
+        const seletor = `[data-cnpj-puro="${detalhe.resultado.puro}"]`;
+        const botao = document.querySelector<HTMLButtonElement>(
+          `button[data-acao="visualizar-cnpj"][data-cnpj-puro="${detalhe.resultado.puro}"]`,
+        );
+        if (botao) {
+          botao.click();
+          return true;
+        }
+
+        const item = document.querySelector<HTMLLIElement>(`li${seletor}`);
+        if (item) {
+          item.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+          return true;
+        }
+
+        return false;
+      };
+
+      const agendarTentativas = () => {
+        if (tentarAbrirModal()) {
+          return;
+        }
+
+        window.setTimeout(() => {
+          tentarAbrirModal();
+        }, 120);
+      };
+
+      requestAnimationFrame(agendarTentativas);
+    };
+
+    document.addEventListener("consultaCnpjConcluida", aoConcluirConsulta);
+
+    // Aplica ou não a máscara conforme o estado atual do controle e notifica os listeners existentes.
+    const usarMascara = controleMascara?.checked ?? false;
+    campoUnico.value = usarMascara ? aplicarMascaraProgressiva(puro) : puro;
+    campoUnico.dispatchEvent(new Event("input", { bubbles: true }));
+
+    // Aciona o clique do botão já configurado para realizar a consulta do CNPJ informado.
+    botaoValidar.click();
+  })();
+});
