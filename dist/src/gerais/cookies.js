@@ -62,7 +62,7 @@ export function inicializarAvisoDeCookies() {
  */
 export const htmlCookies = `
 <div id="aviso-cookies"
-  class="fixed bottom-0 left-0 right-0 shadow-inner bg-transparent backdrop-blur-md text-white text-sm flex flex-col sm:flex-row justify-between items-center gap-3 px-6 py-4 shadow-[0_-10px_15px_-10px_rgba(124,58,237,0.5)] transition-all duration-500 translate-y-full opacity-0 z-50">
+  class="fixed bottom-0 left-0 right-0 bg-transparent backdrop-blur-md text-white text-sm flex flex-col sm:flex-row justify-between items-center gap-3 px-6 py-4 shadow-[0_-10px_15px_-10px_rgba(124,58,237,0.5)] transition-all duration-500 translate-y-full opacity-0 z-50">
   <p class="text-center sm:text-left">
     A gente usa cookies pra entender como você navega e deixar tudo mais redondinho. Pode ser?
   </p>

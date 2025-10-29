@@ -60,8 +60,8 @@ export const htmlRodape = `
  * @summary Insere o rodapé simplificado no final da página.
  */
 export function inicializarRodape(): void {
-  if (document.getElementById("rodape-simples")) return;
-  document.body.insertAdjacentHTML("beforeend", htmlRodape);
+    if (document.getElementById("rodape-simples")) return;
+    document.body.insertAdjacentHTML("beforeend", htmlRodape);
 }
 
 inicializarRodape();

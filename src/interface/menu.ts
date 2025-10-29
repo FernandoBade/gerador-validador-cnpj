@@ -66,154 +66,154 @@ export const htmlMenu = `
  * @summary Insere o menu no topo da página e configura o dropdown.
  */
 export function inicializarMenu(): void {
-  if (document.getElementById("menu-superior") as HTMLElement) return;
-  document.body.insertAdjacentHTML("afterbegin", htmlMenu);
-  document.body.classList.add("transition-all", "duration-200", "ease-out");
+    if (document.getElementById("menu-superior") as HTMLElement) return;
+    document.body.insertAdjacentHTML("afterbegin", htmlMenu);
+    document.body.classList.add("transition-all", "duration-200", "ease-out");
 
-  const nav = document.getElementById("menu-superior") as HTMLElement | null;
+    const nav = document.getElementById("menu-superior") as HTMLElement | null;
 
-  if (nav) {
-    const atualizarPadding = () => {
-      const altura = Math.ceil(nav.getBoundingClientRect().height || 0);
+    if (nav) {
+        const atualizarPadding = () => {
+            const altura = Math.ceil(nav.getBoundingClientRect().height || 0);
 
-      document.body.style.paddingTop = `calc(${altura}px + env(safe-area-inset-top))`;
-    };
+            document.body.style.paddingTop = `calc(${altura}px + env(safe-area-inset-top))`;
+        };
 
-    atualizarPadding();
+        atualizarPadding();
 
-    let temporizador: number | undefined;
+        let temporizador: number | undefined;
 
-    const onResize = () => {
-      if (temporizador) window.clearTimeout(temporizador);
-      temporizador = window.setTimeout(() => atualizarPadding(), 80);
-    };
+        const onResize = () => {
+            if (temporizador) window.clearTimeout(temporizador);
+            temporizador = window.setTimeout(() => atualizarPadding(), 80);
+        };
 
-    window.addEventListener("resize", onResize);
+        window.addEventListener("resize", onResize);
 
-    if (typeof ResizeObserver !== "undefined") {
-      const ro = new ResizeObserver(() => atualizarPadding());
-      ro.observe(nav);
-    } else {
-      const mo = new MutationObserver(() => atualizarPadding());
-      mo.observe(nav, { childList: true, subtree: true, characterData: true, attributes: true });
-      (nav as any).__mutationObserver = mo;
+        if (typeof ResizeObserver !== "undefined") {
+            const ro = new ResizeObserver(() => atualizarPadding());
+            ro.observe(nav);
+        } else {
+            const mo = new MutationObserver(() => atualizarPadding());
+            mo.observe(nav, { childList: true, subtree: true, characterData: true, attributes: true });
+            (nav as any).__mutationObserver = mo;
+        }
+
+        window.addEventListener("load", () => atualizarPadding());
     }
 
-    window.addEventListener("load", () => atualizarPadding());
-  }
+    // Desktop submenu
+    const botao = document.getElementById("menu-links-gerais");
+    const submenu = document.getElementById("submenu-links-gerais");
+    if (botao && submenu) {
+        const fechar = () => {
+            submenu.classList.add("hidden");
+            botao.setAttribute("aria-expanded", "false");
+        };
+        const alternar = () => {
+            const aberto = submenu.classList.contains("hidden");
+            submenu.classList.toggle("hidden", !aberto);
+            botao.setAttribute("aria-expanded", aberto ? "true" : "false");
+        };
 
-  // Desktop submenu
-  const botao = document.getElementById("menu-links-gerais");
-  const submenu = document.getElementById("submenu-links-gerais");
-  if (botao && submenu) {
-    const fechar = () => {
-      submenu.classList.add("hidden");
-      botao.setAttribute("aria-expanded", "false");
-    };
-    const alternar = () => {
-      const aberto = submenu.classList.contains("hidden");
-      submenu.classList.toggle("hidden", !aberto);
-      botao.setAttribute("aria-expanded", aberto ? "true" : "false");
-    };
+        botao.addEventListener("click", (e) => {
+            e.preventDefault();
+            alternar();
+        });
 
-    botao.addEventListener("click", (e) => {
-      e.preventDefault();
-      alternar();
-    });
-
-    document.addEventListener("click", (e) => {
-      const alvo = e.target as Node;
-      if (!submenu.contains(alvo) && !botao.contains(alvo)) fechar();
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") fechar();
-    });
-  }
-
-  // Mobile geral
-  const burger = document.getElementById("menu-mobile-toggle");
-  const painel = document.getElementById("menu-mobile");
-  if (burger && painel) {
-    const alternarMobile = () => {
-      const aberto = painel.classList.contains("hidden");
-      painel.classList.toggle("hidden", !aberto);
-      burger.setAttribute("aria-expanded", aberto ? "true" : "false");
-    };
-    burger.addEventListener("click", (e) => {
-      e.preventDefault();
-      alternarMobile();
-    });
-    painel.addEventListener("click", (e) => {
-      const alvo = e.target as HTMLElement;
-      if (alvo.tagName.toLowerCase() === "a") {
-        painel.classList.add("hidden");
-        burger.setAttribute("aria-expanded", "false");
-      }
-    });
-    window.addEventListener("resize", () => {
-      if (window.matchMedia("(min-width: 768px)").matches) {
-        painel.classList.add("hidden");
-        burger.setAttribute("aria-expanded", "false");
-      }
-    });
-    const botaoMob = document.getElementById("menu-links-gerais-mobile");
-    const submenuMob = document.getElementById("submenu-links-gerais-mobile");
-    if (botaoMob && submenuMob) {
-      const alternarMob = () => {
-        const aberto = submenuMob.classList.contains("hidden");
-        submenuMob.classList.toggle("hidden", !aberto);
-        botaoMob.setAttribute("aria-expanded", aberto ? "true" : "false");
-      };
-      botaoMob.addEventListener("click", (e) => {
-        e.preventDefault();
-        alternarMob();
-      });
+        document.addEventListener("click", (e) => {
+            const alvo = e.target as Node;
+            if (!submenu.contains(alvo) && !botao.contains(alvo)) fechar();
+        });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") fechar();
+        });
     }
-  }
 
-  destacarLinkAtivo();
+    // Mobile geral
+    const burger = document.getElementById("menu-mobile-toggle");
+    const painel = document.getElementById("menu-mobile");
+    if (burger && painel) {
+        const alternarMobile = () => {
+            const aberto = painel.classList.contains("hidden");
+            painel.classList.toggle("hidden", !aberto);
+            burger.setAttribute("aria-expanded", aberto ? "true" : "false");
+        };
+        burger.addEventListener("click", (e) => {
+            e.preventDefault();
+            alternarMobile();
+        });
+        painel.addEventListener("click", (e) => {
+            const alvo = e.target as HTMLElement;
+            if (alvo.tagName.toLowerCase() === "a") {
+                painel.classList.add("hidden");
+                burger.setAttribute("aria-expanded", "false");
+            }
+        });
+        window.addEventListener("resize", () => {
+            if (window.matchMedia("(min-width: 768px)").matches) {
+                painel.classList.add("hidden");
+                burger.setAttribute("aria-expanded", "false");
+            }
+        });
+        const botaoMob = document.getElementById("menu-links-gerais-mobile");
+        const submenuMob = document.getElementById("submenu-links-gerais-mobile");
+        if (botaoMob && submenuMob) {
+            const alternarMob = () => {
+                const aberto = submenuMob.classList.contains("hidden");
+                submenuMob.classList.toggle("hidden", !aberto);
+                botaoMob.setAttribute("aria-expanded", aberto ? "true" : "false");
+            };
+            botaoMob.addEventListener("click", (e) => {
+                e.preventDefault();
+                alternarMob();
+            });
+        }
+    }
+
+    destacarLinkAtivo();
 }
 
 /**
  * @summary Destaca o item de menu correspondente à página atual.
  */
 function destacarLinkAtivo(): void {
-  const nav = document.getElementById("menu-superior");
-  if (!(nav instanceof HTMLElement)) return;
+    const nav = document.getElementById("menu-superior");
+    if (!(nav instanceof HTMLElement)) return;
 
-  const normalizar = (p: string): string => {
-    if (!p || p === "/") return "/index.html";
-    return p;
-  };
+    const normalizar = (p: string): string => {
+        if (!p || p === "/") return "/index.html";
+        return p;
+    };
 
-  const atual = normalizar(window.location.pathname);
+    const atual = normalizar(window.location.pathname);
 
-  const links = nav.querySelectorAll<HTMLAnchorElement>("a[href]");
-  links.forEach((link) => {
-    try {
-      const href = link.getAttribute("href") ?? "";
-      const alvo = normalizar(new URL(href, window.location.origin).pathname);
-      const corresponde =
-        atual === alvo || (alvo === "/index.html" && (atual === "/" || atual === "/index.html"));
-      if (corresponde) {
-        link.classList.add(
-          "text-violet-500",
-          "dark:text-violet-500",
-          "font-semibold",
-          "underline",
-          "underline-offset-8",
-          "decoration-2",
-          "hover:text-violet-600",
-          "dark:hover:text-violet-600",
-          "transition-all",
-          "duration-300",
-        );
-        link.setAttribute("aria-current", "page");
-      }
-    } catch {
-      console.info("Erro no componente de menu: link inválido encontrado:", link);
-    }
-  });
+    const links = nav.querySelectorAll<HTMLAnchorElement>("a[href]");
+    links.forEach((link) => {
+        try {
+            const href = link.getAttribute("href") ?? "";
+            const alvo = normalizar(new URL(href, window.location.origin).pathname);
+            const corresponde =
+                atual === alvo || (alvo === "/index.html" && (atual === "/" || atual === "/index.html"));
+            if (corresponde) {
+                link.classList.add(
+                    "text-violet-500",
+                    "dark:text-violet-500",
+                    "font-semibold",
+                    "underline",
+                    "underline-offset-8",
+                    "decoration-2",
+                    "hover:text-violet-600",
+                    "dark:hover:text-violet-600",
+                    "transition-all",
+                    "duration-300",
+                );
+                link.setAttribute("aria-current", "page");
+            }
+        } catch {
+            console.info("Erro no componente de menu: link inválido encontrado:", link);
+        }
+    });
 }
 
 /**
@@ -222,7 +222,7 @@ function destacarLinkAtivo(): void {
 inicializarMenu();
 
 document.addEventListener("DOMContentLoaded", () => {
-  inicializarMenu();
+    inicializarMenu();
 });
 
-export {};
+export { };
