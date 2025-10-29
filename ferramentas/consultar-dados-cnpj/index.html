@@ -2,90 +2,114 @@
 <html lang="pt-BR">
 
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Cache -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <script type="module" src="/dist/src/interface/transicao.js" defer></script>
-    <script>
-        window.addEventListener("load", () => {
-            document.body.classList.add("ready");
-        });
-    </script>
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <!-- SEO -->
     <title>Consultar Dados do CNPJ – Consulta gratuita na Receita Federal via OpenCNPJ</title>
     <meta name="description"
         content="Consulte gratuitamente dados do CNPJ direto da base pública da Receita Federal via API OpenCNPJ. Resultados rápidos, atualizados e confiáveis." />
     <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://cnpj.bade.digital/ferramentas/consulta-cnpj" />
+
+    <!-- Idioma e localização -->
     <meta name="language" content="pt-BR" />
     <meta name="geo.region" content="BR" />
     <meta name="geo.placename" content="Brasil" />
     <meta name="author" content="Gerador e Validador de CNPJ" />
+
     <link rel="alternate" hreflang="pt-BR" href="https://cnpj.bade.digital/ferramentas/consultar-dados-cnpj/" />
     <link rel="alternate" hreflang="x-default" href="https://cnpj.bade.digital/ferramentas/consultar-dados-cnpj/" />
+
+    <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" type="application/xml" href="https://cnpj.bade.digital/sitemap.xml" />
 
+    <!-- Tema e apps -->
     <meta name="theme-color" content="#2563eb" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
     <meta property="og:title" content="Consulta CNPJ Grátis – Dados Oficiais da Receita Federal via OpenCNPJ" />
     <meta property="og:description"
-        content="Consulte gratuitamente dados do CNPJ direto da base pública da Receita Federal via API OpenCNPJ. Resultados rápidos, atualizados e confiáveis. " />
+        content="Consulte gratuitamente dados do CNPJ direto da base pública da Receita Federal via API OpenCNPJ. Resultados rápidos, atualizados e confiáveis." />
     <meta property="og:url" content="https://cnpj.bade.digital/ferramentas/consultar-dados-cnpj/" />
-    <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
     <meta property="og:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
     <meta property="og:image:alt" content="Consulta gratuita de dados do CNPJ via OpenCNPJ" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Consulta CNPJ Grátis - Dados Oficiais da Receita Federal via OpenCNPJ" />
+    <meta name="twitter:title" content="Consulta CNPJ Grátis – Dados Oficiais da Receita Federal via OpenCNPJ" />
     <meta name="twitter:description"
         content="Consulte gratuitamente dados do CNPJ direto da base pública da Receita Federal via API OpenCNPJ. Resultados rápidos, atualizados e confiáveis." />
     <meta name="twitter:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
 
+    <!-- Structured Data: WebApp + página dinâmica de consulta -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Consulta de Dados do CNPJ (OpenCNPJ)",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web",
-        "inLanguage": "pt-BR",
-        "url": "https://cnpj.bade.digital/ferramentas/consultar-dados-cnpj/",
-        "description": "Consulta gratuita de dados do CNPJ com base pública da Receita Federal via API OpenCNPJ. Informações atualizadas mensalmente e sujeitas a leve desatualização.",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "BRL"
-        },
-        "provider": {
-          "@type": "Organization",
-          "name": "OpenCNPJ",
-          "url": "https://opencnpj.org"
-        },
-        "isBasedOn": {
-          "@type": "WebPage",
-          "name": "Receita Federal do Brasil – CNPJ",
-          "url": "https://www.gov.br/receitafederal/"
-        }
-      }
-    </script>
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Consulta de Dados do CNPJ (OpenCNPJ)",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "pt-BR",
+    "url": "https://cnpj.bade.digital/ferramentas/consultar-dados-cnpj/",
+    "description": "Consulta gratuita de dados do CNPJ com base pública da Receita Federal via API OpenCNPJ. Informações atualizadas mensalmente e sujeitas a leve desatualização.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "OpenCNPJ",
+      "url": "https://opencnpj.org"
+    },
+    "isBasedOn": {
+      "@type": "WebPage",
+      "name": "Receita Federal do Brasil – CNPJ",
+      "url": "https://www.gov.br/receitafederal/"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://cnpj.bade.digital/ferramentas/consulta-cnpj?={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 
+    <!-- Styles -->
     <link rel="stylesheet" href="../../dist/assets/tailwind.min.css" />
-
     <link rel="stylesheet" href="../../dist/assets/controle-tema.min.css" />
 
+    <!-- Scripts -->
+    <script type="module" src="/dist/src/interface/transicao.js" defer></script>
+    <script>
+        window.addEventListener("load", () => document.body.classList.add("ready"));
+    </script>
+
+    <!-- SW cleanup -->
+    <script id="sw-unregister">
+        (function () {
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.getRegistrations().then((regs) => regs.forEach((r) => r.unregister().catch(() => { })));
+            }
+        })();
+    </script>
+
     <style>
-        /* Animação suave para o ponto de carregamento azul */
         @keyframes scale-bounce {
 
             0%,
@@ -102,35 +126,8 @@
             animation: scale-bounce 1.2s ease-in-out infinite;
         }
     </style>
-
-    <script id="sw-unregister">
-        (function () {
-            if ("serviceWorker" in navigator) {
-                navigator.serviceWorker
-                    .getRegistrations()
-                    .then(function (regs) {
-                        regs.forEach(function (r) {
-                            r.unregister().catch(function () {
-                                /* noop */
-                            });
-                        });
-                    })
-                    .catch(function () {
-                        /* noop */
-                    });
-                navigator.serviceWorker.getRegistration &&
-                    navigator.serviceWorker.getRegistration().then(function (reg) {
-                        if (reg && reg.active) {
-                            reg.update().catch(function () {
-                                /* noop */
-                            });
-                        }
-                    });
-            }
-        })();
-    </script>
-
 </head>
+
 
 <body
     class="scroll-personalizado flex flex-col min-h-screen font-sans transition-colors duration-500 bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-zinc-50">

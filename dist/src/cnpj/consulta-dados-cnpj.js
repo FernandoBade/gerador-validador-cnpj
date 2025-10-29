@@ -504,6 +504,21 @@ class ValidadorCnpjApi {
         listaHistorico.scrollTop = 0;
     }
     /**
+     * @summary Torna público o fluxo de exibição do modal para um CNPJ já presente no histórico.
+     * @param puroOuFormatado CNPJ em qualquer formato para localizar o item correspondente.
+     */
+    abrirDetalhesPorCnpj(puroOuFormatado) {
+        const puro = normalizarPuro(puroOuFormatado);
+        if (puro.length !== 14) {
+            return;
+        }
+        const encontrado = this.historico.find((item) => item.puro === puro);
+        if (!encontrado || encontrado.carregando) {
+            return;
+        }
+        this.exibirModalCnpj(encontrado);
+    }
+    /**
      * @summary Exibe o modal com os dados completos retornados pela API.
      */
     exibirModalCnpj(resultado) {
@@ -702,6 +717,10 @@ class ValidadorCnpjApi {
             ? `Dados do CNPJ ${exibicao} encontrados com sucesso`
             : resultado.mensagem;
         this.exibirAviso(mensagem, tipo);
+        const eventoConclusao = new CustomEvent("consultaCnpjConcluida", {
+            detail: resultado,
+        });
+        document.dispatchEvent(eventoConclusao);
     }
     /**
      * @summary Exibe um resumo após a consulta em massa.
@@ -970,12 +989,56 @@ document.addEventListener("DOMContentLoaded", () => {
         botaoFecharModal: obterElementoObrigatorio("botao-fechar-modal-cnpj"),
         modalCaixa: obterElementoObrigatorio("modal-caixa-cnpj"),
     };
-    void new ValidadorCnpjApi(elementos);
+    const validador = new ValidadorCnpjApi(elementos);
     document.addEventListener("jsonCopiado", () => {
         exibirAviso(elementos.areaAviso, "JSON copiado!", TipoAviso.InfoAlternativo);
     });
     document.addEventListener("jsonNaoCopiado ", () => {
         exibirAviso(elementos.areaAviso, "Não foi possível copiar o JSON!", TipoAviso.Erro);
     });
+    document.addEventListener("abrirDetalhesCnpj", (evento) => {
+        const detalhe = evento.detail;
+        if (!detalhe?.puro) {
+            return;
+        }
+        validador.abrirDetalhesPorCnpj(detalhe.puro);
+    });
+    let cnpjAutomatico = null;
+    document.addEventListener("consultaCnpjConcluida", (evento) => {
+        if (!cnpjAutomatico) {
+            return;
+        }
+        const detalhe = evento.detail;
+        if (!detalhe) {
+            return;
+        }
+        if (normalizarPuro(detalhe.puro) !== cnpjAutomatico) {
+            return;
+        }
+        setTimeout(() => {
+            document.dispatchEvent(new CustomEvent("abrirDetalhesCnpj", { detail: { puro: detalhe.puro } }));
+            cnpjAutomatico = null;
+        }, 200);
+    });
+    void (async () => {
+        const parametros = new URLSearchParams(window.location.search);
+        const parametroCnpj = parametros.get("");
+        if (!parametroCnpj) {
+            return;
+        }
+        const puro = normalizarPuro(parametroCnpj);
+        if (puro.length !== 14) {
+            return;
+        }
+        const { validarCnpjPuro } = await import("./algoritmo-cnpj.js");
+        if (!validarCnpjPuro(puro)) {
+            return;
+        }
+        const usarMascara = elementos.controleMascara.checked;
+        elementos.campoUnico.value = usarMascara ? aplicarMascaraProgressiva(puro) : puro;
+        elementos.campoUnico.dispatchEvent(new Event("input", { bubbles: true }));
+        cnpjAutomatico = puro;
+        elementos.botaoValidarUnico.click();
+    })();
 });
 //# sourceMappingURL=consulta-dados-cnpj.js.map
