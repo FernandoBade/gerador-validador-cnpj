@@ -15,289 +15,609 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Artigos sobre CNPJ — Biblioteca de Conteúdos</title>
+    <title>Artigos sobre CNPJ — Biblioteca Completa de Conteúdo Atualizado</title>
     <meta
       name="description"
-      content="Explore nossa coleção de artigos sobre CNPJ, legislação e boas práticas para empresas brasileiras."
+      content="Acompanhe novidades, guias e análises sobre geração, validação e consulta de CNPJ. Conteúdos profundos com foco em compliance, automação e o novo CNPJ alfanumérico."
     />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="pt-BR" />
+    <meta name="geo.region" content="BR" />
+    <meta name="geo.placename" content="Brasil" />
+    <meta name="author" content="Gerador e Validador de CNPJ" />
+    <link rel="canonical" href="https://cnpj.bade.digital/artigos/" />
 
+    <!-- Favicons / PWA -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#2563eb" />
 
-    <link rel="stylesheet" href="/dist/assets/tailwind.min.css" />
-    <link rel="stylesheet" href="/dist/assets/controle-tema.min.css" />
-  
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Artigos sobre CNPJ — Biblioteca Completa de Conteúdo Atualizado" />
+    <meta
+      property="og:description"
+      content="Estudos, guias práticos e notícias sobre CNPJ, compliance e transformação digital."
+    />
+    <meta property="og:url" content="https://cnpj.bade.digital/artigos/" />
+    <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
+    <meta property="og:image" content="https://cnpj.bade.digital/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
+    <meta property="og:image:alt" content="Coleção de artigos sobre geração, validação e consulta de CNPJ" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Artigos sobre CNPJ — Biblioteca Completa de Conteúdo Atualizado" />
+    <meta
+      name="twitter:description"
+      content="Fique por dentro das novidades sobre CNPJ com conteúdos aprofundados e atualizados."
+    />
+    <meta name="twitter:image" content="https://cnpj.bade.digital/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
+
+    <!-- JSON-LD Schema.org -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Biblioteca de artigos sobre CNPJ",
+        "url": "https://cnpj.bade.digital/artigos/",
+        "description": "Coleção de artigos sobre geração, validação e consulta de CNPJ, compliance, automação e transformação digital.",
+        "inLanguage": "pt-BR",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Bade Digital",
+          "url": "https://cnpj.bade.digital/"
+        },
+        "blogPost": [
+          {
+            "@type": "BlogPosting",
+            "headline": "CNPJ Desvendado: história, estrutura e futuro alfanumérico",
+            "url": "https://cnpj.bade.digital/artigos/cnpj-desvendado-história-estrutura-e-o-futuro-alfanumerico/",
+            "datePublished": "2025-02-05",
+            "author": { "@type": "Person", "name": "Equipe Bade Digital" }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "Como a validação de CNPJ é feita na prática",
+            "url": "https://cnpj.bade.digital/artigos/como-a-validacao-de-cnpj-e-feita/",
+            "datePublished": "2025-01-28",
+            "author": { "@type": "Person", "name": "Equipe Bade Digital" }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "Boas práticas de compliance com dados cadastrais",
+            "url": "https://cnpj.bade.digital/artigos/boas-praticas-compliance-cnpj/",
+            "datePublished": "2025-01-18",
+            "author": { "@type": "Person", "name": "Equipe Bade Digital" }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Tailwind -->
+    <link rel="stylesheet" href="../dist/assets/tailwind.min.css" />
+    <link rel="stylesheet" href="../dist/assets/controle-tema.min.css" />
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          "gtm.start": new Date().getTime(),
+          event: "gtm.js"
+        });
+        const f = d.getElementsByTagName(s)[0];
+        const j = d.createElement(s);
+        const dl = l !== "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-5LSGCFMM");
+    </script>
+    <!-- End Google Tag Manager -->
+
     <script id="sw-unregister">
-      (function() {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.getRegistrations?.().then((regs) => {
-            regs.forEach((r) => r.unregister().catch(() => {}))
-          }).catch(() => {})
-          navigator.serviceWorker.getRegistration?.().then((reg) => {
-            if (reg?.active) reg.update().catch(() => {})
-          })
+      (function () {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .getRegistrations?.()
+            .then((regs) => regs.forEach((r) => r.unregister().catch(() => {})))
+            .catch(() => {});
+          navigator.serviceWorker
+            .getRegistration?.()
+            .then((reg) => {
+              if (reg?.active) {
+                reg.update().catch(() => {});
+              }
+            })
+            .catch(() => {});
         }
       })();
     </script>
-</head>
+  </head>
+
   <body
-    class="min-h-screen bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-zinc-100 font-sans transition-colors duration-500"
+    class="scroll-personalizado flex min-h-screen flex-col bg-slate-100/60 font-sans text-slate-900 transition-colors duration-500 dark:bg-slate-800 dark:text-zinc-50"
   >
-    <div class="flex min-h-screen flex-col">
-      <header class="relative isolate overflow-hidden">
-        <div class="absolute inset-0">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-5LSGCFMM"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <main class="flex-1">
+      <section class="relative overflow-hidden bg-gradient-to-br from-violet-500/10 via-slate-100 to-blue-500/10 dark:from-slate-900 dark:via-slate-900/80 dark:to-slate-800">
+        <div class="absolute inset-0 opacity-30 mix-blend-multiply">
           <img
-            src="https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=1400&q=80"
-            alt="Mesa de trabalho com laptop e anotações"
+            src="https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=1600&q=80"
+            alt="Mesa de trabalho com notebook, anotações e gráficos"
             class="h-full w-full object-cover"
           />
-          <div class="absolute inset-0 bg-slate-900/70"></div>
         </div>
-        <div class="relative mx-auto max-w-6xl px-6 py-24 text-center sm:px-8 lg:px-10">
-          <span class="inline-flex items-center rounded-full bg-blue-500/20 px-4 py-1 text-sm font-semibold text-blue-100">
-            Biblioteca de conteúdos
+        <div class="relative mx-auto flex max-w-6xl flex-col gap-6 px-6 py-24 text-center sm:px-10">
+          <span class="mx-auto inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-violet-600 dark:border-violet-500/40 dark:text-violet-300">
+            Biblioteca de conteúdo
           </span>
-          <h1 class="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Artigos sobre CNPJ e gestão empresarial
+          <h1 class="text-4xl font-black leading-tight text-slate-800 dark:text-zinc-50 sm:text-5xl">
+            Insights confiáveis sobre CNPJ, compliance e transformação digital
           </h1>
-          <p class="mx-auto mt-4 max-w-3xl text-lg text-blue-100">
-            Descubra guias, tutoriais e análises exclusivas sobre geração, validação e consulta de CNPJ, além de insights
-            práticos para o dia a dia da sua empresa.
+          <p class="mx-auto max-w-3xl text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg">
+            A curadoria oficial da plataforma Gerador e Validador de CNPJ. Guias aprofundados, tutoriais práticos e estudos de caso para impulsionar sua operação com dados confiáveis e atualizados.
           </p>
+          <div class="mx-auto flex flex-wrap items-center justify-center gap-3 text-sm text-slate-500 dark:text-slate-300">
+            <div class="flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/60 px-4 py-2 shadow-sm backdrop-blur dark:border-slate-700/60 dark:bg-slate-800/70">
+              <svg class="h-4 w-4 text-violet-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12a7 7 0 0 1 7-7m7 7a7 7 0 0 1-7 7m0-14v14m-7-7h14" />
+              </svg>
+              Atualizado mensalmente
+            </div>
+            <div class="flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/60 px-4 py-2 shadow-sm backdrop-blur dark:border-slate-700/60 dark:bg-slate-800/70">
+              <svg class="h-4 w-4 text-emerald-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m5 13 4 4L19 7" />
+              </svg>
+              Curadoria da equipe Bade Digital
+            </div>
+            <div class="flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/60 px-4 py-2 shadow-sm backdrop-blur dark:border-slate-700/60 dark:bg-slate-800/70">
+              <svg class="h-4 w-4 text-sky-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              Tempo médio de leitura: 7 minutos
+            </div>
+          </div>
         </div>
-      </header>
+      </section>
 
-      <main class="flex-1 bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950">
-        <section class="mx-auto w-full max-w-6xl px-6 py-16 sm:px-8 lg:px-10">
-          <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 class="text-2xl font-bold text-slate-800 dark:text-zinc-50">Últimos artigos</h2>
-              <p class="mt-2 text-base text-slate-600 dark:text-slate-300">
-                Explore conteúdos atualizados com a mesma qualidade das nossas ferramentas de consulta de dados de CNPJ.
+      <section class="mx-auto w-full max-w-6xl px-6 py-16 sm:px-10">
+        <div class="flex flex-col gap-8 rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-xl backdrop-blur-md transition-colors duration-500 dark:border-slate-700/60 dark:bg-slate-900/70">
+          <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div class="space-y-3">
+              <p class="text-sm font-semibold uppercase tracking-[0.28em] text-violet-500">Explore</p>
+              <h2 class="text-3xl font-bold text-slate-800 dark:text-zinc-50">Últimos artigos publicados</h2>
+              <p class="max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300">
+                Use a busca inteligente ou filtre por tags para encontrar rapidamente guias sobre geração de CNPJ, validação automática, automação de cadastros e muito mais.
               </p>
             </div>
             <a
               href="/"
-              class="inline-flex items-center justify-center gap-2 rounded-full border border-blue-500/60 bg-blue-500/10 px-6 py-2 text-sm font-semibold text-blue-600 transition hover:-translate-y-0.5 hover:bg-blue-500/20 hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 dark:text-blue-300 dark:hover:text-blue-200"
+              class="inline-flex items-center justify-center gap-2 self-start rounded-full border border-violet-500/40 bg-violet-500/10 px-6 py-2 text-sm font-semibold text-violet-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-violet-500/20 hover:text-violet-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:text-violet-300 dark:hover:text-violet-200"
             >
-              Voltar para a página inicial
+              <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5 3 12m0 0 6 7M3 12h18" />
+              </svg>
+              Voltar para as ferramentas
             </a>
           </div>
 
-          <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
+          <div class="flex flex-col gap-6 rounded-2xl border border-slate-200/70 bg-slate-50/60 p-6 shadow-inner transition-colors duration-500 dark:border-slate-700/60 dark:bg-slate-800/60">
+            <label for="busca-artigos" class="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 shadow-sm focus-within:border-violet-400 focus-within:ring-2 focus-within:ring-violet-200 dark:border-slate-700 dark:bg-slate-900/70 dark:focus-within:border-violet-500 dark:focus-within:ring-violet-600/40">
+              <svg class="h-5 w-5 text-slate-500 dark:text-slate-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m21 21-3.5-3.5M5 11a6 6 0 1 1 12 0 6 6 0 0 1-12 0Z" />
+              </svg>
+              <input
+                id="busca-artigos"
+                type="search"
+                placeholder="Busque por título, resumo ou palavra-chave"
+                class="w-full bg-transparent text-sm font-medium text-slate-700 placeholder:text-slate-400 focus:outline-none dark:text-slate-200"
+                autocomplete="off"
+              />
+            </label>
+
+            <div class="flex flex-wrap items-center gap-3">
+              <p class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-300">Filtrar por tag</p>
+              <div class="flex flex-wrap gap-2" role="group" aria-label="Filtrar artigos por tag">
+                <button
+                  type="button"
+                  data-filter-tag="todos"
+                  class="efeito-onda-base efeito-onda-claro rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-violet-600 transition-all duration-300 hover:-translate-y-0.5 hover:bg-violet-500/20 hover:text-violet-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                  aria-pressed="true"
+                >
+                  Todos
+                </button>
+                <button
+                  type="button"
+                  data-filter-tag="automacao"
+                  class="efeito-onda-base efeito-onda-claro rounded-full border border-slate-300/80 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:bg-slate-900/60 dark:text-slate-200"
+                  aria-pressed="false"
+                >
+                  Automação
+                </button>
+                <button
+                  type="button"
+                  data-filter-tag="compliance"
+                  class="efeito-onda-base efeito-onda-claro rounded-full border border-slate-300/80 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:bg-slate-900/60 dark:text-slate-200"
+                  aria-pressed="false"
+                >
+                  Compliance
+                </button>
+                <button
+                  type="button"
+                  data-filter-tag="estrategia"
+                  class="efeito-onda-base efeito-onda-claro rounded-full border border-slate-300/80 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:bg-slate-900/60 dark:text-slate-200"
+                  aria-pressed="false"
+                >
+                  Estratégia
+                </button>
+                <button
+                  type="button"
+                  data-filter-tag="tecnologia"
+                  class="efeito-onda-base efeito-onda-claro rounded-full border border-slate-300/80 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:bg-slate-900/60 dark:text-slate-200"
+                  aria-pressed="false"
+                >
+                  Tecnologia
+                </button>
+                <button
+                  type="button"
+                  data-filter-tag="template"
+                  class="efeito-onda-base efeito-onda-claro rounded-full border border-slate-300/80 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:bg-slate-900/60 dark:text-slate-200"
+                  aria-pressed="false"
+                >
+                  Template
+                </button>
+              </div>
+              <button
+                type="button"
+                id="limpar-filtros"
+                class="ml-auto inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-slate-500 transition-all duration-300 hover:-translate-y-0.5 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-300"
+              >
+                <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m6 18 12-12M6 6l12 12" />
+                </svg>
+                Limpar filtros
+              </button>
+            </div>
+            <p id="contador-resultados" class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-300" role="status" aria-live="polite">
+              6 artigos encontrados
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3" id="grade-artigos">
             <article
-              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-800"
+              data-post-card
+              data-tags="historia compliance estrategia"
+              data-title="CNPJ Desvendado: história, estrutura e futuro alfanumérico"
+              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/80"
             >
               <a href="/artigos/cnpj-desvendado-história-estrutura-e-o-futuro-alfanumerico/" class="relative block">
                 <img
-                  src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=800&q=80"
-                  alt="Pessoa analisando gráficos"
-                  class="h-52 w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                  src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80"
+                  alt="Pessoa analisando gráficos com tablet e notebook"
+                  class="h-52 w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  loading="lazy"
                 />
-                <span class="absolute left-4 top-4 rounded-full bg-blue-500/90 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-lg">
+                <span class="absolute left-4 top-4 rounded-full bg-violet-500 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-white shadow-lg">
                   Destaque
                 </span>
               </a>
-              <div class="flex flex-1 flex-col gap-4 px-6 pb-6 pt-5">
-                <div>
-                  <h3 class="text-xl font-semibold text-slate-900 transition group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-300">
+              <div class="flex flex-1 flex-col gap-5 px-6 pb-7 pt-6">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+                  <time datetime="2025-02-05">05 fev 2025</time>
+                  <span aria-hidden="true">•</span>
+                  <span>Equipe Bade Digital</span>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold leading-tight text-slate-900 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-50 dark:group-hover:text-violet-300">
                     <a href="/artigos/cnpj-desvendado-história-estrutura-e-o-futuro-alfanumerico/">
                       CNPJ Desvendado: história, estrutura e futuro alfanumérico
                     </a>
                   </h3>
-                  <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                    Uma jornada desde o antigo CGC até a chegada do CNPJ alfanumérico, com explicações claras sobre dígitos
-                    verificadores, máscaras e impactos para a sua empresa.
+                  <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    Uma imersão completa desde o antigo CGC até o novo formato alfanumérico, com explicações práticas sobre dígitos verificadores e impactos no seu fluxo de dados.
                   </p>
                 </div>
                 <div class="mt-auto flex flex-wrap gap-2">
-                  <span class="inline-flex items-center rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-600 dark:text-blue-300">
-                    História
-                  </span>
-                  <span class="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-300">
-                    Compliance
-                  </span>
-                  <span class="inline-flex items-center rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-600 dark:text-violet-300">
-                    Transformação Digital
-                  </span>
+                  <span class="inline-flex items-center rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-600 dark:text-violet-300">História</span>
+                  <span class="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-300">Compliance</span>
+                  <span class="inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-600 dark:text-indigo-300">Estratégia</span>
                 </div>
               </div>
             </article>
 
             <article
-              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-800"
+              data-post-card
+              data-tags="validacao compliance tecnologia"
+              data-title="Como a validação de CNPJ é feita na prática"
+              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/80"
             >
               <a href="/artigos/como-a-validacao-de-cnpj-e-feita/" class="relative block">
                 <img
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
-                  alt="Pessoa digitando em um teclado"
-                  class="h-52 w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80"
+                  alt="Pessoa digitando em um teclado com gráficos ao fundo"
+                  class="h-52 w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  loading="lazy"
                 />
               </a>
-              <div class="flex flex-1 flex-col gap-4 px-6 pb-6 pt-5">
-                <div>
-                  <h3 class="text-xl font-semibold text-slate-900 transition group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-300">
+              <div class="flex flex-1 flex-col gap-5 px-6 pb-7 pt-6">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+                  <time datetime="2025-01-28">28 jan 2025</time>
+                  <span aria-hidden="true">•</span>
+                  <span>Equipe Bade Digital</span>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold leading-tight text-slate-900 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-50 dark:group-hover:text-violet-300">
                     <a href="/artigos/como-a-validacao-de-cnpj-e-feita/">Como a validação de CNPJ é feita na prática</a>
                   </h3>
-                  <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                    Entenda o cálculo dos dígitos verificadores, como detectar fraudes e como automatizar rotinas de validação
-                    nas suas integrações com fornecedores e clientes.
+                  <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    Descubra cada etapa do cálculo dos dígitos verificadores, configure regras anti-fraude e automatize a validação dentro dos seus fluxos operacionais.
                   </p>
                 </div>
                 <div class="mt-auto flex flex-wrap gap-2">
-                  <span class="inline-flex items-center rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-600 dark:text-amber-300">
-                    Validação
-                  </span>
-                  <span class="inline-flex items-center rounded-full bg-slate-500/20 px-3 py-1 text-xs font-medium text-slate-600 dark:text-slate-200">
-                    Tutoriais
-                  </span>
+                  <span class="inline-flex items-center rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-600 dark:text-amber-300">Validação</span>
+                  <span class="inline-flex items-center rounded-full bg-slate-500/20 px-3 py-1 text-xs font-medium text-slate-600 dark:text-slate-200">Tutoriais</span>
+                  <span class="inline-flex items-center rounded-full bg-fuchsia-500/10 px-3 py-1 text-xs font-medium text-fuchsia-600 dark:text-fuchsia-300">Tecnologia</span>
                 </div>
               </div>
             </article>
 
             <article
-              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-800"
+              data-post-card
+              data-tags="template conteudo estrategia"
+              data-title="Modelo de artigo completo para publicações futuras"
+              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/80"
             >
-              <a href="/artigos/post-padrao.htm" class="relative block">
-                <div class="flex h-52 w-full items-center justify-center bg-slate-200 text-sm font-semibold uppercase tracking-wide text-slate-600 dark:bg-slate-700 dark:text-slate-200">
-                  imagem
+              <a href="/artigos/post-padrao.html" class="relative block">
+                <div class="flex h-52 w-full items-center justify-center bg-slate-200 text-sm font-semibold uppercase tracking-[0.3em] text-slate-600 transition duration-500 group-hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:group-hover:bg-slate-600">
+                  Prévia do template
                 </div>
               </a>
-              <div class="flex flex-1 flex-col gap-4 px-6 pb-6 pt-5">
-                <div>
-                  <h3 class="text-xl font-semibold text-slate-900 transition group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-300">
-                    <a href="/artigos/post-padrao.htm">Modelo de artigo completo para publicações futuras</a>
+              <div class="flex flex-1 flex-col gap-5 px-6 pb-7 pt-6">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+                  <time datetime="2025-02-01">01 fev 2025</time>
+                  <span aria-hidden="true">•</span>
+                  <span>Equipe Bade Digital</span>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold leading-tight text-slate-900 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-50 dark:group-hover:text-violet-300">
+                    <a href="/artigos/post-padrao.html">Modelo de artigo completo para publicações futuras</a>
                   </h3>
-                  <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                    Estrutura padrão com hero envolvente, conteúdo rico em seções e componentes visuais que facilitam a leitura
-                    e a organização de informações estratégicas sobre CNPJ.
+                  <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    Estrutura pronta para aprofundar pautas estratégicas com hero envolvente, blocos visuais e componentes que facilitam a leitura em qualquer dispositivo.
                   </p>
                 </div>
                 <div class="mt-auto flex flex-wrap gap-2">
-                  <span class="inline-flex items-center rounded-full bg-fuchsia-500/10 px-3 py-1 text-xs font-medium text-fuchsia-600 dark:text-fuchsia-300">
-                    Template
-                  </span>
-                  <span class="inline-flex items-center rounded-full bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-600 dark:text-sky-300">
-                    Conteúdo
-                  </span>
+                  <span class="inline-flex items-center rounded-full bg-fuchsia-500/10 px-3 py-1 text-xs font-medium text-fuchsia-600 dark:text-fuchsia-300">Template</span>
+                  <span class="inline-flex items-center rounded-full bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-600 dark:text-sky-300">Conteúdo</span>
+                  <span class="inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-600 dark:text-indigo-300">Estratégia</span>
                 </div>
               </div>
             </article>
 
             <article
-              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-800"
+              data-post-card
+              data-tags="compliance gestao"
+              data-title="Boas práticas de compliance com dados cadastrais"
+              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/80"
             >
-              <a href="/artigos/boas-praticas-compliance-cnpj.htm" class="relative block">
+              <a href="/artigos/boas-praticas-compliance-cnpj.html" class="relative block">
                 <img
-                  src="https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?auto=format&fit=crop&w=800&q=80"
-                  alt="Pessoas analisando relatórios"
-                  class="h-52 w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                  src="https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?auto=format&fit=crop&w=900&q=80"
+                  alt="Profissionais analisando relatórios financeiros"
+                  class="h-52 w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  loading="lazy"
                 />
               </a>
-              <div class="flex flex-1 flex-col gap-4 px-6 pb-6 pt-5">
-                <div>
-                  <h3 class="text-xl font-semibold text-slate-900 transition group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-300">
-                    <a href="/artigos/boas-praticas-compliance-cnpj.htm">Boas práticas de compliance com dados cadastrais</a>
+              <div class="flex flex-1 flex-col gap-5 px-6 pb-7 pt-6">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+                  <time datetime="2025-01-18">18 jan 2025</time>
+                  <span aria-hidden="true">•</span>
+                  <span>Equipe Bade Digital</span>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold leading-tight text-slate-900 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-50 dark:group-hover:text-violet-300">
+                    <a href="/artigos/boas-praticas-compliance-cnpj.html">Boas práticas de compliance com dados cadastrais</a>
                   </h3>
-                  <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                    Descubra como manter a base de fornecedores e clientes atualizada, reduzindo riscos regulatórios e otimizando
-                    processos financeiros com o CNPJ.
+                  <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    Estratégias para manter a base de fornecedores e clientes sempre alinhada à legislação, reduzindo riscos e preparando auditorias com confiança.
                   </p>
                 </div>
                 <div class="mt-auto flex flex-wrap gap-2">
-                  <span class="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-300">
-                    Compliance
-                  </span>
-                  <span class="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-600 dark:text-purple-300">
-                    Gestão
-                  </span>
+                  <span class="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-300">Compliance</span>
+                  <span class="inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-600 dark:text-purple-300">Gestão</span>
                 </div>
               </div>
             </article>
 
             <article
-              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-800"
+              data-post-card
+              data-tags="automacao tecnologia"
+              data-title="Como automatizar consultas de CNPJ em larga escala"
+              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/80"
             >
-              <a href="/artigos/automatizacao-consultas-cnpj.htm" class="relative block">
+              <a href="/artigos/automatizacao-consultas-cnpj.html" class="relative block">
                 <img
-                  src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80"
-                  alt="Código em tela de computador"
-                  class="h-52 w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                  src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80"
+                  alt="Tela de computador exibindo linhas de código"
+                  class="h-52 w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  loading="lazy"
                 />
               </a>
-              <div class="flex flex-1 flex-col gap-4 px-6 pb-6 pt-5">
-                <div>
-                  <h3 class="text-xl font-semibold text-slate-900 transition group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-300">
-                    <a href="/artigos/automatizacao-consultas-cnpj.htm">Como automatizar consultas de CNPJ em larga escala</a>
+              <div class="flex flex-1 flex-col gap-5 px-6 pb-7 pt-6">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+                  <time datetime="2024-12-12">12 dez 2024</time>
+                  <span aria-hidden="true">•</span>
+                  <span>Equipe Bade Digital</span>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold leading-tight text-slate-900 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-50 dark:group-hover:text-violet-300">
+                    <a href="/artigos/automatizacao-consultas-cnpj.html">Como automatizar consultas de CNPJ em larga escala</a>
                   </h3>
-                  <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                    Aprenda a integrar APIs confiáveis, criar filas de processamento e manter histórico seguro das informações
-                    consultadas para auditoria.
+                  <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    Configure integrações com APIs confiáveis, filas de processamento e monitoramento contínuo para controlar consultas massivas com segurança.
                   </p>
                 </div>
                 <div class="mt-auto flex flex-wrap gap-2">
-                  <span class="inline-flex items-center rounded-full bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-600 dark:text-sky-300">
-                    Automação
-                  </span>
-                  <span class="inline-flex items-center rounded-full bg-rose-500/10 px-3 py-1 text-xs font-medium text-rose-600 dark:text-rose-300">
-                    Tecnologia
-                  </span>
+                  <span class="inline-flex items-center rounded-full bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-600 dark:text-sky-300">Automação</span>
+                  <span class="inline-flex items-center rounded-full bg-rose-500/10 px-3 py-1 text-xs font-medium text-rose-600 dark:text-rose-300">Tecnologia</span>
                 </div>
               </div>
             </article>
 
             <article
-              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-800"
+              data-post-card
+              data-tags="estrategia dados"
+              data-title="5 casos de uso de integrações com OpenCNPJ"
+              class="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/80"
             >
-              <a href="/artigos/casos-de-uso-open-cnpj.htm" class="relative block">
+              <a href="/artigos/casos-de-uso-open-cnpj.html" class="relative block">
                 <img
-                  src="https://images.unsplash.com/photo-1508385082359-f38ae991e8f2?auto=format&fit=crop&w=800&q=80"
-                  alt="Reunião de equipe"
-                  class="h-52 w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                  src="https://images.unsplash.com/photo-1508385082359-f38ae991e8f2?auto=format&fit=crop&w=900&q=80"
+                  alt="Equipe em reunião colaborativa"
+                  class="h-52 w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  loading="lazy"
                 />
               </a>
-              <div class="flex flex-1 flex-col gap-4 px-6 pb-6 pt-5">
-                <div>
-                  <h3 class="text-xl font-semibold text-slate-900 transition group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-300">
-                    <a href="/artigos/casos-de-uso-open-cnpj.htm">5 casos de uso de integrações com OpenCNPJ</a>
+              <div class="flex flex-1 flex-col gap-5 px-6 pb-7 pt-6">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+                  <time datetime="2024-11-28">28 nov 2024</time>
+                  <span aria-hidden="true">•</span>
+                  <span>Equipe Bade Digital</span>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold leading-tight text-slate-900 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-50 dark:group-hover:text-violet-300">
+                    <a href="/artigos/casos-de-uso-open-cnpj.html">5 casos de uso de integrações com OpenCNPJ</a>
                   </h3>
-                  <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                    Exemplos reais de empresas que reduziram custos e aumentaram a eficiência operacional utilizando dados
-                    públicos da Receita Federal nas suas rotinas.
+                  <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    Conheça exemplos reais de empresas que ampliaram resultados ao conectar dados oficiais da Receita Federal às suas rotinas internas.
                   </p>
                 </div>
                 <div class="mt-auto flex flex-wrap gap-2">
-                  <span class="inline-flex items-center rounded-full bg-lime-500/10 px-3 py-1 text-xs font-medium text-lime-600 dark:text-lime-300">
-                    Estudos de Caso
-                  </span>
-                  <span class="inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-600 dark:text-indigo-300">
-                    Estratégia
-                  </span>
+                  <span class="inline-flex items-center rounded-full bg-lime-500/10 px-3 py-1 text-xs font-medium text-lime-600 dark:text-lime-300">Estudos de caso</span>
+                  <span class="inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-600 dark:text-indigo-300">Estratégia</span>
                 </div>
               </div>
             </article>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
-      <footer class="border-t border-slate-200/70 bg-white/90 px-6 py-8 text-sm text-slate-500 dark:border-slate-700/60 dark:bg-slate-900/80 dark:text-slate-300 sm:px-8 lg:px-10">
-        <div class="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            ©
-            <span class="font-semibold text-slate-700 dark:text-zinc-100">Gerador, Validador e Consulta de CNPJ</span>
-            — Conteúdo atualizado periodicamente.
+      <section class="bg-slate-900 py-16 text-zinc-50 dark:bg-slate-950">
+        <div class="mx-auto flex max-w-5xl flex-col items-center gap-6 px-6 text-center sm:px-10">
+          <h2 class="text-3xl font-semibold">Receba alertas dos próximos conteúdos</h2>
+          <p class="max-w-2xl text-sm leading-relaxed text-slate-300">
+            Cadastre nosso site nos favoritos e acompanhe as novidades sobre o novo CNPJ alfanumérico, automações com OpenCNPJ e rotinas de compliance com dados oficiais.
           </p>
           <a
-            href="/"
-            class="inline-flex items-center justify-center rounded-full bg-blue-500 px-5 py-2 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            href="/ferramentas/consultar-dados-cnpj/"
+            class="efeito-onda-base efeito-onda-escuro inline-flex items-center justify-center gap-2 rounded-full bg-violet-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
           >
-            Voltar para as ferramentas
+            <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m7-7H5" />
+            </svg>
+            Acessar a consulta de CNPJ
           </a>
         </div>
-      </footer>
-    </div>
+      </section>
+    </main>
+
+    <div id="feedback-artigos" class="pointer-events-none fixed bottom-6 right-6 z-50 hidden min-w-[220px] max-w-xs rounded-2xl border border-violet-500/50 bg-white/95 px-4 py-3 text-sm font-medium text-slate-600 shadow-2xl dark:border-violet-500/40 dark:bg-slate-900/90 dark:text-slate-200"></div>
+
+    <script>
+      (function () {
+        const searchInput = document.getElementById("busca-artigos");
+        const filterButtons = Array.from(document.querySelectorAll("[data-filter-tag]"));
+        const clearButton = document.getElementById("limpar-filtros");
+        const cards = Array.from(document.querySelectorAll("[data-post-card]"));
+        const counter = document.getElementById("contador-resultados");
+        const feedback = document.getElementById("feedback-artigos");
+        let activeTag = "todos";
+
+        const normalizar = (texto) => texto.normalize("NFD").replace(/[^\w\s-]/g, "").toLowerCase();
+
+        const atualizar = () => {
+          const termo = normalizar(searchInput?.value ?? "").trim();
+          let visiveis = 0;
+
+          cards.forEach((card) => {
+            const tags = (card.getAttribute("data-tags") ?? "").split(/\s+/);
+            const titulo = card.getAttribute("data-title") ?? "";
+            const resumo = card.textContent ?? "";
+            const correspondeTag = activeTag === "todos" || tags.includes(activeTag);
+            const correspondeBusca = !termo || normalizar(`${titulo} ${resumo}`).includes(termo);
+            const mostrar = correspondeTag && correspondeBusca;
+            card.classList.toggle("hidden", !mostrar);
+            card.classList.toggle("pointer-events-none", !mostrar);
+            if (mostrar) visiveis += 1;
+          });
+
+          if (counter) {
+            counter.textContent = `${visiveis} ${visiveis === 1 ? "artigo encontrado" : "artigos encontrados"}`;
+          }
+
+          if (feedback) {
+            if (visiveis === 0) {
+              feedback.textContent = "Nenhum artigo combina com os filtros selecionados.";
+              feedback.classList.remove("hidden");
+              feedback.classList.add("animate-fade-in");
+            } else {
+              feedback.classList.add("hidden");
+            }
+          }
+        };
+
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            activeTag = button.dataset.filterTag ?? "todos";
+            filterButtons.forEach((btn) => {
+              const ativo = btn === button;
+              btn.setAttribute("aria-pressed", ativo ? "true" : "false");
+              btn.classList.toggle("border-violet-500", ativo);
+              btn.classList.toggle("text-violet-600", ativo);
+              btn.classList.toggle("bg-violet-500/10", ativo);
+            });
+            atualizar();
+          });
+        });
+
+        searchInput?.addEventListener("input", atualizar);
+
+        clearButton?.addEventListener("click", () => {
+          activeTag = "todos";
+          if (searchInput) searchInput.value = "";
+          filterButtons.forEach((btn) => {
+            const ativo = btn.dataset.filterTag === "todos";
+            btn.setAttribute("aria-pressed", ativo ? "true" : "false");
+            btn.classList.toggle("border-violet-500", ativo);
+            btn.classList.toggle("text-violet-600", ativo);
+            btn.classList.toggle("bg-violet-500/10", ativo);
+            if (!ativo) {
+              btn.classList.remove("bg-violet-500/10", "text-violet-600", "border-violet-500");
+            }
+          });
+          atualizar();
+        });
+
+        atualizar();
+      })();
+    </script>
+
+    <script type="module" defer src="../dist/src/interface/tema.js"></script>
+    <script type="module" defer src="../dist/src/interface/menu.js"></script>
+    <script type="module" defer src="../dist/src/interface/rodape.js"></script>
   </body>
 </html>
