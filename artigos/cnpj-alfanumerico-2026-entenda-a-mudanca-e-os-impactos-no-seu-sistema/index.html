@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <script type="module" src="/dist/src/interface/transicao.js" defer></script>
+    <script>
+        window.addEventListener("load", () => {
+            document.body.classList.add("ready");
+        });
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>CNPJ alfanumérico 2026: entenda a mudança e os impactos no seu sistema</title>
+    <meta name="description"
+        content="Guia técnico: CNPJ alfanumérico em 2026 com TypeScript, regex ^[A-Z0-9]{12}[0-9]{2}$, módulo 11, conversão ASCII e migração de sistemas." />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="pt-BR" />
+    <meta name="geo.region" content="BR" />
+    <meta name="geo.placename" content="Brasil" />
+    <meta name="author" content="Fernando Bade" />
+    <link rel="canonical"
+        href="https://cnpj.bade.digital/artigos/cnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos-no-seu-sistema/" />
+
+    <meta name="keywords"
+        content="CNPJ alfanumérico, novo CNPJ 2026, mudanças no CNPJ, CNPJ com letras 2026, formato alfanumérico, validação CNPJ, Receita Federal, atualização de sistemas CNPJ 2026, módulo 11, CNPJ letras e números, Instrução Normativa RFB 2.229, cálculo DV CNPJ alfanumérico, adaptar sistemas CNPJ 2026, nova regra CNPJ empresa" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#2563eb" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="CNPJ alfanumérico 2026: entenda a mudança e os impactos no seu sistema" />
+    <meta property="og:description"
+        content="Guia técnico com TypeScript, regex, arquitetura e validações para migrar seu sistema ao CNPJ alfanumérico (2026)." />
+    <meta property="og:url"
+        content="https://cnpj.bade.digital/artigos/cnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos-no-seu-sistema/" />
+    <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
+    <meta property="og:image" content="https://cnpj.bade.digital/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
+    <meta property="og:image:alt" content="Ilustração sobre o novo CNPJ alfanumérico e suas mudanças em 2026" />
+    <meta property="article:published_time" content="2024-11-12T08:00:00-03:00" />
+    <meta property="article:modified_time" content="2024-11-12T08:00:00-03:00" />
+    <meta property="article:tag" content="CNPJ alfanumérico" />
+    <meta property="article:tag" content="Novo CNPJ 2026" />
+    <meta property="article:tag" content="Mudanças no CNPJ" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CNPJ alfanumérico 2026: entenda a mudança e os impactos no seu sistema" />
+    <meta name="twitter:description"
+        content="Código TypeScript, regex, testes e arquitetura para suportar CNPJ alfanumérico (2026)." />
+    <meta name="twitter:image"
+        content="https://cnpj.bade.digital/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
+    <meta name="twitter:creator" content="@badefernando" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "CNPJ alfanumérico 2026: entenda a mudança e os impactos no seu sistema",
+        "description": "Guia técnico: como validar, armazenar e integrar o CNPJ alfanumérico com código TypeScript, regex e QA.",
+        "image": "https://cnpj.bade.digital/img/gerador-validador-cnpj-2026-alfanumerico-og.png",
+        "@id": "https://cnpj.bade.digital/artigos/cnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos-no-seu-sistema/",
+        "author": {
+          "@type": "Person",
+          "name": "Fernando Bade"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Bade Digital",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://cnpj.bade.digital/android-chrome-192x192.png"
+          }
+        },
+        "datePublished": "2024-11-12T08:00:00-03:00",
+        "dateModified": "2024-11-12T08:00:00-03:00",
+        "inLanguage": "pt-BR",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://cnpj.bade.digital/artigos/cnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos/"
+        },
+        "keywords": [
+          "CNPJ alfanumérico",
+          "novo CNPJ 2026",
+          "mudanças no CNPJ",
+          "validação CNPJ",
+          "módulo 11"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/dist/assets/tailwind.min.css" />
+    <link rel="stylesheet" href="/dist/assets/controle-tema.min.css" />
+
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+            const f = d.getElementsByTagName(s)[0];
+            const j = d.createElement(s);
+            const dl = l !== "dataLayer" ? "&l=" + l : "";
+            j.async = true;
+            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", "GTM-5LSGCFMM");
+    </script>
+
+    <script id="sw-unregister">
+        (function () {
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker
+                    .getRegistrations?.()
+                    .then((regs) => regs.forEach((r) => r.unregister().catch(() => { })))
+                    .catch(() => { });
+                navigator.serviceWorker
+                    .getRegistration?.()
+                    .then((reg) => {
+                        if (reg?.active) {
+                            reg.update().catch(() => { });
+                        }
+                    })
+                    .catch(() => { });
+            }
+        })();
+    </script>
+</head>
+
+<body
+    class="scroll-personalizado flex min-h-screen flex-col bg-slate-100/70 font-sans text-slate-900 transition-colors duration-500 dark:bg-slate-800 dark:text-zinc-50">
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LSGCFMM" height="0" width="0"
+            style="display: none; visibility: hidden"></iframe>
+    </noscript>
+
+    <main class="flex-1">
+        <header
+            class="relative isolate overflow-hidden bg-gradient-to-br from-violet-500/10 via-slate-100 to-blue-400/10 dark:from-slate-900 dark:via-slate-900/60 dark:to-slate-800">
+            <div class="absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80"
+                    alt="Profissional analisando dados estratégicos sobre o novo CNPJ alfanumérico"
+                    class="h-full w-full object-cover opacity-40" />
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-slate-900/70 via-slate-900/60 to-violet-900/40 mix-blend-multiply">
+                </div>
+            </div>
+            <div class="relative mx-auto flex max-w-5xl flex-col gap-6 px-6 py-28 text-center sm:px-10">
+                <span
+                    class="mx-auto inline-flex items-center gap-2 rounded-full border border-violet-400/60 bg-violet-500/20 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-violet-100">
+                    Artigo especial
+                </span>
+                <h1 class="text-4xl font-black leading-tight text-white sm:text-5xl">
+                    CNPJ alfanumérico 2026: entenda a mudança e os impactos no seu sistema
+                </h1>
+                <p class="mx-auto max-w-2xl text-base leading-relaxed text-blue-100 sm:text-lg">
+                    Novo formato de CNPJ chegando em 2026: letras entram na jogada e os sistemas precisam se adaptar
+                    para não quebrar.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-violet-100/80">
+                    <span class="flex items-center gap-2">
+                        <svg class="w-6 h-6 text-zinc-50 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+                        </svg>
+
+                        Publicado em 15 dez 2025
+                    </span>
+
+                    <span class="flex items-center gap-2">
+                        <svg class="w-6 h-6 text-zinc-50 aria-hidden=" true" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+
+                        Leitura de 8 minutos
+                    </span>
+                </div>
+                <button id="botao-compartilhar" type="button"
+                    class="efeito-onda-base efeito-onda-claro mx-auto inline-flex items-center gap-2 rounded-full border border-violet-300/80 bg-white/10 px-4 py-2 text-sm font-semibold text-slate-100 shadow transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-200 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-200"
+                    aria-describedby="feedback-compartilhamento">
+                    <svg class="w-6 h-6 text-zinc-50 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M17.5 3a3.5 3.5 0 0 0-3.456 4.06L8.143 9.704a3.5 3.5 0 1 0-.01 4.6l5.91 2.65a3.5 3.5 0 1 0 .863-1.805l-5.94-2.662a3.53 3.53 0 0 0 .002-.961l5.948-2.667A3.5 3.5 0 1 0 17.5 3Z" />
+                    </svg>
+
+                    Compartilhar
+                </button>
+            </div>
+        </header>
+
+        <article class="relative -mt-20 mx-auto max-w-5xl px-6 pb-16 sm:px-10">
+            <div class="space-y-12">
+                <section
+                    class="space-y-6 rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-2xl backdrop-blur dark:border-slate-700/60 dark:bg-slate-900/80">
+                    <figure
+                        class="overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-100/60 shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/70">
+                        <!-- sugestão de imagem: Mock-up comparando CNPJ numérico vs alfanumérico -->
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80"
+                            alt="Comparativo visual entre CNPJ numérico tradicional e o novo CNPJ alfanumérico"
+                            class="h-full w-full object-cover" loading="lazy" />
+                        <figcaption class="bg-slate-900/85 px-6 py-3 text-center text-sm font-medium text-slate-100">
+                            A Receita Federal prepara a virada para o CNPJ alfanumérico em julho de 2026, ampliando
+                            combinações sem mudar a lógica do dígito verificador.
+                        </figcaption>
+                    </figure>
+
+                    <div
+                        class="prose prose-slate max-w-none space-y-6 leading-relaxed text-slate-700 dark:prose-invert dark:text-slate-200">
+                        <p>
+                            Se você achava que o CNPJ brasileiro já estava “definido”, prepare-se para uma mudança
+                            importante. A Receita Federal do Brasil publicou a <a
+                                href="https://www.gov.br/fazenda/pt-br/assuntos/noticias/2024/outubro/receita-federal-anuncia-que-cnpj-tera-letras-e-numeros-a-partir-de-julho-de-2026"
+                                class="underline underline-offset-4 font-semibold !decoration-violet-500">Instrução
+                                Normativa RFB nº 2.229/2024</a> que
+                            institui o novo CNPJ alfanumérico, em vigor a partir de julho de 2026.
+                        </p>
+                        <p>
+                            Para quem gerencia produto, desenvolve sistemas ou cuida para que nada quebre no back-end,
+                            entender essa transição evita dor de cabeça. Neste artigo explico o que muda, por que foi
+                            criado, como funciona o cálculo de dígitos verificadores (sim, letras agora contam) e o que
+                            os desenvolvedores precisam fazer.
+                        </p>
+                        <p>
+                            Já tá sabendo e quer começar a migrar o seu sistema? Use o nosso
+                            <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
+                                href="https://cnpj.bade.digital/ferramentas/gerador-cnpj" target="_blank"
+                                rel="noopener noreferrer">gerador
+                                gratuito de CNPJ</a>
+                            e veja como as alterações irão reagir no seu sistema.
+                        </p>
+
+                        <div
+                            class="rounded-2xl border border-violet-300/50 bg-gradient-to-br from-violet-50 via-pink-50 to-sky-50 p-4 shadow-sm dark:border-violet-500/30 dark:bg-slate-900/70">
+                            <p class="text-sm font-semibold text-violet-700 dark:text-violet-300">Resumo em 1 minuto</p>
+                            <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-700 dark:text-slate-200">
+                                <li>Desde julho/2026 novos CNPJs podem ter letras nas 12 primeiras posições e continuam
+                                    com dois dígitos finais.</li>
+                                <li>Quem já tem CNPJ não precisa trocar; a mudança vale para novas inscrições.</li>
+                                <li>A validação continua usando a mesma lógica (módulo 11) com uma adaptação simples
+                                    para letras.</li>
+                                <li>Empresas precisam revisar formulários, integrações e relatórios para aceitar o novo
+                                    formato.</li>
+                            </ul>
+                        </div>
+
+                        <div
+                            class="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                            <p class="text-sm font-semibold text-slate-800 dark:text-zinc-100">Passos práticos para se
+                                adaptar até julho/2026</p>
+                            <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm text-slate-700 dark:text-slate-200">
+                                <li>Atualize campos e máscaras para permitir letras nas 12 primeiras posições.</li>
+                                <li>Guarde o CNPJ como texto (evite formatos numéricos que cortam letras ou zeros à
+                                    esquerda).</li>
+                                <li>Revise integrações (APIs, ERP, fiscal, pagamentos) para aceitar o novo padrão.</li>
+                                <li>Treine equipes (cadastro, faturamento, suporte) sobre o novo formato e exemplos.
+                                </li>
+                                <li>Teste com casos fictícios e monitore logs para capturar falhas cedo.</li>
+                            </ol>
+                        </div>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            Por que o CNPJ vai ter letras?</h2>
+
+                        <div class="flex items-center justify-center h-full">
+                            <div class="relative w-full" style="padding-bottom: 56.25%; /* proporção 16:9 */">
+                                <iframe class="absolute top-0 left-0 w-full h-full"
+                                    src="https://www.youtube.com/embed/u_FIxzqrEhE" title="Novo CNPJ Alfanumérico"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                        </div>
+
+
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Escassez de números
+                            disponíveis</h3>
+                        <p>
+                            O formato atual do CNPJ é composto por 14 dígitos exclusivamente numéricos. Esse padrão
+                            funcionou bem até aqui, mas a demanda por novas inscrições - filiais, MEIs, startups,
+                            franquias - cresceu tanto que o número de combinações possíveis está próximo do limite.
+                            <span class="font-semibold text-violet-700 dark:text-violet-300">Segundo a Receita
+                                Federal</span>, a adoção do formato alfanumérico amplia significativamente o espaço de
+                            combinações.
+                        </p>
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Solução = letras +
+                            números</h3>
+                        <p>
+                            Para dar mais fôlego ao cadastro nacional, a Receita decidiu que a partir de julho de 2026
+                            as novas inscrições terão formato alfanumérico, combinando letras maiúsculas e números.
+                            Apenas CNPJs emitidos após a virada passam a receber caracteres alfanuméricos, preservando
+                            todas as inscrições existentes.
+                        </p>
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Benefícios esperados
+                        </h3>
+                        <ul>
+                            <li>Aumento massivo da quantidade de combinações possíveis, prolongando a vida útil do
+                                cadastro.</li>
+                            <li>Modernização do cadastro empresarial brasileiro, alinhando-se a padrões internacionais.
+                            </li>
+                            <li>Menor risco de “acabarem” os números e travarem aberturas de novas empresas.</li>
+                            <li>Sistemas públicos e privados obrigados a rever validações rígidas, tornando-se mais
+                                flexíveis.</li>
+                        </ul>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            O que muda no formato do CNPJ</h2>
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Estrutura antiga vs.
+                            nova</h3>
+                        <p>
+                            O modelo numérico permanece reconhecido, mas o novo formato combina letras e números nas 12
+                            primeiras posições e mantém dois dígitos verificadores numéricos ao final. Compare:
+                        </p>
+                        <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+                            <div
+                                class="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-lg dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <p
+                                    class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-300">
+                                    Formato antigo</p>
+                                <p class="mt-1 text-lg font-bold text-slate-800 dark:text-zinc-100">12.345.678/0001-90
+                                </p>
+                                <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600 dark:text-slate-300">
+                                    <li>14 dígitos numéricos no total.</li>
+                                    <li>Os 2 últimos dígitos são verificadores.</li>
+                                </ul>
+                            </div>
+                            <div
+                                class="rounded-2xl border border-violet-300/50 bg-gradient-to-br from-violet-50 via-pink-50 to-sky-50 p-4 shadow-lg dark:border-violet-500/30 dark:bg-slate-900/70">
+                                <p
+                                    class="text-xs font-semibold uppercase tracking-[0.3em] text-violet-700 dark:text-violet-300">
+                                    Formato novo</p>
+                                <p class="mt-1 text-lg font-bold text-violet-700 dark:text-violet-300">A1B2C3D4/E5F6-78
+                                </p>
+                                <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600 dark:text-slate-300">
+                                    <li>14 caracteres no total.</li>
+                                    <li>12 primeiras posições serão alfanuméricas (A-Z e 0-9).</li>
+                                    <li>Os 2 últimos dígitos são verificadores e continuam sendo apenas numéricos.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Distribuição prática
+                            das posições</h3>
+                        <ol
+                            class="mt-2 list-decimal space-y-2 rounded-2xl border border-slate-200/80 bg-white/90 p-4 pl-6 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                            <li>Primeiras 8 posições: raiz da empresa com letras ou números.</li>
+                            <li>Quatro posições seguintes: identificação do estabelecimento, também alfanumérica.</li>
+                            <li>Últimos dois dígitos: continuam numéricos e cumprem a função de dígitos verificadores
+                                (conforme Receita Federal).</li>
+                        </ol>
+
+
+                        <figure
+                            class="my-6 overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-100/60 shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/70">
+                            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1600&q=80"
+                                alt="Comparação do formato antigo do CNPJ numérico com o novo CNPJ alfanumérico (2026)"
+                                class="h-full w-full object-cover" loading="lazy" />
+                            <figcaption
+                                class="bg-slate-900/85 px-6 py-3 text-center text-sm font-medium text-slate-100">
+                                CNPJ numérico x CNPJ alfanumérico 2026: estrutura, posições e máscara.
+                            </figcaption>
+                        </figure>
+
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">O que não muda</h3>
+                        <ul class="mt-2 space-y-2">
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Os CNPJs já existentes continuam
+                                    válidos e seguem o formato antigo.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">A estrutura segue com 14
+                                    caracteres.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">A lógica de cálculo do dígito
+                                    verificador via módulo 11 permanece, com adaptação das letras para valores
+                                    numéricos.</span>
+                            </li>
+                        </ul>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            Validação e dígito verificador
+                            <span
+                                class="ml-2 inline-flex items-center rounded-full bg-pink-500/10 px-2 py-0.5 text-xs font-semibold text-pink-600 dark:text-pink-300">Técnico</span>
+                        </h2>
+                        <p>
+                            Desenvolvedor, é aqui que sua vida pode complicar se você não se antecipar. Cada caractere
+                            alfanumérico precisa virar um número antes de participar do cálculo do dígito verificador.
+                        </p>
+
+
+
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Conversão de letras
+                            para valores</h3>
+                        <p>
+                            Cada caractere do novo CNPJ (letra ou número) deve ser convertido para um valor numérico por
+                            meio do código ASCII menos 48. Assim, <strong>A</strong> (65) vira 17 e <strong>Z</strong>
+                            (90) vira 42. Os dígitos de 0 a 9 mantêm os valores tradicionais.
+                            <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
+                                href="https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/documentos-tecnicos/cnpj/manual-dv-cnpj.pdf/view"
+                                target="_blank" rel="noopener noreferrer">Receita Federal</a> documenta a regra
+                            completa.
+                        </p>
+
+                        <details
+                            class="group rounded-3xl border border-slate-200/80 bg-white/90 px-6 py-4 shadow-lg transition-all duration-300 dark:border-slate-700/60 dark:bg-slate-900/80">
+                            <summary
+                                class="flex cursor-pointer items-center justify-between gap-4 text-base font-semibold text-slate-700 transition-colors duration-300 group-open:text-violet-600 dark:text-zinc-100 dark:group-open:text-violet-300">
+                                <span>Ver tabela completa de conversão ASCII
+                                    <span
+                                        class="ml-2 inline-flex items-center rounded-full bg-sky-500/10 px-2 py-0.5 text-[10px] font-semibold text-sky-600 dark:text-sky-300">Referência</span>
+                                </span>
+                                <span class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-300">
+                                    <svg class="h-5 w-5 group-open:hidden" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1.5" d="M12 5v14m-7-7h14" />
+                                    </svg>
+                                    <svg class="hidden h-5 w-5 group-open:block" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1.5" d="M5 12h14" />
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-200">
+                                <div class="flex justify-end">
+                                    <button type="button"
+                                        class="ml-2 inline-flex items-center justify-center rounded text-violet-500 dark:text-violet-400 hover:text-violet-600 dark:hover:text-violet-600 active:scale-90 transition-all duration-300 ease-in-out"
+                                        data-copy-target="#tabela-ascii" title="Copiar tabela"
+                                        aria-label="Copiar tabela">
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div id="tabela-ascii"
+                                    class="overflow-x-auto rounded-2xl border border-slate-200/70 dark:border-slate-700/60">
+                                    <table
+                                        class="min-w-full divide-y divide-slate-200 text-left text-xs dark:divide-slate-700">
+                                        <thead
+                                            class="bg-slate-100/80 text-slate-600 dark:bg-slate-800/60 dark:text-slate-300">
+                                            <tr>
+                                                <th class="px-4 py-2 font-semibold">Caractere</th>
+                                                <th class="px-4 py-2 font-semibold">ASCII</th>
+                                                <th class="px-4 py-2 font-semibold">Valor para DV</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                                            <tr>
+                                                <td class="px-4 py-2">0</td>
+                                                <td class="px-4 py-2">48</td>
+                                                <td class="px-4 py-2">0</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">1</td>
+                                                <td class="px-4 py-2">49</td>
+                                                <td class="px-4 py-2">1</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">2</td>
+                                                <td class="px-4 py-2">50</td>
+                                                <td class="px-4 py-2">2</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">3</td>
+                                                <td class="px-4 py-2">51</td>
+                                                <td class="px-4 py-2">3</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">4</td>
+                                                <td class="px-4 py-2">52</td>
+                                                <td class="px-4 py-2">4</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">5</td>
+                                                <td class="px-4 py-2">53</td>
+                                                <td class="px-4 py-2">5</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">6</td>
+                                                <td class="px-4 py-2">54</td>
+                                                <td class="px-4 py-2">6</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">7</td>
+                                                <td class="px-4 py-2">55</td>
+                                                <td class="px-4 py-2">7</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">8</td>
+                                                <td class="px-4 py-2">56</td>
+                                                <td class="px-4 py-2">8</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">9</td>
+                                                <td class="px-4 py-2">57</td>
+                                                <td class="px-4 py-2">9</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">A</td>
+                                                <td class="px-4 py-2">65</td>
+                                                <td class="px-4 py-2">17</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">B</td>
+                                                <td class="px-4 py-2">66</td>
+                                                <td class="px-4 py-2">18</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">C</td>
+                                                <td class="px-4 py-2">67</td>
+                                                <td class="px-4 py-2">19</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">D</td>
+                                                <td class="px-4 py-2">68</td>
+                                                <td class="px-4 py-2">20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">E</td>
+                                                <td class="px-4 py-2">69</td>
+                                                <td class="px-4 py-2">21</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">F</td>
+                                                <td class="px-4 py-2">70</td>
+                                                <td class="px-4 py-2">22</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">G</td>
+                                                <td class="px-4 py-2">71</td>
+                                                <td class="px-4 py-2">23</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">H</td>
+                                                <td class="px-4 py-2">72</td>
+                                                <td class="px-4 py-2">24</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">I</td>
+                                                <td class="px-4 py-2">73</td>
+                                                <td class="px-4 py-2">25</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">J</td>
+                                                <td class="px-4 py-2">74</td>
+                                                <td class="px-4 py-2">26</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">K</td>
+                                                <td class="px-4 py-2">75</td>
+                                                <td class="px-4 py-2">27</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">L</td>
+                                                <td class="px-4 py-2">76</td>
+                                                <td class="px-4 py-2">28</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">M</td>
+                                                <td class="px-4 py-2">77</td>
+                                                <td class="px-4 py-2">29</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">N</td>
+                                                <td class="px-4 py-2">78</td>
+                                                <td class="px-4 py-2">30</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">O</td>
+                                                <td class="px-4 py-2">79</td>
+                                                <td class="px-4 py-2">31</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">P</td>
+                                                <td class="px-4 py-2">80</td>
+                                                <td class="px-4 py-2">32</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">Q</td>
+                                                <td class="px-4 py-2">81</td>
+                                                <td class="px-4 py-2">33</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">R</td>
+                                                <td class="px-4 py-2">82</td>
+                                                <td class="px-4 py-2">34</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">S</td>
+                                                <td class="px-4 py-2">83</td>
+                                                <td class="px-4 py-2">35</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">T</td>
+                                                <td class="px-4 py-2">84</td>
+                                                <td class="px-4 py-2">36</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">U</td>
+                                                <td class="px-4 py-2">85</td>
+                                                <td class="px-4 py-2">37</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">V</td>
+                                                <td class="px-4 py-2">86</td>
+                                                <td class="px-4 py-2">38</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">W</td>
+                                                <td class="px-4 py-2">87</td>
+                                                <td class="px-4 py-2">39</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">X</td>
+                                                <td class="px-4 py-2">88</td>
+                                                <td class="px-4 py-2">40</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">Y</td>
+                                                <td class="px-4 py-2">89</td>
+                                                <td class="px-4 py-2">41</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">Z</td>
+                                                <td class="px-4 py-2">90</td>
+                                                <td class="px-4 py-2">42</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </details>
+
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Cálculo módulo 11
+                            adaptado</h3>
+                        <p>
+                            Depois de converter letras e números, aplica-se o módulo 11 com a mesma lógica tradicional:
+                            pesos 5-2 para o primeiro dígito, pesos 6-2 (com o primeiro DV) para o segundo. Se o resto
+                            for menor que 2, o dígito vira 0; caso contrário, usa-se 11 menos o resto.
+                        </p>
+
+                        <details
+                            class="group rounded-3xl border border-slate-200/80 bg-white/90 px-6 py-4 shadow-lg transition-all duration-300 dark:border-slate-700/60 dark:bg-slate-900/80">
+                            <summary
+                                class="flex cursor-pointer items-center justify-between gap-4 text-base font-semibold text-slate-700 transition-colors duration-300 group-open:text-violet-600 dark:text-zinc-100 dark:group-open:text-violet-300">
+                                <span>Ver código de exemplo em JavaScript</span>
+                                <span class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-300">
+                                    <svg class="h-5 w-5 group-open:hidden" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1.5" d="M12 5v14m-7-7h14" />
+                                    </svg>
+                                    <svg class="hidden h-5 w-5 group-open:block" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1.5" d="M5 12h14" />
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-200">
+                                <div class="flex justify-end">
+                                    <button type="button"
+                                        class="efeito-onda-base efeito-onda-claro inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+                                        data-copy-target="#codigo-validacao">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="1.5"
+                                                d="M9 9V5.5A1.5 1.5 0 0 1 10.5 4h7A1.5 1.5 0 0 1 19 5.5V17a1 1 0 0 1-1 1m-6-2H6.5A1.5 1.5 0 0 1 5 14.5v-9A1.5 1.5 0 0 1 6.5 4H10" />
+                                        </svg>
+                                        Copiar código
+                                    </button>
+                                </div>
+                                <pre id="codigo-validacao"
+                                    class="overflow-x-auto rounded-2xl border border-slate-200/70 bg-slate-950/90 p-4 text-xs text-slate-100 shadow-inner dark:border-slate-700/60"><code class=\"language-javascript\">// --------------------------------------------
+// --------------------------------------------
+// Validador de CNPJ Alfanumérico (versão simplificada)
+// Compatível com o novo formato de CNPJ a partir de 2026
+// --------------------------------------------
+
+    /**
+    * Converte um caractere (letra ou número) em valor numérico
+    * conforme a regra do novo CNPJ alfanumérico:
+    * - '0' → 0
+    * - '9' → 9
+    * - 'A' → 17 (pois 65 - 48 = 17)
+    * - 'B' → 18, e assim por diante
+    */
+function valorPorCaractere(ch) {
+    const code = ch.charCodeAt(0); // obtém o código ASCII do caractere
+
+    // Se for um dígito ('0' a '9')
+    if (code >= 48 && code <= 57) {
+        return code - 48;
+    }
+
+    // Se for uma letra maiúscula ('A' a 'Z')
+    if (code >= 65 && code <= 90) {
+        return code - 48;
+    }
+
+    // Se não for válido, lança erro
+    throw new Error(`Caractere inválido no CNPJ: ${ch}`);
+}
+
+/**
+ * Calcula os dois dígitos verificadores (DV) do CNPJ.
+ * O algoritmo usa o método de módulo 11, igual ao formato antigo,
+ * mas agora com valores numéricos derivados de letras.
+ */
+function calcularDVs(cnpj12) {
+    const valores = cnpj12.split("").map(valorPorCaractere);
+
+    // Pesos usados para o cálculo do primeiro DV
+    const pesos1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    let soma1 = 0;
+
+    // Multiplica cada valor pelo peso correspondente
+    for (let i = 0; i < 12; i++) {
+        soma1 += valores[i] * pesos1[i];
+    }
+
+    // Calcula o primeiro DV
+    const resto1 = soma1 % 11;
+    const dv1 = resto1 < 2 ? 0 : 11 - resto1;
+
+    // Adiciona o primeiro DV e calcula o segundo
+    const valores13 = [...valores, dv1];
+    const pesos2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    let soma2 = 0;
+
+    for (let i = 0; i < 13; i++) {
+        soma2 += valores13[i] * pesos2[i];
+    }
+
+    const resto2 = soma2 % 11;
+    const dv2 = resto2 < 2 ? 0 : 11 - resto2;
+
+    // Retorna ambos os dígitos verificadores
+    return [dv1, dv2];
+}
+
+/**
+ * Valida um CNPJ (numérico ou alfanumérico) conforme o novo padrão.
+ * Remove caracteres especiais, converte letras e confere os dígitos verificadores.
+ */
+function validarCNPJ(cnpj) {
+    // Remove pontos, barras e traços
+    const limpo = cnpj.replace(/[^A-Z0-9]/gi, "").toUpperCase();
+
+    // O CNPJ precisa ter exatamente 14 caracteres (letras + números)
+    if (limpo.length !== 14) return false;
+
+    const parte12 = limpo.slice(0, 12);
+    const dvInformado1 = Number(limpo.charAt(12));
+    const dvInformado2 = Number(limpo.charAt(13));
+
+    // Recalcula os DVs com base nos 12 primeiros caracteres
+    const [dv1, dv2] = calcularDVs(parte12);
+
+    // Compara os DVs calculados com os informados
+    return dv1 === dvInformado1 && dv2 === dvInformado2;
+}
+
+// --------------------------------------------
+// Exemplo de uso
+// --------------------------------------------
+console.log(validarCNPJ("A1B2C3D4E5F6-78".replace(/-/g, "")));
+// Retorna true ou false dependendo se o CNPJ é válido
+
+</code></pre>
+                                <p class="text-xs text-slate-500 dark:text-slate-300">
+                                    Esse script serve como guia rápido. Para produção, utilize bibliotecas testadas e
+                                    mantenha logs de auditoria.
+                                </p>
+                                <p class="text-sm text-slate-600 dark:text-slate-200">
+                                    Regex <code>^[A-Z0-9]{12}[0-9]{2}$</code> — <strong>^</strong> início;
+                                    <strong>[A-Z0-9]{12}</strong> 12 posições alfanuméricas; <strong>[0-9]{2}</strong> 2
+                                    dígitos finais; <strong>$</strong> fim. Aceita maiúsculas; para minúsculas, use flag
+                                    <code class="text-violet-600">i</code> ou inclua <code>a-z</code>.
+                                </p>
+                            </div>
+                        </details>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            Impactos para sistemas e desenvolvedores</h2>
+                        <p>
+                            Expressões regulares, bancos de dados e integrações precisarão ser atualizados. Validações
+                            rígidas para apenas números irão falhar com CNPJs alfanuméricos.
+                        </p>
+                        <div
+                            class="my-4 rounded-2xl border border-pink-400/40 bg-pink-50/60 p-4 text-sm text-pink-800 dark:border-pink-500/30 dark:bg-pink-500/10 dark:text-pink-200">
+                            <strong class="font-semibold">Atenção técnica:</strong> evite <em>parse</em> numérico (perda
+                            de letras/zeros), truncamento em colunas numéricas e efeitos de <em>locale</em>
+                            (maiúsculas/minúsculas). Revise máscaras, validações e conversões: guarde CNPJ como texto.
+                        </div>
+                        <ul class="mt-2 space-y-2">
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Regexs precisam aceitar letras nas 12
+                                    primeiras posições, algo como <code>^[A-Z0-9]{12}[0-9]{2}$</code>. Consulte as
+                                    orientações da Receita Federal para ajustes.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Colunas armazenadas como número devem
+                                    virar texto. Bigints não aceitam caracteres.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Revisar máscaras de input, sanitização
+                                    e normalização (aceitar letras nas 12 primeiras posições com ou sem máscara
+                                    visual).</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Impacto em integrações: APIs
+                                    públicas/privadas, ETLs, filas, webhooks e logs devem aceitar alfanumérico e
+                                    preservar letras.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">QA automatizado (Jest): inclua casos
+                                    A..Z, máscaras e inputs inválidos; garanta testes unitários (DV, regex,
+                                    normalização), integração (APIs) e e2e (cadastro/faturamento).</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Bibliotecas de validação precisam
+                                    suportar ASCII e módulo 11 adaptado. Veja exemplos no
+                                    <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
+                                        href="https://github.com/FernandoBade/gerador-validador-cnpj" target="_blank"
+                                        rel="noopener noreferrer">repositório do GitHub</a>.
+                                </span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Teste antecipado com CNPJs fictícios
+                                    evita falhas em produção.</span>
+                            </li>
+                        </ul>
+
+                        <!-- sugestão de imagem: Interface de sistema aceitando letras no campo de CNPJ -->
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            Impactos para empresas e times de produto</h2>
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Empresas com CNPJ
+                            vigente</h3>
+                        <p>
+                            Nenhuma inscrição existente será alterada. Mas sistemas internos precisam ser auditados para
+                            garantir que aceitarão novos parceiros com letras no identificador. Atualize cadastros, ERPs
+                            e integrações para não travar vendas ou faturamento.
+                        </p>
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Novos
+                            estabelecimentos a partir de 2026</h3>
+                        <p>
+                            Toda inscrição emitida após julho de 2026 pode nascer alfanumérica. Atualize nota fiscal,
+                            e-commerce, cadastro de fornecedores e fornecedores de pagamento.
+                            A virada será gradual, com períodos de adaptação e comunicação por parte de órgãos oficiais.
+                        </p>
+                        <p>
+                            No próprio site da Receita existe uma página dedicada ao tema para empresas acompanharem a
+                            evolução.
+
+                        </p>
+
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Para desenvolvedores
+                            (esse é seu playground)</h3>
+                        <ul class="mt-2 space-y-2">
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Reveja expressões regulares e
+                                    validações server-side e client-side.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Garanta que colunas e variáveis não
+                                    forcem parse numérico.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Faça testes automatizados com casos
+                                    alfanuméricos.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Utilize nossas ferramentas de
+                                    <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
+                                        href="../../ferramentas/gerador-cnpj/" target="_blank"
+                                        rel="noopener noreferrer">geração</a> e <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
+                                        href="../../ferramentas/validador-cnpj/" target="_blank"
+                                        rel="noopener noreferrer">validação</a> para testar seu desenvolvimento.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Documente a mudança no backlog e
+                                    comunique stakeholders.</span>
+                            </li>
+                        </ul>
+
+                        <!-- sugestão de imagem: Gráfico mostrando expansão de combinações antes e depois do CNPJ alfanumérico -->
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            Curiosidades que poucos contam</h2>
+                        <ul class="mt-2 space-y-2">
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">A mudança lembra a transição do IPv4
+                                    para o IPv6: de combinações finitas para um espaço quase infinito.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Com letras nas 12 primeiras posições, o
+                                    volume de combinações pode ultrapassar a casa dos trilhões de combinações
+                                    possíveis.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">A Receita afirmou que a transição será
+                                    progressiva e acompanhada de guias oficiais.
+                                </span>
+                            </li>
+
+                        </ul>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            Conclusão</h2>
+                        <p>
+                            A introdução do CNPJ alfanumérico em julho de 2026 é uma mudança técnica e estratégica. Os
+                            números atuais permanecem válidos, mas os sistemas precisam aceitar letras onde antes só
+                            existiam dígitos. Antecipe-se, previna falhas e mantenha seu produto robusto.
+                        </p>
+                        <p>
+                            Visite o
+                            <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
+                                href="https://cnpj.bade.digital" target="_blank" rel="noopener noreferrer">nosso
+                                site</a>
+                            para validar e gerar CNPJs em segundos e entender como o algoritmo funciona. Bons códigos -
+                            e que os dígitos verificadores estejam sempre a seu favor. 😉
+                        </p>
+                    </div>
+                </section>
+
+                <section
+                    class="space-y-6 rounded-3xl border border-violet-300/50 bg-gradient-to-br from-violet-50 via-pink-50 to-sky-50 px-6 py-6 shadow-inner dark:border-violet-500/30 dark:bg-none dark:bg-slate-900/60">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span
+                            class="inline-flex items-center rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-600 dark:text-violet-300">CNPJ
+                            alfanumérico</span>
+                        <span
+                            class="inline-flex items-center rounded-full bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-600 dark:text-sky-300">Novo
+                            CNPJ 2026</span>
+                        <span
+                            class="inline-flex items-center rounded-full bg-pink-500/10 px-3 py-1 text-xs font-medium text-pink-600 dark:text-pink-300">Mudanças
+                            no CNPJ</span>
+                        <span
+                            class="inline-flex items-center rounded-full bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-600 dark:text-sky-300">Validação
+                            CNPJ</span>
+                        <p id="feedback-compartilhamento" class="ml-auto text-xs text-slate-500 dark:text-slate-300"
+                            role="status" aria-live="polite"></p>
+                    </div>
+                    <p class="text-sm text-violet-900 dark:text-violet-200">
+                        Este conteúdo resume as diretrizes oficiais da Receita Federal e comunidade técnica. Consulte os
+                        canais oficiais antes de tomar decisões regulatórias.
+                    </p>
+                </section>
+
+                <div class="my-10 h-px w-full bg-gradient-to-r from-violet-500 via-pink-500 to-sky-500 opacity-40">
+                </div>
+
+                <aside
+                    class="rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-xl dark:border-slate-700/60 dark:bg-slate-900/80">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-300">
+                            Compartilhe o conhecimento</p>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcnpj.bade.digital%2Fartigos%2Fcnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos-no-seu-sistema%2F"
+                                class="efeito-onda-base efeito-onda-claro inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200"
+                                target="_blank" rel="noopener noreferrer">
+                                <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M7.2 8.809H4V19.5h3.2V8.809Z" />
+                                    <path d="M5.6 4.5a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2Z" />
+                                    <path
+                                        d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168Z" />
+                                </svg>
+                                LinkedIn
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fcnpj.bade.digital%2Fartigos%2Fcnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos-no-seu-sistema%2F&text=Entenda%20o%20novo%20CNPJ%20alfanum%C3%A9rico%202026%20e%20prepare%20seus%20sistemas"
+                                class="efeito-onda-base efeito-onda-claro inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200"
+                                target="_blank" rel="noopener noreferrer">
+                                <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M19.633 7.997c.013.176.013.353.013.53 0 5.383-4.098 11.585-11.585 11.585A11.51 11.51 0 0 1 2 18.29c.274.032.534.045.82.045a8.14 8.14 0 0 0 5.047-1.738 4.072 4.072 0 0 1-3.804-2.826c.254.039.508.065.77.065.37 0 .74-.051 1.086-.141a4.061 4.061 0 0 1-3.26-3.987v-.051c.542.303 1.17.484 1.836.508a4.052 4.052 0 0 1-1.812-3.372c0-.748.203-1.422.558-2.017a11.556 11.556 0 0 0 8.39 4.257 4.575 4.575 0 0 1-.101-.93 4.064 4.064 0 0 1 7.027-2.777 8.004 8.004 0 0 0 2.577-.985 4.048 4.048 0 0 1-1.784 2.244 8.105 8.105 0 0 0 2.336-.63 8.731 8.731 0 0 1-2.03 2.103Z" />
+                                </svg>
+                                X / Twitter
+                            </a>
+                            <a href="https://api.whatsapp.com/send?text=Entenda%20o%20novo%20CNPJ%20alfanum%C3%A9rico%202026%20e%20prepare%20seus%20sistemas:%20https%3A%2F%2Fcnpj.bade.digital%2Fartigos%2Fcnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos-no-seu-sistema%2F"
+                                class="efeito-onda-base efeito-onda-claro inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200"
+                                target="_blank" rel="noopener noreferrer">
+                                <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12.04 2C6.55 2 2.11 6.37 2.11 11.78c0 2.99 1.37 5.66 3.53 7.5L4.4 21.94l2.86-.91a10.1 10.1 0 0 0 4.79 1.2c5.48 0 9.93-4.37 9.93-9.78C22.98 6.37 18.53 2 13.05 2h-.01Zm5.92 14.08a5.8 5.8 0 0 1-1.76 1.32c-.47.22-.97.38-1.49.48a6.33 6.33 0 0 1-2.5-.05 11.38 11.38 0 0 1-2.37-.93 10.96 10.96 0 0 1-2.8-2.25 8.94 8.94 0 0 1-1.7-2.83 5.8 5.8 0 0 1-.3-1.87c.02-.62.18-1.22.47-1.77.1-.19.23-.34.4-.47.17-.13.37-.2.58-.2.1 0 .2.01.3.02.13.02.26.05.38.09.12.04.24.1.34.18.11.08.2.17.27.29l.43.9c.07.16.12.32.14.49.03.22-.04.44-.2.6-.1.11-.21.22-.31.34-.1.12-.17.26-.2.41-.03.17.01.35.09.51.26.54.59 1.04 1 1.48.3.33.62.63.96.9.22.17.48.3.74.4.19.08.4.09.6.04.16-.04.31-.1.45-.19.13-.09.27-.19.4-.29.15-.12.33-.19.52-.19.18 0 .36.04.52.13l.82.39c.13.07.26.15.38.24.12.09.23.2.31.33.08.12.13.25.16.39.03.15.04.3.01.45a4.24 4.24 0 0 1-.33 1.01Z" />
+                                </svg>
+                                WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+
+                <section aria-labelledby="relacionados"
+                    class="space-y-6 rounded-3xl border border-slate-200/70 bg-white/95 p-6 shadow-xl transition-colors duration-500 dark:border-slate-700/60 dark:bg-slate-900/80">
+                    <div class="flex items-center gap-3">
+                        <span class="h-8 w-1 rounded-full bg-violet-500"></span>
+                        <h2 id="relacionados" class="text-xl font-semibold text-slate-800 dark:text-zinc-100">Posts
+                            relacionados</h2>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                        <a href="/artigos/como-a-validacao-de-cnpj-e-feita/"
+                            class="group flex flex-col gap-3 rounded-2xl border border-slate-200/70 bg-white/70 p-4 shadow transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:shadow-lg dark:border-slate-700/60 dark:bg-slate-900/70">
+                            <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=600&q=80"
+                                alt="Fluxo de validação de dados cadastrais com destaque para dígitos verificadores"
+                                class="h-36 w-full rounded-2xl object-cover" loading="lazy" />
+                            <p
+                                class="text-sm font-semibold leading-tight text-slate-800 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-100 dark:group-hover:text-violet-300">
+                                Como é feita a validação de CNPJ na prática
+                            </p>
+                            <span
+                                class="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500 dark:text-slate-300">Validação</span>
+                        </a>
+                        <a href="/artigos/cnpj-desvendado-história-estrutura-e-o-futuro-alfanumerico/"
+                            class="group flex flex-col gap-3 rounded-2xl border border-slate-200/70 bg-white/70 p-4 shadow transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:shadow-lg dark:border-slate-700/60 dark:bg-slate-900/70">
+                            <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=600&q=80"
+                                alt="Pessoa analisando gráficos em tablet sobre estrutura do CNPJ"
+                                class="h-36 w-full rounded-2xl object-cover" loading="lazy" />
+                            <p
+                                class="text-sm font-semibold leading-tight text-slate-800 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-100 dark:group-hover:text-violet-300">
+                                CNPJ Desvendado: história, estrutura e futuro alfanumérico
+                            </p>
+                            <span
+                                class="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500 dark:text-slate-300">História</span>
+                        </a>
+                        <a href="/artigos/"
+                            class="group flex flex-col gap-3 rounded-2xl border border-slate-200/70 bg-white/70 p-4 shadow transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:shadow-lg dark:border-slate-700/60 dark:bg-slate-900/70">
+                            <img src="https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?auto=format&fit=crop&w=600&q=80"
+                                alt="Equipe discutindo atualizações de sistemas corporativos"
+                                class="h-36 w-full rounded-2xl object-cover" loading="lazy" />
+                            <p
+                                class="text-sm font-semibold leading-tight text-slate-800 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-100 dark:group-hover:text-violet-300">
+                                Veja todos os artigos sobre CNPJ e automação
+                            </p>
+                            <span
+                                class="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500 dark:text-slate-300">Explorar</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </article>
+    </main>
+
+
+    <div id="feedback-toast"
+        class="pointer-events-none fixed bottom-6 right-6 z-50 hidden min-w-[220px] max-w-xs rounded-2xl border border-violet-500/40 bg-white/95 px-4 py-3 text-sm font-medium text-slate-600 shadow-2xl transition dark:border-violet-500/30 dark:bg-slate-900/90 dark:text-slate-200">
+    </div>
+
+    <script>
+        (function () {
+            const shareButton = document.getElementById("botao-compartilhar");
+            const feedback = document.getElementById("feedback-compartilhamento");
+            const toast = document.getElementById("feedback-toast");
+            const url = "https://cnpj.bade.digital/artigos/cnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos-no-seu-sistema/";
+            const titulo = document.title;
+
+            const exibirToast = (mensagem) => {
+                if (!toast) return;
+                toast.textContent = mensagem;
+                toast.classList.remove("hidden");
+                toast.classList.add("animate-fade-in");
+                window.setTimeout(() => {
+                    toast.classList.add("hidden");
+                    toast.classList.remove("animate-fade-in");
+                }, 3200);
+            };
+
+            shareButton?.addEventListener("click", async () => {
+                try {
+                    if (navigator.share) {
+                        await navigator.share({ title: titulo, url });
+                        if (feedback) {
+                            feedback.textContent = "Link compartilhado com sucesso.";
+                        }
+                        exibirToast("Compartilhado com sucesso!");
+                    } else if (navigator.clipboard) {
+                        await navigator.clipboard.writeText(url);
+                        if (feedback) {
+                            feedback.textContent = "Link copiado para a área de transferência.";
+                        }
+                        exibirToast("Link copiado! Agora é só colar onde quiser.");
+                    } else {
+                        if (feedback) {
+                            feedback.textContent = "Copie o link manualmente: " + url;
+                        }
+                    }
+                } catch (error) {
+                    console.error("Erro ao compartilhar", error);
+                    if (feedback) {
+                        feedback.textContent = "Não foi possível compartilhar agora. Tente novamente.";
+                    }
+                    exibirToast("Não foi possível compartilhar. Tente novamente.");
+                }
+            });
+        })();
+    </script>
+
+    <script>
+        (function () {
+            const toast = document.getElementById("feedback-toast");
+
+            const exibirToast = (mensagem) => {
+                if (!toast) return;
+                toast.textContent = mensagem;
+                toast.classList.remove("hidden");
+                toast.classList.add("animate-fade-in");
+                window.setTimeout(() => {
+                    toast.classList.add("hidden");
+                    toast.classList.remove("animate-fade-in");
+                }, 3200);
+            };
+
+            document.querySelectorAll('[data-copy-target]').forEach((botao) => {
+                botao.addEventListener('click', async () => {
+                    const seletor = botao.getAttribute('data-copy-target');
+                    if (!seletor) return;
+                    const alvo = document.querySelector(seletor);
+                    if (!alvo) return;
+                    const texto = alvo.textContent?.trim();
+                    if (!texto) return;
+
+                    try {
+                        await navigator.clipboard.writeText(texto);
+                        exibirToast('Conteúdo copiado para a área de transferência.');
+                    } catch (erro) {
+                        console.error('Falha ao copiar', erro);
+                        exibirToast('Não foi possível copiar. Tente novamente.');
+                    }
+                });
+            });
+        })();
+    </script>
+
+    <script type="module" defer src="/dist/src/interface/tema.js"></script>
+    <script type="module" defer src="/dist/src/interface/menu.js"></script>
+    <script type="module" defer src="/dist/src/interface/rodape.js"></script>
+</body>
+
+</html>

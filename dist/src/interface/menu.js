@@ -8,7 +8,7 @@
  * @summary HTML do menu superior fixo, com links principais e submenu.
  */
 export const htmlMenu = `
-    <nav id="menu-superior" class="w-full fixed top-0 inset-x-0 z-50 bg-transparent backdrop-blur-lg shadow-lg">
+    <nav id="menu-superior" class="w-full fixed top-0 inset-x-0 z-50 bg-zinc-50/90 dark:bg-slate-800/90 backdrop-blur-xs shadow-lg">
         <div class="mx-8 px-4">
             <div class="h-14 flex items-center justify-between gap-4">
 
