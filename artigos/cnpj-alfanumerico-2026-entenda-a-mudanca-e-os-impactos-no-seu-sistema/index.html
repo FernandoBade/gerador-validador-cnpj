@@ -459,7 +459,7 @@
                             <div class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-200">
                                 <div class="flex justify-end">
                                     <button type="button"
-                                        class="ml-2 inline-flex items-center justify-center rounded text-violet-500 dark:text-violet-400 hover:text-violet-600 dark:hover:text-violet-600 active:scale-90 transition-all duration-300 ease-in-out"
+                                        class="inline-flex items-center justify-center px-2 py-1 text-xs transition-all duration-300 ease-in-out rounded text-violet-500 dark:text-violet-400 hover:text-violet-600 dark:hover:text-violet-600 active:scale-75"
                                         data-copy-target="#tabela-ascii" title="Copiar tabela"
                                         aria-label="Copiar tabela">
                                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -697,15 +697,14 @@
                             <div class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-200">
                                 <div class="flex justify-end">
                                     <button type="button"
-                                        class="efeito-onda-base efeito-onda-claro inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
-                                        data-copy-target="#codigo-validacao">
-                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        class="inline-flex items-center justify-center px-2 py-1 text-xs transition-all duration-300 ease-in-out rounded text-violet-500 dark:text-violet-400 hover:text-violet-600 dark:hover:text-violet-600 active:scale-75"
+                                        data-copy-target="#codigo-validacao" title="Copiar código"
+                                        aria-label="Copiar código">
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                             viewBox="0 0 24 24" aria-hidden="true">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="1.5"
-                                                d="M9 9V5.5A1.5 1.5 0 0 1 10.5 4h7A1.5 1.5 0 0 1 19 5.5V17a1 1 0 0 1-1 1m-6-2H6.5A1.5 1.5 0 0 1 5 14.5v-9A1.5 1.5 0 0 1 6.5 4H10" />
+                                            <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z" />
                                         </svg>
-                                        Copiar código
                                     </button>
                                 </div>
                                 <pre id="codigo-validacao"
@@ -939,12 +938,6 @@ console.log(validarCNPJ("A1B2C3D4E5F6-78".replace(/-/g, "")));
                             e-commerce, cadastro de fornecedores e fornecedores de pagamento.
                             A virada será gradual, com períodos de adaptação e comunicação por parte de órgãos oficiais.
                         </p>
-                        <p>
-                            No próprio site da Receita existe uma página dedicada ao tema para empresas acompanharem a
-                            evolução.
-
-                        </p>
-
                         <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Para desenvolvedores
                             (esse é seu playground)</h3>
                         <ul class="mt-2 space-y-2">
@@ -992,7 +985,8 @@ console.log(validarCNPJ("A1B2C3D4E5F6-78".replace(/-/g, "")));
                                 <span class="text-slate-700 dark:text-slate-200">Utilize nossas ferramentas de
                                     <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
                                         href="../../ferramentas/gerador-cnpj/" target="_blank"
-                                        rel="noopener noreferrer">geração</a> e <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
+                                        rel="noopener noreferrer">geração</a> e <a
+                                        class="font-semibold underline underline-offset-4 !decoration-violet-600"
                                         href="../../ferramentas/validador-cnpj/" target="_blank"
                                         rel="noopener noreferrer">validação</a> para testar seu desenvolvimento.</span>
                             </li>
@@ -1007,50 +1001,6 @@ console.log(validarCNPJ("A1B2C3D4E5F6-78".replace(/-/g, "")));
                                 <span class="text-slate-700 dark:text-slate-200">Documente a mudança no backlog e
                                     comunique stakeholders.</span>
                             </li>
-                        </ul>
-
-                        <!-- sugestão de imagem: Gráfico mostrando expansão de combinações antes e depois do CNPJ alfanumérico -->
-
-                        <h2
-                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
-                            Curiosidades que poucos contam</h2>
-                        <ul class="mt-2 space-y-2">
-                            <li
-                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
-                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    aria-hidden="true">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
-                                </svg>
-                                <span class="text-slate-700 dark:text-slate-200">A mudança lembra a transição do IPv4
-                                    para o IPv6: de combinações finitas para um espaço quase infinito.</span>
-                            </li>
-                            <li
-                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
-                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    aria-hidden="true">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
-                                </svg>
-                                <span class="text-slate-700 dark:text-slate-200">Com letras nas 12 primeiras posições, o
-                                    volume de combinações pode ultrapassar a casa dos trilhões de combinações
-                                    possíveis.</span>
-                            </li>
-                            <li
-                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
-                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    aria-hidden="true">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
-                                </svg>
-                                <span class="text-slate-700 dark:text-slate-200">A Receita afirmou que a transição será
-                                    progressiva e acompanhada de guias oficiais.
-                                </span>
-                            </li>
-
                         </ul>
 
                         <h2
@@ -1195,95 +1145,10 @@ console.log(validarCNPJ("A1B2C3D4E5F6-78".replace(/-/g, "")));
     <div id="feedback-toast"
         class="pointer-events-none fixed bottom-6 right-6 z-50 hidden min-w-[220px] max-w-xs rounded-2xl border border-violet-500/40 bg-white/95 px-4 py-3 text-sm font-medium text-slate-600 shadow-2xl transition dark:border-violet-500/30 dark:bg-slate-900/90 dark:text-slate-200">
     </div>
-
-    <script>
-        (function () {
-            const shareButton = document.getElementById("botao-compartilhar");
-            const feedback = document.getElementById("feedback-compartilhamento");
-            const toast = document.getElementById("feedback-toast");
-            const url = "https://cnpj.bade.digital/artigos/cnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos-no-seu-sistema/";
-            const titulo = document.title;
-
-            const exibirToast = (mensagem) => {
-                if (!toast) return;
-                toast.textContent = mensagem;
-                toast.classList.remove("hidden");
-                toast.classList.add("animate-fade-in");
-                window.setTimeout(() => {
-                    toast.classList.add("hidden");
-                    toast.classList.remove("animate-fade-in");
-                }, 3200);
-            };
-
-            shareButton?.addEventListener("click", async () => {
-                try {
-                    if (navigator.share) {
-                        await navigator.share({ title: titulo, url });
-                        if (feedback) {
-                            feedback.textContent = "Link compartilhado com sucesso.";
-                        }
-                        exibirToast("Compartilhado com sucesso!");
-                    } else if (navigator.clipboard) {
-                        await navigator.clipboard.writeText(url);
-                        if (feedback) {
-                            feedback.textContent = "Link copiado para a área de transferência.";
-                        }
-                        exibirToast("Link copiado! Agora é só colar onde quiser.");
-                    } else {
-                        if (feedback) {
-                            feedback.textContent = "Copie o link manualmente: " + url;
-                        }
-                    }
-                } catch (error) {
-                    console.error("Erro ao compartilhar", error);
-                    if (feedback) {
-                        feedback.textContent = "Não foi possível compartilhar agora. Tente novamente.";
-                    }
-                    exibirToast("Não foi possível compartilhar. Tente novamente.");
-                }
-            });
-        })();
-    </script>
-
-    <script>
-        (function () {
-            const toast = document.getElementById("feedback-toast");
-
-            const exibirToast = (mensagem) => {
-                if (!toast) return;
-                toast.textContent = mensagem;
-                toast.classList.remove("hidden");
-                toast.classList.add("animate-fade-in");
-                window.setTimeout(() => {
-                    toast.classList.add("hidden");
-                    toast.classList.remove("animate-fade-in");
-                }, 3200);
-            };
-
-            document.querySelectorAll('[data-copy-target]').forEach((botao) => {
-                botao.addEventListener('click', async () => {
-                    const seletor = botao.getAttribute('data-copy-target');
-                    if (!seletor) return;
-                    const alvo = document.querySelector(seletor);
-                    if (!alvo) return;
-                    const texto = alvo.textContent?.trim();
-                    if (!texto) return;
-
-                    try {
-                        await navigator.clipboard.writeText(texto);
-                        exibirToast('Conteúdo copiado para a área de transferência.');
-                    } catch (erro) {
-                        console.error('Falha ao copiar', erro);
-                        exibirToast('Não foi possível copiar. Tente novamente.');
-                    }
-                });
-            });
-        })();
-    </script>
-
     <script type="module" defer src="/dist/src/interface/tema.js"></script>
     <script type="module" defer src="/dist/src/interface/menu.js"></script>
     <script type="module" defer src="/dist/src/interface/rodape.js"></script>
+    <script type="module" defer src="/dist/src/gerais/uteis.js"></script>
 </body>
 
 </html>
