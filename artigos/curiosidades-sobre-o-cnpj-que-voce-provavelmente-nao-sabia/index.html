@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <script type="module" src="/dist/src/interface/transicao.js" defer></script>
+    <script>
+        window.addEventListener("load", () => {
+            document.body.classList.add("ready");
+        });
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Curiosidades sobre o CNPJ que você (provavelmente) não sabia</title>
+    <meta name="description"
+        content="Fatos surpreendentes sobre o CNPJ que você nunca imaginou. Descubra um CNPJ que começa com 00.000.000, quantos existem no Brasil e por que 79% são MEIs." />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="pt-BR" />
+    <meta name="geo.region" content="BR" />
+    <meta name="geo.placename" content="Brasil" />
+    <meta name="author" content="Fernando Bade" />
+    <link rel="canonical"
+        href="https://cnpj.bade.digital/artigos/curiosidades-sobre-o-cnpj-que-voce-provavelmente-nao-sabia/" />
+
+    <meta name="keywords"
+        content="CNPJ curiosidades, fatos sobre CNPJ, história do CNPJ e CGC, número de empresas no Brasil, MEI microempreendedor individual, validar CNPJ online, gerador de CNPJ válido, consulta de CNPJ grátis" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#2563eb" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Curiosidades sobre o CNPJ que você (provavelmente) não sabia" />
+    <meta property="og:description"
+        content="Fatos surpreendentes sobre o CNPJ que você nunca imaginou. Descubra um CNPJ que começa com 00.000.000, quantos existem no Brasil e por que 79% são MEIs." />
+    <meta property="og:url"
+        content="https://cnpj.bade.digital/artigos/curiosidades-sobre-o-cnpj-que-voce-provavelmente-nao-sabia/" />
+    <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
+    <meta property="og:image" content="https://cnpj.bade.digital/img/curiosidades-cnpj-og.png" />
+    <meta property="og:image:alt" content="Ilustração com números e letras simbolizando curiosidades sobre o CNPJ" />
+    <meta property="article:published_time" content="2025-12-15T08:00:00-03:00" />
+    <meta property="article:modified_time" content="2025-12-15T08:00:00-03:00" />
+    <meta property="article:tag" content="Curiosidades sobre CNPJ" />
+    <meta property="article:tag" content="História do CNPJ" />
+    <meta property="article:tag" content="MEI" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Curiosidades sobre o CNPJ que você (provavelmente) não sabia" />
+    <meta name="twitter:description"
+        content="Sabia que existe um CNPJ que começa com 00.000.000? Ou que quase 80% dos CNPJs ativos no Brasil são MEIs? Confira essas e outras curiosidades sobre o CNPJ!" />
+    <meta name="twitter:image"
+        content="https://cnpj.bade.digital/img/curiosidades-cnpj-og.png" />
+    <meta name="twitter:creator" content="@badefernando" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Curiosidades sobre o CNPJ que você (provavelmente) não sabia",
+        "description": "Fatos surpreendentes sobre o CNPJ: raízes que começam com zero, número total de registros, porcentagem de MEIs e a evolução do cadastro empresarial brasileiro.",
+        "image": "https://cnpj.bade.digital/img/curiosidades-cnpj-og.png",
+        "@id": "https://cnpj.bade.digital/artigos/curiosidades-sobre-o-cnpj-que-voce-provavelmente-nao-sabia/",
+        "author": {
+          "@type": "Person",
+          "name": "Fernando Bade"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Bade Digital",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://cnpj.bade.digital/android-chrome-192x192.png"
+          }
+        },
+        "datePublished": "2025-12-15T08:00:00-03:00",
+        "dateModified": "2025-12-15T08:00:00-03:00",
+        "inLanguage": "pt-BR",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://cnpj.bade.digital/artigos/curiosidades-sobre-o-cnpj-que-voce-provavelmente-nao-sabia/"
+        },
+        "keywords": [
+          "CNPJ curiosidades",
+          "fatos sobre CNPJ",
+          "história do CNPJ",
+          "MEI"
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/dist/assets/tailwind.min.css" />
+    <link rel="stylesheet" href="/dist/assets/controle-tema.min.css" />
+
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+            const f = d.getElementsByTagName(s)[0];
+            const j = d.createElement(s);
+            const dl = l !== "dataLayer" ? "&l=" + l : "";
+            j.async = true;
+            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", "GTM-5LSGCFMM");
+    </script>
+
+    <script id="sw-unregister">
+        (function () {
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker
+                    .getRegistrations?.()
+                    .then((regs) => regs.forEach((r) => r.unregister().catch(() => { })))
+                    .catch(() => { });
+                navigator.serviceWorker
+                    .getRegistration?.()
+                    .then((reg) => {
+                        if (reg?.active) {
+                            reg.update().catch(() => { });
+                        }
+                    })
+                    .catch(() => { });
+            }
+        })();
+    </script>
+</head>
+
+<body
+    class="scroll-personalizado flex min-h-screen flex-col bg-slate-100/70 font-sans text-slate-900 transition-colors duration-500 dark:bg-slate-800 dark:text-zinc-50">
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LSGCFMM" height="0" width="0"
+            style="display: none; visibility: hidden"></iframe>
+    </noscript>
+
+    <main class="flex-1">
+        <header
+            class="relative isolate overflow-hidden bg-gradient-to-br from-violet-500/10 via-slate-100 to-blue-400/10 dark:from-slate-900 dark:via-slate-900/60 dark:to-slate-800">
+            <div class="absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1600&q=80"
+                    alt="Pessoa analisando documentos fiscais destacando o número de CNPJ"
+                    class="h-full w-full object-cover opacity-40" />
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-slate-900/70 via-slate-900/60 to-violet-900/40 mix-blend-multiply">
+                </div>
+            </div>
+            <div class="relative mx-auto flex max-w-5xl flex-col gap-6 px-6 py-28 text-center sm:px-10">
+                <span
+                    class="mx-auto inline-flex items-center gap-2 rounded-full border border-violet-400/60 bg-violet-500/20 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-violet-100">
+                    Artigo especial
+                </span>
+                <h1 class="text-4xl font-black leading-tight text-white sm:text-5xl">
+                    Curiosidades sobre o CNPJ que você (provavelmente) não sabia
+                </h1>
+                <p class="mx-auto max-w-2xl text-base leading-relaxed text-blue-100 sm:text-lg">
+                    Descubra fatos surpreendentes sobre o Cadastro Nacional da Pessoa Jurídica: números gigantes, um CNPJ que começa em 00.000.000 e por que quase 80% das empresas ativas são MEIs.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-violet-100/80">
+                    <span class="flex items-center gap-2">
+                        <svg class="w-6 h-6 text-zinc-50 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+                        </svg>
+
+                        Publicado em 15 dez 2025
+                    </span>
+
+                    <span class="flex items-center gap-2">
+                        <svg class="w-6 h-6 text-zinc-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+
+                        Leitura de 9 minutos
+                    </span>
+                </div>
+                <button id="botao-compartilhar" type="button"
+                    class="efeito-onda-base efeito-onda-claro mx-auto inline-flex items-center gap-2 rounded-full border border-violet-300/80 bg-white/10 px-4 py-2 text-sm font-semibold text-slate-100 shadow transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-200 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-200"
+                    aria-describedby="feedback-compartilhamento">
+                    <svg class="w-6 h-6 text-zinc-50 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M17.5 3a3.5 3.5 0 0 0-3.456 4.06L8.143 9.704a3.5 3.5 0 1 0-.01 4.6l5.91 2.65a3.5 3.5 0 1 0 .863-1.805l-5.94-2.662a3.53 3.53 0 0 0 .002-.961l5.948-2.667A3.5 3.5 0 1 0 17.5 3Z" />
+                    </svg>
+
+                    Compartilhar
+                </button>
+            </div>
+        </header>
+
+        <article class="relative -mt-20 mx-auto max-w-5xl px-6 pb-16 sm:px-10">
+            <div class="space-y-12">
+                <section
+                    class="space-y-6 rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-2xl backdrop-blur dark:border-slate-700/60 dark:bg-slate-900/80">
+                    <figure
+                        class="overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-100/60 shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/70">
+                        <!-- sugestão de imagem: nota fiscal destacando o CNPJ impresso -->
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1600&q=80"
+                            alt="Detalhe ampliado de uma nota fiscal com o campo de CNPJ em destaque"
+                            class="h-full w-full object-cover" loading="lazy" />
+                        <figcaption class="bg-slate-900/85 px-6 py-3 text-center text-sm font-medium text-slate-100">
+                            Cada nota fiscal e embalagem precisa exibir o CNPJ, mas por trás desses 14 dígitos há histórias
+                            que muita gente desconhece.
+                        </figcaption>
+                    </figure>
+
+                    <div
+                        class="prose prose-slate max-w-none space-y-6 leading-relaxed text-slate-700 dark:prose-invert dark:text-slate-200">
+                        <p>
+                            Você provavelmente já ouviu falar do famoso CNPJ – aquele número de 14 dígitos que identifica
+                            empresas no Brasil. Basta olhar o cabeçalho de uma nota fiscal ou a embalagem de um produto
+                            qualquer para encontrá-lo impresso. O CNPJ funciona como a identidade única de cada negócio
+                            registrado no país. Mas por trás desse código aparentemente rotineiro, há várias curiosidades e
+                            fatos surpreendentes que pouca gente conhece.
+                        </p>
+                        <p>
+                            Por exemplo: você imaginaria que existe um CNPJ que começa com <strong>00.000.000</strong>?
+                            E que o Brasil já ultrapassou a marca de <strong>64 milhões de empresas registradas</strong>?
+                            A seguir, vamos explorar essas e outras curiosidades sobre o CNPJ – prepare-se para se
+                            surpreender e entender melhor esse registro tão importante!
+                        </p>
+
+                        <div
+                            class="rounded-2xl border border-violet-300/50 bg-gradient-to-br from-violet-50 via-pink-50 to-sky-50 p-4 shadow-sm dark:border-violet-500/30 dark:bg-slate-900/70">
+                            <p class="text-sm font-semibold text-violet-700 dark:text-violet-300">Resumo em 1 minuto</p>
+                            <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-700 dark:text-slate-200">
+                                <li>O Brasil alcançou 64 milhões de CNPJs registrados até março de 2025, mas apenas
+                                    25,3 milhões estavam ativos.</li>
+                                <li>Quase 79% dos CNPJs ativos pertencem a microempreendedores individuais (MEIs).</li>
+                                <li>Existe um CNPJ cuja raiz é 00.000.000 – ele pertence ao Banco do Brasil.</li>
+                                <li>O cadastro evoluiu do antigo CGC e ganhará letras a partir de 2026 para ampliar as
+                                    combinações possíveis.</li>
+                            </ul>
+                        </div>
+
+                        <div
+                            class="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                            <p class="text-sm font-semibold text-slate-800 dark:text-zinc-100">Como aproveitar essas
+                                descobertas na prática</p>
+                            <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm text-slate-700 dark:text-slate-200">
+                                <li>Use o <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
+                                        href="https://cnpj.bade.digital/ferramentas/validador-cnpj" target="_blank"
+                                        rel="noopener noreferrer">validador gratuito de CNPJ</a> para conferir em
+                                    segundos se um número é válido.</li>
+                                <li>Explore o <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
+                                        href="https://cnpj.bade.digital/ferramentas/consulta-cnpj" target="_blank"
+                                        rel="noopener noreferrer">consulta de CNPJ</a> e veja dados oficiais de
+                                    empresas brasileiras.</li>
+                                <li>Teste cenários com o <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
+                                        href="https://cnpj.bade.digital/ferramentas/gerador-cnpj" target="_blank"
+                                        rel="noopener noreferrer">gerador de CNPJ</a>, perfeito para quem precisa de
+                                    números fictícios em homologações.</li>
+                                <li>Compartilhe estas curiosidades com sua rede para ajudar mais pessoas a entenderem o
+                                    Cadastro Nacional da Pessoa Jurídica.</li>
+                            </ol>
+                        </div>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            Quantos CNPJs existem no Brasil?</h2>
+
+                        <div class="flex items-center justify-center h-full">
+                            <div class="relative w-full" style="padding-bottom: 56.25%; /* proporção 16:9 */">
+                                <iframe class="absolute top-0 left-0 w-full h-full"
+                                    src="https://www.youtube.com/embed/1s5h7Y8A9tA" title="Panorama dos CNPJs no Brasil"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                        </div>
+
+
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">64 milhões de
+                            registros (mas nem todos ativos)</h3>
+                        <p>
+                            De acordo com um estudo da <strong>BigDataCorp</strong> divulgado em 2025, o Brasil alcançou
+                            a marca de <strong>64 milhões de CNPJs registrados</strong>. Porém, isso não significa que
+                            todos estejam operando. Aproximadamente <strong>25,3 milhões</strong> estavam ativos naquele
+                            período – o restante corresponde a empresas encerradas, inativas ou pendentes.
+                        </p>
+                        <p>
+                            Esse abismo entre registros e empresas realmente em atividade mostra o quanto o país é
+                            dinâmico quando o assunto é empreender: milhões de negócios foram criados (e muitos também
+                            encerrados) ao longo das últimas décadas.
+                        </p>
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Um boom empreendedor
+                            recente</h3>
+                        <p>
+                            O ritmo de crescimento impressiona. Entre 2024 e 2025, o total de CNPJs aumentou cerca de
+                            <strong>7,7%</strong>, enquanto o número de empresas ativas subiu <strong>16%</strong>.
+                            Apenas em 2024, foram criadas <strong>2,8 milhões</strong> de novas pequenas empresas no
+                            Brasil. Os números revelam um verdadeiro boom de registros.
+                        </p>
+                        <div
+                            class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+                            <div
+                                class="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-lg dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <p
+                                    class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-300">
+                                    Panorama 2025</p>
+                                <p class="mt-1 text-lg font-bold text-slate-800 dark:text-zinc-100">64 milhões de CNPJs
+                                    registrados</p>
+                                <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600 dark:text-slate-300">
+                                    <li>25,3 milhões ativos.</li>
+                                    <li>Quase 39 milhões encerrados, inativos ou pendentes.</li>
+                                </ul>
+                            </div>
+                            <div
+                                class="rounded-2xl border border-violet-300/50 bg-gradient-to-br from-violet-50 via-pink-50 to-sky-50 p-4 shadow-lg dark:border-violet-500/30 dark:bg-slate-900/70">
+                                <p
+                                    class="text-xs font-semibold uppercase tracking-[0.3em] text-violet-700 dark:text-violet-300">
+                                    Crescimento</p>
+                                <p class="mt-1 text-lg font-bold text-violet-700 dark:text-violet-300">+2,8 milhões de
+                                    novos CNPJs em 2024</p>
+                                <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600 dark:text-slate-300">
+                                    <li>7,7% de alta no total de registros.</li>
+                                    <li>16% de aumento no número de empresas ativas.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>
+                            Quer ver tudo isso na prática? Utilize nossas ferramentas para consultar qualquer empresa em
+                            segundos e entender se ela está ativa ou não.
+                        </p>
+
+                        <figure
+                            class="my-6 overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-100/60 shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/70">
+                            <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1600&q=80"
+                                alt="Gráfico mostrando o crescimento do número de CNPJs no Brasil"
+                                class="h-full w-full object-cover" loading="lazy" />
+                            <figcaption
+                                class="bg-slate-900/85 px-6 py-3 text-center text-sm font-medium text-slate-100">
+                                O número de CNPJs registrados cresce ano após ano, impulsionado por novos pequenos
+                                negócios.
+                            </figcaption>
+                        </figure>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            A maioria dos CNPJs ativos é de MEIs</h2>
+                        <p>
+                            Dos milhões de CNPJs em atividade, a grande maioria pertence a <strong>microempreendedores
+                                individuais (MEIs)</strong>. Segundo os dados de 2025, cerca de <strong>78,74%</strong>
+                            dos CNPJs ativos são de MEIs – praticamente oito a cada dez empresas em funcionamento no
+                            Brasil.
+                        </p>
+                        <h3 class="mt-6 text-xl font-semibold text-violet-700 dark:text-violet-300">Pequenos negócios,
+                            grandes impactos</h3>
+                        <p>
+                            Essa predominância dos MEIs reforça como o empreendedorismo individual transformou o cenário
+                            empresarial brasileiro. Muitos profissionais optaram por abrir um CNPJ próprio para prestar
+                            serviços de forma independente, fenômeno conhecido como <em>pejotização</em> das relações de
+                            trabalho.
+                        </p>
+                        <div
+                            class="my-4 rounded-2xl border border-pink-400/40 bg-pink-50/60 p-4 text-sm text-pink-800 dark:border-pink-500/30 dark:bg-pink-500/10 dark:text-pink-200">
+                            <strong class="font-semibold">Dado curioso:</strong> somente em 2024, quase 3 milhões de
+                            novas empresas de pequeno porte foram abertas – a maior parte delas enquadrada como MEI.
+                        </div>
+                        <ul class="mt-2 space-y-2">
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">MEIs representam 78,74% dos CNPJs
+                                    ativos – um recorde histórico.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">O regime simplificado incentiva a
+                                    formalização de autônomos e pequenos prestadores de serviço.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-emerald-600 dark:text-emerald-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Quer validar se um CNPJ MEI é real?
+                                    Nosso validador checa a estrutura e indica se o número é ativo em segundos.</span>
+                            </li>
+                        </ul>
+
+                        <figure
+                            class="my-6 overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-100/60 shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/70">
+                            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80"
+                                alt="Microempreendedora individual organizando o próprio negócio"
+                                class="h-full w-full object-cover" loading="lazy" />
+                            <figcaption class="bg-slate-900/85 px-6 py-3 text-center text-sm font-medium text-slate-100">
+                                MEIs formam a maior parte das empresas ativas e representam milhões de sonhos em
+                                movimento.
+                            </figcaption>
+                        </figure>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            Um CNPJ que começa com 00.000.000?</h2>
+                        <p>
+                            Parece lenda urbana, mas é verdade: existe um CNPJ cuja raiz é <strong>00.000.000</strong> –
+                            e ele pertence ao <strong>Banco do Brasil</strong>. A matriz da instituição, fundada em 1808,
+                            usa o CNPJ <strong>00.000.000/0001-91</strong>. Mesmo com a raiz preenchida por zeros, o
+                            número é perfeitamente válido.
+                        </p>
+                        <p>
+                            O CNPJ completo possui o formato <code>XX.XXX.XXX/YYYY-ZZ</code>. Os oito primeiros dígitos
+                            (a raiz) identificam a empresa; os quatro seguintes apontam a unidade (0001 para a matriz);
+                            e os dois últimos são os dígitos verificadores calculados a partir dos anteriores. No caso do
+                            Banco do Brasil, os dígitos verificadores são 91, fechando um dos CNPJs mais curiosos do país.
+                        </p>
+
+                        <figure
+                            class="my-6 overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-100/60 shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/70">
+                            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1600&q=80"
+                                alt="Prédio histórico do Banco do Brasil, instituição que possui o CNPJ 00.000.000/0001-91"
+                                class="h-full w-full object-cover" loading="lazy" />
+                            <figcaption
+                                class="bg-slate-900/85 px-6 py-3 text-center text-sm font-medium text-slate-100">
+                                O Banco do Brasil carrega o CNPJ 00.000.000/0001-91 – um dos números mais emblemáticos do
+                                país.
+                            </figcaption>
+                        </figure>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            CNPJ nas notas fiscais e até nas embalagens</h2>
+                        <p>
+                            A legislação brasileira determina que o CNPJ de uma empresa apareça em notas fiscais e
+                            embalagens de produtos. Essa obrigatoriedade garante transparência e permite rastrear a
+                            origem dos itens que consumimos diariamente.
+                        </p>
+                        <p>
+                            Com o número em mãos, qualquer pessoa pode consultar a base da Receita Federal ou utilizar
+                            serviços como os da <strong>Bade Digital</strong> para verificar dados oficiais daquela
+                            empresa. Da próxima vez que pegar um produto na prateleira, procure o CNPJ impresso em
+                            algum canto do rótulo – ele está lá para facilitar a sua vida.
+                        </p>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            Do CGC ao CNPJ: a evolução do cadastro empresarial</h2>
+                        <p>
+                            O CNPJ nem sempre teve o formato e o nome que conhecemos hoje. Antes de 1998, o cadastro de
+                            empresas era feito pelo <strong>CGC (Cadastro Geral de Contribuintes)</strong>, composto por
+                            apenas oito dígitos. Com a explosão de novos negócios, a numeração ficou curta e precisou ser
+                            expandida.
+                        </p>
+
+                        <details
+                            class="group rounded-3xl border border-slate-200/80 bg-white/90 px-6 py-4 shadow-lg transition-all duration-300 dark:border-slate-700/60 dark:bg-slate-900/80">
+                            <summary
+                                class="flex cursor-pointer items-center justify-between gap-4 text-base font-semibold text-slate-700 transition-colors duration-300 group-open:text-violet-600 dark:text-zinc-100 dark:group-open:text-violet-300">
+                                <span>Linha do tempo: do CGC ao CNPJ
+                                    <span
+                                        class="ml-2 inline-flex items-center rounded-full bg-sky-500/10 px-2 py-0.5 text-[10px] font-semibold text-sky-600 dark:text-sky-300">História</span>
+                                </span>
+                                <span class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-300">
+                                    <svg class="h-5 w-5 group-open:hidden" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1.5" d="M12 5v14m-7-7h14" />
+                                    </svg>
+                                    <svg class="hidden h-5 w-5 group-open:block" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1.5" d="M5 12h14" />
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-200">
+                                <div class="flex justify-end">
+                                    <button type="button"
+                                        class="inline-flex items-center justify-center px-2 py-1 text-xs transition-all duration-300 ease-in-out rounded text-violet-500 dark:text-violet-400 hover:text-violet-600 dark:hover:text-violet-600 active:scale-75"
+                                        data-copy-target="#linha-do-tempo-cgc" title="Copiar linha do tempo"
+                                        aria-label="Copiar linha do tempo">
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div id="linha-do-tempo-cgc"
+                                    class="overflow-x-auto rounded-2xl border border-slate-200/70 dark:border-slate-700/60">
+                                    <table
+                                        class="min-w-full divide-y divide-slate-200 text-left text-xs dark:divide-slate-700">
+                                        <thead
+                                            class="bg-slate-100/80 text-slate-600 dark:bg-slate-800/60 dark:text-slate-300">
+                                            <tr>
+                                                <th class="px-4 py-2 font-semibold">Ano</th>
+                                                <th class="px-4 py-2 font-semibold">Fato marcante</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                                            <tr>
+                                                <td class="px-4 py-2">1966</td>
+                                                <td class="px-4 py-2">Implantação do CGC com oito dígitos para empresas
+                                                    brasileiras.</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">1993</td>
+                                                <td class="px-4 py-2">Fim do dígito verificador em módulo 10 para ampliar
+                                                    combinações na raiz.</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-2">1998</td>
+                                                <td class="px-4 py-2">Nasce oficialmente o CNPJ com 14 dígitos, substituindo o
+                                                    CGC.</td>
+                                            </tr>
+                                            <tr class="bg-slate-50/60 dark:bg-slate-800/40">
+                                                <td class="px-4 py-2">2000+</td>
+                                                <td class="px-4 py-2">Modernização digital e consultas online democratizadas pela
+                                                    Receita Federal.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-300">
+                                    Empresas muito antigas precisaram adaptar cadastros e, em muitos casos, ganharam novas
+                                    datas de abertura quando migraram do CGC para o CNPJ.
+                                </p>
+                            </div>
+                        </details>
+
+                        <p>
+                            A mudança para o CNPJ trouxe a estrutura que usamos até hoje: 14 dígitos, sendo oito para a
+                            raiz, quatro para identificar matriz ou filiais e dois dígitos verificadores. Essa expansão
+                            foi fundamental para dar conta do crescimento no número de empresas brasileiras.
+                        </p>
+
+                        <details
+                            class="group rounded-3xl border border-slate-200/80 bg-white/90 px-6 py-4 shadow-lg transition-all duration-300 dark:border-slate-700/60 dark:bg-slate-900/80">
+                            <summary
+                                class="flex cursor-pointer items-center justify-between gap-4 text-base font-semibold text-slate-700 transition-colors duration-300 group-open:text-violet-600 dark:text-zinc-100 dark:group-open:text-violet-300">
+                                <span>Curiosidade bônus: datas de abertura "reinventadas"</span>
+                                <span class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-300">
+                                    <svg class="h-5 w-5 group-open:hidden" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1.5" d="M12 5v14m-7-7h14" />
+                                    </svg>
+                                    <svg class="hidden h-5 w-5 group-open:block" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="1.5" d="M5 12h14" />
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-200">
+                                <div class="flex justify-end">
+                                    <button type="button"
+                                        class="inline-flex items-center justify-center px-2 py-1 text-xs transition-all duration-300 ease-in-out rounded text-violet-500 dark:text-violet-400 hover:text-violet-600 dark:hover:text-violet-600 active:scale-75"
+                                        data-copy-target="#curiosidade-bonus" title="Copiar curiosidade"
+                                        aria-label="Copiar curiosidade">
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"
+                                                d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <pre id="curiosidade-bonus"
+                                    class="overflow-x-auto rounded-2xl border border-slate-200/70 bg-slate-950/90 p-4 text-xs text-slate-100 shadow-inner dark:border-slate-700/60"><code class="language-text">// Você sabia?
+// Muitas empresas fundadas antes de 1966
+// receberam datas "oficiais" de abertura em 1966
+// quando o CGC foi implantado. A transição para o
+// CNPJ, em 1998, consolidou essas adaptações e
+// permitiu consultar tudo online.
+// Quer explorar na prática? Acesse:
+// https://cnpj.bade.digital/ferramentas/consulta-cnpj</code></pre>
+                                <p class="text-xs text-slate-500 dark:text-slate-300">
+                                    Nossa consulta gratuita mostra a data de abertura cadastrada na Receita Federal – uma
+                                    ótima forma de investigar a história das empresas.
+                                </p>
+                            </div>
+                        </details>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            Futuro à vista: CNPJs com letras (a partir de 2026)</h2>
+                        <p>
+                            Em outubro de 2024, o governo anunciou que a partir de junho de 2026 os novos CNPJs poderão
+                            incluir letras em sua raiz. O identificador tradicionalmente numérico se tornará
+                            alfanumérico, ampliando exponencialmente o número de combinações disponíveis.
+                        </p>
+                        <p>
+                            Cada letra terá um valor numérico correspondente para participar do cálculo dos dígitos
+                            verificadores. Na prática, poderemos ver CNPJs como <code>AB.123.456/0001-XX</code>. Pode
+                            parecer estranho agora, mas logo essa novidade fará parte da rotina.
+                        </p>
+                        <ul class="mt-2 space-y-2">
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">As letras aparecerão nas 12 primeiras
+                                    posições do CNPJ, enquanto os dois dígitos finais continuam numéricos.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">Nosso gerador e validador já estão
+                                    preparados para trabalhar com o novo padrão.</span>
+                            </li>
+                            <li
+                                class="flex items-start gap-2 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/80">
+                                <svg class="mt-0.5 h-5 w-5 text-violet-600 dark:text-violet-400"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.8" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-200">As empresas precisarão revisar
+                                    formulários, integrações e relatórios para aceitar letras sem perder dados.</span>
+                            </li>
+                        </ul>
+
+                        <figure
+                            class="my-6 overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-100/60 shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/70">
+                            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1600&q=80"
+                                alt="Imagem conceitual com letras e números misturados representando o futuro CNPJ alfanumérico"
+                                class="h-full w-full object-cover" loading="lazy" />
+                            <figcaption
+                                class="bg-slate-900/85 px-6 py-3 text-center text-sm font-medium text-slate-100">
+                                CNPJs com letras chegam em 2026 para ampliar a quantidade de combinações possíveis.
+                            </figcaption>
+                        </figure>
+
+                        <h2
+                            class="mt-10 border-l-4 border-violet-500 pl-3 text-2xl font-bold text-slate-800 dark:border-violet-400 dark:text-zinc-100">
+                            Conclusão e convite final</h2>
+                        <p>
+                            Até um tema aparentemente burocrático como o CNPJ guarda curiosidades fascinantes: um número
+                            que começa com zero, milhões de pequenos empreendedores transformando a economia e um futuro
+                            alfanumérico à vista. Conhecer esses fatos ajuda a entender a importância do Cadastro
+                            Nacional da Pessoa Jurídica para o Brasil.
+                        </p>
+                        <p>
+                            Que tal explorar tudo isso na prática? No site <strong>cnpj.bade.digital</strong> você pode
+                            consultar dados oficiais, validar números e gerar CNPJs fictícios em poucos cliques. As
+                            ferramentas são gratuitas, rápidas e ideais para quem trabalha com dados empresariais ou quer
+                            matar a curiosidade.
+                        </p>
+                        <p>
+                            Experimente agora mesmo o <a class="font-semibold underline underline-offset-4 !decoration-violet-600"
+                                href="https://cnpj.bade.digital/ferramentas/validador-cnpj" target="_blank"
+                                rel="noopener noreferrer">validador de CNPJ</a> e descubra em segundos se um número é
+                            válido. Você vai se surpreender com a facilidade – e quem sabe até encontrar novas
+                            curiosidades pelo caminho!
+                        </p>
+                    </div>
+                </section>
+
+                <aside
+                    class="space-y-6 rounded-3xl border border-slate-200/70 bg-white/95 p-6 shadow-xl transition-colors duration-500 dark:border-slate-700/60 dark:bg-slate-900/80">
+                    <div class="flex items-center gap-3">
+                        <span class="h-8 w-1 rounded-full bg-violet-500"></span>
+                        <h2 class="text-xl font-semibold text-slate-800 dark:text-zinc-100">Tags</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="/artigos/"
+                            class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200">CNPJ</a>
+                        <a href="/artigos/"
+                            class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200">Curiosidades do CNPJ</a>
+                        <a href="/artigos/"
+                            class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200">Cadastro Nacional da Pessoa Jurídica</a>
+                        <a href="/artigos/"
+                            class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200">MEI</a>
+                        <a href="/artigos/"
+                            class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200">CGC</a>
+                        <a href="/artigos/"
+                            class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200">Validação de CNPJ</a>
+                        <a href="/artigos/"
+                            class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200">Gerador de CNPJ</a>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <span class="h-8 w-1 rounded-full bg-violet-500"></span>
+                        <h2 class="text-xl font-semibold text-slate-800 dark:text-zinc-100">Compartilhe o
+                            conhecimento</h2>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">
+                        Gostou das curiosidades? Espalhe o conteúdo para que mais pessoas entendam o universo do CNPJ.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcnpj.bade.digital%2Fartigos%2Fcuriosidades-sobre-o-cnpj-que-voce-provavelmente-nao-sabia%2F&title=Curiosidades%20sobre%20o%20CNPJ%20que%20voc%C3%AA%20%28provavelmente%29%20n%C3%A3o%20sabia"
+                            class="efeito-onda-base efeito-onda-claro inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200"
+                            target="_blank" rel="noopener noreferrer">
+                            <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.047c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.268 2.37 4.268 5.455v6.286ZM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125Zm1.777 13.019H3.56V9h3.554v11.452Z" />
+                            </svg>
+                            LinkedIn
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fcnpj.bade.digital%2Fartigos%2Fcuriosidades-sobre-o-cnpj-que-voce-provavelmente-nao-sabia%2F&text=Sabia%20que%20existe%20um%20CNPJ%20que%20come%C3%A7a%20com%2000.000.000%3F%20Descubra%20essa%20e%20outras%20curiosidades%20sobre%20o%20registro%20de%20empresas%20no%20Brasil!"
+                            class="efeito-onda-base efeito-onda-claro inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200"
+                            target="_blank" rel="noopener noreferrer">
+                            <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19.633 7.997c.013.176.013.353.013.53 0 5.383-4.098 11.585-11.585 11.585A11.51 11.51 0 0 1 2 18.29c.274.032.534.045.82.045a8.14 8.14 0 0 0 5.047-1.738 4.072 4.072 0 0 1-3.804-2.826c.254.039.508.065.77.065.37 0 .74-.051 1.086-.141a4.061 4.061 0 0 1-3.26-3.987v-.051c.542.303 1.17.484 1.836.508a4.052 4.052 0 0 1-1.812-3.372c0-.748.203-1.422.558-2.017a11.556 11.556 0 0 0 8.39 4.257 4.575 4.575 0 0 1-.101-.93 4.064 4.064 0 0 1 7.027-2.777 8.004 8.004 0 0 0 2.577-.985 4.048 4.048 0 0 1-1.784 2.244 8.105 8.105 0 0 0 2.336-.63 8.731 8.731 0 0 1-2.03 2.103Z" />
+                            </svg>
+                            X / Twitter
+                        </a>
+                        <a href="https://api.whatsapp.com/send?text=Curiosidades%20sobre%20o%20CNPJ%20que%20voc%C3%AA%20%28provavelmente%29%20n%C3%A3o%20sabia:%20https%3A%2F%2Fcnpj.bade.digital%2Fartigos%2Fcuriosidades-sobre-o-cnpj-que-voce-provavelmente-nao-sabia%2F"
+                            class="efeito-onda-base efeito-onda-claro inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:text-violet-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:border-slate-600 dark:text-slate-200"
+                            target="_blank" rel="noopener noreferrer">
+                            <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12.04 2C6.55 2 2.11 6.37 2.11 11.78c0 2.99 1.37 5.66 3.53 7.5L4.4 21.94l2.86-.91a10.1 10.1 0 0 0 4.79 1.2c5.48 0 9.93-4.37 9.93-9.78C22.98 6.37 18.53 2 13.05 2h-.01Zm5.92 14.08a5.8 5.8 0 0 1-1.76 1.32c-.47.22-.97.38-1.49.48a6.33 6.33 0 0 1-2.5-.05 11.38 11.38 0 0 1-2.37-.93 10.96 10.96 0 0 1-2.8-2.25 8.94 8.94 0 0 1-1.7-2.83 5.8 5.8 0 0 1-.3-1.87c.02-.62.18-1.22.47-1.77.1-.19.23-.34.4-.47.17-.13.37-.2.58-.2.1 0 .2.01.3.02.13.02.26.05.38.09.12.04.24.1.34.18.11.08.2.17.27.29l.43.9c.07.16.12.32.14.49.03.22-.04.44-.2.6-.1.11-.21.22-.31.34-.1.12-.17.26-.2.41-.03.17.01.35.09.51.26.54.59 1.04 1 1.48.3.33.62.63.96.9.22.17.48.3.74.4.19.08.4.09.6.04.16-.04.31-.1.45-.19.13-.09.27-.19.4-.29.15-.12.33-.19.52-.19.18 0 .36.04.52.13l.82.39c.13.07.26.15.38.24.12.09.23.2.31.33.08.12.13.25.16.39.03.15.04.3.01.45a4.24 4.24 0 0 1-.33 1.01Z" />
+                            </svg>
+                            WhatsApp
+                        </a>
+                    </div>
+                </aside>
+
+                <section aria-labelledby="relacionados"
+                    class="space-y-6 rounded-3xl border border-slate-200/70 bg-white/95 p-6 shadow-xl transition-colors duration-500 dark:border-slate-700/60 dark:bg-slate-900/80">
+                    <div class="flex items-center gap-3">
+                        <span class="h-8 w-1 rounded-full bg-violet-500"></span>
+                        <h2 id="relacionados" class="text-xl font-semibold text-slate-800 dark:text-zinc-100">Posts
+                            relacionados</h2>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                        <a href="/artigos/cnpj-desvendado-história-estrutura-e-o-futuro-alfanumerico/"
+                            class="group flex flex-col gap-3 rounded-2xl border border-slate-200/70 bg-white/70 p-4 shadow transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:shadow-lg dark:border-slate-700/60 dark:bg-slate-900/70">
+                            <img src="https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?auto=format&fit=crop&w=600&q=80"
+                                alt="Profissional analisando dados históricos do CNPJ em gráficos"
+                                class="h-36 w-full rounded-2xl object-cover" loading="lazy" />
+                            <p
+                                class="text-sm font-semibold leading-tight text-slate-800 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-100 dark:group-hover:text-violet-300">
+                                CNPJ Desvendado: história, estrutura e futuro alfanumérico
+                            </p>
+                            <span
+                                class="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500 dark:text-slate-300">História</span>
+                        </a>
+                        <a href="/artigos/como-a-validacao-de-cnpj-e-feita/"
+                            class="group flex flex-col gap-3 rounded-2xl border border-slate-200/70 bg-white/70 p-4 shadow transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:shadow-lg dark:border-slate-700/60 dark:bg-slate-900/70">
+                            <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=600&q=80"
+                                alt="Fluxo de validação de dados cadastrais com destaque para CNPJ"
+                                class="h-36 w-full rounded-2xl object-cover" loading="lazy" />
+                            <p
+                                class="text-sm font-semibold leading-tight text-slate-800 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-100 dark:group-hover:text-violet-300">
+                                Como é feita a validação de CNPJ na prática
+                            </p>
+                            <span
+                                class="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500 dark:text-slate-300">Validação</span>
+                        </a>
+                        <a href="/artigos/"
+                            class="group flex flex-col gap-3 rounded-2xl border border-slate-200/70 bg-white/70 p-4 shadow transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-500 hover:shadow-lg dark:border-slate-700/60 dark:bg-slate-900/70">
+                            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&q=80"
+                                alt="Empreendedor usando notebook para consultar CNPJ"
+                                class="h-36 w-full rounded-2xl object-cover" loading="lazy" />
+                            <p
+                                class="text-sm font-semibold leading-tight text-slate-800 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-100 dark:group-hover:text-violet-300">
+                                Explore todos os artigos sobre CNPJ e curiosidades
+                            </p>
+                            <span
+                                class="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500 dark:text-slate-300">Explorar</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </article>
+    </main>
+
+
+    <div id="feedback-toast"
+        class="pointer-events-none fixed bottom-6 right-6 z-50 hidden min-w-[220px] max-w-xs rounded-2xl border border-violet-500/40 bg-white/95 px-4 py-3 text-sm font-medium text-slate-600 shadow-2xl transition dark:border-violet-500/30 dark:bg-slate-900/90 dark:text-slate-200">
+    </div>
+    <script type="module" defer src="/dist/src/interface/tema.js"></script>
+    <script type="module" defer src="/dist/src/interface/menu.js"></script>
+    <script type="module" defer src="/dist/src/interface/rodape.js"></script>
+    <script type="module" defer src="/dist/src/gerais/uteis.js"></script>
+</body>
+
+</html>
