@@ -1,0 +1,115 @@
+﻿            <!-- Artigos oficiais -->
+            <article
+              data-post-card
+              data-tags="pejotizacao clt mei cnpj"
+              data-title="A revoluÃ¯Â¿Â½Ã¯Â¿Â½o dos PJs: entendendo o boom de CNPJs no Brasil e o perigo da pejotizaÃ¯Â¿Â½Ã¯Â¿Â½o"
+              class="hidden group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/80"
+            >
+              <a href="/artigos/a-revolucao-dos-pjs-entendendo-o-boom-de-cnpjs-no-brasil-e-o-perigo-da-pejotizacao/" class="relative block">
+                <img
+                  src="/img/a-revolucao-dos-pjs-entendendo-o-boom-de-cnpjs-no-brasil-e-o-perigo-da-pejotizacao.webp"
+                  alt="Boom de novos CNPJs e debate CLT x PJ"
+                  class="h-52 w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  loading="lazy"
+                />
+              </a>
+              <div class="flex flex-1 flex-col gap-5 px-6 pb-7 pt-6">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+                  <time datetime="2025-01-20">20 jan 2025</time>
+                  <span aria-hidden="true">Ã¢Â€Â¢</span>
+                  <span>Fernando Bade</span>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold leading-tight text-slate-900 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-50 dark:group-hover:text-violet-300">
+                    <a href="/artigos/a-revolucao-dos-pjs-entendendo-o-boom-de-cnpjs-no-brasil-e-o-perigo-da-pejotizacao/">
+                      A revoluÃ¯Â¿Â½Ã¯Â¿Â½o dos PJs: entendendo o boom de CNPJs no Brasil e o perigo da pejotizaÃ¯Â¿Â½Ã¯Â¿Â½o
+                    </a>
+                  </h3>
+                  <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    Descubra por que o Brasil abriu 4,3 milhÃ¯Â¿Â½Ã¯Â¿Â½es de CNPJs em 2024, entenda os riscos da pejotizaÃ¯Â¿Â½Ã¯Â¿Â½o ilegal e saiba como formalizar o seu negÃ¯Â¿Â½Ã¯Â¿Â½cio com seguranÃ¯Â¿Â½Ã¯Â¿Â½a e autonomia.
+                  </p>
+                </div>
+                <div class="mt-auto flex flex-wrap gap-2">
+                  <span class="inline-flex items-center rounded-full bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-600 dark:text-violet-300">PejotizaÃ¯Â¿Â½Ã¯Â¿Â½o</span>
+                  <span class="inline-flex items-center rounded-full bg-slate-500/10 px-3 py-1 text-xs font-medium text-slate-700 dark:text-slate-300">CLT</span>
+                  <span class="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-300">MEI</span>
+                </div>
+              </div>
+            </article>
+
+            <article
+              data-post-card
+              data-tags="cnpj-alfanumerico 2026 mudancas"
+              data-title="CNPJ alfanumÃ¯Â¿Â½Ã¯Â¿Â½rico 2026: entenda a mudanÃ¯Â¿Â½Ã¯Â¿Â½a e os impactos no seu sistema"
+              class="hidden group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/80"
+            >
+              <a href="/artigos/cnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos-no-seu-sistema/" class="relative block">
+                <img
+                  src="/img/cnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos-no-seu-sistema-1.webp"
+                  alt="Novo CNPJ alfanumÃ¯Â¿Â½Ã¯Â¿Â½rico e impactos tÃ¯Â¿Â½Ã¯Â¿Â½cnicos"
+                  class="h-52 w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  loading="lazy"
+                />
+              </a>
+              <div class="flex flex-1 flex-col gap-5 px-6 pb-7 pt-6">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+                  <time datetime="2024-11-12">12 nov 2024</time>
+                  <span aria-hidden="true">Ã¢Â€Â¢</span>
+                  <span>Fernando Bade</span>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold leading-tight text-slate-900 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-50 dark:group-hover:text-violet-300">
+                    <a href="/artigos/cnpj-alfanumerico-2026-entenda-a-mudanca-e-os-impactos-no-seu-sistema/">
+                      CNPJ alfanumÃ¯Â¿Â½Ã¯Â¿Â½rico 2026: entenda a mudanÃ¯Â¿Â½Ã¯Â¿Â½a e os impactos no seu sistema
+                    </a>
+                  </h3>
+                  <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    Guia tÃ¯Â¿Â½Ã¯Â¿Â½cnico: CNPJ alfanumÃ¯Â¿Â½Ã¯Â¿Â½rico em 2026 com TypeScript, regex ^[A-Z0-9]{12}[0-9]{2}$, mÃ¯Â¿Â½Ã¯Â¿Â½dulo 11, conversÃ¯Â¿Â½Ã¯Â¿Â½o ASCII e migraÃ¯Â¿Â½Ã¯Â¿Â½o de sistemas.
+                  </p>
+                </div>
+                <div class="mt-auto flex flex-wrap gap-2">
+                  <span class="inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-700 dark:text-indigo-300">CNPJ alfanumÃ¯Â¿Â½Ã¯Â¿Â½rico</span>
+                  <span class="inline-flex items-center rounded-full bg-fuchsia-500/10 px-3 py-1 text-xs font-medium text-fuchsia-700 dark:text-fuchsia-300">Novo CNPJ 2026</span>
+                  <span class="inline-flex items-center rounded-full bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-700 dark:text-sky-300">MudanÃ¯Â¿Â½Ã¯Â¿Â½as</span>
+                </div>
+              </div>
+            </article>
+
+            <article
+              data-post-card
+              data-tags="curiosidades historia mei"
+              data-title="Curiosidades sobre o CNPJ que vocÃ¯Â¿Â½Ã¯Â¿Â½ (provavelmente) nÃ¯Â¿Â½Ã¯Â¿Â½o sabia"
+              class="hidden group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/60 dark:bg-slate-900/80"
+            >
+              <a href="/artigos/curiosidades-sobre-o-cnpj-que-voce-provavelmente-nao-sabia/" class="relative block">
+                <img
+                  src="/img/curiosidades-sobre-o-cnpj-que-voce-provavelmente-nao-sabia-2.webp"
+                  alt="Curiosidades e fatos sobre o CNPJ"
+                  class="h-52 w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  loading="lazy"
+                />
+              </a>
+              <div class="flex flex-1 flex-col gap-5 px-6 pb-7 pt-6">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
+                  <time datetime="2025-12-15">15 dez 2025</time>
+                  <span aria-hidden="true">Ã¢Â€Â¢</span>
+                  <span>Fernando Bade</span>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="text-xl font-semibold leading-tight text-slate-900 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-50 dark:group-hover:text-violet-300">
+                    <a href="/artigos/curiosidades-sobre-o-cnpj-que-voce-provavelmente-nao-sabia/">
+                      Curiosidades sobre o CNPJ que vocÃ¯Â¿Â½Ã¯Â¿Â½ (provavelmente) nÃ¯Â¿Â½Ã¯Â¿Â½o sabia
+                    </a>
+                  </h3>
+                  <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    Fatos surpreendentes sobre o CNPJ que vocÃ¯Â¿Â½Ã¯Â¿Â½ nunca imaginou. Descubra um CNPJ que comeÃ¯Â¿Â½Ã¯Â¿Â½a com 00.000.000, quantos existem no Brasil e por que 79% sÃ¯Â¿Â½Ã¯Â¿Â½o MEIs.
+                  </p>
+                </div>
+                <div class="mt-auto flex flex-wrap gap-2">
+                  <span class="inline-flex items-center rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-700 dark:text-amber-300">Curiosidades</span>
+                  <span class="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-300">MEI</span>
+                  <span class="inline-flex items-center rounded-full bg-slate-500/10 px-3 py-1 text-xs font-medium text-slate-700 dark:text-slate-300">HistÃ¯Â¿Â½Ã¯Â¿Â½ria</span>
+                </div>
+              </div>
+            </article>
+            <!-- Fim dos artigos oficiais -->

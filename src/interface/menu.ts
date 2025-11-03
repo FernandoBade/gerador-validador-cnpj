@@ -21,10 +21,10 @@ export const htmlMenu = `
                 </button>
                 <ul class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-zinc-50">
                     <li><a href="/index.html" class="hover:underline hover:decoration-2 hover:underline-offset-8 hover:hover:text-violet-500 transition-all duration-100">Início</a></li>
-                    <li><a href="/ferramentas/gerador-cnpj/" class="hover:underline hover:decoration-2 hover:underline-offset-8 hover:hover:text-violet-500 transition-all duration-100">Gerador</a></li>
-                    <li><a href="/ferramentas/validador-cnpj/" class="hover:underline hover:decoration-2 hover:underline-offset-8 hover:hover:text-violet-500 transition-all duration-100">Validador</a></li>
+                    <li><a href="/ferramentas/gerador-cnpj/" class="hover:underline hover:decoration-2 hover:underline-offset-8 hover:hover:text-violet-500 transition-all duration-100">Gerador de CNPJs</a></li>
+                    <li><a href="/ferramentas/validador-cnpj/" class="hover:underline hover:decoration-2 hover:underline-offset-8 hover:hover:text-violet-500 transition-all duration-100">Validador de CNPJs</a></li>
                     <li><a href="/ferramentas/consultar-dados-cnpj/" class="hover:underline hover:decoration-2 hover:underline-offset-8 hover:hover:text-violet-500 transition-all duration-100">Consultar dados de CNPJ</a></li>
-                    <li><a href="/artigos/como-a-validacao-de-cnpj-e-feita/" class="hover:underline hover:decoration-2 hover:underline-offset-8 hover:hover:text-violet-500 transition-all duration-100">Como funciona</a></li>
+                    <li><a href="/artigos/" class="hover:underline hover:decoration-2 hover:underline-offset-8 hover:hover:text-violet-500 transition-all duration-100">Artigos</a></li>
                 </ul>
             </div>
 
@@ -52,10 +52,10 @@ export const htmlMenu = `
             <div id="menu-mobile" class="md:hidden hidden pb-3">
                 <ul class="mt-2 flex flex-col items-start gap-1 text-sm font-medium dark:text-zinc-50">
                         <li><a href="/index.html" class="block w-full px-3 py-2 rounded hover:text-violet-500 transition-colors">Início</a></li>
-                        <li><a href="/ferramentas/gerador-cnpj/" class="block w-full px-3 py-2 rounded hover:text-violet-500 transition-colors">Gerador</a></li>
-                        <li><a href="/ferramentas/validador-cnpj/" class="block w-full px-3 py-2 rounded hover:text-violet-500 transition-colors">Validador</a></li>
+                        <li><a href="/ferramentas/gerador-cnpj/" class="block w-full px-3 py-2 rounded hover:text-violet-500 transition-colors">Gerador de CNPJs</a></li>
+                        <li><a href="/ferramentas/validador-cnpj/" class="block w-full px-3 py-2 rounded hover:text-violet-500 transition-colors">Validador de CNPJs</a></li>
                         <li><a href="/ferramentas/consultar-dados-cnpj/" class="block w-full px-3 py-2 rounded hover:text-violet-500 transition-colors">Consultar dados de CNPJ</a></li>
-                        <li><a href="/artigos/como-a-validacao-de-cnpj-e-feita/" class="block w-full px-3 py-2 rounded hover:text-violet-500 transition-colors">Como funciona</a></li>
+                        <li><a href="/artigos/" class="block w-full px-3 py-2 rounded hover:text-violet-500 transition-colors">Artigos</a></li>
                 </ul>
             </div>
         </div>
