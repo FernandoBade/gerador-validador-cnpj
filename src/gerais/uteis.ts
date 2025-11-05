@@ -147,28 +147,6 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','${GTM_ID}');`;
-const PADRAO_COMENTARIO_GTM = /Google Tag Manager/i;
-
-/**
- * @summary Remove comentários adjacentes relacionados ao GTM e o elemento informado.
- */
-function limparElementoGTM(elemento: Element): void {
-    let anterior = elemento.previousSibling;
-    while (anterior && anterior.nodeType === Node.COMMENT_NODE && PADRAO_COMENTARIO_GTM.test(anterior.nodeValue ?? "")) {
-        const alvo = anterior;
-        anterior = anterior.previousSibling;
-        alvo.remove();
-    }
-
-    let posterior = elemento.nextSibling;
-    while (posterior && posterior.nodeType === Node.COMMENT_NODE && PADRAO_COMENTARIO_GTM.test(posterior.nodeValue ?? "")) {
-        const alvo = posterior;
-        posterior = posterior.nextSibling;
-        alvo.remove();
-    }
-
-    elemento.remove();
-}
 
 /**
  * @summary Injeta o bloco de script do Google Tag Manager no topo do <head>.
@@ -178,12 +156,11 @@ function injetarScriptGTM(): void {
     if (!cabecalho) return;
 
     const existentes = cabecalho.querySelectorAll<HTMLScriptElement>("script");
-    existentes.forEach((script) => {
+    const jaTem = Array.from(existentes).some((script) => {
         const conteudo = script.textContent ?? "";
-        if (conteudo.includes("googletagmanager.com/gtm.js") && conteudo.includes(GTM_ID)) {
-            limparElementoGTM(script);
-        }
+        return conteudo.includes("googletagmanager.com/gtm.js") && conteudo.includes(GTM_ID);
     });
+    if (jaTem) return;
 
     const comentarioInicial = document.createComment(" Google Tag Manager ");
     const script = document.createElement("script");
@@ -203,14 +180,13 @@ function injetarNoscriptGTM(): void {
     if (!corpo) return;
 
     const existentes = corpo.querySelectorAll<HTMLElement>("noscript");
-    existentes.forEach((noscript) => {
+    const jaTem = Array.from(existentes).some((noscript) => {
         const conteudo = noscript.textContent ?? "";
         const iframe = noscript.querySelector("iframe");
         const src = iframe?.getAttribute("src") ?? "";
-        if (conteudo.includes(GTM_ID) || src.includes(GTM_ID)) {
-            limparElementoGTM(noscript);
-        }
+        return conteudo.includes(GTM_ID) || src.includes(GTM_ID);
     });
+    if (jaTem) return;
 
     const comentarioInicial = document.createComment(" Google Tag Manager (noscript) ");
     const noscript = document.createElement("noscript");

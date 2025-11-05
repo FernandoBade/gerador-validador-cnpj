@@ -27,12 +27,30 @@ function listarArquivos(diretorio: string, arquivos: string[] = []): string[] {
 function processarHtml(conteudo: string): string {
     let html = conteudo;
 
+    // Blocos estáticos do Google Tag Manager para injeção em build
+    const GTM_ID = "GTM-5LSGCFMM";
+    const GTM_SCRIPT_BLOCO = `    <!-- Google Tag Manager -->\n    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?"&l="+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');</script>\n    <!-- End Google Tag Manager -->`;
+    const GTM_NOSCRIPT_BLOCO = `    <!-- Google Tag Manager (noscript) -->\n    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>\n    <!-- End Google Tag Manager (noscript) -->`;
+
     // Injeta o carregador do injetor de GTM em todas as páginas, se ausente
     // O arquivo /dist/src/gerais/uteis.js executa a injeção dos blocos do GTM
     // no topo do <head> e do <body> em tempo de execução, de forma idempotente.
     if (!/src\s*=\s*["'][^"']*\/dist\/src\/gerais\/uteis\.js["']/i.test(html)) {
         const tagUteis = '    <script type="module" src="/dist/src/gerais/uteis.js" defer></script>';
         html = html.replace(/<head(.*?)>/i, (m, attrs) => `<head${attrs}>\n${tagUteis}`);
+    }
+
+    // Garante GTM logo após <head> e no início do <body>, se ausentes
+    {
+        const temGtmScript = /googletagmanager\.com\/gtm\.js/i.test(html) && new RegExp(GTM_ID, 'i').test(html);
+        if (!temGtmScript) {
+            html = html.replace(/<head(\s[^>]*)?>/i, (m) => `${m}\n${GTM_SCRIPT_BLOCO}`);
+        }
+
+        const temGtmNoscript = /googletagmanager\.com\/ns\.html\?id=/i.test(html) && new RegExp(GTM_ID, 'i').test(html);
+        if (!temGtmNoscript) {
+            html = html.replace(/<body(\s[^>]*)?>/i, (m) => `${m}\n${GTM_NOSCRIPT_BLOCO}`);
+        }
     }
 
     const limparParametrosVersao = (url: string): string => {
@@ -90,23 +108,6 @@ function processarHtml(conteudo: string): string {
             (m, attrs) =>
                 `<head${attrs}>\n    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>\n    <meta http-equiv="Pragma" content="no-cache"/>\n    <meta http-equiv="Expires" content="0"/>`,
         );
-    }
-
-    if (!/id="sw-unregister"/i.test(html)) {
-        const scriptSW = `
-    <script id="sw-unregister">
-      (function() {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.getRegistrations?.().then((regs) => {
-            regs.forEach((r) => r.unregister().catch(() => {}))
-          }).catch(() => {})
-          navigator.serviceWorker.getRegistration?.().then((reg) => {
-            if (reg?.active) reg.update().catch(() => {})
-          })
-        }
-      })();
-    </script>`;
-        html = html.replace(/<\/head>/i, `${scriptSW}\n</head>`);
     }
 
     return html;

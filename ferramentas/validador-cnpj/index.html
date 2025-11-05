@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? "&l=" + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-5LSGCFMM');</script>
+    <!-- End Google Tag Manager -->
     <script type="module" src="/dist/src/gerais/uteis.js" defer></script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -8,21 +12,19 @@
 
     <script type="module" src="/dist/src/interface/transicao.js" defer></script>
     <script>
-      window.addEventListener("load", () => {
-        document.body.classList.add("ready");
-      });
+        window.addEventListener("load", () => {
+            document.body.classList.add("ready");
+        });
     </script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>
-      Validador de CNPJ – Valide CNPJ numérico ou alfanumérico de forma prática e rápida
+        Validador de CNPJ – Valide CNPJ numérico ou alfanumérico de forma prática e rápida
     </title>
-    <meta
-      name="description"
-      content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros."
-    />
+    <meta name="description"
+        content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros." />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="pt-BR" />
     <meta name="geo.region" content="BR" />
@@ -37,31 +39,20 @@
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
-    <meta
-      property="og:title"
-      content="Validador de CNPJ – Valide CNPJ numérico ou alfanumérico de forma prática e rápida"
-    />
-    <meta
-      property="og:description"
-      content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros."
-    />
+    <meta property="og:title"
+        content="Validador de CNPJ – Valide CNPJ numérico ou alfanumérico de forma prática e rápida" />
+    <meta property="og:description"
+        content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros." />
     <meta property="og:url" content="https://cnpj.bade.digital/ferramentas/validador-cnpj/" />
     <meta property="og:site_name" content="Gerador e Validador de CNPJ" />
     <meta property="og:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
-    <meta
-      property="og:image:alt"
-      content="Painel do validador de CNPJ com histórico de verificações"
-    />
+    <meta property="og:image:alt" content="Painel do validador de CNPJ com histórico de verificações" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Validador de CNPJ – Valide CNPJ numérico ou alfanumérico de forma prática e rápida"
-    />
-    <meta
-      name="twitter:description"
-      content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros."
-    />
+    <meta name="twitter:title"
+        content="Validador de CNPJ – Valide CNPJ numérico ou alfanumérico de forma prática e rápida" />
+    <meta name="twitter:description"
+        content="Valide CNPJs reais e atualizados com o Validador de CNPJ conectado à API OpenCNPJ. Confira dados oficiais e evite erros." />
     <meta name="twitter:image" content="/img/gerador-validador-cnpj-2026-alfanumerico-og.png" />
 
     <script type="application/ld+json">
@@ -83,301 +74,187 @@
     </script>
 
     <link rel="stylesheet" href="/dist/assets/tailwind.min.css" />
-
     <link rel="stylesheet" href="/dist/assets/controle-tema.min.css" />
+</head>
 
-    <script id="sw-unregister">
-      (function () {
-        if ("serviceWorker" in navigator) {
-          // Tenta desregistrar todos os SWs já instalados
-          navigator.serviceWorker
-            .getRegistrations()
-            .then(function (regs) {
-              regs.forEach(function (r) {
-                r.unregister().catch(function () {
-                  /* noop */
-                });
-              });
-            })
-            .catch(function () {
-              /* noop */
-            });
-          // Se ainda houver um SW controlando, força atualização
-          navigator.serviceWorker.getRegistration &&
-            navigator.serviceWorker.getRegistration().then(function (reg) {
-              if (reg && reg.active) {
-                reg.update().catch(function () {
-                  /* noop */
-                });
-              }
-            });
-        }
-      })();
-    </script>
-  </head>
-
-  <body
-    class="scroll-personalizado flex flex-col min-h-screen font-sans transition-colors duration-500 bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-zinc-50"
-  >
+<body
+    class="scroll-personalizado flex flex-col min-h-screen font-sans transition-colors duration-500 bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-zinc-50">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LSGCFMM" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <main class="flex items-center justify-center flex-1 px-4 py-6">
-      <div class="justify-center min-h-screen flex flex-col">
-        <div class="flex flex-col items-stretch gap-6">
-          <div class="flex flex-col items-start justify-center gap-6 md:flex-row">
-            <div
-              id="card-validacao"
-              class="flex flex-col justify-between w-full max-w-xl px-8 pb-8 transition-colors duration-500 shadow-2xl h-min bg-zinc-50 dark:bg-slate-800 rounded-3xl"
-            >
-              <div class="flex flex-col gap-1 text-center">
-                <h1 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
-                  Validador de CNPJ Alfanumérico
-                </h1>
-                <h2 class="my-4 text-sm font-semibold text-slate-600 dark:text-zinc-50">
-                  Faça a validação de CNPJ real ou fictício em segundos. Nosso validador verifica a
-                  estrutura, os dígitos verificadores e a formatação, garantindo que o CNPJ é
-                  matematicamente válido.
-                </h2>
-              </div>
+        <div class="justify-center min-h-screen flex flex-col">
+            <div class="flex flex-col items-stretch gap-6">
+                <div class="flex flex-col items-start justify-center gap-6 md:flex-row">
+                    <div id="card-validacao"
+                        class="flex flex-col justify-between w-full max-w-xl px-8 pb-8 transition-colors duration-500 shadow-2xl h-min bg-zinc-50 dark:bg-slate-800 rounded-3xl">
+                        <div class="flex flex-col gap-1 text-center">
+                            <h1 class="mt-4 text-3xl font-bold text-slate-600 dark:text-zinc-50">
+                                Validador de CNPJ Alfanumérico
+                            </h1>
+                            <h2 class="my-4 text-sm font-semibold text-slate-600 dark:text-zinc-50">
+                                Faça a validação de CNPJ real ou fictício em segundos. Nosso validador verifica a
+                                estrutura, os dígitos verificadores e a formatação, garantindo que o CNPJ é
+                                matematicamente válido.
+                            </h2>
+                        </div>
 
-              <div class="flex flex-col gap-6 mx-auto max-w-96">
-                <div class="flex flex-wrap items-stretch gap-1 mt-4 align-middle">
-                  <div class="relative flex-1">
-                    <input
-                      id="campo-unico"
-                      type="text"
-                      autocomplete="off"
-                      class="w-full px-3 py-2 pr-12 text-lg font-semibold text-center align-middle transition-colors duration-300 rounded-lg shadow-inner text-slate-600 dark:text-zinc-50 border-slate-300 dark:border-slate-600 bg-zinc-200/50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 placeholder:text-slate-400/75 dark:placeholder:text-slate-700"
-                      placeholder="00.ABC.000/ABCD-00"
-                    />
-                    <textarea
-                      id="campo-massa"
-                      class="hidden w-full px-3 py-2 font-semibold text-center transition-colors duration-300 rounded-lg shadow-inner resize-y scroll-personalizado min-h-16 text-slate-600 dark:text-zinc-50 border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 text-md focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 placeholder:text-slate-300 dark:placeholder:text-slate-700 placeholder:font-semibold placeholder"
-                      placeholder="00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00"
-                    ></textarea>
-                    <button
-                      id="botao-colar"
-                      type="button"
-                      title="Colar CNPJ"
-                      class="absolute inline-flex items-center justify-center px-2 py-1 text-xs transition-all duration-300 ease-in-out -translate-y-1/2 rounded right-2 top-1/2 text-violet-500 dark:text-violet-500 hover:text-violet-600 dark:hover:text-violet-600 hover:scale-110"
-                      aria-label="Copiar CNPJ alfanumérico"
-                    >
-                      <svg
-                        class="w-8 h-8"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1.5"
-                          d="M9 20H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h2.429M7 8h3M8 8V4h4v2m4 0V5h-4m3 4v3a1 1 0 0 1-1 1h-3m9-3v9a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-6.397a1 1 0 0 1 .27-.683l2.434-2.603a1 1 0 0 1 .73-.317H19a1 1 0 0 1 1 1Z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                        <div class="flex flex-col gap-6 mx-auto max-w-96">
+                            <div class="flex flex-wrap items-stretch gap-1 mt-4 align-middle">
+                                <div class="relative flex-1">
+                                    <input id="campo-unico" type="text" autocomplete="off"
+                                        class="w-full px-3 py-2 pr-12 text-lg font-semibold text-center align-middle transition-colors duration-300 rounded-lg shadow-inner text-slate-600 dark:text-zinc-50 border-slate-300 dark:border-slate-600 bg-zinc-200/50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 placeholder:text-slate-400/75 dark:placeholder:text-slate-700"
+                                        placeholder="00.ABC.000/ABCD-00" />
+                                    <textarea id="campo-massa"
+                                        class="hidden w-full px-3 py-2 font-semibold text-center transition-colors duration-300 rounded-lg shadow-inner resize-y scroll-personalizado min-h-16 text-slate-600 dark:text-zinc-50 border-slate-300 dark:border-slate-600 bg-zinc-50 dark:bg-slate-900 text-md focus:outline-none focus:ring-2 focus:ring-violet-300 dark:focus:ring-violet-500 placeholder:text-slate-300 dark:placeholder:text-slate-700 placeholder:font-semibold placeholder"
+                                        placeholder="00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00, 00.ABC.000/ABCD-00"></textarea>
+                                    <button id="botao-colar" type="button" title="Colar CNPJ"
+                                        class="absolute inline-flex items-center justify-center px-2 py-1 text-xs transition-all duration-300 ease-in-out -translate-y-1/2 rounded right-2 top-1/2 text-violet-500 dark:text-violet-500 hover:text-violet-600 dark:hover:text-violet-600 hover:scale-110"
+                                        aria-label="Copiar CNPJ alfanumérico">
+                                        <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="1.5"
+                                                d="M9 20H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h2.429M7 8h3M8 8V4h4v2m4 0V5h-4m3 4v3a1 1 0 0 1-1 1h-3m9-3v9a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-6.397a1 1 0 0 1 .27-.683l2.434-2.603a1 1 0 0 1 .73-.317H19a1 1 0 0 1 1 1Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex flex-col items-center gap-5 mt-2 text-sm text-slate-600 dark:text-slate-500">
+                                <div class="flex flex-col gap-4 sm:flex-row">
+                                    <label for="toggle-mascara-validator"
+                                        class="inline-flex items-center gap-3 text-sm font-medium cursor-pointer select-none text-slate-600 dark:text-zinc-50">
+                                        <input id="toggle-mascara-validator" type="checkbox" class="sr-only peer"
+                                            checked />
+                                        <div
+                                            class="relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
+                                        </div>
+                                        <span class="transition-colors duration-300 peer-checked:font-semibold">Aplicar
+                                            máscara</span>
+                                    </label>
+
+                                    <label for="toggle-massa"
+                                        class="inline-flex items-center gap-3 text-sm font-medium cursor-pointer select-none text-slate-600 dark:text-zinc-50">
+                                        <input id="toggle-massa" type="checkbox" class="sr-only peer" />
+                                        <div
+                                            class="relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5">
+                                        </div>
+                                        <span
+                                            class="transition-colors duration-300 peer-checked:font-semibold">Validação
+                                            em massa</span>
+                                    </label>
+                                </div>
+
+                                <div class="flex w-auto gap-4 mt-6">
+                                    <button id="botao-validar" type="button"
+                                        class="flex-1 px-10 py-2 font-semibold transition-all duration-300 bg-transparent border-2 rounded-lg efeito-onda-base efeito-onda-claro text-md border-violet-500 dark:border-violet-500 text-violet-500 dark:text-violet-500 hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400 dark:hover:border-violet-400 active:scale-95">
+                                        Validar CNPJ
+                                    </button>
+                                    <button id="botao-validar-massa" type="button"
+                                        class="inline-flex items-center justify-center flex-1 px-8 py-2 mb-4 text-sm font-semibold transition-all duration-300 ease-in-out rounded-lg shadow-sm efeito-onda-base efeito-onda-escuro bg-violet-500 dark:bg-violet-500 text-zinc-50 hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none hover:shadow-md dark:hover:shadow-md focus:ring-2 focus:ring-slate-300 dark:focus:ring-violet-500 active:scale-95">
+                                        Validar CNPJs em Massa
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="painel-validacao"
+                        class="z-10 flex flex-col self-stretch w-full h-auto min-h-0 overflow-y-auto transition-all duration-300 rounded-md shadow-2xl md:w-80 max-h-96">
+                        <div id="card-historico"
+                            class="flex flex-col items-stretch flex-1 h-full min-h-0 px-4 py-2 transition-colors duration-500 shadow-2xl bg-zinc-50 dark:bg-slate-800 dark:shadow-inner-slate-900 rounded-3xl">
+                            <div class="flex justify-center gap-2 mb-4">
+                                <h2 class="pb-2 text-2xl font-bold text-center text-slate-600 dark:text-zinc-50">
+                                    Histórico
+                                    <span id="contador-historico" title="Total de itens"></span>
+                                </h2>
+                            </div>
+                            <ul id="lista-historico-validacao"
+                                class="scroll-personalizado space-y-2 ml-2 pr-2 py-3 px-2 text-sm text-slate-600 dark:text-slate-500 flex-1 overflow-y-auto max-h-[50vh] md:max-h-none shadow-inner shadow-slate-300 dark:shadow-slate-900 rounded-lg transition-all ease-in-out duration-300">
+                            </ul>
+                            <p class="py-3 text-xs text-center text-slate-500 dark:text-slate-400">
+                                Mantemos os 100 registros mais recentes
+                            </p>
+
+                            <div class="flex items-center justify-center mb-4 text-xs gap-x-2">
+                                <span
+                                    class="inline-block w-2 h-2 bg-teal-500 border rounded-full border-emerald-500 ring-2 ring-teal-500/40"></span>
+                                Válido
+                                <span
+                                    class="inline-block w-2 h-2 ml-4 bg-red-400 border border-red-500 rounded-full ring-2 ring-red-400/40"></span>
+                                Inválido
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div
-                  class="flex flex-col items-center gap-5 mt-2 text-sm text-slate-600 dark:text-slate-500"
-                >
-                  <div class="flex flex-col gap-4 sm:flex-row">
-                    <label
-                      for="toggle-mascara-validator"
-                      class="inline-flex items-center gap-3 text-sm font-medium cursor-pointer select-none text-slate-600 dark:text-zinc-50"
-                    >
-                      <input
-                        id="toggle-mascara-validator"
-                        type="checkbox"
-                        class="sr-only peer"
-                        checked
-                      />
-                      <div
-                        class="relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5"
-                      ></div>
-                      <span class="transition-colors duration-300 peer-checked:font-semibold"
-                        >Aplicar máscara</span
-                      >
-                    </label>
+                <details id="aviso-importante-validador"
+                    class="group mt-4 max-w-[920px] w-full mx-auto bg-zinc-50 dark:bg-slate-800 border border-pink-400 dark:border-pink-500 rounded-2xl shadow-lg px-6 py-2 text-slate-700 dark:text-zinc-200 text-xs leading-relaxed transition-all duration-300">
+                    <summary
+                        class="flex items-center justify-between cursor-pointer select-none mb-2 text-[1rem] font-bold text-pink-500 hover:text-pink-600 dark:text-pink-500 dark:hover:text-pink-400 rounded-lg transition-all duration-300">
+                        <div class="flex items-center gap-2 pt-2 text-lg">
+                            <svg class="mt-0.5 w-6 h-6 text-pink-500 dark:text-pink-500 transition-colors duration-300 group-hover:text-pink-600 dark:group-hover:text-pink-400 shrink-0"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                            Importante
+                        </div>
 
-                    <label
-                      for="toggle-massa"
-                      class="inline-flex items-center gap-3 text-sm font-medium cursor-pointer select-none text-slate-600 dark:text-zinc-50"
-                    >
-                      <input id="toggle-massa" type="checkbox" class="sr-only peer" />
-                      <div
-                        class="relative h-6 w-11 rounded-full bg-slate-500 dark:bg-slate-500 transition-colors duration-300 peer-checked:bg-violet-500 hover:peer-checked:bg-violet-600 dark:hover:peer-checked:bg-violet-600 dark:peer-checked:bg-violet-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:bg-zinc-50 after:shadow after:transition-transform after:duration-300 peer-checked:after:translate-x-5"
-                      ></div>
-                      <span class="transition-colors duration-300 peer-checked:font-semibold"
-                        >Validação em massa</span
-                      >
-                    </label>
-                  </div>
+                        <div class="flex items-center gap-1 mt-1">
+                            <svg class="hidden w-6 h-6 transition-all duration-300 ease-in-out group-open:block text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2.5" d="M6 18 17.94 6M18 18 6.06 6" />
+                            </svg>
 
-                  <div class="flex w-auto gap-4 mt-6">
-                    <button
-                      id="botao-validar"
-                      type="button"
-                      class="flex-1 px-10 py-2 font-semibold transition-all duration-300 bg-transparent border-2 rounded-lg efeito-onda-base efeito-onda-claro text-md border-violet-500 dark:border-violet-500 text-violet-500 dark:text-violet-500 hover:border-violet-600 hover:text-violet-600 dark:hover:text-violet-400 dark:hover:border-violet-400 active:scale-95"
-                    >
-                      Validar CNPJ
-                    </button>
-                    <button
-                      id="botao-validar-massa"
-                      type="button"
-                      class="inline-flex items-center justify-center flex-1 px-8 py-2 mb-4 text-sm font-semibold transition-all duration-300 ease-in-out rounded-lg shadow-sm efeito-onda-base efeito-onda-escuro bg-violet-500 dark:bg-violet-500 text-zinc-50 hover:bg-violet-600 dark:hover:bg-violet-600 focus:outline-none hover:shadow-md dark:hover:shadow-md focus:ring-2 focus:ring-slate-300 dark:focus:ring-violet-500 active:scale-95"
-                    >
-                      Validar CNPJs em Massa
-                    </button>
-                  </div>
-                </div>
-              </div>
+                            <svg class="block w-6 h-6 transition-all duration-300 ease-in-out group-open:hidden text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M5 12h14m-7 7V5" />
+                            </svg>
+                        </div>
+                    </summary>
+
+                    <div class="mt-4 ml-1 space-y-2 text-sm text-slate-500 dark:text-zinc-50">
+                        <p>
+                            Este validador
+                            <strong>não tem qualquer vínculo com a Receita Federal do Brasil</strong>. Ele
+                            apenas verifica se um número de CNPJ
+                            <strong>segue as regras matemáticas válidas</strong> de
+                            <strong><a class="underline underline-offset-4 decoration-pink-600"
+                                    href="../artigos/como-a-validacao-de-cnpj-e-feita/">cálculo de dígitos
+                                    verificadores</a></strong>
+                            e ajuda a verificar CNPJ antes de qualquer integração.
+                        </p>
+                        <p>
+                            Isso significa que o resultado indica se o CNPJ é
+                            <strong>estruturalmente válido</strong>, mas
+                            <strong>não informa se ele existe, está ativo, suspenso ou baixado</strong> na base
+                            da Receita.
+                        </p>
+                        <p>
+                            Para buscar dados reais de um CNPJ, como razão social, endereço, situação cadastral
+                            e outros detalhes oficiais, utilize nossa ferramenta de
+                            <strong><a class="underline underline-offset-4 decoration-pink-600"
+                                    href="../consultar-dados-cnpj/" target="_self">consulta de dados de
+                                    CNPJ</a></strong>.
+                        </p>
+                        <p class="mt-3 italic text-slate-300 dark:text-slate-400">
+                            O validador faz a conta, não o milagre. <span class="not-italic">😄</span>
+                        </p>
+                    </div>
+                </details>
             </div>
-
-            <div
-              id="painel-validacao"
-              class="z-10 flex flex-col self-stretch w-full h-auto min-h-0 overflow-y-auto transition-all duration-300 rounded-md shadow-2xl md:w-80 max-h-96"
-            >
-              <div
-                id="card-historico"
-                class="flex flex-col items-stretch flex-1 h-full min-h-0 px-4 py-2 transition-colors duration-500 shadow-2xl bg-zinc-50 dark:bg-slate-800 dark:shadow-inner-slate-900 rounded-3xl"
-              >
-                <div class="flex justify-center gap-2 mb-4">
-                  <h2 class="pb-2 text-2xl font-bold text-center text-slate-600 dark:text-zinc-50">
-                    Histórico
-                    <span id="contador-historico" title="Total de itens"></span>
-                  </h2>
-                </div>
-                <ul
-                  id="lista-historico-validacao"
-                  class="scroll-personalizado space-y-2 ml-2 pr-2 py-3 px-2 text-sm text-slate-600 dark:text-slate-500 flex-1 overflow-y-auto max-h-[50vh] md:max-h-none shadow-inner shadow-slate-300 dark:shadow-slate-900 rounded-lg transition-all ease-in-out duration-300"
-                ></ul>
-                <p class="py-3 text-xs text-center text-slate-500 dark:text-slate-400">
-                  Mantemos os 100 registros mais recentes
-                </p>
-
-                <div class="flex items-center justify-center mb-4 text-xs gap-x-2">
-                  <span
-                    class="inline-block w-2 h-2 bg-teal-500 border rounded-full border-emerald-500 ring-2 ring-teal-500/40"
-                  ></span>
-                  Válido
-                  <span
-                    class="inline-block w-2 h-2 ml-4 bg-red-400 border border-red-500 rounded-full ring-2 ring-red-400/40"
-                  ></span>
-                  Inválido
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <details
-            id="aviso-importante-validador"
-            class="group mt-4 max-w-[920px] w-full mx-auto bg-zinc-50 dark:bg-slate-800 border border-pink-400 dark:border-pink-500 rounded-2xl shadow-lg px-6 py-2 text-slate-700 dark:text-zinc-200 text-xs leading-relaxed transition-all duration-300"
-          >
-            <summary
-              class="flex items-center justify-between cursor-pointer select-none mb-2 text-[1rem] font-bold text-pink-500 hover:text-pink-600 dark:text-pink-500 dark:hover:text-pink-400 rounded-lg transition-all duration-300"
-            >
-              <div class="flex items-center gap-2 pt-2 text-lg">
-                <svg
-                  class="mt-0.5 w-6 h-6 text-pink-500 dark:text-pink-500 transition-colors duration-300 group-hover:text-pink-600 dark:group-hover:text-pink-400 shrink-0"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
-                Importante
-              </div>
-
-              <div class="flex items-center gap-1 mt-1">
-                <svg
-                  class="hidden w-6 h-6 transition-all duration-300 ease-in-out group-open:block text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2.5"
-                    d="M6 18 17.94 6M18 18 6.06 6"
-                  />
-                </svg>
-
-                <svg
-                  class="block w-6 h-6 transition-all duration-300 ease-in-out group-open:hidden text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-100"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 12h14m-7 7V5"
-                  />
-                </svg>
-              </div>
-            </summary>
-
-            <div class="mt-4 ml-1 space-y-2 text-sm text-slate-500 dark:text-zinc-50">
-              <p>
-                Este validador
-                <strong>não tem qualquer vínculo com a Receita Federal do Brasil</strong>. Ele
-                apenas verifica se um número de CNPJ
-                <strong>segue as regras matemáticas válidas</strong> de
-                <strong
-                  ><a
-                    class="underline underline-offset-4 decoration-pink-600"
-                    href="../artigos/como-a-validacao-de-cnpj-e-feita/"
-                    >cálculo de dígitos verificadores</a
-                  ></strong
-                >
-                e ajuda a verificar CNPJ antes de qualquer integração.
-              </p>
-              <p>
-                Isso significa que o resultado indica se o CNPJ é
-                <strong>estruturalmente válido</strong>, mas
-                <strong>não informa se ele existe, está ativo, suspenso ou baixado</strong> na base
-                da Receita.
-              </p>
-              <p>
-                Para buscar dados reais de um CNPJ, como razão social, endereço, situação cadastral
-                e outros detalhes oficiais, utilize nossa ferramenta de
-                <strong
-                  ><a
-                    class="underline underline-offset-4 decoration-pink-600"
-                    href="../consultar-dados-cnpj/"
-                    target="_self"
-                    >consulta de dados de CNPJ</a
-                  ></strong
-                >.
-              </p>
-              <p class="mt-3 italic text-slate-300 dark:text-slate-400">
-                O validador faz a conta, não o milagre. <span class="not-italic">😄</span>
-              </p>
-            </div>
-          </details>
         </div>
-      </div>
     </main>
 
-    <div
-      id="toast"
-      class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none"
-    ></div>
+    <div id="toast"
+        class="fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-300 ease-out opacity-0 translate-y-5 pointer-events-none">
+    </div>
 
     <script type="module" defer src="../../dist/src/interface/tema.js"></script>
     <script type="module" defer src="../../dist/src/interface/menu.js"></script>
@@ -385,5 +262,6 @@
     <script type="module" defer src="../../dist/src/gerais/persistencia.js"></script>
     <script type="module" defer src="../../dist/src/gerais/cookies.js"></script>
     <script type="module" defer src="../../dist/src/interface/rodape.js"></script>
-  </body>
+</body>
+
 </html>
