@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?"&l="+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5LSGCFMM');</script>
+    <!-- End Google Tag Manager -->
     <script type="module" src="/dist/src/gerais/uteis.js" defer></script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -100,52 +103,6 @@
 
     <link rel="stylesheet" href="/dist/assets/controle-tema.min.css" />
 
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({
-          "gtm.start": new Date().getTime(),
-          event: "gtm.js",
-        });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-5LSGCFMM");
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <script id="sw-unregister">
-      (function () {
-        if ("serviceWorker" in navigator) {
-          // Tenta desregistrar todos os SWs já instalados
-          navigator.serviceWorker
-            .getRegistrations()
-            .then(function (regs) {
-              regs.forEach(function (r) {
-                r.unregister().catch(function () {
-                  /* noop */
-                });
-              });
-            })
-            .catch(function () {
-              /* noop */
-            });
-          // Se ainda houver um SW controlando, força atualização
-          navigator.serviceWorker.getRegistration &&
-            navigator.serviceWorker.getRegistration().then(function (reg) {
-              if (reg && reg.active) {
-                reg.update().catch(function () {
-                  /* noop */
-                });
-              }
-            });
-        }
-      })();
-    </script>
   </head>
 
   <body
