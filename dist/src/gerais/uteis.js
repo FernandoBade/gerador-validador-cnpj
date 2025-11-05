@@ -1,3 +1,6 @@
+/* ============================
+   Métodos auxiliares gerais
+============================ */
 import { exibirAviso, TipoAviso } from "./mensageria.js";
 /**
  * @summary Copia o texto informado para a área de transferência e exibe mensagem de sucesso/erro.
@@ -124,4 +127,107 @@ document.addEventListener("click", (ev) => {
     ev.preventDefault();
     compartilharAtual();
 });
+/* ============================
+   Injeção do Google Tag Manager
+============================ */
+const GTM_ID = "GTM-5LSGCFMM";
+const GTM_SCRIPT_CONTEUDO = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`;
+const PADRAO_COMENTARIO_GTM = /Google Tag Manager/i;
+/**
+ * @summary Remove comentários adjacentes relacionados ao GTM e o elemento informado.
+ */
+function limparElementoGTM(elemento) {
+    let anterior = elemento.previousSibling;
+    while (anterior && anterior.nodeType === Node.COMMENT_NODE && PADRAO_COMENTARIO_GTM.test(anterior.nodeValue ?? "")) {
+        const alvo = anterior;
+        anterior = anterior.previousSibling;
+        alvo.remove();
+    }
+    let posterior = elemento.nextSibling;
+    while (posterior && posterior.nodeType === Node.COMMENT_NODE && PADRAO_COMENTARIO_GTM.test(posterior.nodeValue ?? "")) {
+        const alvo = posterior;
+        posterior = posterior.nextSibling;
+        alvo.remove();
+    }
+    elemento.remove();
+}
+/**
+ * @summary Injeta o bloco de script do Google Tag Manager no topo do <head>.
+ */
+function injetarScriptGTM() {
+    const cabecalho = document.head;
+    if (!cabecalho)
+        return;
+    const existentes = cabecalho.querySelectorAll("script");
+    existentes.forEach((script) => {
+        const conteudo = script.textContent ?? "";
+        if (conteudo.includes("googletagmanager.com/gtm.js") && conteudo.includes(GTM_ID)) {
+            limparElementoGTM(script);
+        }
+    });
+    const comentarioInicial = document.createComment(" Google Tag Manager ");
+    const script = document.createElement("script");
+    script.text = GTM_SCRIPT_CONTEUDO;
+    const comentarioFinal = document.createComment(" End Google Tag Manager ");
+    const fragmento = document.createDocumentFragment();
+    fragmento.append(comentarioInicial, script, comentarioFinal);
+    cabecalho.insertBefore(fragmento, cabecalho.firstChild);
+}
+/**
+ * @summary Injeta o bloco <noscript> do Google Tag Manager logo após o <body>.
+ */
+function injetarNoscriptGTM() {
+    const corpo = document.body;
+    if (!corpo)
+        return;
+    const existentes = corpo.querySelectorAll("noscript");
+    existentes.forEach((noscript) => {
+        const conteudo = noscript.textContent ?? "";
+        const iframe = noscript.querySelector("iframe");
+        const src = iframe?.getAttribute("src") ?? "";
+        if (conteudo.includes(GTM_ID) || src.includes(GTM_ID)) {
+            limparElementoGTM(noscript);
+        }
+    });
+    const comentarioInicial = document.createComment(" Google Tag Manager (noscript) ");
+    const noscript = document.createElement("noscript");
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.googletagmanager.com/ns.html?id=${GTM_ID}`;
+    iframe.height = "0";
+    iframe.width = "0";
+    iframe.style.display = "none";
+    iframe.style.visibility = "hidden";
+    noscript.appendChild(iframe);
+    const comentarioFinal = document.createComment(" End Google Tag Manager (noscript) ");
+    const fragmento = document.createDocumentFragment();
+    fragmento.append(comentarioInicial, noscript, comentarioFinal);
+    corpo.insertBefore(fragmento, corpo.firstChild);
+}
+/**
+ * @summary Inicia a injeção dos blocos do Google Tag Manager na página.
+ */
+function injetarGoogleTagManager() {
+    if (typeof document === "undefined")
+        return;
+    if (typeof window !== "undefined" && window.__gtmInjected)
+        return;
+    if (typeof window !== "undefined")
+        window.__gtmInjected = true;
+    injetarScriptGTM();
+    injetarNoscriptGTM();
+}
+if (typeof window !== "undefined") {
+    const inicializarGTM = () => injetarGoogleTagManager();
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", inicializarGTM, { once: true });
+    }
+    else {
+        inicializarGTM();
+    }
+}
+export { injetarGoogleTagManager };
 //# sourceMappingURL=uteis.js.map

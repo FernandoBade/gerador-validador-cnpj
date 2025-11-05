@@ -27,6 +27,14 @@ function listarArquivos(diretorio: string, arquivos: string[] = []): string[] {
 function processarHtml(conteudo: string): string {
     let html = conteudo;
 
+    // Injeta o carregador do injetor de GTM em todas as páginas, se ausente
+    // O arquivo /dist/src/gerais/uteis.js executa a injeção dos blocos do GTM
+    // no topo do <head> e do <body> em tempo de execução, de forma idempotente.
+    if (!/src\s*=\s*["'][^"']*\/dist\/src\/gerais\/uteis\.js["']/i.test(html)) {
+        const tagUteis = '    <script type="module" src="/dist/src/gerais/uteis.js" defer></script>';
+        html = html.replace(/<head(.*?)>/i, (m, attrs) => `<head${attrs}>\n${tagUteis}`);
+    }
+
     const limparParametrosVersao = (url: string): string => {
         const hashIndex = url.indexOf("#");
         const hash = hashIndex >= 0 ? url.slice(hashIndex) : "";

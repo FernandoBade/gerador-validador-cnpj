@@ -1,4 +1,15 @@
+/* ============================
+   Métodos auxiliares gerais
+============================ */
+
+
 import { exibirAviso, TipoAviso } from "./mensageria.js";
+
+declare global {
+    interface Window {
+        __gtmInjected?: boolean;
+    }
+}
 
 /**
  * @summary Copia o texto informado para a área de transferência e exibe mensagem de sucesso/erro.
@@ -127,6 +138,9 @@ document.addEventListener("click", (ev) => {
     compartilharAtual();
 });
 
+/* ============================
+   Injeção do Google Tag Manager
+============================ */
 const GTM_ID = "GTM-5LSGCFMM";
 const GTM_SCRIPT_CONTEUDO = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -219,6 +233,8 @@ function injetarNoscriptGTM(): void {
  */
 function injetarGoogleTagManager(): void {
     if (typeof document === "undefined") return;
+    if (typeof window !== "undefined" && window.__gtmInjected) return;
+    if (typeof window !== "undefined") window.__gtmInjected = true;
     injetarScriptGTM();
     injetarNoscriptGTM();
 }
