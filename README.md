@@ -61,7 +61,12 @@ Os dados de consulta são exibidos de forma clara e responsiva, e a validação 
 ├── dist/ # Saída JS/CSS minificada usada no site
 │ └── src/cnpj/.js # Builds dos módulos (validador, gerador, consulta)
 │
-│ // projeto principal
+├── artigos/
+│
+├── ferramentas/
+│ ├── gerador-cnpj/
+│ ├── validador-cnpj/
+│ └── consultar-dados-cnpj/
 │
 ├── src/
 │ ├── cnpj/
@@ -74,6 +79,7 @@ Os dados de consulta são exibidos de forma clara e responsiva, e a validação 
 │ ├── interface/
 │ │ ├── interface.ts
 │ │ ├── menu.ts
+│ │ ├── rodape.ts
 │ │ ├── tema.ts
 │ │ ├── transicao.ts
 │ │ └── contador-historico.ts
@@ -84,16 +90,10 @@ Os dados de consulta são exibidos de forma clara e responsiva, e a validação 
 │ │ ├── mensageria.ts
 │ │ ├── persistencia.ts
 │ │ ├── cookies.ts
+│ │ ├── uteis.ts
 │ │ └── tipos.ts
-│
-│ // páginas
-│
-├── ferramentas/
-│ ├── gerador-cnpj/
-│ ├── validador-cnpj/
-│ └── consultar-dados-cnpj/
-│
-│ // S.E.O.
+│ │
+│ └── estilos/
 │
 ├── sitemap.xml
 ├── robots.txt
@@ -125,7 +125,6 @@ Este projeto foi otimizado com:
 Distribuído sob a **Licença ISC**.
 Sinta-se livre para usar, estudar e contribuir, só não esquece de falar bem do projeto por aí.
 
----
 
 ---
 
