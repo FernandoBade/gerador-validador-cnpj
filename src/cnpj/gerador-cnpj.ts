@@ -26,7 +26,7 @@ import {
     copiarTexto,
     inicializarEfeitoOnda,
     obterElementoObrigatorio,
-} from "../interface/interface.js";
+} from "../gerais/uteis.js";
 import { exibirAviso } from "../gerais/mensageria.js";
 
 /**

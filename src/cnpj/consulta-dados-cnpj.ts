@@ -5,15 +5,10 @@
    - Exibição detalhada dos dados consultados em modal
 ============================ */
 
-import { ClasseAviso, IntervaloTemporizador, TipoAviso } from "../gerais/enums.js";
-import {
-    CLASSES_AVISO_OCULTO,
-    CLASSES_AVISO_VISIVEL,
-    MAPA_CLASSES_TIPO_AVISO,
-} from "../gerais/constantes.js";
+import { TipoAviso } from "../gerais/enums.js";
 import { htmlCookies, inicializarAvisoDeCookies } from "../gerais/cookies.js";
 import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro } from "./formatacao-cnpj.js";
-import { inicializarEfeitoOnda } from "../interface/interface.js";
+import { inicializarEfeitoOnda } from "../gerais/uteis.js";
 import { exibirAviso } from "../gerais/mensageria.js";
 import { atualizarContadorHistorico } from "../interface/contador-historico.js";
 
@@ -1226,26 +1221,7 @@ class ValidadorCnpjApi {
      * @summary Exibe aviso utilizando as classes locais para garantir compatibilidade.
      */
     private exibirAviso(mensagem: string, tipo: TipoAviso): void {
-        const { areaAviso } = this.elementos;
-        const classesBase =
-            "fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out";
-
-        areaAviso.textContent = mensagem;
-        areaAviso.className = `${classesBase} ${MAPA_CLASSES_TIPO_AVISO[tipo].join(" ")} ${ClasseAviso.OpacidadeOculta} ${ClasseAviso.TranslacaoOculta} ${ClasseAviso.PonteiroDesativado}`;
-
-        requestAnimationFrame(() => {
-            areaAviso.classList.remove(...CLASSES_AVISO_OCULTO);
-            areaAviso.classList.add(...CLASSES_AVISO_VISIVEL);
-        });
-
-        if (this.timeoutAviso !== undefined) {
-            window.clearTimeout(this.timeoutAviso);
-        }
-
-        this.timeoutAviso = window.setTimeout(() => {
-            areaAviso.classList.remove(...CLASSES_AVISO_VISIVEL);
-            areaAviso.classList.add(...CLASSES_AVISO_OCULTO);
-        }, IntervaloTemporizador.Aviso);
+        exibirAviso(this.elementos.areaAviso, mensagem, tipo);
     }
 }
 

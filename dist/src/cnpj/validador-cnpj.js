@@ -5,12 +5,12 @@
    - Cálculo de dígitos verificadores (módulo 11)
    - Avisos e utilidades de UI reutilizáveis
 ============================ */
-import { ClasseAviso, IntervaloTemporizador, TipoAviso } from "../gerais/enums.js";
-import { CLASSES_AVISO_OCULTO, CLASSES_AVISO_VISIVEL, MAPA_CLASSES_TIPO_AVISO, PESOS_DIGITOS, } from "../gerais/constantes.js";
+import { TipoAviso } from "../gerais/enums.js";
+import { PESOS_DIGITOS } from "../gerais/constantes.js";
 import { htmlCookies, inicializarAvisoDeCookies } from "../gerais/cookies.js";
 import { aplicarMascara, aplicarMascaraProgressiva, normalizarPuro, } from "../cnpj/formatacao-cnpj.js";
 import { calcularDigitoVerificador, converterCaractereParaValor } from "../cnpj/algoritmo-cnpj.js";
-import { copiarTexto, inicializarEfeitoOnda } from "../interface/interface.js";
+import { copiarTexto, inicializarEfeitoOnda } from "../gerais/uteis.js";
 import { exibirAviso } from "../gerais/mensageria.js";
 import { atualizarContadorHistorico } from "../interface/contador-historico.js";
 /**
@@ -82,17 +82,27 @@ class ValidadorCnpj {
         }
     }
     /**
-     * @summary Cola conteúdo do clipboard no campo único e notifica o usuário.
+     * @summary Cola conteúdo do clipboard no campo único aplicando a mesma lógica de normalização,
+     * limitação a 14 caracteres e máscara usada na digitação.
      */
     async colarDoClipboard() {
         try {
-            const texto = await navigator.clipboard.readText();
-            if (!texto) {
+            const textoBruto = (await navigator.clipboard.readText()).trim();
+            if (!textoBruto) {
                 exibirAviso(this.elementos.areaAviso, "Nenhum conteúdo disponível para colar", TipoAviso.Info);
                 return;
             }
-            this.elementos.campoUnico.value = texto.trim();
-            exibirAviso(this.elementos.areaAviso, `Conteúdo colado: ${texto}`, TipoAviso.InfoAlternativo);
+            const puro = normalizarPuro(textoBruto);
+            if (!puro || puro.length === 0) {
+                this.exibirAviso("Conteúdo inválido para colar", TipoAviso.Erro);
+                return;
+            }
+            const limitado = puro.slice(0, 14);
+            const usarMascara = this.elementos.controleMascara.checked;
+            const exibicao = usarMascara ? aplicarMascaraProgressiva(limitado) : limitado;
+            this.elementos.campoUnico.value = exibicao;
+            this.atualizarEstadoBotaoValidarUnico();
+            exibirAviso(this.elementos.areaAviso, `Conteúdo colado: ${exibicao}`, TipoAviso.InfoAlternativo);
         }
         catch {
             this.exibirAviso("Não foi possível acessar a área de transferência", TipoAviso.Erro);
@@ -391,21 +401,7 @@ class ValidadorCnpj {
      * @summary Exibe aviso utilizando as classes locais (compatibilidade legada).
      */
     exibirAviso(mensagem, tipo) {
-        const { areaAviso } = this.elementos;
-        const classesBase = "fixed bottom-4 right-4 min-w-[240px] max-w-[calc(100%-2rem)] rounded-lg px-4 py-3 text-sm shadow-2xl transition-all duration-200 ease-out";
-        areaAviso.textContent = mensagem;
-        areaAviso.className = `${classesBase} ${MAPA_CLASSES_TIPO_AVISO[tipo].join(" ")} ${ClasseAviso.OpacidadeOculta} ${ClasseAviso.TranslacaoOculta} ${ClasseAviso.PonteiroDesativado}`;
-        requestAnimationFrame(() => {
-            areaAviso.classList.remove(...CLASSES_AVISO_OCULTO);
-            areaAviso.classList.add(...CLASSES_AVISO_VISIVEL);
-        });
-        if (this.timeoutAviso !== undefined) {
-            window.clearTimeout(this.timeoutAviso);
-        }
-        this.timeoutAviso = window.setTimeout(() => {
-            areaAviso.classList.remove(...CLASSES_AVISO_VISIVEL);
-            areaAviso.classList.add(...CLASSES_AVISO_OCULTO);
-        }, IntervaloTemporizador.Aviso);
+        exibirAviso(this.elementos.areaAviso, mensagem, tipo);
     }
     /**
      * @summary Define o placeholder do campo único conforme o estado da máscara.

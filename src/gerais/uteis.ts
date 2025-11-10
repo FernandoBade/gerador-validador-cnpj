@@ -12,26 +12,72 @@ declare global {
 }
 
 /**
- * @summary Copia o texto informado para a área de transferência e exibe mensagem de sucesso/erro.
+ * @summary Copia um texto para a área de transferência do sistema.
  */
-export async function copiarTextoParaAreaTransferencia(
-    texto: string,
+export async function copiarTexto(valor: string): Promise<void>;
+export async function copiarTexto(
+    valor: string,
+    areaAviso: HTMLDivElement | undefined,
+    mensagemSucesso?: string,
+): Promise<boolean>;
+export async function copiarTexto(
+    valor: string,
     areaAviso?: HTMLDivElement,
     mensagemSucesso: string = "Conteúdo copiado!",
-): Promise<boolean> {
-    try {
-        await navigator.clipboard.writeText(texto);
-        if (areaAviso) {
+): Promise<void | boolean> {
+    if (areaAviso) {
+        try {
+            await navigator.clipboard.writeText(valor);
             exibirAviso(areaAviso, mensagemSucesso, TipoAviso.InfoAlternativo);
-        }
-        return true;
-    } catch {
-        if (areaAviso) {
+            return true;
+        } catch {
             exibirAviso(areaAviso, "Não foi possível copiar!", TipoAviso.Erro);
+            return false;
         }
-        return false;
     }
+    await navigator.clipboard.writeText(valor);
 }
+
+/**
+ * @summary Obtém um elemento obrigatório por id.
+ */
+export function obterElementoObrigatorio<T extends HTMLElement>(id: string): T {
+    const elemento = document.getElementById(id);
+    if (!elemento) {
+        throw new Error(`Elemento com id "${id}" não encontrado.`);
+    }
+    return elemento as T;
+}
+
+/**
+ * @summary Aplica o efeito de onda em elementos com a classe base.
+ */
+export function inicializarEfeitoOnda(): void {
+    const botoes = document.querySelectorAll<HTMLElement>(".efeito-onda-base");
+
+    botoes.forEach((botao) => {
+        botao.style.position = botao.style.position || "relative";
+        botao.style.overflow = botao.style.overflow || "hidden";
+
+        botao.addEventListener("click", (evento: MouseEvent) => {
+            if ((botao as HTMLButtonElement).disabled) return;
+
+            const baseRem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+            const rect = botao.getBoundingClientRect();
+            const x = (evento.pageX - (rect.left + window.scrollX)) / baseRem;
+            const y = (evento.pageY - (rect.top + window.scrollY)) / baseRem;
+
+            const bolha = document.createElement("span");
+            bolha.className = "efeito-onda-circulo";
+            bolha.style.left = `${x}rem`;
+            bolha.style.top = `${y}rem`;
+
+            botao.appendChild(bolha);
+            setTimeout(() => bolha.remove(), 600);
+        });
+    });
+}
+
 
 /**
  * @summary Retorna a área de aviso (toast) disponível na página, se existir.
@@ -49,7 +95,7 @@ function obterAreaAviso(): HTMLDivElement | undefined {
  */
 function obterTextoParaCopiar(selector: string): string {
     const alvo = document.querySelector<HTMLElement>(selector);
-    if (!alvo) throw new Error(`Alvo não encontrado: ${selector}`);
+    if (!alvo) throw new Error(`Conteúdo não encontrado: ${selector}`);
     const code = alvo.querySelector<HTMLElement>("code");
     const fonte = code ?? alvo;
     const texto = (fonte.innerText ?? fonte.textContent ?? "").trim();
@@ -69,9 +115,9 @@ document.addEventListener("click", async (ev) => {
     ev.preventDefault();
     try {
         const texto = obterTextoParaCopiar(seletor);
-        await copiarTextoParaAreaTransferencia(texto, obterAreaAviso());
+        await copiarTexto(texto, obterAreaAviso());
     } catch {
-        await copiarTextoParaAreaTransferencia("", obterAreaAviso());
+        await copiarTexto("", obterAreaAviso());
     }
 });
 
@@ -115,13 +161,12 @@ async function compartilharAtual(): Promise<void> {
             if (area) exibirAviso(area, "Compartilhado!", TipoAviso.Sucesso);
             return;
         }
-        // Fallback: copiar URL
-        await copiarTextoParaAreaTransferencia(url, area, "Link copiado!");
+        await copiarTexto(url, area, "Link copiado!");
         if (feedback) feedback.textContent = "Link copiado para a área de transferência.";
     } catch (e: unknown) {
         const nome = (e as any)?.name as string | undefined;
         if (nome === "AbortError") return;
-        await copiarTextoParaAreaTransferencia(url, area, "Link copiado!");
+        await copiarTexto(url, area, "Link copiado!");
         if (feedback) feedback.textContent = "Link copiado para a área de transferência.";
     }
 }

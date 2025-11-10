@@ -4,7 +4,7 @@
 
 <div align="center">
 
-[![Versão](https://img.shields.io/badge/version-1.9.0-blue.svg)](https://github.com/FernandoBade/gerador-validador-cnpj)
+[![Versão](https://img.shields.io/badge/version-2.1.0-blue.svg)](https://github.com/FernandoBade/gerador-validador-cnpj)
 [![Licença ISC](https://img.shields.io/badge/license-ISC-green.svg)](LICENSE)
 [![Demo Online](https://img.shields.io/badge/demo-online-brightgreen.svg)](https://cnpj.bade.digital/)
 [![Feito com TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -77,7 +77,6 @@ Os dados de consulta são exibidos de forma clara e responsiva, e a validação 
 │ │ └── consulta-dados-cnpj.ts
 │ │
 │ ├── interface/
-│ │ ├── interface.ts
 │ │ ├── menu.ts
 │ │ ├── rodape.ts
 │ │ ├── tema.ts
