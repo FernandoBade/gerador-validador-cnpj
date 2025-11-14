@@ -192,9 +192,6 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','${GTM_ID}');`;
-const GTAG_EVENT_SCRIPT_CONTEUDO = `gtag('event', 'conversion_event_page_view', {
-  // <event_parameters>
-});`;
 
 /**
  * @summary Injeta o bloco de script do Google Tag Manager no topo do <head>.
@@ -204,34 +201,19 @@ function injetarScriptGTM(): void {
     if (!cabecalho) return;
 
     const existentes = cabecalho.querySelectorAll<HTMLScriptElement>("script");
-    const jaTemScriptGTM = Array.from(existentes).some((script) => {
+    const jaTem = Array.from(existentes).some((script) => {
         const conteudo = script.textContent ?? "";
         return conteudo.includes("googletagmanager.com/gtm.js") && conteudo.includes(GTM_ID);
     });
-    const jaTemEvento = Array.from(existentes).some((script) => {
-        const conteudo = script.textContent ?? "";
-        return conteudo.includes("conversion_event_page_view_2");
-    });
-    if (jaTemScriptGTM && jaTemEvento) return;
+    if (jaTem) return;
+
+    const comentarioInicial = document.createComment(" Google Tag Manager ");
+    const script = document.createElement("script");
+    script.text = GTM_SCRIPT_CONTEUDO;
+    const comentarioFinal = document.createComment(" End Google Tag Manager ");
 
     const fragmento = document.createDocumentFragment();
-
-    if (!jaTemScriptGTM) {
-        const comentarioInicial = document.createComment(" Google Tag Manager ");
-        const script = document.createElement("script");
-        script.text = GTM_SCRIPT_CONTEUDO;
-        const comentarioFinal = document.createComment(" End Google Tag Manager ");
-        fragmento.append(comentarioInicial, script, comentarioFinal);
-    }
-
-    if (!jaTemEvento) {
-        const comentarioInicialEvento = document.createComment(" Google tag (gtag.js) event ");
-        const scriptEvento = document.createElement("script");
-        scriptEvento.text = GTAG_EVENT_SCRIPT_CONTEUDO;
-        const comentarioFinalEvento = document.createComment(" End Google tag (gtag.js) event ");
-        fragmento.append(comentarioInicialEvento, scriptEvento, comentarioFinalEvento);
-    }
-
+    fragmento.append(comentarioInicial, script, comentarioFinal);
     cabecalho.insertBefore(fragmento, cabecalho.firstChild);
 }
 
